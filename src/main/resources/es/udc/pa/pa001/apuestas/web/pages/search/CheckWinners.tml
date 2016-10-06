@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:title="title">
+
+<div class="container-fluid">
+
+
+	<table class="table table-striped table-hover">
+		<tbody>
+			<tr>
+				<th>${message:betquestion-label}</th>
+				<td>${betType.question}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table class="table table-striped table-hover">
+		<t:form t:type="Form" t:id="checkListForm">
+			<t:errors />
+			<div class="col-md-8">
+				<t:if test="multiple">
+					<t:checklist t:id="betOptions" model="optionsModel"
+						t:selected="finals" encoder="optionEncoder" />
+
+					<p:else>
+						<table class="table-hover">
+							<tbody>
+								<t:RadioGroup t:id="selectedId">
+									<t:Loop t:source="betOptions" t:value="betOption"
+										t:encoder="optionEncoder">
+										<tr>
+											<th><t:radio t:value="betOption.betOptionId" /></th>
+											<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${betOption.answer}</td>
+										</tr>
+									</t:Loop>
+								</t:RadioGroup>
+							</tbody>
+						</table>
+					</p:else>
+				</t:if>
+			</div>
+			<br></br>
+			<br></br>
+
+			<div class="col-md-6">
+				<button type="submit" value="check" class="btn btn-primary btn-md">${message:check-winners}</button>
+			</div>
+		</t:form>
+
+
+	</table>
+
+</div>
+</html>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:title="title">
+
+<t:if test="betType">
+	<div class="container-fluid">
+
+		<table class="table table-striped table-hover">
+			<tbody>
+				<tr>
+					<th>${message:betquestion-label}</th>
+					<td>${betType.question}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<t:if test="betOptions">
+
+			<table class="table table-striped table-hover">
+
+				<thead>
+					<tr>
+						<th>${message:betAnswer-label}</th>
+						<th>${message:betRate-label}</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<t:if test="admin">
+						<t:if test="checked">
+							<tr t:type="Loop" t:source="betOptions" t:value="betOption">
+								<t:if test="betOption.betState">
+									<td class="success"><strong>${betOption.answer}</strong></td>
+									<td class="success"><strong>${betOption.rate}</strong></td>
+									<p:else>
+										<td>${betOption.answer}</td>
+										<td>${betOption.rate}</td>
+									</p:else>
+								</t:if>
+							</tr>
+
+							<p:else>
+								<tr t:type="Loop" t:source="betOptions" t:value="betOption">
+									<td>${betOption.answer}</td>
+									<td>${betOption.rate}</td>
+								</tr>
+							</p:else>
+
+						</t:if>
+
+						<p:else>
+							<t:If t:test="autenticated">
+								<tr t:type="Loop" t:source="betOptions" t:value="betOption">
+									<td><a href="#" id="betOtionLinkUserLogged" t:type="PageLink" t:page="search/MakeBet"
+										t:context="betOption.betOptionId"> ${betOption.answer} </a></td>
+									<td>${betOption.rate}</td>
+								</tr>
+								<p:else>
+									<tr t:type="Loop" t:source="betOptions" t:value="betOption">
+										<td><a href="#" id="betOtionLinkUserNoLogged" t:type="PageLink" t:page="user/Login"
+											t:context="betOption.betOptionId"> ${betOption.answer} </a></td>
+										<td>${betOption.rate}</td>
+									</tr>
+								</p:else>
+							</t:If>
+
+						</p:else>
+					</t:if>
+				</tbody>
+
+			</table>
+
+			<t:if t:test="admin">
+				<t:if test="eventStart">
+					<t:if test="!checked">
+						<form t:type="form" t:id="checkWinners">
+							<div class="form-group">
+								<div class="col-md-1">
+									<button type="submit" class="btn btn-primary btn-md">${message:set-winners}</button>
+								</div>
+							</div>
+						</form>
+					</t:if>
+				</t:if>
+			</t:if>
+
+			<p:else>
+				<h4 class="alert alert-danger text-center">${message:noOptions}</h4>
+			</p:else>
+
+		</t:if>
+
+	</div>
+	<p:else>
+		<h4 class="alert alert-danger text-center">${message:betNotFound}</h4>
+	</p:else>
+</t:if>
+
+
+</html>

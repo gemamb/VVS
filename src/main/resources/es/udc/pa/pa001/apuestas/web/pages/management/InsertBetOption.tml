@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:title="title">
+	
+<div class="container-fluid">
+	<t:zone t:id="counterZone" id="counterZone">
+		<form t:type="Form" class="form-horizontal" t:id="betOptionForm">
+			<t:errors />
+			<div class="form-group">
+				<t:label for="answer" class="col-md-offset-3 col-md-2" />
+				<div class="col-md-3">
+					<input t:type="TextField" t:id="answer" t:validate="required"
+						size="16" maxlength="100" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<t:label for="rate" class="col-md-offset-3 col-md-2" />
+				<div class="col-md-3">
+					<input t:type="TextField" t:id="rate" t:validate="required,min=0"
+						size="16" maxlength="100" />
+
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-md-offset-5 col-md-1">
+					<button class="btn btn-primary" type="submit">${message:add-BetOption}</button>
+				</div>
+			</div>
+
+			<div class="panel-body">
+
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>${message:answer-label}</th>
+							<th>${message:rate-label}</th>
+						</tr>
+					</thead>
+					<t:If t:test="savedbetOptions">
+						<tbody>
+							<tr t:type="Loop" t:source="savedbetOptions" t:value="betOption"
+								t:encoder="encoder">
+
+								<td>${betOption.answer}</td>
+								<td><t:output value="betOption.rate" format="format" /></td>
+
+							</tr>
+						</tbody>
+					</t:If>
+				</table>
+			</div>
+		</form>
+	</t:zone>
+	<div class="col-md-12">
+		<form t:type="Form" class="form-horizontal" t:id="betTypeForm">
+			<t:errors />
+			<div class="col-md-offset-5 col-md-1">
+				<button type="submit" class="btn btn-primary">${message:button-finalize}</button>
+			</div>
+		</form>
+	</div>
+</div>
+</html>

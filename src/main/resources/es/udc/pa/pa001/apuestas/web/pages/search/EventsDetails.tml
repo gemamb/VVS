@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:title="title">
+
+<div class="md-col-12">
+	<t:zone t:id="eventsZone" id="eventsZone">
+		<t:grid source="findEventGridDataSource" row="event"
+			rowsPerPage="rowsPerPage" exclude="eventId,betTypes" inplace="true"
+			add="category" reorder="name,category,eventStart">
+
+			<p:nameHeader>
+		${message:eventName-label}
+		</p:nameHeader>
+
+			<p:categoryHeader>
+		${message:eventCategory-label}
+		</p:categoryHeader>
+
+			<p:eventStartHeader>
+		${message:eventDate-label}
+		</p:eventStartHeader>
+
+			<p:nameCell>
+				<a href="#" id="eventLink" t:type="PageLink"
+					t:page="search/eventdetails" t:context="event.eventId">
+					${event.name} </a>
+			</p:nameCell>
+
+			<p:categoryCell>
+			${event.category.name}
+		</p:categoryCell>
+
+			<p:eventStartCell>
+				<t:output value="event.eventStart.time" format="format" />
+			</p:eventStartCell>
+
+
+			<p:empty>
+				<h4 class="alert alert-danger text-center">${message:noEvents}</h4>
+			</p:empty>
+
+		</t:grid>
+	</t:zone>
+</div>
+</html>
