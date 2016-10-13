@@ -6,3 +6,5 @@ ver los tipos de apuestas disponibles y sus respectivas opciones de apuesta.
 Se contemplan dos tipos de usuario: 
   - ADMIN: crea eventos, tipos de apuesta y opciones de apuesta, y establece los resultados de las mismas
   - USER: visualiza eventos, realizar apuestas y ver el estado de las mismas
+  
+[![Build Status](https://travis-ci.org/gemamb/VVS.svg?branch=master)](https://travis-ci.org/gemamb/VVS)
