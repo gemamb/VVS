@@ -44,7 +44,7 @@
         <tapestry.version>5.4.0</tapestry.version>
 
         <!-- Plugin versions -->
-        <mavenCompilerPlugin.version>3.1</mavenCompilerPlugin.version>
+        <mavenCompilerPlugin.version>3.5.1</mavenCompilerPlugin.version>
         <mavenResourcesPlugin.version>2.6</mavenResourcesPlugin.version>
         <sqlMavenPlugin.version>1.5</sqlMavenPlugin.version>
         <mavenAssemblyPlugin.version>2.4</mavenAssemblyPlugin.version>
@@ -207,6 +207,8 @@
             <groupId>es.udc.pojo</groupId>
             <artifactId>pojo-modelutil</artifactId>
             <version>${pojo-modelutil.version}</version>
+	    <scope>system</scope>
+	    <systemPath>${project.basedir}/pojo-modelutil-2.3.0.jar</systemPath>
         </dependency>
         <!--  Selenium Tool -->
          <dependency>
@@ -322,8 +324,8 @@
                 <version>${mavenCompilerPlugin.version}</version>
                 <configuration>
                     <verbose>true</verbose>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
