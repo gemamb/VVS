@@ -4,15 +4,11 @@
 package es.udc.pa.pa001.apuestas.web.pages.search;
 
 import java.text.DateFormat;
-import java.text.Format;
-import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
-
-import com.github.sommeri.less4j.core.compiler.expressions.strings.StringFormatter;
 
 import es.udc.pa.pa001.apuestas.model.betservice.BetService;
 import es.udc.pa.pa001.apuestas.model.event.Event;

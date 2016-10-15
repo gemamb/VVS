@@ -5,29 +5,19 @@ package es.udc.pa.pa001.apuestas.web.pages.management;
 
 import java.text.Format;
 import java.text.NumberFormat;
-import java.text.ParsePosition;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import org.apache.tapestry5.annotations.Component;
-import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.jboss.logging.annotations.Message;
 
-import es.udc.pa.pa001.apuestas.model.betOption.BetOption;
 import es.udc.pa.pa001.apuestas.model.betType.BetType;
-import es.udc.pa.pa001.apuestas.model.event.Event;
 import es.udc.pa.pa001.apuestas.model.betservice.BetService;
-import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateBetOptionAnswerException;
-import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateBetTypeQuestionException;
-import es.udc.pa.pa001.apuestas.model.betservice.util.MinimunBetOptionException;
+import es.udc.pa.pa001.apuestas.model.event.Event;
 import es.udc.pa.pa001.apuestas.web.services.AuthenticationPolicy;
 import es.udc.pa.pa001.apuestas.web.services.AuthenticationPolicyType;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;

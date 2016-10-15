@@ -18,7 +18,6 @@ import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Form;
-import org.apache.tapestry5.corelib.components.Submit;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
@@ -33,7 +32,6 @@ import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateBetOptionAnswerEx
 import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateBetTypeQuestionException;
 import es.udc.pa.pa001.apuestas.model.betservice.util.MinimunBetOptionException;
 import es.udc.pa.pa001.apuestas.model.event.Event;
-import es.udc.pa.pa001.apuestas.web.util.BetOptionEncoder;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
 public class InsertBetOption {

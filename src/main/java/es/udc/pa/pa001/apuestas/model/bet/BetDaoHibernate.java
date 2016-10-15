@@ -5,10 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
-import es.udc.pa.pa001.apuestas.model.category.Category;
-import es.udc.pa.pa001.apuestas.model.userprofile.UserProfile;
 import es.udc.pojo.modelutil.dao.GenericDaoHibernate;
-import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
 @Repository
 public class BetDaoHibernate extends GenericDaoHibernate<Bet,Long> 

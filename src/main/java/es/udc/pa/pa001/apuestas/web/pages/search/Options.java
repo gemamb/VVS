@@ -6,11 +6,9 @@ package es.udc.pa.pa001.apuestas.web.pages.search;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
-import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import es.udc.pa.pa001.apuestas.model.betOption.BetOption;

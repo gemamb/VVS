@@ -2,11 +2,9 @@ package es.udc.pa.pa001.apuestas.model.category;
 
 import java.util.List;
 
-import org.hibernate.annotations.BatchSize;
 import org.springframework.stereotype.Repository;
 
 import es.udc.pojo.modelutil.dao.GenericDaoHibernate;
-import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
 @Repository
 

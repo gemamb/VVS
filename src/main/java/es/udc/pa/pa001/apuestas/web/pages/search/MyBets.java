@@ -9,7 +9,6 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
 

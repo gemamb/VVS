@@ -2,20 +2,20 @@ package es.udc.pa.pa001.apuestas.model.betservice;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.udc.pa.pa001.apuestas.model.bet.Bet;
+import es.udc.pa.pa001.apuestas.model.bet.BetBlock;
+import es.udc.pa.pa001.apuestas.model.bet.BetDao;
 import es.udc.pa.pa001.apuestas.model.betOption.BetOption;
 import es.udc.pa.pa001.apuestas.model.betOption.BetOptionDao;
 import es.udc.pa.pa001.apuestas.model.betType.BetType;
-import es.udc.pa.pa001.apuestas.model.betType.BetTypeBlock;
 import es.udc.pa.pa001.apuestas.model.betType.BetTypeDao;
 import es.udc.pa.pa001.apuestas.model.betservice.util.AlreadyPastedDateException;
 import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateBetOptionAnswerException;
@@ -25,9 +25,6 @@ import es.udc.pa.pa001.apuestas.model.betservice.util.MinimunBetOptionException;
 import es.udc.pa.pa001.apuestas.model.betservice.util.NotAllOptionsExistsException;
 import es.udc.pa.pa001.apuestas.model.betservice.util.OnlyOneWonOptionException;
 import es.udc.pa.pa001.apuestas.model.betservice.util.OutdatedBetException;
-import es.udc.pa.pa001.apuestas.model.bet.Bet;
-import es.udc.pa.pa001.apuestas.model.bet.BetBlock;
-import es.udc.pa.pa001.apuestas.model.bet.BetDao;
 import es.udc.pa.pa001.apuestas.model.category.Category;
 import es.udc.pa.pa001.apuestas.model.category.CategoryDao;
 import es.udc.pa.pa001.apuestas.model.event.Event;
@@ -35,7 +32,6 @@ import es.udc.pa.pa001.apuestas.model.event.EventBlock;
 import es.udc.pa.pa001.apuestas.model.event.EventDao;
 import es.udc.pa.pa001.apuestas.model.userprofile.UserProfile;
 import es.udc.pa.pa001.apuestas.model.userprofile.UserProfileDao;
-import es.udc.pojo.modelutil.exceptions.DuplicateInstanceException;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
 @Service("BetService")
