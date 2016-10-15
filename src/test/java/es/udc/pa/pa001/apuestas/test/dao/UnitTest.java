@@ -1,4 +1,4 @@
-package unitTests;
+package es.udc.pa.pa001.apuestas.test.dao;
 
 import static es.udc.pa.pa001.apuestas.model.util.GlobalNames.SPRING_CONFIG_FILE;
 import static es.udc.pa.pa001.apuestas.test.util.GlobalNames.SPRING_CONFIG_TEST_FILE;
@@ -166,7 +166,6 @@ public class UnitTest {
 	 * PR-UN-004
 	 */
 	
-	@Test(expected = InstanceNotFoundException.class)
 	public void testfindEventsByWrongCategory() {
 
 		/* SETUP */

@@ -66,6 +66,7 @@
             	<!-- Clases java que tiene que testear este profile -->
             	<testClass1>BetServiceTest.java</testClass1>
             	<testClass2>UserServiceTest.java</testClass2>
+            	<testClass2>UnitTest.java</testClass2>
             	
                 <!-- JDBC driver properties -->
                 <jdbcDriver.groupId>mysql</jdbcDriver.groupId>
