@@ -56,8 +56,10 @@ public class BetServiceImpl implements BetService {
 			throws AlreadyPastedDateException, InstanceNotFoundException, DuplicateEventNameException {
 		if (event.getEventStart().getTime().before(Calendar.getInstance().getTime ())) 
 			throw new AlreadyPastedDateException();
+		
 		if (eventDao.findDuplicates(event.getName())) 
 			throw new DuplicateEventNameException();
+		
 		Category category = categoryDao.find(categoryId);
 		event.setCategory(category);
 		eventDao.save(event);
@@ -91,10 +93,12 @@ public class BetServiceImpl implements BetService {
 	
 	@Override
 	public BetType insertBetType(BetType betType) throws DuplicateBetTypeQuestionException, DuplicateBetOptionAnswerException, MinimunBetOptionException {
+		
 		List<BetOption> betOptions = betType.getBetOptions();
 		if (betOptions==null || betOptions.size()<2)
 			throw new MinimunBetOptionException();
 		HashSet answers = new HashSet();
+		
 		for(BetOption b : betOptions){
 			if(answers.contains(b.getAnswer()))
 				throw new DuplicateBetOptionAnswerException();
@@ -120,6 +124,9 @@ public class BetServiceImpl implements BetService {
     	
     	if (betOption.getBetState() != null)
     		throw new OutdatedBetException();
+    	
+//    	if (betedMoney <=0)
+//    		throw new InputValidationException();
     	
         UserProfile userProfile = userProfileDao.find(userId);
         Event event = betOption.getBetType().getEvent();
