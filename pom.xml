@@ -217,7 +217,7 @@
             <artifactId>pojo-modelutil</artifactId>
             <version>${pojo-modelutil.version}</version>
 	    <scope>system</scope>
-	    <systemPath>${project.basedir}/pojo-modelutil-2.3.0.jar</systemPath>
+	    <systemPath>${project.basedir}/lib/pojo-modelutil-2.3.0.jar</systemPath>
         </dependency>
         <!--  Selenium Tool -->
          <dependency>
