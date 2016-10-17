@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,36 @@ public class EventDaoUnitTest {
 	@Autowired
 	private CategoryDao categoryDao;
 
+	Calendar eventCalendarPast, eventCalendarFuture;
+	Category category1, category2; 
+	Event event1, event2, event3;
+	
+	@Before
+	public void initialize(){
+		
+		eventCalendarPast = Calendar.getInstance();
+		eventCalendarFuture = Calendar.getInstance();
+		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
+		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
+		
+		category1 = new Category("Baloncesto");
+		category2 = new Category("Futbol");
+		
+		categoryDao.save(category1);
+		categoryDao.save(category2);
+		
+		event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
+				category1);
+		event2 = new Event("Obradoiro - Real Madrid",
+				eventCalendarFuture, category1);
+		event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
+				category2);
+		
+		eventDao.save(event1);
+		eventDao.save(event2);
+		eventDao.save(event3);
+	}
+	
 	/**
 	 * PR-UN-001
 	 */
@@ -40,26 +71,6 @@ public class EventDaoUnitTest {
 	public void testfindAllEvents() {
 
 		/* SETUP */
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
 
 		List<Event> listEvents = new ArrayList<>();
 		listEvents.add(event1);
@@ -85,26 +96,6 @@ public class EventDaoUnitTest {
 
 		/* SETUP */
 
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
-
 		List<Event> listEvents = new ArrayList<>();
 		listEvents.add(event2);
 		listEvents.add(event3);
@@ -128,26 +119,6 @@ public class EventDaoUnitTest {
 
 		/* SETUP */
 
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
-
 		List<Event> listEvents = new ArrayList<>();
 		listEvents.add(event1);
 		listEvents.add(event2);
@@ -170,26 +141,6 @@ public class EventDaoUnitTest {
 
 		/* SETUP */
 
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
-
 		List<Event> listEvents = new ArrayList<>();
 
 		/* INVOCACION */
@@ -210,26 +161,6 @@ public class EventDaoUnitTest {
 	public void testfindEventsByMinusKeyWords() {
 
 		/* SETUP */
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
 
 		List<Event> listEvents = new ArrayList<>();
 		listEvents.add(event1);
@@ -255,26 +186,6 @@ public class EventDaoUnitTest {
 
 		/* SETUP */
 
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
-
 		List<Event> listEvents = new ArrayList<>();
 		listEvents.add(event1);
 		listEvents.add(event2);
@@ -299,26 +210,6 @@ public class EventDaoUnitTest {
 
 		/* SETUP */
 
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
-
 		List<Event> listEvents = new ArrayList<>();
 		listEvents.add(event1);
 		
@@ -340,26 +231,6 @@ public class EventDaoUnitTest {
 	public void testfindEventsByOrderKeyWords() {
 
 		/* SETUP */
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
 
 		List<Event> listEvents = new ArrayList<>();
 		listEvents.add(event1);
@@ -383,26 +254,6 @@ public class EventDaoUnitTest {
 
 		/* SETUP */
 
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
-
 		List<Event> listEvents = new ArrayList<>();
 		
 		/* INVOCACION */
@@ -423,26 +274,6 @@ public class EventDaoUnitTest {
 	public void testfindEventsByKeyWordsCategory() {
 
 		/* SETUP */
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
 
 		List<Event> listEvents = new ArrayList<>();
 		listEvents.add(event1);
@@ -466,26 +297,6 @@ public class EventDaoUnitTest {
 	public void testGetNumberOfAllEvents() {
 
 		/* SETUP */
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
 		
 		/* INVOCACION */
 
@@ -504,26 +315,6 @@ public class EventDaoUnitTest {
 	public void testGetNumberOfFutureEvents() {
 
 		/* SETUP */
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
 		
 		/* INVOCACION */
 
@@ -542,26 +333,6 @@ public class EventDaoUnitTest {
 	public void testGetNumberOfCategoryEvents() {
 
 		/* SETUP */
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
 		
 		/* INVOCACION */
 
@@ -580,26 +351,6 @@ public class EventDaoUnitTest {
 	public void testGetNumberOfWrongCategoryEvents() {
 
 		/* SETUP */
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
 		
 		/* INVOCACION */
 
@@ -618,26 +369,6 @@ public class EventDaoUnitTest {
 	public void testGetNumberEventsByMinusKeyWords() {
 
 		/* SETUP */
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
 		
 		/* INVOCACION */
 
@@ -656,26 +387,6 @@ public class EventDaoUnitTest {
 	public void testGetNumberEventsByKeyWords() {
 		
 		/* SETUP */
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
 		
 		/* INVOCACION */
 
@@ -694,26 +405,6 @@ public class EventDaoUnitTest {
 	public void testGetNumberEventsByMayusKeyWords() {
 
 		/* SETUP */
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
 		
 		/* INVOCACION */
 
@@ -733,26 +424,6 @@ public class EventDaoUnitTest {
 
 		/* SETUP */
 
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
-
 		/* INVOCACION */
 
 		int result = eventDao.getNumberOfEvents("BARCELONA MADRID",null, true);
@@ -770,26 +441,6 @@ public class EventDaoUnitTest {
 	public void testGetNumberEventsByWrongKeyWords() {
 		
 		/* SETUP */
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
 		
 		/* INVOCACION */
 
@@ -808,26 +459,6 @@ public class EventDaoUnitTest {
 	public void testGetNumberEventsByKeyWordsCategory() {
 
 		/* SETUP */
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
 		
 		/* INVOCACION */
 
@@ -846,26 +477,6 @@ public class EventDaoUnitTest {
 	public void testFindDuplicates() {
 
 		/* SETUP */
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
 		
 		/* INVOCACION */
 
@@ -884,26 +495,6 @@ public class EventDaoUnitTest {
 	public void testFindNotDuplicates() {
 
 		/* SETUP */
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-		categoryDao.save(category1);
-		categoryDao.save(category2);
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-		eventDao.save(event1);
-		eventDao.save(event2);
-		eventDao.save(event3);
 		
 		/* INVOCACION */
 
@@ -923,19 +514,11 @@ public class EventDaoUnitTest {
 
 		/* SETUP */
 
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		categoryDao.save(category1);
-
-		Event event = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
+		Event newEvent = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
 
 		/* INVOCACION */
 
-		eventDao.save(event);
+		eventDao.save(newEvent);
 
 		/* ASERCION */
 
@@ -951,22 +534,14 @@ public class EventDaoUnitTest {
 	public void testUpdateEvent() {
 
 		/* SETUP */
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		categoryDao.save(category1);
-
-		Event event = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
-		eventDao.save(event);
-		event.setName("Deportivo - Celta");
+		
+		Event newEvent = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
+		eventDao.save(newEvent);
+		newEvent.setName("Deportivo - Celta");
 
 		/* INVOCACION */
 
-		eventDao.save(event);
+		eventDao.save(newEvent);
 
 		/* ASERCION */
 
@@ -983,25 +558,17 @@ public class EventDaoUnitTest {
 
 		/* SETUP */
 
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		categoryDao.save(category1);
-
-		Event event = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
-		eventDao.save(event);
-		event.setName("Deportivo - Celta");
+		Event newEvent = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
+		eventDao.save(newEvent);
+		newEvent.setName("Deportivo - Celta");
 
 		/* INVOCACION */
 
-		Event foundEvent = eventDao.find(event.getEventId());
+		Event foundEvent = eventDao.find(newEvent.getEventId());
 
 		/* ASERCION */
 
-		assertEquals(event, foundEvent);
+		assertEquals(newEvent, foundEvent);
 
 	}
 
@@ -1014,17 +581,9 @@ public class EventDaoUnitTest {
 
 		/* SETUP */
 
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		categoryDao.save(category1);
-
-		Event event = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
-		eventDao.save(event);
-		event.setName("Deportivo - Celta");
+		Event newEvent = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
+		eventDao.save(newEvent);
+		newEvent.setName("Deportivo - Celta");
 
 		Long nonExistentId = 0L;
 
@@ -1047,21 +606,13 @@ public class EventDaoUnitTest {
 
 		/* SETUP */
 
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		categoryDao.save(category1);
-
-		Event event = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
-		eventDao.save(event);
-		event.setName("Deportivo - Celta");
+		Event newEvent = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
+		eventDao.save(newEvent);
+		newEvent.setName("Deportivo - Celta");
 
 		/* INVOCACION */
 
-		eventDao.remove(event.getEventId());
+		eventDao.remove(newEvent.getEventId());
 
 		/* ASERCION */
 
@@ -1078,17 +629,9 @@ public class EventDaoUnitTest {
 
 		/* SETUP */
 
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		categoryDao.save(category1);
-
-		Event event = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
-		eventDao.save(event);
-		event.setName("Deportivo - Celta");
+		Event newEvent = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
+		eventDao.save(newEvent);
+		newEvent.setName("Deportivo - Celta");
 
 		Long nonExistentId = 0L;
 

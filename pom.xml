@@ -67,7 +67,7 @@
 <!--             	<testClass1>BetServiceTest.java</testClass1> -->
 <!--             	<testClass2>UserServiceTest.java</testClass2> -->
             	<testClass1>EventDaoUnitTest.java</testClass1>
-            	<testClass2>BetServiceUnitTest.java</testClass2>
+<!--             	<testClass2>BetServiceUnitTest.java</testClass2> -->
             	
                 <!-- JDBC driver properties -->
                 <jdbcDriver.groupId>mysql</jdbcDriver.groupId>
