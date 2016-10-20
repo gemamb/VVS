@@ -21,6 +21,7 @@ import es.udc.pa.pa001.apuestas.model.bet.BetDao;
 import es.udc.pa.pa001.apuestas.model.betOption.BetOption;
 import es.udc.pa.pa001.apuestas.model.betType.BetType;
 import es.udc.pa.pa001.apuestas.model.category.Category;
+import es.udc.pa.pa001.apuestas.model.category.CategoryDao;
 import es.udc.pa.pa001.apuestas.model.event.Event;
 import es.udc.pa.pa001.apuestas.model.event.EventDao;
 import es.udc.pa.pa001.apuestas.model.userprofile.UserProfile;
@@ -40,6 +41,9 @@ public class DaoUnitTest {
 	
 	@Autowired
 	private BetDao betDao;
+	
+	@Autowired
+	private CategoryDao categoryDao;
 
 	Calendar eventCalendarPast, eventCalendarFuture;
 	Category category1, category2; 
@@ -84,10 +88,8 @@ public class DaoUnitTest {
 	}
 	
 	public void initializeBetType(){
-		BetType betType = new BetType(
+		betType = new BetType(
     			"¿Qué jugador marcará el primer gol?",false);
-		
-		
 	}
 	
 	public void initializeBetOptions(){
@@ -826,30 +828,70 @@ public class DaoUnitTest {
 	 * PR-UN-031
 	 */
 	
-//	@Test
-//	public void testFindSomeBetsByUserIdNumber() {
-//		
-//		/* SETUP */
-//		
-//		initializeUser();
-//		initializeCategories();
-//		initializeDates();
-//		inicializeEvents();
-//		initializeBetType();
-//		initializeBetOptions();
-//		betType.addBetOption(betOption1);
-//		betType.addBetOption(betOption2);
-//		sessionFactory.getCurrentSession().saveOrUpdate(betType);
-//		event1.addBetType(betType);
-//		inicializeBets();
-//
-//		
-//		/* INVOCACION */
-//
-//		int result = betDao.findBetsByUserIdNumber(userProfile.getUserProfileId());
-//
-//		/* ASERCION */
-//		
-//		assertEquals(result, 2);
-//	}
+	@Test
+	public void testFindSomeBetsByUserIdNumber() {
+		
+		/* SETUP */
+		
+		initializeUser();
+		initializeCategories();
+		initializeDates();
+		inicializeEvents();
+		initializeBetType();
+		event1.addBetType(betType);
+		sessionFactory.getCurrentSession().saveOrUpdate(betType);
+		initializeBetOptions();	
+		inicializeBets();
+		
+		/* INVOCACION */
+
+		int result = betDao.findBetsByUserIdNumber(userProfile.getUserProfileId());
+
+		/* ASERCION */
+		
+		assertEquals(result, 2);
+	}
+	
+	/**
+	 * PR-UN-032
+	 */
+	
+	@Test
+	public void testFindCategories() {
+		
+		/* SETUP */
+		
+		initializeCategories();
+		List<Category> listcategories = new ArrayList<>();
+		listcategories.add(category1);
+		listcategories.add(category2);
+
+		/* INVOCACION */
+
+		List<Category> listFindCategories = categoryDao.findCategories();
+
+		/* ASERCION */
+
+		assertEquals(listFindCategories, listcategories);
+	}
+	
+	/**
+	 * PR-UN-033
+	 */
+	
+	@Test
+	public void testNotFindCategories() {
+		
+		/* SETUP */
+		
+		List<Category> listcategories = new ArrayList<>();
+
+		/* INVOCACION */
+
+		List<Category> listFindCategories = categoryDao.findCategories();
+
+		/* ASERCION */
+
+		assertEquals(listFindCategories, listcategories);
+	}
 }
