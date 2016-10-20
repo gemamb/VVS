@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -67,24 +66,32 @@ public class BetServiceUnitTest {
 	BetType betTypeDemo;
 	BetOption betOptionDemo;
 	BetOption betOptionDemo1, betOptionDemo2;
-	
-	@Before
-	public void initialize(){
-		
-		eventCalendar = Calendar.getInstance();
-		eventCalendar.set(2017, Calendar.AUGUST, 31);
-		
+
+	public void initializeUser(){
 		userProfileDemo = new UserProfile("pepe6", "XxXyYyZzZ",
 				"Pepe", "García", "pepe6@gmail.com");
-
+	}
+	
+	public void initializeDate(){
+		eventCalendar = Calendar.getInstance();
+		eventCalendar.set(2017, Calendar.AUGUST, 31);
+	}
+	
+	public void initializeCategory(){
 		categoryDemo = new Category("Baloncesto");
-
+	}
+	
+	public void initializeEvent(){
 		eventDemo = new Event("Real Madrid - Barcelona",
-				Calendar.getInstance(), categoryDemo);
-		
+				eventCalendar, categoryDemo);
+	}
+	
+	public void initializeBetType(){
 		betTypeDemo = new BetType("¿Qué equipo ganará el encuentro?",
 				false);
-		
+	}
+	
+	public void initializeBetOptions(){
 		betOptionDemo = new BetOption("Real Madrid CF", (float) 1.75,
 				null, betTypeDemo);
 
@@ -129,6 +136,12 @@ public class BetServiceUnitTest {
 	public void testMakeBet() throws InstanceNotFoundException,
 			OutdatedBetException {
 
+		initializeDate();
+		initializeCategory();
+		initializeEvent();
+		initializeUser();
+		initializeBetType();
+		initializeBetOptions();
 		eventDemo.addBetType(betTypeDemo);
 
 		when(userProfileDaoMock.find(2L)).thenReturn(userProfileDemo);
@@ -146,6 +159,11 @@ public class BetServiceUnitTest {
 	public void testMakeBetWrongUser() throws InstanceNotFoundException,
 			OutdatedBetException {
 
+		initializeDate();
+		initializeCategory();
+		initializeEvent();
+		initializeBetType();
+		initializeBetOptions();
 		eventDemo.addBetType(betTypeDemo);
 
 		when(userProfileDaoMock.find(-1L)).thenThrow(
@@ -160,6 +178,11 @@ public class BetServiceUnitTest {
 	public void testMakeBetWrongBetOption() throws InstanceNotFoundException,
 			OutdatedBetException {
 
+		initializeDate();
+		initializeCategory();
+		initializeEvent();
+		initializeUser();
+		initializeBetType();
 		eventDemo.addBetType(betTypeDemo);
 
 		when(userProfileDaoMock.find(2L)).thenReturn(userProfileDemo);
@@ -173,6 +196,15 @@ public class BetServiceUnitTest {
 	public void testOutDatedTrueMakeBet() throws InstanceNotFoundException,
 			OutdatedBetException {
 
+		initializeDate();
+		initializeCategory();
+		initializeEvent();
+		initializeUser();
+		initializeBetType();
+		
+		betOptionDemo = new BetOption("Real Madrid CF", (float) 1.75,
+				true, betTypeDemo);
+		
 		eventDemo.addBetType(betTypeDemo);
 
 		when(userProfileDaoMock.find(2L)).thenReturn(userProfileDemo);
@@ -189,6 +221,14 @@ public class BetServiceUnitTest {
 	public void testOutDatedFalseMakeBet() throws InstanceNotFoundException,
 			OutdatedBetException {
 
+		initializeDate();
+		initializeCategory();
+		initializeEvent();
+		initializeBetType();
+		
+		betOptionDemo = new BetOption("Real Madrid CF", (float) 1.75,
+				false, betTypeDemo);
+		
 		eventDemo.addBetType(betTypeDemo);
 		
 		when(userProfileDaoMock.find(2L)).thenReturn(userProfileDemo);
@@ -205,6 +245,12 @@ public class BetServiceUnitTest {
 	public void testMakeBetWrongMoney() throws InstanceNotFoundException,
 			OutdatedBetException {
 
+		initializeDate();
+		initializeCategory();
+		initializeEvent();
+		initializeUser();
+		initializeBetType();
+		initializeBetOptions();
 		eventDemo.addBetType(betTypeDemo);
 
 		when(userProfileDaoMock.find(2L)).thenReturn(userProfileDemo);
@@ -221,6 +267,10 @@ public class BetServiceUnitTest {
 	public void testInsertEvent() throws InstanceNotFoundException,
 			AlreadyPastedDateException, DuplicateEventNameException {
 
+		initializeDate();
+		initializeCategory();
+		initializeEvent();
+		
 		when(categoryDaoMock.find(2L)).thenReturn(categoryDemo);
 
 		betService.insertEvent(eventDemo, 2L);
@@ -234,6 +284,14 @@ public class BetServiceUnitTest {
 	public void testInsertPastedEvent() throws InstanceNotFoundException,
 			AlreadyPastedDateException, DuplicateEventNameException {
 
+		initializeCategory();
+		
+		eventCalendar = Calendar.getInstance();
+		eventCalendar.set(2014, Calendar.AUGUST, 31);
+		
+		eventDemo = new Event("Real Madrid - Barcelona",
+				eventCalendar, categoryDemo);
+		
 		when(categoryDaoMock.find(2L)).thenReturn(categoryDemo);
 
 		betService.insertEvent(eventDemo, 2L);
@@ -243,6 +301,10 @@ public class BetServiceUnitTest {
 	public void testInsertDuplicateEvent() throws InstanceNotFoundException,
 			AlreadyPastedDateException, DuplicateEventNameException {
 
+		initializeDate();
+		initializeCategory();
+		initializeEvent();
+		
 		when(categoryDaoMock.find(2L)).thenReturn(categoryDemo);
 		when(eventDaoMock.findDuplicates(eventDemo.getName())).thenReturn(true);
 
@@ -255,6 +317,9 @@ public class BetServiceUnitTest {
 			throws InstanceNotFoundException, AlreadyPastedDateException,
 			DuplicateEventNameException {
 
+		initializeDate();
+		initializeEvent();
+		
 		when(categoryDaoMock.find(2L)).thenThrow(
 				InstanceNotFoundException.class);
 
@@ -267,6 +332,12 @@ public class BetServiceUnitTest {
 			DuplicateBetTypeQuestionException,
 			DuplicateBetOptionAnswerException, MinimunBetOptionException {
 
+		initializeDate();
+		initializeCategory();
+		initializeEvent();
+		initializeBetType();
+		initializeBetOptions();
+		
 		when(categoryDaoMock.find(2L)).thenReturn(categoryDemo);
 
 		betService.insertEvent(eventDemo, 2L);
@@ -292,12 +363,14 @@ public class BetServiceUnitTest {
 			DuplicateEventNameException, DuplicateBetTypeQuestionException,
 			DuplicateBetOptionAnswerException, MinimunBetOptionException {
 
+		initializeDate();
+		initializeCategory();
+		initializeEvent();
+		initializeBetType();
+		
 		when(categoryDaoMock.find(2L)).thenReturn(categoryDemo);
 
 		betService.insertEvent(eventDemo, 2L);
-
-		BetType betTypeDemo = new BetType("¿Qué equipo ganará el encuentro?",
-				false);
 
 		eventDemo.addBetType(betTypeDemo);
 
@@ -310,11 +383,19 @@ public class BetServiceUnitTest {
 			DuplicateEventNameException, DuplicateBetTypeQuestionException,
 			DuplicateBetOptionAnswerException, MinimunBetOptionException {
 
+		initializeDate();
+		initializeCategory();
+		initializeEvent();
+		initializeBetType();
+		
 		when(categoryDaoMock.find(2L)).thenReturn(categoryDemo);
 
 		betService.insertEvent(eventDemo, 2L);
 
 		eventDemo.addBetType(betTypeDemo);
+		
+		betOptionDemo = new BetOption("Real Madrid CF", (float) 1.75,
+				null, betTypeDemo);
 		
 		List<BetOption> betOptions = new ArrayList<>();
 		betOptions.add(betOptionDemo1);
@@ -329,12 +410,24 @@ public class BetServiceUnitTest {
 			DuplicateEventNameException, DuplicateBetTypeQuestionException,
 			DuplicateBetOptionAnswerException, MinimunBetOptionException {
 
+		initializeDate();
+		initializeCategory();
+		initializeEvent();
+		initializeBetType();
+		initializeBetOptions();
+		
 		when(categoryDaoMock.find(2L)).thenReturn(categoryDemo);
 
 		betService.insertEvent(eventDemo, 2L);
 
 		eventDemo.addBetType(betTypeDemo);
 
+		betOptionDemo1 = new BetOption("Real Madrid CF",
+				(float) 1.75, null, betTypeDemo);
+
+		betOptionDemo2 = new BetOption("Real Madrid CF", (float) 1.5,
+				null, betTypeDemo);
+		
 		List<BetOption> betOptions = new ArrayList<>();
 		betOptions.add(betOptionDemo1);
 		betOptions.add(betOptionDemo2);
