@@ -61,8 +61,9 @@ public class BetServiceUnitTest {
 
 	Calendar eventCalendar;
 	UserProfile userProfileDemo;
-	Category categoryDemo;
+	Category categoryDemo, categoryDemo1;
 	Event eventDemo;
+	Event event1, event2, event3;
 	BetType betTypeDemo;
 	BetOption betOptionDemo;
 	BetOption betOptionDemo1, betOptionDemo2;
@@ -77,8 +78,9 @@ public class BetServiceUnitTest {
 		eventCalendar.set(2017, Calendar.AUGUST, 31);
 	}
 	
-	public void initializeCategory(){
+	public void initializeCategories(){
 		categoryDemo = new Category("Baloncesto");
+		categoryDemo1 = new Category("Tenis");
 	}
 	
 	public void initializeEvent(){
@@ -102,34 +104,106 @@ public class BetServiceUnitTest {
 				null, betTypeDemo);
 	}
 	
+	public void initializeEvents(){
+		event1 = new Event("Real Madrid - Barcelona", eventCalendar,
+				categoryDemo);
+		event2 = new Event("Obradoiro - Real Madrid",
+				eventCalendar, categoryDemo);
+		event3 = new Event("Real Madrid - Celta", eventCalendar,
+				categoryDemo);
+	}
 	
 	@Test
-	public void testfindEventsMoreEvents() {
-
-		Calendar eventCalendarPast = Calendar.getInstance();
-		Calendar eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-
-		Category category1 = new Category("Baloncesto");
-		Category category2 = new Category("Futbol");
-
-		Event event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		Event event2 = new Event("Obradoiro - Real Madrid",
-				eventCalendarFuture, category1);
-		Event event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
-
+	public void testFindEmptyFalseEvents(){
+		
+		initializeDate();
+		initializeCategories();
+		initializeEvents();
+		
+		List<Event> listEvents = new ArrayList<>();
+		
+		when(eventDaoMock.findEvents(null, null, 0, 2, true)).thenReturn(listEvents);
+		
+		EventBlock eventBlock = betService.findEvents(null, null, 0, 1, true);
+		
+		assertEquals(eventBlock.getEvents(), listEvents);
+		assertEquals(eventBlock.getExistMoreEvents(), false);
+	}
+	
+	@Test
+	public void testFindNotEmptyFalseEvents(){
+		
+		initializeDate();
+		initializeCategories();
+		initializeEvent();
+		
+		List<Event> listEvents = new ArrayList<>();
+		listEvents.add(eventDemo);
+		
+		when(eventDaoMock.findEvents(null, null, 0, 2, true)).thenReturn(listEvents);
+		
+		EventBlock eventBlock = betService.findEvents(null, null, 0, 1, true);
+		
+		assertEquals(eventBlock.getEvents(), listEvents);
+		assertEquals(eventBlock.getExistMoreEvents(), false);
+	}
+	
+	@Test
+	public void testFindNotEmptyTrueEvents(){
+		
+		initializeDate();
+		initializeCategories();
+		initializeEvents();
+		
+		List<Event> listEvents = new ArrayList<>();
+		listEvents.add(event1);
+		listEvents.add(event2);
+		
+		when(eventDaoMock.findEvents(null, null, 0, 2, true)).thenReturn(listEvents);
+		
+		EventBlock eventBlock = betService.findEvents(null, null, 0, 1, true);
+		
+		assertEquals(eventBlock.getEvents(), listEvents);
+		assertEquals(eventBlock.getExistMoreEvents(), true);
+	}
+	
+	@Test
+	public void testFindFalseEvents(){
+		
+		initializeDate();
+		initializeCategories();
+		initializeEvents();
+		
+		List<Event> listEvents = new ArrayList<>();
+		listEvents.add(event1);
+		listEvents.add(event2);
+		
+		when(eventDaoMock.findEvents(null, null, 1, 3, true)).thenReturn(listEvents);
+		
+		EventBlock eventBlock = betService.findEvents(null, null, 1, 2, true);
+		
+		assertEquals(eventBlock.getEvents(), listEvents);
+		assertEquals(eventBlock.getExistMoreEvents(), false);
+	}
+	
+	@Test
+	public void testFindTrueEvents(){
+		
+		initializeDate();
+		initializeCategories();
+		initializeEvents();
+		
 		List<Event> listEvents = new ArrayList<>();
 		listEvents.add(event1);
 		listEvents.add(event2);
 		listEvents.add(event3);
-
-		when(eventDaoMock.findEvents(null, null, 0, 10, true)).thenReturn(listEvents);
-		EventBlock events = betService.findEvents(null, null, 0, 10,true);
-
-		assertEquals(events.getExistMoreEvents(),false);
+		
+		when(eventDaoMock.findEvents(null, null, 1, 3, true)).thenReturn(listEvents);
+		
+		EventBlock eventBlock = betService.findEvents(null, null, 1, 2, true);
+		
+		assertEquals(eventBlock.getEvents(), listEvents);
+		assertEquals(eventBlock.getExistMoreEvents(), true);
 	}
 	
 	@Test
@@ -137,7 +211,7 @@ public class BetServiceUnitTest {
 			OutdatedBetException {
 
 		initializeDate();
-		initializeCategory();
+		initializeCategories();
 		initializeEvent();
 		initializeUser();
 		initializeBetType();
@@ -160,7 +234,7 @@ public class BetServiceUnitTest {
 			OutdatedBetException {
 
 		initializeDate();
-		initializeCategory();
+		initializeCategories();
 		initializeEvent();
 		initializeBetType();
 		initializeBetOptions();
@@ -179,7 +253,7 @@ public class BetServiceUnitTest {
 			OutdatedBetException {
 
 		initializeDate();
-		initializeCategory();
+		initializeCategories();
 		initializeEvent();
 		initializeUser();
 		initializeBetType();
@@ -197,7 +271,7 @@ public class BetServiceUnitTest {
 			OutdatedBetException {
 
 		initializeDate();
-		initializeCategory();
+		initializeCategories();
 		initializeEvent();
 		initializeUser();
 		initializeBetType();
@@ -222,7 +296,7 @@ public class BetServiceUnitTest {
 			OutdatedBetException {
 
 		initializeDate();
-		initializeCategory();
+		initializeCategories();
 		initializeEvent();
 		initializeBetType();
 		
@@ -246,7 +320,7 @@ public class BetServiceUnitTest {
 			OutdatedBetException {
 
 		initializeDate();
-		initializeCategory();
+		initializeCategories();
 		initializeEvent();
 		initializeUser();
 		initializeBetType();
@@ -268,7 +342,7 @@ public class BetServiceUnitTest {
 			AlreadyPastedDateException, DuplicateEventNameException {
 
 		initializeDate();
-		initializeCategory();
+		initializeCategories();
 		initializeEvent();
 		
 		when(categoryDaoMock.find(2L)).thenReturn(categoryDemo);
@@ -284,7 +358,7 @@ public class BetServiceUnitTest {
 	public void testInsertPastedEvent() throws InstanceNotFoundException,
 			AlreadyPastedDateException, DuplicateEventNameException {
 
-		initializeCategory();
+		initializeCategories();
 		
 		eventCalendar = Calendar.getInstance();
 		eventCalendar.set(2014, Calendar.AUGUST, 31);
@@ -302,7 +376,7 @@ public class BetServiceUnitTest {
 			AlreadyPastedDateException, DuplicateEventNameException {
 
 		initializeDate();
-		initializeCategory();
+		initializeCategories();
 		initializeEvent();
 		
 		when(categoryDaoMock.find(2L)).thenReturn(categoryDemo);
@@ -333,7 +407,7 @@ public class BetServiceUnitTest {
 			DuplicateBetOptionAnswerException, MinimunBetOptionException {
 
 		initializeDate();
-		initializeCategory();
+		initializeCategories();
 		initializeEvent();
 		initializeBetType();
 		initializeBetOptions();
@@ -364,7 +438,7 @@ public class BetServiceUnitTest {
 			DuplicateBetOptionAnswerException, MinimunBetOptionException {
 
 		initializeDate();
-		initializeCategory();
+		initializeCategories();
 		initializeEvent();
 		initializeBetType();
 		
@@ -384,7 +458,7 @@ public class BetServiceUnitTest {
 			DuplicateBetOptionAnswerException, MinimunBetOptionException {
 
 		initializeDate();
-		initializeCategory();
+		initializeCategories();
 		initializeEvent();
 		initializeBetType();
 		
@@ -411,7 +485,7 @@ public class BetServiceUnitTest {
 			DuplicateBetOptionAnswerException, MinimunBetOptionException {
 
 		initializeDate();
-		initializeCategory();
+		initializeCategories();
 		initializeEvent();
 		initializeBetType();
 		initializeBetOptions();
@@ -477,4 +551,112 @@ public class BetServiceUnitTest {
 //
 //		betService.insertBetType(betTypeDemo);
 //	}
+	
+	@Test
+	public void testFindCategories() {
+		
+		initializeCategories();
+		List<Category> listcategories = new ArrayList<>();
+		listcategories.add(categoryDemo);
+		listcategories.add(categoryDemo1);
+		when(categoryDaoMock.findCategories()).thenReturn(listcategories);
+		
+		List<Category> listFindCategories = betService.findCategories();
+		
+		assertEquals(listFindCategories, listcategories);
+	}
+	
+	@Test
+	public void testNotFindCategories() {
+		
+		initializeCategories();
+		List<Category> listcategories = new ArrayList<>();
+		when(categoryDaoMock.findCategories()).thenReturn(listcategories);
+		
+		List<Category> listFindCategories = betService.findCategories();
+		
+		assertEquals(listFindCategories, listcategories);
+	}
+	
+	@Test
+	public void testFindDuplicates() throws InstanceNotFoundException {
+		
+		initializeDate();
+		initializeCategories();
+		initializeEvent();
+		initializeBetType();
+		eventDemo.addBetType(betTypeDemo);
+		when(eventDaoMock.find(1L)).thenReturn(eventDemo);
+		when(betTypeDaoMock.findDuplicates(1L,"¿Qué equipo ganará el encuentro?")).thenReturn(true);
+		
+		boolean duplicate = betService.findDuplicates(1L, "¿Qué equipo ganará el encuentro?");
+
+		assertEquals(true, duplicate);
+	}
+	
+	@Test
+	public void testFindNotDuplicates() throws InstanceNotFoundException {
+		
+		initializeDate();
+		initializeCategories();
+		initializeEvent();
+		initializeBetType();
+		eventDemo.addBetType(betTypeDemo);
+		when(eventDaoMock.find(1L)).thenReturn(eventDemo);
+		when(betTypeDaoMock.findDuplicates(1L,"¿Qué equipo ganará?")).thenReturn(false);
+		
+		boolean duplicate = betService.findDuplicates(1L, "¿Qué equipo ganará?");
+
+		assertEquals(false, duplicate);
+	}
+	
+	@Test
+	public void testFindExistentBetOption() throws InstanceNotFoundException{
+		
+		initializeDate();
+		initializeCategories();
+		initializeEvent();
+		initializeBetType();
+		betOptionDemo = new BetOption("Real Madrid CF", (float) 1.75,
+				null, betTypeDemo);
+		
+		when(betOptionDaoMock.find(1L)).thenReturn(betOptionDemo);
+		
+		BetOption betOptionFound = betService.findBetOption(1L);
+		
+		assertEquals(betOptionFound, betService.findBetOption(1L));
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test (expected = InstanceNotFoundException.class)
+	public void testFindNotExistentBetOption() throws InstanceNotFoundException{
+		
+		when(betOptionDaoMock.find(-1L)).thenThrow(InstanceNotFoundException.class);
+		
+		betService.findBetOption(-1L);
+	}
+	
+	@Test
+	public void testFindExistentBetType() throws InstanceNotFoundException{
+		
+		initializeDate();
+		initializeCategories();
+		initializeEvent();
+		initializeBetType();
+
+		when(betTypeDaoMock.find(-1L)).thenReturn(betTypeDemo);
+		
+		BetType betTypeFound = betService.findBetType(1L);
+		
+		assertEquals(betTypeFound, betService.findBetType(1L));
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test (expected = InstanceNotFoundException.class)
+	public void testFindNotExistentBetType() throws InstanceNotFoundException{
+		
+		when(betTypeDaoMock.find(-1L)).thenThrow(InstanceNotFoundException.class);
+		
+		betService.findBetType(-1L);
+	}
 }
