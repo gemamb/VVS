@@ -36,7 +36,7 @@ public class UserProfileDaoUnitTest {
 	}
 
 	/**
-	 * PR-UN-031
+	 * PR-UN-039
 	 * 
 	 */
 
@@ -54,7 +54,7 @@ public class UserProfileDaoUnitTest {
 	}
 
 	/**
-	 * PR-UN-032
+	 * PR-UN-040
 	 * 
 	 */
 

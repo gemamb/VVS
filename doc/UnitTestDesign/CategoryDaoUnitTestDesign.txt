@@ -1,0 +1,52 @@
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-007 findCategories
+
+CategoryDao 
+
+Parámetros:
+	- NA
+
+Excepciones:
+	- NA
+
+Valor retorno:
+	- Lista de las categorías existentes en la base de datos
+
+
+	public List<Category> findCategories();
+
+	---------------------------------------------------------
+
+		CU-007 PR-UN-029
+
+		CategoryDao - findCategories
+
+		Motivación: Obtener las categorías existentes en la base de datos
+
+		Parámetros:
+			- NA
+
+		Valor retorno:
+			- lista con dos categorías almacenadas
+
+		Inicialización:
+			-
+
+	---------------------------------------------------------
+
+		CU-007 PR-UN-030
+
+		CategoryDao - findCategories
+
+		Motivación: No obtener categorías
+
+		Parámetros:
+			- NA
+
+		Valor retorno:
+			- Lista vacía
+
+		Inicialización:
+			-
+

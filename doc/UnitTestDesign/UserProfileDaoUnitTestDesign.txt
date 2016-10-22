@@ -1,0 +1,52 @@
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-011 findByLoginName
+
+UserProfileDao 
+
+Parámetros:
+	- loginName: login de un usuario
+
+Excepciones:
+	- InstanceNotFoundException: salta cuando no se encuentra el usuario 
+
+Valor retorno:
+	- Usuario existente con la clave indicada
+
+
+	public UserProfile findByLoginName(String loginName) throws InstanceNotFoundException;
+
+	---------------------------------------------------------
+
+		CU-011 PR-UN-039
+
+		UserProfileDao - findByLoginName
+
+		Motivación: Obtener los datos del usuario con la clave indicada
+
+		Parámetros:
+			- loginName: login de un usuario existente
+
+		Valor retorno:
+			- Usuario coincidente con el login indicado
+
+		Inicialización:
+			-
+
+	---------------------------------------------------------
+
+		CU-011 PR-UN-040
+
+		UserProfileDao - findByLoginName
+
+		Motivación: Obtener InstanceNotFoundException pues no se encuentra el usuario a partir del login
+
+		Parámetros:
+			- loginName: login de un usuario no existente
+
+		Valor retorno:
+			- InstanceNotFoundException
+
+		Inicialización:
+			-
+

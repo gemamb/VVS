@@ -1,0 +1,55 @@
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-008 findDuplicates
+
+BetTypeDao 
+
+Parámetros:
+	- eventId: identificador del evento del tipo de apuesta a comprobar
+	- fullName: pregunta del tipo de apuesta
+
+Excepciones:
+	- NA
+
+Valor retorno:
+	- Valor booleano según si existen más tipos de apuesta con la misma pregunta
+
+
+	public boolean findDuplicates(Long eventId, String fullName);
+
+	---------------------------------------------------------
+
+		CU-008 PR-UN-031
+
+		BetTypeDao - findDuplicates
+
+		Motivación: Comprobar que no existe un tipo de apuesta con la misma pregunta
+
+		Parámetros:
+			- eventId: identificador de un evento existente
+			- fullName: nombre de tipo de apuesta no existente
+
+		Valor retorno:
+			- Valor true
+
+		Inicialización:
+			-
+
+	---------------------------------------------------------
+
+		CU-008 PR-UN-032
+
+		BetTypeDao - findDuplicates
+
+		Motivación: Comprobar que existe un tipo de apuesta con la misma pregunta
+
+		Parámetros:
+			- eventId: identificador de un evento existente
+			- fullName: nombre de tipo de apuesta existente
+
+		Valor retorno:
+			- Valor false
+
+		Inicialización:
+			-
+

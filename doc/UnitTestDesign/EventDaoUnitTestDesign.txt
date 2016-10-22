@@ -1,0 +1,650 @@
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-001 save
+
+EventDao 
+
+Parámetros:
+	- entity: objeto a persistir en la base de datos (sin id) o actualizar (con id)
+
+Excepciones:
+	- NA
+
+Valor retorno:
+	- void
+
+
+	public void save(E entity);
+
+ 	---------------------------------------------------------
+
+		CU-001 PR-UN-001
+
+		EventDao - save
+
+		Motivación: crear un evento
+
+		Parámetros:
+			- entity: evento sin id
+
+		Valor retorno:
+			- void
+
+		Inicialización:
+			-
+
+	---------------------------------------------------------
+
+		CU-001 PR-UN-002
+
+		EventDao - save
+
+		Motivación: actualizar campos de un evento
+
+		Parámetros:
+			- entity: evento ya almacenado en bd (con id)
+
+		Valor retorno:
+			- void
+
+		Inicialización:
+			- 
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-002 remove
+
+EventDao 
+
+Parámetros:
+	- key: clave primaria del evento a eliminar
+
+Excepciones:
+	- InstanceNotFoundException: salta cuando se quiere eliminar un evento que no existe
+
+Valor retorno:
+	- void
+
+
+	public void remove(PK id) throws InstanceNotFoundException;
+
+	---------------------------------------------------------
+
+		CU-002 PR-UN-003
+
+		EventDao - remove
+
+		Motivación: borrar un evento
+
+		Parámetros:
+			- key: id de un evento almacenado en la base de datos
+
+		Valor retorno:
+			- void
+
+		Inicialización:
+			-
+
+	---------------------------------------------------------
+
+		CU-002 PR-UN-004
+
+		EventDao - remove
+
+		Motivación: la aplicación debe romper con InstanceNotfoundException
+
+		Parámetros:
+			- key: id de un evento inexistente
+
+		Valor retorno:
+			- InstanceNotfoundException
+
+		Inicialización:
+			- 
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-003 find
+
+EventDao 
+
+Parámetros:
+	- key: lave primaria del evento buscado
+
+Excepciones:
+	- InstanceNotFoundException: salta cuando se quiere buscar un evento que no existe
+
+Valor retorno:
+	- Evento con la clave primaria indicada
+
+
+	public E find(PK id) throws InstanceNotFoundException;
+
+	---------------------------------------------------------
+
+		CU-003 PR-UN-005
+
+		EventDao - find
+
+		Motivación: buscar un evento
+
+		Parámetros:
+			- key: id de un evento almacenado en la base de datos
+
+		Valor retorno:
+			- Evento con el id indicado
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-003 PR-UN-006
+
+		EventDao - find
+
+		Motivación: la aplicación debe romper con InstanceNotfoundException
+
+		Parámetros:
+			- key: id de un evento inexistente
+
+		Valor retorno:
+			- InstanceNotfoundException
+
+		Inicialización:
+			- 
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-004 getNumberOfEvents
+
+EventDao 
+
+Parámetros:
+	- keyWords: palabras clave para filtrar la búsqueda de eventos
+	- categoryId: identificador de la categoría por la que filtrar la búsqueda de eventos
+	- admin: criterio para devolver todos los eventos o únicamente eventos posteriores a la fecha actual
+
+Excepciones:
+	- NA
+
+Valor retorno:
+	- Número de eventos que coinciden con los criterios de búsqueda
+
+
+	public int getNumberOfEvents(String keywords, Long categoryId, boolean admin);
+
+	---------------------------------------------------------
+
+		CU-004 PR-UN-007
+
+		EventDao - getNumberOfEvents
+
+		Motivación: Obtener el número de todos los eventos existentes
+
+		Parámetros:
+			- keyWords: null
+			- categoryId: null
+			- admin: true
+
+		Valor retorno:
+			- Número de eventos existentes
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-004 PR-UN-008
+
+		EventDao - getNumberOfEvents
+
+		Motivación: Obtener el número de todos los eventos con fecha posterior a la actual
+
+		Parámetros:
+			- keyWords: null
+			- categoryId: null
+			- admin: false
+
+		Valor retorno:
+			- Número de eventos existentes con fecha posterior a la actual
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-004 PR-UN-009
+
+		EventDao - getNumberOfEvents
+
+		Motivación: Obtener el número de eventos de categoría Baloncesto
+
+		Parámetros:
+			- keyWords: null
+			- categoryId: identificador de la categoría Baloncesto
+			- admin: true
+
+		Valor retorno:
+			- Número de eventos de Baloncesto
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-004 PR-UN-010
+
+		EventDao - getNumberOfEvents
+
+		Motivación: Obtener número de eventos de una categoría no existente, siendo 0
+
+		Parámetros:
+			- keyWords: null
+			- categoryId: identificador de una categoría no existente
+			- admin: true
+
+		Valor retorno:
+			- 0
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-004 PR-UN-011
+
+		EventDao - getNumberOfEvents
+
+		Motivación: Obtener el número de eventos cuyo nombre tenga "Madrid", buscando con minúsculas
+
+		Parámetros:
+			- keyWords: madrid
+			- categoryId: null
+			- admin: true
+
+		Valor retorno:
+			- Número de eventos relacionados con "Madrid"
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-004 PR-UN-012
+
+		EventDao - getNumberOfEvents
+
+		Motivación: Obtener el número de eventos cuyo nombre tenga "Madrid", buscando con parte del nombre
+
+		Parámetros:
+			- keyWords: adri
+			- categoryId: null
+			- admin: true
+
+		Valor retorno:
+			- Número de eventos relacionados con "Madrid"
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-004 PR-UN-013
+
+		EventDao - getNumberOfEvents
+
+		Motivación: Obtener el número de eventos "Real Madrid - Barcelona", buscando en mayúsculas
+
+		Parámetros:
+			- keyWords: MADRID - BARCELONA
+			- categoryId: null
+			- admin: true
+
+		Valor retorno:
+			- Número de eventos "Real Madrid - Barcelona"
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-004 PR-UN-014
+
+		EventDao - getNumberOfEvents
+
+		Motivación: Obtener el número de eventos "Real Madrid - Barcelona", buscando con diferente orden
+
+		Parámetros:
+			- keyWords: BARCELONA - MADRID
+			- categoryId: null
+			- admin: true
+
+		Valor retorno:
+			- Número de eventos "Real Madrid - Barcelona"
+
+		Inicialización:
+			-
+
+	---------------------------------------------------------
+
+		CU-004 PR-UN-015
+
+		EventDao - getNumberOfEvents
+
+		Motivación: Obtener número de eventos buscando por palabras clave no coincidentes, siendo 0
+
+		Parámetros:
+			- keyWords: BarcMad
+			- categoryId: null
+			- admin: true
+
+		Valor retorno:
+			- 0
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-004 PR-UN-016
+
+		EventDao - getNumberOfEvents
+
+		Motivación: Obtener el número de eventos "Real Madrid" únicamente de baloncesto
+
+		Parámetros:
+			- keyWords: Madrid
+			- categoryId: identificador de la categoría Baloncesto
+			- admin: true
+
+		Valor retorno:
+			- Número de eventos del Real Madrid de baloncesto
+
+		Inicialización:
+			- 
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-005 findEvents
+
+EventDao 
+
+Parámetros:
+	- keyWords: palabras clave para filtrar la búsqueda de eventos
+	- categoryId: identificador de la categoría por la que filtrar la búsqueda de eventos
+	- startIndex número que determina la paginación
+	- count número total de eventos que devuelve el método
+	- admin: criterio para devolver todos los eventos o únicamente eventos posteriores a la fecha actual
+
+Excepciones:
+	- NA
+
+Valor retorno:
+	- Lista de los eventos que coinciden con los criterios de búsqueda
+
+
+	public List<Event> findEvents(String keywords, Long categoryId, int startIndex, int count, boolean admin);
+
+	---------------------------------------------------------
+
+		CU-005 PR-UN-017
+
+		EventDao - findEvents
+
+		Motivación: Obtener todos los eventos existentes
+
+		Parámetros:
+			- keyWords: null
+			- categoryId: null
+			- startIndex: 0
+			- count: 10
+			- admin: true
+
+		Valor retorno:
+			- Lista de los eventos existentes
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-005 PR-UN-018
+
+		EventDao - findEvents
+
+		Motivación: Obtener todos los eventos con fecha posterior a la actual
+
+		Parámetros:
+			- keyWords: null
+			- categoryId: null
+			- startIndex: 0
+			- count: 10
+			- admin: false
+
+		Valor retorno:
+			- Lista de los eventos existentes con fecha posterior a la actual
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-005 PR-UN-019
+
+		EventDao - findEvents
+
+		Motivación: Obtener todos los eventos de categoría Baloncesto
+
+		Parámetros:
+			- keyWords: null
+			- categoryId: identificador de la categoría Baloncesto
+			- startIndex: 0
+			- count: 10
+			- admin: true
+
+		Valor retorno:
+			- Lista de los eventos de baloncesto
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-005 PR-UN-020
+
+		EventDao - findEvents
+
+		Motivación: Obtener todos los eventos de categoría no existente, ninguno
+
+		Parámetros:
+			- keyWords: null
+			- categoryId: identificador de una categoría no existente
+			- startIndex: 0
+			- count: 10
+			- admin: true
+
+		Valor retorno:
+			- Lista vacía
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-005 PR-UN-021
+
+		EventDao - findEvents
+
+		Motivación: Obtener todos los eventos cuyo nombre tenga "Madrid", buscando con minúsculas
+
+		Parámetros:
+			- keyWords: madrid
+			- categoryId: null
+			- startIndex: 0
+			- count: 10
+			- admin: true
+
+		Valor retorno:
+			- Lista de eventos relacionados con "Madrid"
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-005 PR-UN-022
+
+		EventDao - findEvents
+
+		Motivación: Obtener todos los eventos cuyo nombre tenga "Madrid", buscando con parte del nombre
+
+		Parámetros:
+			- keyWords: adri
+			- categoryId: null
+			- startIndex: 0
+			- count: 10
+			- admin: true
+
+		Valor retorno:
+			- Lista de eventos relacionados con "Madrid"
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-005 PR-UN-023
+
+		EventDao - findEvents
+
+		Motivación: Obtener los eventos "Real Madrid - Barcelona", buscando en mayúsculas
+
+		Parámetros:
+			- keyWords: MADRID - BARCELONA
+			- categoryId: null
+			- startIndex: 0
+			- count: 10
+			- admin: true
+
+		Valor retorno:
+			- Lista de eventos "Real Madrid - Barcelona"
+
+		Inicialización:
+			-
+
+	---------------------------------------------------------
+
+		CU-005 PR-UN-024
+
+		EventDao - findEvents
+
+		Motivación: Obtener los eventos "Real Madrid - Barcelona", buscando con diferente orden
+
+		Parámetros:
+			- keyWords: BARCELONA - MADRID
+			- categoryId: null
+			- startIndex: 0
+			- count: 10
+			- admin: true
+
+		Valor retorno:
+			- Lista de eventos "Real Madrid - Barcelona"
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-005 PR-UN-025
+
+		EventDao - findEvents
+
+		Motivación: No obtener resultados coincidentes, buscando por palabras clave no coincidentes
+
+		Parámetros:
+			- keyWords: BarcMad
+			- categoryId: null
+			- startIndex: 0
+			- count: 10
+			- admin: true
+
+		Valor retorno:
+			- Lista vacía
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-005 PR-UN-026
+
+		EventDao - findEvents
+
+		Motivación: Obtener los eventos "Real Madrid" únicamente de baloncesto
+
+		Parámetros:
+			- keyWords: Madrid
+			- categoryId: null
+			- startIndex: 0
+			- count: 10
+			- admin: true
+
+		Valor retorno:
+			- Lista de eventos del Real Madrid de baloncesto
+
+		Inicialización:
+			- 
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-006 findDuplicates
+
+EventDao 
+
+Parámetros:
+	- fullName: nombre del evento
+
+Excepciones:
+	- NA
+
+Valor retorno:
+	- Valor booleano según si existen más eventos con el mismo nombre
+
+
+	public boolean findDuplicates(String fullName);
+
+	---------------------------------------------------------
+
+		CU-006 PR-UN-027
+
+		EventDao - findDuplicates
+
+		Motivación: Obtener valor true con nombre igual a evento existente
+
+		Parámetros:
+			- fullName: "Real Madrid - Barcelona"
+
+		Valor retorno:
+			- Valor true
+
+		Inicialización:
+			- 
+
+	---------------------------------------------------------
+
+		CU-006 PR-UN-028
+
+		EventDao - findDuplicates
+
+		Motivación: Obtener valor false porque no existe ningún evento con este nombre
+
+		Parámetros:
+			- fullName: "Barcelona - Madrid"
+
+		Valor retorno:
+			- Valor false
+
+		Inicialización:
+			- 
+

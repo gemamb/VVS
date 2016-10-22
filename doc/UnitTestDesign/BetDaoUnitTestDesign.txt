@@ -1,0 +1,146 @@
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-009 findBetsByUserId
+
+BetDao 
+
+Parámetros:
+	- key: clave primaria del usuario propietario de las apuestas
+	- startIndex: número que determina la paginación
+	- count: número total de eventos que devuelve el método
+
+Excepciones:
+	- NA
+
+Valor retorno:
+	- Lista con las apuestas del usuario
+
+
+	public List<Bet> findBetsByUserId(Long userId, int startIndex, int count);
+
+	---------------------------------------------------------
+
+		CU-009 PR-UN-033
+
+		BetDao - findBetsByUserId
+
+		Motivación: Obtener la lista de apuestas de un usuario
+
+		Parámetros:
+			- key: identificador de usuario con apuestas
+			- startIndex: 0
+			- count: 1
+
+		Valor retorno:
+			- Lista de apuestas pertenecientes al usuario
+
+		Inicialización:
+			-
+
+	---------------------------------------------------------
+
+		CU-009 PR-UN-034
+
+		BetDao - findBetsByUserId
+
+		Motivación: Obtener lista vacía si un usuario no tiene apuestas
+
+		Parámetros:
+			- key: identificador de usuario sin apuestas
+			- startIndex: 0
+			- count: 1
+
+		Valor retorno:
+			- Lista vacía
+
+		Inicialización:
+			-
+
+	---------------------------------------------------------
+
+		CU-009 PR-UN-035
+
+		BetDao - findBetsByUserId
+
+		Motivación: Obtener lista vacía si el usuario no existe
+
+		Parámetros:
+			- key: identificador de usuario no existente
+			- startIndex: 0
+			- count: 1
+
+		Valor retorno:
+			- Lista vacía
+
+		Inicialización:
+			-
+		
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-010 findBetsByUserIdNumber
+
+BetDao 
+
+Parámetros:
+	- key: clave primaria del usuario propietario de las apuestas
+
+Excepciones:
+	- NA
+
+Valor retorno:
+	- Número de apuestas del usuario
+
+
+	public int findBetsByUserIdNumber(Long userId);
+
+	---------------------------------------------------------
+
+		CU-010 PR-UN-036
+
+		BetDao - findBetsByUserId
+
+		Motivación: Obtener el número de apuestas de un usuario sin apuestas
+
+		Parámetros:
+			- key: identificador de usuario sin apuestas
+
+		Valor retorno:
+			- 0
+
+		Inicialización:
+			-
+
+	---------------------------------------------------------
+
+		CU-010 PR-UN-037
+
+		BetDao - findBetsByUserId
+
+		Motivación: Obtener el número de apuestas si el usuario no existe, siendo 0
+
+		Parámetros:
+			- key: identificador de usuario no existente
+
+		Valor retorno:
+			- 0
+
+		Inicialización:
+			-
+
+	---------------------------------------------------------
+
+		CU-010 PR-UN-038
+
+		BetDao - findBetsByUserId
+
+		Motivación: Obtener la lista de apuestas de un usuario
+
+		Parámetros:
+			- key: identificador de usuario con apuestas
+
+		Valor retorno:
+			- Número de apuestas pertenecientes al usuario
+
+		Inicialización:
+			-
+
