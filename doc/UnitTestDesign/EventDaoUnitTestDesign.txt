@@ -191,7 +191,8 @@ Valor retorno:
 			- Número de eventos existentes
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -210,7 +211,8 @@ Valor retorno:
 			- Número de eventos existentes con fecha posterior a la actual
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -229,8 +231,9 @@ Valor retorno:
 			- Número de eventos de Baloncesto
 
 		Inicialización:
-			- 
-
+			- Creación de dos categorías
+			- Creación de tres eventos
+			
 	---------------------------------------------------------
 
 		CU-004 PR-UN-010
@@ -248,7 +251,8 @@ Valor retorno:
 			- 0
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -267,7 +271,8 @@ Valor retorno:
 			- Número de eventos relacionados con "Madrid"
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -286,7 +291,8 @@ Valor retorno:
 			- Número de eventos relacionados con "Madrid"
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -305,7 +311,8 @@ Valor retorno:
 			- Número de eventos "Real Madrid - Barcelona"
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -324,7 +331,8 @@ Valor retorno:
 			- Número de eventos "Real Madrid - Barcelona"
 
 		Inicialización:
-			-
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -343,7 +351,8 @@ Valor retorno:
 			- 0
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -362,7 +371,8 @@ Valor retorno:
 			- Número de eventos del Real Madrid de baloncesto
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -405,7 +415,8 @@ Valor retorno:
 			- Lista de los eventos existentes
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -426,7 +437,8 @@ Valor retorno:
 			- Lista de los eventos existentes con fecha posterior a la actual
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -447,7 +459,8 @@ Valor retorno:
 			- Lista de los eventos de baloncesto
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -468,7 +481,8 @@ Valor retorno:
 			- Lista vacía
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -489,7 +503,8 @@ Valor retorno:
 			- Lista de eventos relacionados con "Madrid"
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -510,7 +525,8 @@ Valor retorno:
 			- Lista de eventos relacionados con "Madrid"
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -531,7 +547,8 @@ Valor retorno:
 			- Lista de eventos "Real Madrid - Barcelona"
 
 		Inicialización:
-			-
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -552,7 +569,8 @@ Valor retorno:
 			- Lista de eventos "Real Madrid - Barcelona"
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -573,7 +591,8 @@ Valor retorno:
 			- Lista vacía
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -594,7 +613,8 @@ Valor retorno:
 			- Lista de eventos del Real Madrid de baloncesto
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -629,7 +649,8 @@ Valor retorno:
 			- Valor true
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
 	---------------------------------------------------------
 
@@ -646,5 +667,6 @@ Valor retorno:
 			- Valor false
 
 		Inicialización:
-			- 
+			- Creación de dos categorías
+			- Creación de tres eventos
 
