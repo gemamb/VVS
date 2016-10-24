@@ -31,7 +31,7 @@ Valor retorno:
 			- lista con dos categorías almacenadas
 
 		Inicialización:
-			-
+			- Creación de dos categorías
 
 	---------------------------------------------------------
 
@@ -48,5 +48,5 @@ Valor retorno:
 			- Lista vacía
 
 		Inicialización:
-			-
+			- NA
 

@@ -108,7 +108,7 @@ Valor retorno:
 			- 0
 
 		Inicialización:
-			-
+			- Creación de un usuario sin apuestas
 
 	---------------------------------------------------------
 
@@ -125,7 +125,7 @@ Valor retorno:
 			- 0
 
 		Inicialización:
-			-
+			- NA
 
 	---------------------------------------------------------
 
@@ -142,5 +142,10 @@ Valor retorno:
 			- Número de apuestas pertenecientes al usuario
 
 		Inicialización:
-			-
+			- Creación de dos categorías
+			- Creación de tres eventos
+			- Creación de un tipo de apuesta perteneciente a uno de los eventos
+			- Creación de dos opciones de apuesta pertenecientes al tipo de apuesta creado
+			- Creación de dos apuestas, una a cada opción almacenada
+			- Creación de un usuario, creador de las dos apuestas
 
