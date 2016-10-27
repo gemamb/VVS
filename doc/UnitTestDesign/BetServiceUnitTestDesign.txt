@@ -1,0 +1,1243 @@
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-011 findEventsGetNumber
+
+BetServiceImpl 
+
+findEventsGetNumber: método que devuelve el número de eventos coincidentes con los parámetros de búsqueda.
+
+
+Parámetros:
+	- keyWords: palabras clave que tendrán que estar contenidas en el nombre de los eventos buscados
+	- categoryId: identificador de la categoría a la que pertenecen los eventos buscados
+	- admin: booleano que indica si la búsqueda se realiza para el usuario administrador o para un usuario normal. Si es admin se buscarán todos los eventos. En 			caso contrario sólo aquellos cuya fecha de inicio no haya pasado
+
+Excepciones:
+	- NA
+
+Valor retorno:
+	- Int: número de eventos que coinciden con los parámetros de búsqueda
+
+
+	public int findEventsGetNumber(String keywords, Long categoryId, boolean admin)
+
+
+	---------------------------------------------------------
+
+		CU-011 PR-UN-039
+
+		BetServiceImpl - findEventsGetNumber
+
+		Motivación: comprobar el método devuelve 0 cuando no hay eventos coincidentes con los parámetros de búsqueda
+
+		Parámetros:
+			- keyWords: null
+			- categoryId: null
+			- admin: true
+
+		Valor retorno: 0
+
+		Inicialización:
+
+	---------------------------------------------------------
+
+		CU-011 PR-UN-040
+
+		BetServiceImpl - findEventsGetNumber
+
+		Motivación: comprobar que se devuelve el número adecuado cuando hay eventos coincidentes con la búsqueda
+
+		Parámetros:
+			- keyWords: "deportivo"
+			- categoryId: null
+			- admin: true
+
+		Valor retorno: 1
+
+		Inicialización:
+			- Creación de un mock de eventDao que devuelva un evento coincidente con los parámetros de búsqueda
+
+	
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-012 findEvents
+
+BetServiceImpl 
+
+findEvents: método que realiza una búsqueda de eventos según distintos parámetros. Los resultados se devuelven ordenados por fecha.
+ 	Con los parámetros startIndex y count se indica el número de apuesta a partir de la que se devuelven resultados y el número máximo de los mismos.
+ 	Con el parámetro admin se indica si el usuario que invoca el método es el administrador de la aplicación o no.
+
+
+Parámetros:
+	- keyWords: palabras clave que tendrán que estar contenidas en el nombre de los eventos existentes
+	- categoryId: identificador de la categoría a la que pertenecen los eventos existentes
+	- startIndex posición a partir de la cual se empiezan a recuperar los eventos buscados
+	- count número máximo de eventos coincidentes con la búsqueda que se devuelve
+	- admin: booleano que indica si la búsqueda se realiza para el usuario administrador o para un usuario normal. Si es admin se buscarán todos los eventos. En 			caso contrario sólo aquellos cuya fecha de inicio no haya pasado
+
+Excepciones:
+	- NA
+
+Valor retorno:
+	- EventBlock objeto que contiene la lista de eventos ordenados y un booleano (exitsMoreEvents) indicando si existen más eventos después del último incluido en dicha lista
+
+
+	public EventBlock findEvents(String keyWords, Long categoryId, int startIndex, int count, boolean admin);
+
+
+	---------------------------------------------------------
+
+		CU-012 PR-UN-041
+
+		BetServiceImpl - findEvents
+
+		Motivación: comprobar que EventBlock devuelve una lista vacía y false pues no hay eventos coincidentes con la búsqueda (con startIndex al inicio)
+
+		Parámetros:
+			- keyWords: null
+			- categoryId: null
+			- startIndex: 0
+			- count: 1
+			- admin: true
+
+		Valor retorno:
+			- EventBlock con:
+				- Lista vacía de eventos
+				- ExitsMoreEvents valor false
+
+		Inicialización:
+			- Creación de dos categorías
+			- Creación de tres eventos
+			- Inicialización de un eventDaoMock que devuelva una lista vacía de eventos 
+
+	---------------------------------------------------------
+
+		CU-012 PR-UN-042
+
+		BetServiceImpl - findEvents
+
+		Motivación: comprobar que EventBlock devuelve una lista con un evento y false, no habiendo más eventos coincidentes con la búsqueda (con startIndex al inicio)
+
+		Parámetros:
+			- keyWords: null
+			- categoryId: null
+			- startIndex: 0
+			- count: 1
+			- admin: true
+
+		Valor retorno:
+			- EventBlock con:
+				- Lista con un evento coincidente con la búsqueda
+				- ExitsMoreEvents valor false
+
+		Inicialización:
+			- Creación de dos categorías
+			- Creación de un evento
+			- Inicialización de un eventDaoMock que devuelva una lista de un evento
+
+	---------------------------------------------------------
+
+		CU-012 PR-UN-043
+
+		BetServiceImpl - findEvents
+
+		Motivación: comprobar que EventBlock devuelve una lista de dos eventos y true, habiendo más eventos coincidentes con la búsqueda (con startIndex al inicio)
+
+		Parámetros:
+			- keyWords: null
+			- categoryId: null
+			- startIndex: 0
+			- count: 1
+			- admin: true
+
+		Valor retorno:
+			- EventBlock con:
+				- Lista con dos eventos coincidentes con la búsqueda
+				- ExitsMoreEvents valor true
+
+		Inicialización:
+			- Creación de dos categorías
+			- Creación de tres eventos
+			- Inicialización de un eventDaoMock que devuelva una lista de dos eventos	
+
+	---------------------------------------------------------
+
+		CU-012 PR-UN-044
+
+		BetServiceImpl - findEvents
+
+		Motivación: comprobar que EventBlock devuelve una lista de dos eventos y false, no habiendo más eventos coincidentes con la búsqueda (con startIndex al inicio)
+
+		Parámetros:
+			- keyWords: null
+			- categoryId: null
+			- startIndex: 1
+			- count: 2
+			- admin: true
+
+		Valor retorno:
+			- EventBlock con:
+				- Lista con dos eventos coincidentes con la búsqueda
+				- ExitsMoreEvents valor false
+
+		Inicialización:
+			- Creación de dos categorías
+			- Creación de tres eventos
+			- Inicialización de un eventDaoMock que devuelva una lista de dos eventos	
+
+	---------------------------------------------------------
+
+		CU-012 PR-UN-045
+
+		BetServiceImpl - findEvents
+
+		Motivación: comprobar que EventBlock devuelve una lista de tres eventos y true, no habiendo más eventos coincidentes con la búsqueda (con startIndex al inicio)
+
+		Parámetros:
+			- keyWords: null
+			- categoryId: null
+			- startIndex: 1
+			- count: 2
+			- admin: true
+
+		Valor retorno:
+			- EventBlock con:
+				- Lista con tres eventos coincidentes con la búsqueda
+				- ExitsMoreEvents valor true
+
+		Inicialización:
+			- Creación de dos categorías
+			- Creación de tres eventos
+			- Inicialización de un eventDaoMock que devuelva una lista de tres eventos
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-013 findBets
+
+BetServiceImpl 
+
+findBets: método que realiza una búsqueda de apuestas por id de usuario. Los resultados se devuelven ordenados por fecha.
+ 	Con los parámetros startIndex y count se indica el número de apuesta a partir de la que se devuelven resultados y el número máximo de los mismos.
+
+
+Parámetros:
+	- userId: identificador del usuario propietario de las apuestas buscadas
+	- startIndex: posición a partir de la cual se empiezan a recuperar las apuestas buscadas
+	- count: número máximo de apuestas coincidentes con la búsqueda que se devuelve
+
+Excepciones:
+	- NA
+
+Valor retorno:
+	- BetBlock: objeto que contiene la lista de apuestas ordenadas y un boolean (exitsMoreBets) indicando si existen más después de la última apuesta incluida en dicha lista
+
+	public BetBlock findBets(Long userId,int startIndex, int count);
+
+
+	---------------------------------------------------------
+
+		CU-013 PR-UN-046
+
+		BetServiceImpl - findBets
+
+		Motivación: comprobar que BetBlock devuelve lista vacía y false si no hay apuestas coincidentes con la búsqueda (con startIndex al inicio)
+
+		Parámetros:
+			- userId: identificador de un usuario sin apuestas
+			- startIndex: 0
+			- count: 1
+
+		Valor retorno:
+			- EventBlock con:
+				- Lista vacía de apuestas
+				- ExitsMoreBets: false
+
+		Inicialización:
+			- Configuración de un mock de BetDao para que devuelva una lista vacía al invocar BetDao.findBetsByUserId()
+
+	---------------------------------------------------------
+		
+		CU-013 PR-UN-047
+
+		BetServiceImpl - findBets
+
+		Motivación: comprobar que BetBlock devuelve lista con las apuestas coincidentes y false (con startIndex al inicio)
+
+		Parámetros:
+			- userId: identificador de un usuario con una apuesta
+			- startIndex: 0
+			- count: 1
+
+		Valor retorno:
+			- EventBlock con:
+				- Lista con la apuesta coincidente con la búsqueda
+				- ExitsMoreBets: false
+
+		Inicialización:
+			- Configuración de un mock de BetDao para que devuelva una lista con un elemento al invocar BetDao.findBetsByUserId()
+
+	---------------------------------------------------------
+
+		CU-013 PR-UN-048
+
+		BetServiceImpl - findBets
+
+		Motivación: comprobar que BetBlock devuelve lista con las apuestas coincidentes y false (con startIndex al inicio)
+
+		Parámetros:
+			- userId: identificador de un usuario con una apuesta
+			- startIndex: 0
+			- count: 1
+
+		Valor retorno:
+			- EventBlock con:
+				- Lista con la apuesta coincidente con la búsqueda
+				- ExitsMoreBets: true
+
+		Inicialización:
+			- Configuración de un mock de BetDao para que devuelva una lista conuna lista con más de un elemento al invocar BetDao.findBetsByUserId()
+
+	---------------------------------------------------------
+		
+		CU-013 PR-UN-049
+
+		BetServiceImpl - findBets
+
+		Motivación: comprobar que BetBlock devuelve lista con las apuestas coincidentes y false (con startIndex en una posición distinta de la primera)
+
+		Parámetros:
+			- userId: identificador de un usuario con una apuesta
+			- startIndex: 1
+			- count: 2
+
+		Valor retorno:
+			- EventBlock con:
+				- Lista con la apuesta coincidente con la búsqueda
+				- ExitsMoreBets: false
+
+		Inicialización:
+			- Configuración de un mock de BetDao para que devuelva una lista con dos elementos al invocar BetDao.findBetsByUserId()
+
+	---------------------------------------------------------
+
+		CU-013 PR-UN-050
+
+		BetServiceImpl - findBets
+
+		Motivación: comprobar que BetBlock devuelve lista con las apuestas coincidentes y true (con startIndex en una posición distinta de la primera)
+
+		Parámetros:
+			- userId: identificador de un usuario con una apuesta
+			- startIndex: 1
+			- count: 2
+
+		Valor retorno:
+			- EventBlock con:
+				- Lista con la apuesta coincidente con la búsqueda
+				- ExitsMoreBets: true
+
+		Inicialización:
+			- Configuración de un mock de BetDao para que devuelva una lista con tres elementos al invocar BetDao.findBetsByUserId()
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-014 makeBet
+
+BetServiceImpl 
+
+
+Parámetros:
+	- userId: identificador del usuario que realiza la apuesta
+	- betOptionId: identificador de la opción escogida para apostar
+	- betedMoney: cantidad que decide el usuario apostar
+
+Excepciones:
+	- InstanceNotFoundException: salta cuando no se encuenta el usuario o la opción escogida
+	- OutdatedBetException: salta cuando el estado de la opción ya está modificado (marcada como ganada o perdida)
+
+Valor retorno:
+	- Apuesta realizada con éxito
+
+
+	public Bet makeBet(Long userId, Long betOptionId, Float betedMoney) throws InstanceNotFoundException, OutdatedBetException;
+
+
+	---------------------------------------------------------
+
+		CU-014 PR-UN-051
+
+		BetServiceImpl - makeBet
+
+		Motivación: obtener apuesta realizada correctamente
+
+		Parámetros:
+			- userId: identificador de un usuario existente
+			- betOptionId: identificador de la opción escogida para apostar
+			- betedMoney: cantidad negativa de dinero
+
+		Valor retorno:
+			- Apuesta realizada correctamente
+
+		Inicialización:
+			- Creación de un usuario
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Creación de tres opciones de apuesta válidas
+			- Inicialización de un userProfileDaoMock que devuelva el usuario creado
+			- Inicialización de un betOptionDaoMock que devuelva la opción de apuesta creada
+			- Inicialización de un betDaoMock que devuelva la apuesta creada
+
+	---------------------------------------------------------
+
+		CU-014 PR-UN-052
+
+		BetServiceImpl - makeBet
+
+		Motivación: obtener excepción InstanceNotFoundException por usuario no existente
+
+		Parámetros:
+			- userId: identificador de un usuario no existente
+			- betOptionId: identificador de la opción escogida para apostar
+			- betedMoney: cantidad que decide el usuario apostar
+
+		Valor retorno:
+			- InstanceNotFoundException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Creación de tres opciones de apuesta válidas
+			- Inicialización de un userProfileDaoMock que devuelva InstanceNotFoundException
+			- Inicialización de un betOptionDaoMock que devuelva la opción de apuesta creada
+
+	---------------------------------------------------------
+
+		CU-014 PR-UN-053
+
+		BetServiceImpl - makeBet
+
+		Motivación: obtener excepción InstanceNotFoundException por opción de tipo apuesta no existente
+
+		Parámetros:
+			- userId: identificador de un usuario existente
+			- betOptionId: identificador de una opción de apuesta no existente
+			- betedMoney: cantidad que decide el usuario apostar
+
+		Valor retorno:
+			- InstanceNotFoundException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Inicialización de un userProfileDaoMock que devuelva el usuario creado
+			- Inicialización de un betOptionDaoMock que devuelva InstanceNotFoundException
+
+	---------------------------------------------------------
+
+		CU-014 PR-UN-054
+
+		BetServiceImpl - makeBet
+
+		Motivación: obtener excepción OutdatedBetException por la opción de apuesta ya marcada a ganadora
+
+		Parámetros:
+			- userId: identificador de un usuario existente
+			- betOptionId: identificador de la opción escogida para apostar, marcada como ganadora (true)
+			- betedMoney: cantidad que decide el usuario apostar
+
+		Valor retorno:
+			- OutdatedBetException
+
+		Inicialización:
+			- Creación de un usuario
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Creación de dos opciones de apuesta válidas
+			- Creación de una opción de apuesta marcada a ganadora
+			- Inicialización de un userProfileDaoMock que devuelva el usuario creado
+			- Inicialización de un betOptionDaoMock que devuelva la opción de apuesta creada
+			- Inicialización de un betDaoMock que devuelva la apuesta creada
+
+	---------------------------------------------------------
+
+		CU-014 PR-UN-055
+
+		BetServiceImpl - makeBet
+
+		Motivación: obtener excepción OutdatedBetException por la opción de apuesta ya marcada a perdida
+
+		Parámetros:
+			- userId: identificador de un usuario existente
+			- betOptionId: identificador de la opción escogida para apostar, marcada como perdida (falsa)
+			- betedMoney: cantidad que decide el usuario apostar
+
+		Valor retorno:
+			- OutdatedBetException
+
+		Inicialización:
+			- Creación de un usuario
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Creación de dos opciones de apuesta válidas
+			- Creación de una opción de apuesta marcada a perdida
+			- Inicialización de un userProfileDaoMock que devuelva el usuario creado
+			- Inicialización de un betOptionDaoMock que devuelva la opción de apuesta creada
+			- Inicialización de un betDaoMock que devuelva la apuesta creada
+
+	---------------------------------------------------------
+
+		CU-014 PR-UN-056
+
+		BetServiceImpl - makeBet
+
+		Motivación: TENEMOS QUE MODIFICAR EL CASO DE USO IMPLICADO
+
+		Parámetros:
+			- userId: identificador de un usuario existente
+			- betOptionId: identificador de la opción escogida para apostar
+			- betedMoney: cantidad negativa de dinero
+
+		Valor retorno:
+			- 
+
+		Inicialización:
+			- Creación de un usuario
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Creación de tres opciones de apuesta válidas
+			- Inicialización de un userProfileDaoMock que devuelva el usuario creado
+			- Inicialización de un betOptionDaoMock que devuelva la opción de apuesta creada
+			- Inicialización de un betDaoMock que devuelva la apuesta creada
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-015 insertEvent
+
+BetServiceImpl 
+
+
+Parámetros:
+	- event: identificador del usuario que realiza la apuesta
+	- categoryId: identificador de la opción escogida para apostar
+
+Excepciones:
+	- AlreadyPastedDateException: salta cuando se intenta crear un evento con fecha pasada
+	- InstanceNotFoundException: salta cuando no se encuentra la categoría a partir de su identificador
+	- DuplicateEventNameException: salta cuando se intenta insertar un evento con un nombre que ya existe
+
+Valor retorno:
+	- Evento creado con éxito
+
+
+	public Event insertEvent(Event event,Long categoryId) throws AlreadyPastedDateException, InstanceNotFoundException, DuplicateEventNameException;
+
+
+	---------------------------------------------------------
+
+		CU-015 PR-UN-057
+
+		BetServiceImpl - insertEvent
+
+		Motivación: obtener evento creado correctamente
+
+		Parámetros:
+			- event: evento inicializado
+			- categoryId: identificador de categoría existente
+
+		Valor retorno:
+			- Evento creado correctamente
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Inicialización de un categoryDaoMock que devuelva la categoría creada
+			- Inicialización de un eventDaoMock que devuelva el evento creado
+
+	---------------------------------------------------------
+
+		CU-015 PR-UN-058
+
+		BetServiceImpl - insertEvent
+
+		Motivación: obtener excepción AlreadyPastedDateException por intentar crear un evento con fecha pasada
+
+		Parámetros:
+			- event: evento inicializado con fecha pasada
+			- categoryId: identificador de categoría existente
+
+		Valor retorno:
+			- AlreadyPastedDateException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento con fecha pasada
+			- Inicialización de un categoryDaoMock que devuelva la categoría creada
+
+	---------------------------------------------------------
+
+		CU-015 PR-UN-059
+
+		BetServiceImpl - insertEvent
+
+		Motivación: obtener excepción DuplicateEventNameException por intentar crear un evento con el mismo nombre
+
+		Parámetros:
+			- event: evento inicializado con nombre ya existente
+			- categoryId: identificador de categoría existente
+
+		Valor retorno:
+			- DuplicateEventNameException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento con nombre ya existente
+			- Inicialización de un categoryDaoMock que devuelva la categoría creada
+			- Inicialización de un eventDaoMock que devuelva con valor true si existe algún evento con el mismo nombre
+
+	---------------------------------------------------------
+
+		CU-015 PR-UN-060
+
+		BetServiceImpl - insertEvent
+
+		Motivación: obtener excepción InstanceNotFoundException por obtenter una apuesta no existente
+
+		Parámetros:
+			- event: evento inicializado
+			- categoryId: identificador de categoría no existente
+
+		Valor retorno:
+			- InstanceNotFoundException
+
+		Inicialización:
+			- Creación de un evento válido
+			- Inicialización de un categoryDaoMock que devuelva InstanceNotFoundException
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-016 insertBetType
+
+BetServiceImpl 
+
+
+Parámetros:
+	- betType: tipo de apuesta inicializada
+
+Excepciones:
+	- DuplicateBetTypeQuestionException: salta cuando se intenta insertar un tipo de apuesta con una pregunta ya existente
+	- DuplicateBetOptionAnswerException: salta cuando se intenta insertar una opción de apuesta con una respuesta ya existente
+	- MinimunBetOptionException: salta cuando se intenta insertar un tipo de apuesta con menos de dos tipos de apuesta
+
+Valor retorno:
+	- Tipo de apuesta insertada con éxito
+
+
+	public BetType insertBetType(BetType betType) throws DuplicateBetTypeQuestionException, DuplicateBetOptionAnswerException, MinimunBetOptionException
+
+
+	---------------------------------------------------------
+
+		CU-016 PR-UN-061
+
+		BetServiceImpl - insertBetType
+
+		Motivación: obtener un tipo de apuesta insertada correctamente
+
+		Parámetros:
+			- betType: tipo de apuesta inicializada 
+
+		Valor retorno:
+			- Tipo de apuesta insertada correctamente
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Creación de tres opciones de apuesta válidas
+			- Inicialización de un categoryDaoMock que devuelva la categoría creada
+			- Inicialización de un betTypeDaoMock que devuelva el tipo de apuesta creado
+
+	---------------------------------------------------------
+
+		CU-016 PR-UN-062
+
+		BetServiceImpl - insertBetType
+
+		Motivación: obtener excepción MinimunBetOptionException por intentar insertar un tipo de apuesta sin ninguna opción de apuesta
+
+		Parámetros:
+			- betType: tipo de apuesta inicializada 
+
+		Valor retorno:
+			- MinimunBetOptionException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Inicialización de un categoryDaoMock que devuelva la categoría creada
+			- Inicialización de un betTypeDaoMock que devuelva el tipo de apuesta creado
+
+	---------------------------------------------------------
+
+		CU-016 PR-UN-063
+
+		BetServiceImpl - insertBetType
+
+		Motivación: obtener excepción MinimunBetOptionException por intentar insertar un tipo de apuesta con una opción de apuesta
+
+		Parámetros:
+			- betType: tipo de apuesta inicializada 
+
+		Valor retorno:
+			- MinimunBetOptionException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Inicialización de un categoryDaoMock que devuelva la categoría creada
+
+	---------------------------------------------------------
+
+		CU-016 PR-UN-064
+
+		BetServiceImpl - insertBetType
+
+		Motivación: obtener excepción DuplicateBetTypeQuestionException por intentar insertar un tipo de apuesta con un nombre ya existente
+
+		Parámetros:
+			- betType: tipo de apuesta inicializada con nombre ya existente
+
+		Valor retorno:
+			- DuplicateBetTypeQuestionException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Inicialización de un categoryDaoMock que devuelva la categoría creada
+			- Inicialización de un eventDaoMock que devuelva el evento creado
+			- Inicialización de un betTypeDaoMock que devuelva el valor true conforme existe otro tipo de apuesta con la misma pregunta
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+CU-017 findEvent
+BetServiceImpl 
+
+
+Parámetros:
+	- eventId: identificador de un evento
+
+Excepciones:
+	- InstanceNotFoundException: indica que no existe ningún evento con el identificador dado
+
+Valor retorno:
+	- Evento existente
+
+	public Event findEvent (Long Event) throws InstanceNotFoundException;
+
+	---------------------------------------------------------
+
+		CU-017 PR-UN-065
+
+		BetServiceImpl - findEvent
+
+		Motivación: obtener un evento a partir de su identificador
+
+		Parámetros:
+			- eventId: identificador de un evento existente
+
+		Valor retorno:
+			- Evento existente
+
+		Inicialización:
+			- Inicialización de un eventDaoMock que devuelva un evento
+			
+	---------------------------------------------------------
+
+		CU-017 PR-UN-066
+
+		BetServiceImpl - findEvent
+
+		Motivación: hacer que la aplicación rompa con InstanceNotFoundException
+
+		Parámetros:
+			- eventId: identificador de un evento no existente
+
+		Valor retorno:
+			- InstanceNotFoundException
+
+		Inicialización:
+			- Inicialización de un eventDaoMock que devuelva InstanceNotFoundException
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-018 findBetType
+
+BetServiceImpl 
+
+
+Parámetros:
+	- betTypeId: identificador de un tipo de apuesta
+
+Excepciones:
+	- InstanceNotFoundException: salta cuando no se encuentra un tipo apuesta a partir de su identificador
+
+Valor retorno:
+	- Tipo de apuesta existente
+
+
+	public BetType findBetType (Long betTypeId) throws InstanceNotFoundException;
+
+
+	---------------------------------------------------------
+
+		CU-018 PR-UN-067
+
+		BetServiceImpl - findBetType
+
+		Motivación: obtener el tipo de apuesta existente
+
+		Parámetros:
+			- betTypeId: identificador de un tipo apuesta existente
+
+		Valor retorno:
+			- Tipo de apuesta existente
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Inicialización de un betTypeDaoMock que devuelva el tipo apuesta creado
+			
+	---------------------------------------------------------
+
+		CU-018 PR-UN-068
+
+		BetServiceImpl - findBetType
+
+		Motivación: obtener excepción InstanceNotFoundException por obtenter un tipo apuesta no existente
+
+		Parámetros:
+			- betTypeId: identificador de una opción de tipo apuesta no existente
+
+		Valor retorno:
+			- InstanceNotFoundException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Inicialización de un betTypeDaoMock que devuelva InstanceNotFoundException
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-019 findBetOption
+
+BetServiceImpl 
+
+
+Parámetros:
+	- betOptionId: identificador de una opción de un tipo de apuesta
+
+Excepciones:
+	- InstanceNotFoundException: salta cuando no se encuentra la opción de tipo apuesta a partir de su identificador
+
+Valor retorno:
+	- Opción de tipo de apuesta existente
+
+
+	public BetOption findBetOption (Long betOptionId) throws InstanceNotFoundException;
+
+
+	---------------------------------------------------------
+
+		CU-019 PR-UN-069
+
+		BetServiceImpl - findBetOption
+
+		Motivación: obtener la opción de tipo de apuesta existente
+
+		Parámetros:
+			- betOptionId: identificador de una opción de tipo apuesta existente
+
+		Valor retorno:
+			- Opción de tipo de apuesta existente
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Creación de una opción de tipo apuesta
+			- Inicialización de un betOptionDaoMock que devuelva la opción de tipo apuesta creada
+
+	---------------------------------------------------------
+
+		CU-019 PR-UN-070
+
+		BetServiceImpl - findBetOption
+
+		Motivación: obtener excepción InstanceNotFoundException por obtenter una opción de tipo apuesta no existente
+
+		Parámetros:
+			- betOptionId: identificador de una opción de tipo apuesta no existente
+
+		Valor retorno:
+			- InstanceNotFoundException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Inicialización de un betOptionDaoMock que devuelva InstanceNotFoundException
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-020 checkOptions: caso de uso que recibe el id de un tipo de apuesta y una lista de ids de opciones de apuesta.
+	Las opciones de ese tipo de apuesta cuyo id está contenido en la lista se marcan como ganadoras (betState=true)
+
+BetServiceImpl
+
+
+Parámetros:
+	- betTypeId: identificador de un tipo de apuesta
+	- winned: lista de ids de opciones de apuesta
+
+Excepciones:
+	- InstanceNotFoundException: salta cuando no existe el tipo de apuesta indicado
+	- OnlyOneWonOptionException: salta cuando el tipo de apuesta es simple (sólo puede existir una opción ganadora) y la lista de ids de opciones tiene más de un elemento.
+	- NotAllOptionsExistsException: salta cuando alguno de los ids de las opciones de apuesta no pertenece al tipo de apuesta indicado.
+
+
+Valor retorno:
+	- Void
+
+
+	public void checkOptions (Long betTypeId, Set<Long> winned) 
+			throws InstanceNotFoundException, OnlyOneWonOptionException, NotAllOptionsExistsException;
+
+---------------------------------------------------------
+
+		CU-020 PR-UN-071
+
+		BetServiceImpl - checkOptions
+
+		Motivación: marcar como ganadora una opción de un tipo de apuesta simple
+
+		Parámetros:
+			- betTypeId: identificador de un tipo de apuesta simple
+			- winned: lista con el id de una opción de apuesta perteneciente al tipo de apuesta indicado.
+
+		Valor retorno:
+			- Void
+
+		Inicialización:
+			- Creación de un betTypeDaoMock que devuelva un tipo de apuesta simple con dos opciones al buscar por id.
+
+---------------------------------------------------------
+
+		CU-020 PR-UN-072
+
+		BetServiceImpl - checkOptions
+
+		Motivación:  marcar como ganadoras varias opciones de apuesta de un tipo de apuesta compuesto
+
+		Parámetros:
+			- betTypeId: identificador de un tipo de apuesta compuesto
+			- winned: lista con dos ids de opciones de apuesta
+		Valor retorno:
+			- Void
+
+		Inicialización:
+			- Creación de un betTypeDaoMock que devuelva un tipo de apuesta compuesto
+
+---------------------------------------------------------
+
+		CU-020 PR-UN-073
+
+		BetServiceImpl - checkOptions
+
+		Motivación: la aplicación rompe con NotAllOptionsExistsException al pasar un id de opción que no pertenece al tipo de apuesta dado
+		Parámetros:
+			- betTypeId: identificador de un tipo de apuesta simple
+			- winned: lista con un id de opción de apuesta que no pertenece al tipo de apuesta dado
+		Valor retorno:
+			- NotAllOptionsExistsException
+
+		Inicialización:
+			- Creación de un betTypeDaoMock que devuelva un tipo de apuesta simple
+
+---------------------------------------------------------
+
+		CU-020 PR-UN-074
+
+		BetServiceImpl - checkOptions
+
+		Motivación: la aplicación rompe con OnlyOneWonOptionException al pasar más de un id de opción ganadora para un tipo de apuesta simple
+
+		Parámetros:
+			- betTypeId: identificador de un tipo de apuesta simple
+			- winned: lista con dos ids de opciones
+
+		Valor retorno:
+			- OnlyOneWonOptionException
+
+		Inicialización:
+			- Creación de un betTypeDaoMock que devuelva un tipo de apuesta simple
+
+---------------------------------------------------------
+
+		CU-020 PR-UN-075
+
+		BetServiceImpl - checkOptions
+
+		Motivación: la aplicación rompe con InstanceNotFoundException al pasar un id de un tipo de apuesta no existente
+
+		Parámetros:
+			- betTypeId: identificador de un tipo de apuesta no existente
+			- winned: -
+		Valor retorno:
+			- InstanceNotFoundException
+
+		Inicialización:
+			- Creación de un betTypeDaoMock que devuelva InstanceNotFoundException
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-021 findCategory
+
+BetServiceImpl 
+
+
+Parámetros:
+	- categoryId: identificador de una categoría
+
+Excepciones:
+	- InstanceNotFoundException: salta cuando el método recibe un identificador de categoría que no existe
+
+Valor retorno:
+	- Categoría con el identificador dado
+
+
+	Category findCategory(Long categoryId) throws InstanceNotFoundException;
+
+
+	---------------------------------------------------------
+
+		CU-021 PR-UN-076
+
+		BetServiceImpl - findCategory
+
+		Motivación: obtener una categoría existente
+
+		Parámetros:
+			- categoriaId: identificador de una categoría existente
+
+		Valor retorno:
+			- Categoría con el id dado
+
+		Inicialización:
+			- Inicialización de un categoryDaoMock que devuelva una categoría
+
+	---------------------------------------------------------
+
+		CU-021 PR-UN-077
+
+		BetServiceImpl - findCategory
+
+		Motivación: la aplicación rompe con InstanceNotFoundException
+
+		Parámetros:
+			- categoriaId: identificador de una categoría que no existe
+
+		Valor retorno:
+			- InstanceNotFoundException
+
+		Inicialización:
+			- Inicialización de un categoryDaoMock que devuelva InstanceNotFoundException
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-022 findCategories
+
+BetServiceImpl 
+
+
+Parámetros:
+	- NA
+
+Excepciones:
+	- NA
+
+Valor retorno:
+	- Lista con las categorías existentes
+
+
+	public List<Category> findCategories();
+
+
+	---------------------------------------------------------
+
+		CU-022 PR-UN-078
+
+		BetServiceImpl - findCategories
+
+		Motivación: obtener una lista de las categorías existentes 
+
+		Parámetros:
+			- NA
+
+		Valor retorno:
+			- Lista de dos categorías
+
+		Inicialización:
+			- Creación de dos categorías
+			- Inicialización de un categoryDaoMock que devuelva la lista de categorías creadas
+
+	---------------------------------------------------------
+
+		CU-022 PR-UN-079
+
+		BetServiceImpl - findCategories
+
+		Motivación: obtener una lista vacía 
+
+		Parámetros:
+			- NA
+
+		Valor retorno:
+			- Lista vacía
+
+		Inicialización:
+			- Inicialización de un categoryDaoMock que devuelva la lista de categorías creadas (lista vacía)
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-023 findDuplicates
+
+BetServiceImpl 
+
+
+Parámetros:
+	- eventId: identificador de un evento existente
+	- fullName: nombre de la pregunta del tipo de apuesta
+
+Excepciones:
+	- NA
+
+Valor retorno:
+	- Valor booleano que indica si existe otro tipo de apuesta con el mismo nombre
+
+
+	public boolean findDuplicates(Long eventId, String fullName);
+
+
+	---------------------------------------------------------
+
+		CU-023 PR-UN-080
+
+		BetServiceImpl - findDuplicates
+
+		Motivación: obtener valor true
+
+		Parámetros:
+			- eventId: identificador de un evento creado
+			- fullName: nombre de un tipo de apuesta ya creada
+
+		Valor retorno:
+			- Valor true
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Inicialización de un eventDaoMock que devuelva el evento creado
+			- Inicialización de un betTypeDaoMock que devuelva el valor true conforme existe otro tipo de apuesta con la misma pregunta
+
+	---------------------------------------------------------
+
+		CU-023 PR-UN-081
+
+		BetServiceImpl - findDuplicates
+
+		Motivación: obtener valor false
+
+		Parámetros:
+			- eventId: identificador de un evento creado
+			- fullName: nombre de un tipo de apuesta no existente
+
+		Valor retorno:
+			- Valor false
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Inicialización de un eventDaoMock que devuelva el evento creado
+			- Inicialización de un betTypeDaoMock que devuelva el valor false conforme no existe otro tipo de apuesta con la misma pregunta
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CU-024 findBetByUserIdNumber
+
+BetServiceImpl 
+
+findBetByUserIdNumber: método que devuelve el número de apuestas de un usuario.
+
+
+Parámetros:
+	- userId: identificador de usuario
+
+Excepciones:
+	- NA
+
+Valor retorno:
+	- Int: número de apuestas del usuario dado
+
+
+	public int findBetsByUserIdNumber(Long userId);
+
+
+	---------------------------------------------------------
+
+		CU-024 PR-UN-082
+
+		BetServiceImpl - findBetByUserIdNumber
+
+		Motivación: comprobar el método devuelve 0 cuando el usuario no ha realizado apuestas
+
+		Parámetros:
+			- userId: identificador de usuario sin apuestas
+
+
+		Valor retorno: 0
+
+		Inicialización:
+			- Inicialización de un betDaoMock que devuelva 0 al invocar findBetsByUserIdNumber
+
+	---------------------------------------------------------
+		
+		CU-024 PR-UN-083
+
+		BetServiceImpl - findBetByUserIdNumber
+
+		Motivación: comprobar el método devuelve el número de apuestas del usuario
+
+		Parámetros:
+			- userId: identificador de usuario con una apuesta
+
+
+		Valor retorno: 0
+
+		Inicialización:
+			- Inicialización de un betDaoMock que devuelva 1 al invocar findBetsByUserIdNumber
