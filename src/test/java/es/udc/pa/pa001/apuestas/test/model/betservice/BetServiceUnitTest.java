@@ -76,39 +76,39 @@ public class BetServiceUnitTest {
 	BetOption betOptionDemo1, betOptionDemo2;
 	Bet betDemo1, betDemo2, betDemo3;
 
-	public void initializeUser() {
+	private void initializeUser() {
 		userProfileDemo = new UserProfile("pepe6", "XxXyYyZzZ", "Pepe", "García", "pepe6@gmail.com");
 	}
 
-	public void initializeDate() {
+	private void initializeDate() {
 		eventCalendar = Calendar.getInstance();
 		eventCalendar.set(2017, Calendar.AUGUST, 31);
 	}
 
-	public void initializeCategories() {
+	private void initializeCategories() {
 		categoryDemo = new Category("Baloncesto");
 		categoryDemo1 = new Category("Tenis");
 	}
 
-	public void initializeEvent() {
+	private void initializeEvent() {
 		eventDemo = new Event("Real Madrid - Barcelona", eventCalendar, categoryDemo);
 	}
 
-	public void initializeBetType() {
+	private void initializeBetType() {
 		betTypeDemo = new BetType("¿Qué equipo ganará el encuentro?", false);
 	}
 
-	public void initializeSimpleBetType() {
+	private void initializeSimpleBetType() {
 		betTypeDemo = new BetType("¿Qué equipo ganará el encuentro?", false);
 		betTypeDemo.setBetTypeId(1L);
 	}
 
-	public void initializeMultipleBetType() {
+	private void initializeMultipleBetType() {
 		betTypeDemo = new BetType("¿Qué equipo ganará el encuentro?", true);
 		betTypeDemo.setBetTypeId(1L);
 	}
 
-	public void initializeBetOptions() {
+	private void initializeBetOptions() {
 		betOptionDemo = new BetOption("Real Madrid CF", (float) 1.75, null, betTypeDemo);
 
 		betOptionDemo1 = new BetOption("Real Madrid CF", (float) 1.75, null, betTypeDemo);
@@ -116,7 +116,7 @@ public class BetServiceUnitTest {
 		betOptionDemo2 = new BetOption("Barcelona", (float) 1.5, null, betTypeDemo);
 	}
 
-	public void initializeCheckBetOptions() {
+	private void initializeCheckBetOptions() {
 		betOptionDemo = new BetOption("Real Madrid CF", (float) 1.75, null, betTypeDemo);
 		betOptionDemo.setBetOptionId(1L);
 
@@ -131,13 +131,13 @@ public class BetServiceUnitTest {
 		betTypeDemo.addBetOption(betOptionDemo2);
 	}
 
-	public void initializeEvents() {
+	private void initializeEvents() {
 		event1 = new Event("Real Madrid - Barcelona", eventCalendar, categoryDemo);
 		event2 = new Event("Obradoiro - Real Madrid", eventCalendar, categoryDemo);
 		event3 = new Event("Real Madrid - Celta", eventCalendar, categoryDemo);
 	}
 
-	public void initializeBets() {
+	private void initializeBets() {
 		betDemo1 = new Bet(1F, userProfileDemo, event1, betOptionDemo);
 		betDemo2 = new Bet(1F, userProfileDemo, event1, betOptionDemo1);
 		betDemo3 = new Bet(1F, userProfileDemo, event1, betOptionDemo2);
