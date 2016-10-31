@@ -1,0 +1,237 @@
+---------------------------------------------------------
+
+		PR-IN-001
+
+		BetServiceImpl - Escenario de creación de un evento
+
+	---------------------------------------------------------
+	
+		PR-IN-002
+
+		BetServiceImpl - Escenario de establecer opciones de apuesta ganadoras.
+
+	---------------------------------------------------------
+	
+		PR-IN-003
+
+		BetServiceImpl - Escenario de realización de una apuesta
+			Un usuario realiza una búsqueda de eventos, elige uno y realiza una apuesta por una
+			de sus opciones de apuesta. A continuación realiza una búsqueda de sus apuestas para
+			comprobar que existe la que acaba de realizar.
+		
+		Casos de uso implicados:
+			- findEvents
+			- makeBet
+			- findBets
+		
+		Inicialización:
+			- Creación de un usuario.
+			- Creación de dos categorías.
+			- Creación de tres eventos.
+			- Creación de un tipo de apuesta con dos opciones (que se asigna al event1).
+			
+	---------------------------------------------------------
+	
+		PR-IN-004
+
+		BetServiceImpl - Escenario de comprobación del estado de una apuesta
+			Un usuario realiza una apuesta. El administrador establece las opciones ganadoras
+			para ese tipo de apuesta. El usuario busca su apuesta realizada y comprueba el estado
+			que la opción por la que había apostado es ganadora.
+		
+		Casos de uso implicados:
+			- makeBet
+			- checkOptions
+			- findBets
+
+		Inicialización:
+			- Creación de un usuario.
+			- Creación de dos categorías.
+			- Creación de tres eventos.
+			- Creación de un tipo de apuesta con dos opciones (que se asigna al event1).
+	---------------------------------------------------------
+
+		PR-IN-014
+
+		BetServiceImpl - insertBetType
+
+		Motivación: insertar un tipo de apuesta correctamente
+
+		Parámetros:
+			- betType: tipo de apuesta inicializada con dos opciones de apuesta
+
+		Valor retorno:
+			- Tipo de apuesta insertada correctamente
+
+		Inicialización:
+			- Creación de una categoría en bd
+			- Creación de un evento en bd
+			- Creación de un tipo de apuesta
+			- Creación de dos opciones de apuesta válidas
+
+	---------------------------------------------------------
+
+		PR-IN-015
+
+		BetServiceImpl - insertBetType
+
+		Motivación: obtener excepción MinimunBetOptionException por intentar insertar un tipo de apuesta sin ninguna opción de apuesta
+
+		Parámetros:
+			- betType: tipo de apuesta inicializada 
+
+		Valor retorno:
+			- MinimunBetOptionException
+
+		Inicialización:
+			- Creación de una categoría en bd
+			- Creación de un evento en bd
+			- Creación de un tipo de apuesta
+
+	---------------------------------------------------------
+
+		PR-IN-016
+
+		BetServiceImpl - insertBetType
+
+		Motivación: obtener excepción MinimunBetOptionException por intentar insertar un tipo de apuesta con una opción de apuesta
+
+		Parámetros:
+			- betType: tipo de apuesta inicializada 
+
+		Valor retorno:
+			- MinimunBetOptionException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Inicialización de un categoryDaoMock que devuelva la categoría creada
+
+	---------------------------------------------------------
+
+		PR-IN-017
+
+		BetServiceImpl - insertBetType
+
+		Motivación: obtener excepción DuplicateBetOptionAnswerException por intentar insertar un tipo de apuesta con dos opciones iguales
+
+		Parámetros:
+			- betType: tipo de apuesta inicializada con dos opciones de apuesta iguales
+
+		Valor retorno:
+			- DuplicateBetOptionAnswerException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta con dos opciones iguales
+			
+	---------------------------------------------------------
+
+		PR-IN-018
+
+		BetServiceImpl - insertBetType
+
+		Motivación: obtener excepción DuplicateBetTypeQuestionException por intentar insertar un tipo de apuesta con un nombre ya existente
+
+		Parámetros:
+			- betType: tipo de apuesta inicializada con nombre ya existente
+
+		Valor retorno:
+			- DuplicateBetTypeQuestionException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta en bd
+			- Inincialización de un tipo de apuesta con la misma pregunta que el anterior.
+
+---------------------------------------------------------
+
+		PR-IN-019
+
+		BetServiceImpl - checkOptions
+
+		Motivación: marcar como ganadora una opción de un tipo de apuesta simple
+
+		Parámetros:
+			- betTypeId: identificador de un tipo de apuesta simple
+			- winned: lista con el id de una opción de apuesta perteneciente al tipo de apuesta indicado.
+
+		Valor retorno:
+			- Void
+
+		Inicialización:
+			- Creación de un evento en bd.
+			- Creación de un tipo de apuesta simple con dos opciones en bd.
+---------------------------------------------------------
+
+		PR-IN-020
+
+		BetServiceImpl - checkOptions
+
+		Motivación:  marcar como ganadoras varias opciones de apuesta de un tipo de apuesta compuesto
+
+		Parámetros:
+			- betTypeId: identificador de un tipo de apuesta compuesto
+			- winned: lista con dos ids de opciones de apuesta
+		Valor retorno:
+			- Void
+
+		Inicialización:
+			- Creación de un evento en bd.
+			- Creación de un tipo de apuesta múltiple con dos opciones en bd.
+
+---------------------------------------------------------
+
+		PR-IN-021
+
+		BetServiceImpl - checkOptions
+
+		Motivación: la aplicación rompe con NotAllOptionsExistsException al pasar un id de opción que no pertenece al tipo de apuesta dado
+		Parámetros:
+			- betTypeId: identificador de un tipo de apuesta simple
+			- winned: lista con un id de opción de apuesta que no pertenece al tipo de apuesta dado
+		Valor retorno:
+			- NotAllOptionsExistsException
+
+		Inicialización:
+			- Creación de un evento en bd.
+			- Creación de un tipo de apuesta múltiple con dos opciones en bd.
+
+---------------------------------------------------------
+
+		PR-IN-022
+
+		BetServiceImpl - checkOptions
+
+		Motivación: la aplicación rompe con OnlyOneWonOptionException al pasar más de un id de opción ganadora para un tipo de apuesta simple
+
+		Parámetros:
+			- betTypeId: identificador de un tipo de apuesta simple
+			- winned: lista con dos ids de opciones de apuesta
+
+		Valor retorno:
+			- OnlyOneWonOptionException
+
+		Inicialización:
+			- Creación de un evento en bd.
+			- Creación de un tipo de apuesta simple con dos opciones en bd.
+
+---------------------------------------------------------
+
+		PR-IN-023
+
+		BetServiceImpl - checkOptions
+
+		Motivación: la aplicación rompe con InstanceNotFoundException al pasar un id de un tipo de apuesta no existente
+
+		Parámetros:
+			- betTypeId: identificador de un tipo de apuesta no existente
+			- winned: -
+		Valor retorno:
+			- InstanceNotFoundException
+
+		Inicialización:
+	

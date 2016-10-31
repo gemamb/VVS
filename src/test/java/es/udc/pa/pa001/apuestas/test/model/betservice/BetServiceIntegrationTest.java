@@ -73,7 +73,7 @@ public class BetServiceIntegrationTest {
 	Calendar eventCalendar;
 	Category category1, category2;
 	Event event1, event2, event3;
-	BetType betType;
+	BetType betType, duplicatedBetType;
 	BetOption betOption1, betOption2;
 	UserProfile user;
 
@@ -101,6 +101,21 @@ public class BetServiceIntegrationTest {
 		betType = new BetType("¿Qué equipo ganará el encuentro?", false);
 	}
 
+	private void initializeDuplicatedBetType() {
+		duplicatedBetType = new BetType("¿Qué equipo ganará el encuentro?", false);
+
+		BetOption option1, option2;
+		option1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
+		option2 = new BetOption("Barcelona", (float) 1.75, null, betType);
+
+		List<BetOption> betOptions = new ArrayList<>();
+		betOptions.add(option1);
+		betOptions.add(option2);
+
+		duplicatedBetType.setBetOptions(betOptions);
+		event1.addBetType(duplicatedBetType);
+	}
+
 	private void initializeBetOptions() {
 		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
 		betOption2 = new BetOption("Barcelona", (float) 1.75, null, betType);
@@ -116,21 +131,21 @@ public class BetServiceIntegrationTest {
 		betType.setBetOptions(options);
 	}
 
-	private void initializeBetTypeWithOneOption() {
-		betType = new BetType("¿Qué equipo ganará el encuentro?", false);
-		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
-		List<BetOption> options = new ArrayList<BetOption>();
-		options.add(betOption1);
-		betType.setBetOptions(options);
-	}
-
-	private void initializeBetTypeDuplicateOptions() {
+	private void initializeBetTypeDuplicatedBetOptions() {
 		betType = new BetType("¿Qué equipo ganará el encuentro?", false);
 		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
 		betOption2 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
 		List<BetOption> options = new ArrayList<BetOption>();
 		options.add(betOption1);
 		options.add(betOption2);
+		betType.setBetOptions(options);
+	}
+
+	private void initializeBetTypeWithOneOption() {
+		betType = new BetType("¿Qué equipo ganará el encuentro?", false);
+		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
+		List<BetOption> options = new ArrayList<BetOption>();
+		options.add(betOption1);
 		betType.setBetOptions(options);
 	}
 
@@ -756,7 +771,7 @@ public class BetServiceIntegrationTest {
 			DuplicateBetTypeQuestionException, DuplicateBetOptionAnswerException, MinimunBetOptionException {
 
 		initializeCreatedEvent();
-		initializeBetTypeDuplicateOptions();
+		initializeBetTypeDuplicatedBetOptions();
 		event1.addBetType(betType);
 
 		/* Insertamos tipo de apuesta */
@@ -767,6 +782,25 @@ public class BetServiceIntegrationTest {
 
 	/**
 	 * PR-UN-018
+	 */
+
+	@Test(expected = DuplicateBetTypeQuestionException.class)
+	public void testInsertBetTypeDuplicateQuestion()
+			throws AlreadyPastedDateException, InstanceNotFoundException, DuplicateEventNameException,
+			DuplicateBetTypeQuestionException, DuplicateBetOptionAnswerException, MinimunBetOptionException {
+
+		initializeCreatedEvent();
+		initializeCreatedBetType();
+		initializeDuplicatedBetType();
+
+		/* Insertamos tipo de apuesta */
+
+		betService.insertBetType(duplicatedBetType);
+
+	}
+
+	/**
+	 * PR-UN-019
 	 */
 
 	@Test
@@ -784,7 +818,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-UN-019
+	 * PR-UN-020
 	 */
 
 	@Test
@@ -803,7 +837,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-UN-020
+	 * PR-UN-021
 	 */
 
 	@Test(expected = NotAllOptionsExistsException.class)
@@ -821,7 +855,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-UN-021
+	 * PR-UN-022
 	 */
 
 	@Test(expected = OnlyOneWonOptionException.class)
@@ -839,7 +873,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-UN-022
+	 * PR-UN-023
 	 */
 
 	@Test(expected = InstanceNotFoundException.class)
