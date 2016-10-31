@@ -66,8 +66,12 @@
             	<!-- Clases java que tiene que testear este profile -->
 <!--             	<testClass1>BetServiceTest.java</testClass1> -->
 <!--             	<testClass2>UserServiceTest.java</testClass2> -->
-            	<testClass1>DaoUnitTest.java</testClass1>
-             	<testClass2>BetServiceUnitTest.java</testClass2> 
+            	<testClass1>CategoryDaoUnitTest.java</testClass1>
+            	<testClass2>EventDaoUnitTest.java</testClass2>
+            	<testClass3>BetTypeDaoUnitTest.java</testClass3>
+            	<testClass4>BetOptionDaoUnitTest.java</testClass4>
+            	<testClass5>BetDaoUnitTest.java</testClass5>
+             	<testClass6>BetServiceUnitTest.java</testClass6> 
             	
                 <!-- JDBC driver properties -->
                 <jdbcDriver.groupId>mysql</jdbcDriver.groupId>
@@ -470,6 +474,10 @@
 		        	<includes>
 		        		<include>${testClass1}</include>
 		        		<include>${testClass2}</include>
+		        		<include>${testClass3}</include>
+		        		<include>${testClass4}</include>
+		        		<include>${testClass5}</include>
+		        		<include>${testClass6}</include>
 		        	</includes>
 		        </configuration>
 			</plugin>

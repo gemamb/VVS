@@ -302,7 +302,7 @@ public class EventDaoUnitTest {
 
 		/* INVOCACION */
 
-		int result = eventDao.getNumberOfEvents(null, (long) 10, true);
+		int result = eventDao.getNumberOfEvents(null, 0L, true);
 
 		/* ASERCION */
 
@@ -521,6 +521,7 @@ public class EventDaoUnitTest {
 	 * PR-UN-020
 	 */
 
+	@Test
 	public void testfindEventsByWrongCategory() {
 
 		/* SETUP */

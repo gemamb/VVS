@@ -940,48 +940,6 @@ public class BetServiceUnitTest {
 
 	}
 
-	// @Test(expected = DuplicateBetTypeQuestionException.class)
-	// public void testInsertBetTypeDuplicateOption()
-	// throws AlreadyPastedDateException, InstanceNotFoundException,
-	// DuplicateEventNameException, DuplicateBetTypeQuestionException,
-	// DuplicateBetOptionAnswerException, MinimunBetOptionException {
-	//
-	// Calendar eventCalendar = Calendar.getInstance();
-	// eventCalendar.add(Calendar.MINUTE, 1);
-	//
-	// Category categoryDemo = new Category("Baloncesto");
-	//
-	// Event eventDemo = new Event("Real Madrid - Barcelona", eventCalendar,
-	// categoryDemo);
-	//
-	// when(categoryDaoMock.find(2L)).thenReturn(categoryDemo);
-	//
-	// betService.insertEvent(eventDemo, 2L);
-	//
-	// BetType betTypeDemo = new BetType("¿Qué equipo ganará el encuentro?",
-	// false);
-	//
-	// eventDemo.addBetType(betTypeDemo);
-	//
-	// BetOption betOptionDemo1 = new BetOption("Real Madrid CF",
-	// (float) 1.75, null, betTypeDemo);
-	//
-	// BetOption betOptionDemo2 = new BetOption("Barcelona", (float) 1.5,
-	// null, betTypeDemo);
-	//
-	// List<BetOption> betOptions = new ArrayList<>();
-	// betOptions.add(betOptionDemo1);
-	// betOptions.add(betOptionDemo2);
-	//
-	// betTypeDemo.setBetOptions(betOptions);
-	//
-	// when(eventDaoMock.find(1L)).thenReturn(eventDemo);
-	// when(betTypeDaoMock.findDuplicates(1L,"¿Qué equipo ganará el
-	// encuentro?")).thenReturn(true);
-	//
-	// betService.insertBetType(betTypeDemo);
-	// }
-
 	/**
 	 * PR-UN-076
 	 */
