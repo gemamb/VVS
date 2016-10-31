@@ -106,6 +106,34 @@ public class BetServiceIntegrationTest {
 		betOption2 = new BetOption("Barcelona", (float) 1.75, null, betType);
 	}
 
+	private void initializeBetTypeWithBetOptions() {
+		betType = new BetType("¿Qué equipo ganará el encuentro?", false);
+		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
+		betOption2 = new BetOption("Barcelona", (float) 1.75, null, betType);
+		List<BetOption> options = new ArrayList<BetOption>();
+		options.add(betOption1);
+		options.add(betOption2);
+		betType.setBetOptions(options);
+	}
+
+	private void initializeBetTypeWithOneOption() {
+		betType = new BetType("¿Qué equipo ganará el encuentro?", false);
+		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
+		List<BetOption> options = new ArrayList<BetOption>();
+		options.add(betOption1);
+		betType.setBetOptions(options);
+	}
+
+	private void initializeBetTypeDuplicateOptions() {
+		betType = new BetType("¿Qué equipo ganará el encuentro?", false);
+		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
+		betOption2 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
+		List<BetOption> options = new ArrayList<BetOption>();
+		options.add(betOption1);
+		options.add(betOption2);
+		betType.setBetOptions(options);
+	}
+
 	private void initializeUser() {
 		user = new UserProfile("pepe6", "XxXyYyZzZ", "Pepe", "García", "pepe6@gmail.com");
 		userProfileDao.save(user);
@@ -138,6 +166,25 @@ public class BetServiceIntegrationTest {
 	private void initializeCreatedBetType() {
 
 		initializeBetType();
+		initializeBetOptions();
+
+		List<BetOption> betOptions = new ArrayList<>();
+		betOptions.add(betOption1);
+		betOptions.add(betOption2);
+
+		betType.setBetOptions(betOptions);
+		event1.addBetType(betType);
+		betTypeDao.save(betType);
+
+		betOptionDao.save(betOption1);
+		betOptionDao.save(betOption2);
+
+		event1.addBetType(betType);
+	}
+
+	private void initializeCreatedMultipleBetType() {
+
+		betType = new BetType("¿Qué equipo ganará el encuentro?", true);
 		initializeBetOptions();
 
 		List<BetOption> betOptions = new ArrayList<>();
@@ -638,6 +685,172 @@ public class BetServiceIntegrationTest {
 		event1 = new Event("Real Madrid - Barcelona", eventCalendar, category1);
 
 		betService.insertEvent(event1, 2L);
+	}
+
+	/**
+	 * PR-UN-014
+	 */
+
+	@Test
+	public void testInsertBetType()
+			throws AlreadyPastedDateException, InstanceNotFoundException, DuplicateEventNameException,
+			DuplicateBetTypeQuestionException, DuplicateBetOptionAnswerException, MinimunBetOptionException {
+
+		initializeCreatedEvent();
+		initializeBetTypeWithBetOptions();
+		event1.addBetType(betType);
+
+		/* Insertamos tipo de apuesta */
+
+		BetType createdBetType = betService.insertBetType(betType);
+
+		assertEquals(betType, createdBetType);
+
+	}
+
+	/**
+	 * PR-UN-015
+	 */
+
+	@Test(expected = MinimunBetOptionException.class)
+	public void testInsertBetTypeWithoutOptions()
+			throws AlreadyPastedDateException, InstanceNotFoundException, DuplicateEventNameException,
+			DuplicateBetTypeQuestionException, DuplicateBetOptionAnswerException, MinimunBetOptionException {
+
+		initializeCreatedEvent();
+		initializeBetType();
+		event1.addBetType(betType);
+
+		/* Insertamos tipo de apuesta */
+
+		betService.insertBetType(betType);
+
+	}
+
+	/**
+	 * PR-UN-016
+	 */
+
+	@Test(expected = MinimunBetOptionException.class)
+	public void testInsertBetTypeWithOneOption()
+			throws AlreadyPastedDateException, InstanceNotFoundException, DuplicateEventNameException,
+			DuplicateBetTypeQuestionException, DuplicateBetOptionAnswerException, MinimunBetOptionException {
+
+		initializeCreatedEvent();
+		initializeBetTypeWithOneOption();
+		event1.addBetType(betType);
+
+		/* Insertamos tipo de apuesta */
+
+		betService.insertBetType(betType);
+
+	}
+
+	/**
+	 * PR-UN-017
+	 */
+
+	@Test(expected = DuplicateBetOptionAnswerException.class)
+	public void testInsertBetTypeDuplicateAnswer()
+			throws AlreadyPastedDateException, InstanceNotFoundException, DuplicateEventNameException,
+			DuplicateBetTypeQuestionException, DuplicateBetOptionAnswerException, MinimunBetOptionException {
+
+		initializeCreatedEvent();
+		initializeBetTypeDuplicateOptions();
+		event1.addBetType(betType);
+
+		/* Insertamos tipo de apuesta */
+
+		betService.insertBetType(betType);
+
+	}
+
+	/**
+	 * PR-UN-018
+	 */
+
+	@Test
+	public void testCheckOptionsSimpleBetType()
+			throws InstanceNotFoundException, OnlyOneWonOptionException, NotAllOptionsExistsException {
+
+		initializeCreatedEvent();
+		initializeCreatedBetType();
+
+		Set<Long> winners = new HashSet<Long>();
+		winners.add(betOption1.getBetOptionId());
+
+		betService.checkOptions(betType.getBetTypeId(), winners);
+
+	}
+
+	/**
+	 * PR-UN-019
+	 */
+
+	@Test
+	public void testCheckOptionsMultipleBetType()
+			throws InstanceNotFoundException, OnlyOneWonOptionException, NotAllOptionsExistsException {
+
+		initializeCreatedEvent();
+		initializeCreatedMultipleBetType();
+
+		Set<Long> winners = new HashSet<Long>();
+		winners.add(betOption1.getBetOptionId());
+		winners.add(betOption2.getBetOptionId());
+
+		betService.checkOptions(betType.getBetTypeId(), winners);
+
+	}
+
+	/**
+	 * PR-UN-020
+	 */
+
+	@Test(expected = NotAllOptionsExistsException.class)
+	public void testCheckInvalidOptions()
+			throws NotAllOptionsExistsException, InstanceNotFoundException, OnlyOneWonOptionException {
+
+		initializeCreatedEvent();
+		initializeCreatedBetType();
+		Long nonExistentBetOptionId = 0L;
+
+		Set<Long> winners = new HashSet<Long>();
+		winners.add(nonExistentBetOptionId);
+
+		betService.checkOptions(betType.getBetTypeId(), winners);
+	}
+
+	/**
+	 * PR-UN-021
+	 */
+
+	@Test(expected = OnlyOneWonOptionException.class)
+	public void testCheckMultipleOptionsSimpleBetType()
+			throws OnlyOneWonOptionException, InstanceNotFoundException, NotAllOptionsExistsException {
+
+		initializeCreatedEvent();
+		initializeCreatedBetType();
+
+		Set<Long> winners = new HashSet<Long>();
+		winners.add(betOption1.getBetOptionId());
+		winners.add(betOption2.getBetOptionId());
+
+		betService.checkOptions(betType.getBetTypeId(), winners);
+	}
+
+	/**
+	 * PR-UN-022
+	 */
+
+	@Test(expected = InstanceNotFoundException.class)
+	public void testCheckNonExistentBetTypeOption()
+			throws InstanceNotFoundException, OnlyOneWonOptionException, NotAllOptionsExistsException {
+
+		Long nonExistentBetTypeId = 0L;
+
+		Set<Long> winners = new HashSet<Long>();
+
+		betService.checkOptions(nonExistentBetTypeId, winners);
 	}
 
 }
