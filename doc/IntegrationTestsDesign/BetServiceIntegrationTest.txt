@@ -2,13 +2,43 @@
 
 		PR-IN-001
 
-		BetServiceImpl - Escenario de creación de un evento
+		BetServiceImpl - Escenario de creación un evento y un un tipo de apuesta con dos opciones asociado a él, 
+		siendo administrador. El administrador crea un evento, y posteriormente lo busca para comprobar si se ha
+		añadido con éxito. A continuación crea dos opciones de apuesta para un tipo de apuesta nuevo.
+
+		Casos de uso implicados:
+			- insertEvent
+			- findEvent
+			- insertBetType
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Creación de dos opciones de apuesta
 
 	---------------------------------------------------------
 	
 		PR-IN-002
 
-		BetServiceImpl - Escenario de establecer opciones de apuesta ganadoras.
+		BetServiceImpl - BetServiceImpl - Escenario de establecer como ganadora una de las opciones de apuesta 
+		asociada a un tipo de apuesta de un evento.
+		El administrador crea un evento, y posteriormente lo busca para comprobar si se ha añadido con éxito. 
+		A continuación crea dos opciones de apuesta para un tipo de apuesta nuevo.
+		Por último, establece como ganadora una de las opciones de apuesta, quedando la restante como perdida. 
+		Tras esta operación, el administrador consulta el estado de las opciones para comprobar el éxito previo.
+
+		Casos de uso implicados:
+			- insertEvent
+			- findEvent
+			- insertBetType
+			- checkWinners
+		
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Creación de dos opciones de apuesta
 
 	---------------------------------------------------------
 	
@@ -49,9 +79,224 @@
 			- Creación de dos categorías.
 			- Creación de tres eventos.
 			- Creación de un tipo de apuesta con dos opciones (que se asigna al event1).
+			
+	---------------------------------------------------------
+
+		PR-IN-005
+
+		BetServiceImpl - makeBet
+
+		Motivación: obtener apuesta realizada correctamente
+
+		Parámetros:
+			- userId: identificador de un usuario existente
+			- betOptionId: identificador de la opción escogida para apostar
+			- betedMoney: cantidad negativa de dinero
+
+		Valor retorno:
+			- Apuesta realizada correctamente
+
+		Inicialización:
+			- Creación de un usuario
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Creación de tres opciones de apuesta válidas
+
+	---------------------------------------------------------
+
+		PR-IN-006
+
+		BetServiceImpl - makeBet
+
+		Motivación: obtener excepción InstanceNotFoundException por usuario no existente
+
+		Parámetros:
+			- userId: identificador de un usuario no existente
+			- betOptionId: identificador de la opción escogida para apostar
+			- betedMoney: cantidad que decide el usuario apostar
+
+		Valor retorno:
+			- InstanceNotFoundException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Creación de tres opciones de apuesta válidas
+
+	---------------------------------------------------------
+
+		PR-IN-007
+
+		BetServiceImpl - makeBet
+
+		Motivación: obtener excepción InstanceNotFoundException por opción de tipo apuesta no existente
+
+		Parámetros:
+			- userId: identificador de un usuario existente
+			- betOptionId: identificador de una opción de apuesta no existente
+			- betedMoney: cantidad que decide el usuario apostar
+
+		Valor retorno:
+			- InstanceNotFoundException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+
+	---------------------------------------------------------
+
+		PR-IN-008
+
+		BetServiceImpl - makeBet
+
+		Motivación: obtener excepción OutdatedBetException por la opción de apuesta ya marcada a ganadora
+
+		Parámetros:
+			- userId: identificador de un usuario existente
+			- betOptionId: identificador de la opción escogida para apostar, marcada como ganadora (true)
+			- betedMoney: cantidad que decide el usuario apostar
+
+		Valor retorno:
+			- OutdatedBetException
+
+		Inicialización:
+			- Creación de un usuario
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Creación de dos opciones de apuesta válidas
+			- Creación de una opción de apuesta marcada a ganadora
+
+	---------------------------------------------------------
+
+		PR-IN-009
+
+		BetServiceImpl - makeBet
+
+		Motivación: obtener excepción OutdatedBetException por la opción de apuesta ya marcada a perdida
+
+		Parámetros:
+			- userId: identificador de un usuario existente
+			- betOptionId: identificador de la opción escogida para apostar, marcada como perdida (falsa)
+			- betedMoney: cantidad que decide el usuario apostar
+
+		Valor retorno:
+			- OutdatedBetException
+
+		Inicialización:
+			- Creación de un usuario
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Creación de dos opciones de apuesta válidas
+			- Creación de una opción de apuesta marcada a perdida
+
+	---------------------------------------------------------
+
+		PR-IN-010
+
+		BetServiceImpl - makeBet
+
+		Motivación: TENEMOS QUE MODIFICAR EL CASO DE USO IMPLICADO
+
+		Parámetros:
+			- userId: identificador de un usuario existente
+			- betOptionId: identificador de la opción escogida para apostar
+			- betedMoney: cantidad negativa de dinero
+
+		Valor retorno:
+			- 
+
+		Inicialización:
+			- Creación de un usuario
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Creación de tres opciones de apuesta válidas
+			
+	---------------------------------------------------------
+
+		PR-IN-011
+
+		BetServiceImpl - insertEvent
+
+		Motivación: obtener evento creado correctamente
+
+		Parámetros:
+			- event: evento inicializado
+			- categoryId: identificador de categoría existente
+
+		Valor retorno:
+			- Evento creado correctamente
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+
+	---------------------------------------------------------
+
+		PR-IN-012
+
+		BetServiceImpl - insertEvent
+
+		Motivación: obtener excepción AlreadyPastedDateException por intentar crear un evento con fecha pasada
+
+		Parámetros:
+			- event: evento inicializado con fecha pasada
+			- categoryId: identificador de categoría existente
+
+		Valor retorno:
+			- AlreadyPastedDateException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento con fecha pasada
+
+	---------------------------------------------------------
+
+		PR-IN-013
+
+		BetServiceImpl - insertEvent
+
+		Motivación: obtener excepción DuplicateEventNameException por intentar crear un evento con el mismo nombre
+
+		Parámetros:
+			- event: evento inicializado con nombre ya existente
+			- categoryId: identificador de categoría existente
+
+		Valor retorno:
+			- DuplicateEventNameException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento con nombre ya existente
+			- Inicialización de un categoryDaoMock que devuelva la categoría creada
+			- Inicialización de un eventDaoMock que devuelva con valor true si existe algún evento con el mismo nombre
+
 	---------------------------------------------------------
 
 		PR-IN-014
+
+		BetServiceImpl - insertEvent
+
+		Motivación: obtener excepción InstanceNotFoundException por obtenter una apuesta no existente
+
+		Parámetros:
+			- event: evento inicializado
+			- categoryId: identificador de categoría no existente
+
+		Valor retorno:
+			- InstanceNotFoundException
+
+		Inicialización:
+			- Creación de un evento válido
+	
+	---------------------------------------------------------
+
+		PR-IN-015
 
 		BetServiceImpl - insertBetType
 
@@ -71,7 +316,7 @@
 
 	---------------------------------------------------------
 
-		PR-IN-015
+		PR-IN-016
 
 		BetServiceImpl - insertBetType
 
@@ -90,7 +335,7 @@
 
 	---------------------------------------------------------
 
-		PR-IN-016
+		PR-IN-017
 
 		BetServiceImpl - insertBetType
 
@@ -110,7 +355,7 @@
 
 	---------------------------------------------------------
 
-		PR-IN-017
+		PR-IN-018
 
 		BetServiceImpl - insertBetType
 
@@ -129,7 +374,7 @@
 			
 	---------------------------------------------------------
 
-		PR-IN-018
+		PR-IN-019
 
 		BetServiceImpl - insertBetType
 
@@ -147,9 +392,9 @@
 			- Creación de un tipo de apuesta en bd
 			- Inincialización de un tipo de apuesta con la misma pregunta que el anterior.
 
----------------------------------------------------------
+	---------------------------------------------------------
 
-		PR-IN-019
+		PR-IN-020
 
 		BetServiceImpl - checkOptions
 
@@ -165,9 +410,9 @@
 		Inicialización:
 			- Creación de un evento en bd.
 			- Creación de un tipo de apuesta simple con dos opciones en bd.
----------------------------------------------------------
+	---------------------------------------------------------
 
-		PR-IN-020
+		PR-IN-021
 
 		BetServiceImpl - checkOptions
 
@@ -183,9 +428,9 @@
 			- Creación de un evento en bd.
 			- Creación de un tipo de apuesta múltiple con dos opciones en bd.
 
----------------------------------------------------------
+	---------------------------------------------------------
 
-		PR-IN-021
+		PR-IN-022
 
 		BetServiceImpl - checkOptions
 
@@ -200,9 +445,9 @@
 			- Creación de un evento en bd.
 			- Creación de un tipo de apuesta múltiple con dos opciones en bd.
 
----------------------------------------------------------
+	---------------------------------------------------------
 
-		PR-IN-022
+		PR-IN-023
 
 		BetServiceImpl - checkOptions
 
@@ -219,9 +464,9 @@
 			- Creación de un evento en bd.
 			- Creación de un tipo de apuesta simple con dos opciones en bd.
 
----------------------------------------------------------
+	---------------------------------------------------------
 
-		PR-IN-023
+		PR-IN-024
 
 		BetServiceImpl - checkOptions
 

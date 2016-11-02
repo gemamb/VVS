@@ -259,7 +259,14 @@ public class BetServiceIntegrationTest {
 		event1.addBetType(betType);
 
 		betType = betService.insertBetType(betType);
+		
+		BetType betTypeAssert = betTypeDao.find(betType.getBetTypeId());
+		BetOption betOption1Assert = betOptionDao.find(betOption1.getBetOptionId());
+		BetOption betOption2Assert = betOptionDao.find(betOption2.getBetOptionId());
 
+		assertEquals(betType, betTypeAssert);
+		assertEquals(betOption1, betOption1Assert);
+		assertEquals(betOption2, betOption2Assert);
 	}
 
 	/**
@@ -484,7 +491,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-IN-006
+	 * PR-IN-007
 	 */
 
 	@Test(expected = InstanceNotFoundException.class)
@@ -516,7 +523,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-IN-007
+	 * PR-IN-008
 	 */
 
 	@Test(expected = OutdatedBetException.class)
@@ -556,7 +563,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-IN-008
+	 * PR-IN-009
 	 */
 
 	@Test(expected = OutdatedBetException.class)
@@ -596,7 +603,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-IN-009
+	 * PR-IN-010
 	 */
 
 	@Test
@@ -628,7 +635,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-IN-010
+	 * PR-IN-011
 	 */
 
 	@Test
@@ -649,7 +656,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-IN-011
+	 * PR-IN-012
 	 */
 
 	@Test(expected = AlreadyPastedDateException.class)
@@ -669,7 +676,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-UN-012
+	 * PR-UN-013
 	 */
 
 	@Test(expected = DuplicateEventNameException.class)
@@ -687,7 +694,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-UN-013
+	 * PR-UN-014
 	 */
 
 	@Test(expected = InstanceNotFoundException.class)
@@ -703,7 +710,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-UN-014
+	 * PR-UN-015
 	 */
 
 	@Test
@@ -724,7 +731,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-UN-015
+	 * PR-UN-016
 	 */
 
 	@Test(expected = MinimunBetOptionException.class)
@@ -743,7 +750,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-UN-016
+	 * PR-UN-017
 	 */
 
 	@Test(expected = MinimunBetOptionException.class)
@@ -762,7 +769,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-UN-017
+	 * PR-UN-018
 	 */
 
 	@Test(expected = DuplicateBetOptionAnswerException.class)
@@ -781,7 +788,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-UN-018
+	 * PR-UN-019
 	 */
 
 	@Test(expected = DuplicateBetTypeQuestionException.class)
@@ -800,7 +807,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-UN-019
+	 * PR-UN-020
 	 */
 
 	@Test
@@ -818,7 +825,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-UN-020
+	 * PR-UN-021
 	 */
 
 	@Test
@@ -837,7 +844,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-UN-021
+	 * PR-UN-022
 	 */
 
 	@Test(expected = NotAllOptionsExistsException.class)
@@ -855,7 +862,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-UN-022
+	 * PR-UN-023
 	 */
 
 	@Test(expected = OnlyOneWonOptionException.class)
@@ -873,7 +880,7 @@ public class BetServiceIntegrationTest {
 	}
 
 	/**
-	 * PR-UN-023
+	 * PR-UN-024
 	 */
 
 	@Test(expected = InstanceNotFoundException.class)

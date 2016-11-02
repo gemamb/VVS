@@ -68,6 +68,8 @@
 				<testClass4>BetOptionDaoUnitTest.java</testClass4>
 				<testClass5>BetDaoUnitTest.java</testClass5>
 				<testClass6>BetServiceUnitTest.java</testClass6>
+				<testClass7>BetServiceIntegrationTest.java</testClass7>
+				<testClass8>BetServiceAleatoryIntegrationTest.java</testClass8>
 
 				<!-- JDBC driver properties -->
 				<jdbcDriver.groupId>mysql</jdbcDriver.groupId>
