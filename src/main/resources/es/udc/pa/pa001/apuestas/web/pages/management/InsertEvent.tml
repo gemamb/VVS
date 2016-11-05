@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter"
-		t:type="Layout" t:title="title">
-	
-	<form t:type="Form" class="form-horizontal" t:id="insertEventForm">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:title="title">
 
-	<t:errors/>
+<form t:type="Form" class="form-horizontal" t:id="insertEventForm">
 
-    <div class="form-group">
-    	<t:label for="name" class="col-md-offset-3 col-md-2"/>
-        <div class="col-md-3">
-        	<input t:type="TextField" t:id="name" 
-			       t:validate="required" size="30" maxlength="30" />
-        </div>
-    </div>
-	 
-    <div class="form-group">
-        <t:label for="eventStart" class="col-md-offset-3 col-md-2"/>
-        <div class="col-md-3">
-			<input t:type="DateField" t:id="eventStart" t:format="prop:dateInFormatStr" t:validate="required"/>
-        </div>
-    </div>
-  
-  	<div class="form-group">
-        <t:label for="timeStart" class="col-md-offset-3 col-md-2"/>
-        <div class="col-md-3">
-			<input t:type="TextField" t:id="timeStart" t:format="prop:hoursInFormatStr" t:validate="required"/>
-        </div>
-    </div>
-    
-  	<div class="form-group">
-        <t:label for="category" class="col-md-offset-3 col-md-2"/>
-        <div class="col-md-3">
-        	<t:select t:id="category" model="categories" t:validate="required"/>
-        </div>
-        
-    	</div>
-    	
-    <div class="form-group">
-    	<div class="col-md-offset-5 col-md-1">
-    		<button type="submit" class="btn btn-primary">${message:create}</button>
+	<t:errors />
+
+	<div class="form-group">
+		<t:label for="name" class="col-md-offset-3 col-md-2" />
+		<div class="col-md-3">
+			<input t:type="TextField" t:id="name" t:validate="required" size="30"
+				maxlength="30" />
 		</div>
-    </div>
+	</div>
+
+	<div class="form-group">
+		<t:label for="eventStart" class="col-md-offset-3 col-md-2" />
+		<div class="col-md-3">
+			<input t:type="DateField" t:id="eventStart"
+				t:format="prop:dateInFormatStr" t:validate="required" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<t:label for="timeStart" class="col-md-offset-3 col-md-2" />
+		<div class="col-md-3">
+			<input t:type="TextField" t:id="timeStart"
+				t:format="prop:hoursInFormatStr" t:validate="required" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<t:label for="category" class="col-md-offset-3 col-md-2" />
+		<div class="col-md-3">
+			<t:select t:id="category" model="categories" t:validate="required" />
+		</div>
+
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-offset-5 col-md-1">
+			<button type="submit" class="btn btn-primary">${message:create}</button>
+		</div>
+	</div>
 
 </form>
 

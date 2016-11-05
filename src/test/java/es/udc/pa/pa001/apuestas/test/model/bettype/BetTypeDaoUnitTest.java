@@ -43,7 +43,8 @@ public class BetTypeDaoUnitTest {
 	Bet bet1, bet2;
 
 	private void initializeEvent() {
-		event1 = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
+		event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
+				category1);
 		sessionFactory.getCurrentSession().saveOrUpdate(event1);
 	}
 
@@ -71,7 +72,8 @@ public class BetTypeDaoUnitTest {
 		initializeEventWithBetType();
 
 		/* INVOCACION */
-		boolean duplicates = betTypeDao.findDuplicates(event1.getEventId(), "¿Que jugador marcara el primer gol?");
+		boolean duplicates = betTypeDao.findDuplicates(event1.getEventId(),
+				"¿Que jugador marcara el primer gol?");
 
 		/* ASERCION */
 		assertTrue(duplicates);
@@ -90,7 +92,8 @@ public class BetTypeDaoUnitTest {
 		initializeEventWithBetType();
 
 		/* INVOCACION */
-		boolean duplicates = betTypeDao.findDuplicates(event1.getEventId(), "Bla bla bla");
+		boolean duplicates = betTypeDao.findDuplicates(event1.getEventId(),
+				"Bla bla bla");
 
 		/* ASERCION */
 		assertFalse(duplicates);

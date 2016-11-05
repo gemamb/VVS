@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter" t:type="Layout" t:title="title">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:title="title">
 
 <t:if test="event">
 	<div class="container-fluid">
@@ -17,13 +18,14 @@
 				</tr>
 				<tr>
 					<th>${message:eventDate-label}</th>
-					<td><t:output value="event.eventStart.time" format="formatDate" /></td>
+					<td><t:output value="event.eventStart.time"
+							format="formatDate" /></td>
 				</tr>
 			</tbody>
 		</table>
 
 		<t:if test="betTypes">
-				
+
 			<table class="table table-striped table-hover">
 
 				<thead>
@@ -34,20 +36,22 @@
 
 				<tbody>
 					<tr t:type="Loop" t:source="betTypes" t:value="betType">
-						<td><a href="#" id="betTypeLink" t:type="PageLink" t:page="search/options" t:context="betType.betTypeId"> ${betType.question} </a></td>
+						<td><a href="#" id="betTypeLink" t:type="PageLink"
+							t:page="search/options" t:context="betType.betTypeId">
+								${betType.question} </a></td>
 					</tr>
 				</tbody>
 
 			</table>
-			
+
 			<p:else>
 				<h4 class="alert alert-danger text-center">${message:noBetTypes}</h4>
-			</p:else>	
-			
+			</p:else>
+
 		</t:if>
-		
+
 		<t:if t:test="admin">
-		
+
 			<!-- SI EL EVENTO AUN NO TERMINO PUEDO INSERTAR NUEVAS APUESTAS -->
 			<t:if test="!eventStart">
 				<form t:type="Form" class="form-horizontal" t:id="insertBetTypeForm">
@@ -58,7 +62,7 @@
 					</div>
 				</form>
 			</t:if>
-		</t:if>	
+		</t:if>
 	</div>
 	<p:else>
 		<h4 class="alert alert-danger text-center">${message:eventNotFound}</h4>

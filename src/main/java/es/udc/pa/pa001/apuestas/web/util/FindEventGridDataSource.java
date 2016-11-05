@@ -17,7 +17,7 @@ public class FindEventGridDataSource implements GridDataSource {
 	private int startIndex;
 	private List<Event> events;
 	private boolean eventNotFound;
-	
+
 	public FindEventGridDataSource(BetService betService, String keyWords,
 			Long categoryId, boolean admin) {
 		super();
@@ -37,13 +37,14 @@ public class FindEventGridDataSource implements GridDataSource {
 	public void prepare(int startIndex, int endIndex,
 			List<SortConstraint> sortConstraints) {
 
-		events = betService.findEvents(keyWords, categoryId, startIndex, endIndex-startIndex+1, admin).getEvents();
-        this.startIndex = startIndex;
+		events = betService.findEvents(keyWords, categoryId, startIndex,
+				endIndex - startIndex + 1, admin).getEvents();
+		this.startIndex = startIndex;
 	}
 
 	@Override
 	public Object getRowValue(int index) {
-		return events.get(index-this.startIndex);
+		return events.get(index - this.startIndex);
 	}
 
 	@Override
@@ -52,6 +53,6 @@ public class FindEventGridDataSource implements GridDataSource {
 	}
 
 	public boolean getEventNotFound() {
-    	return eventNotFound;
-    }
+		return eventNotFound;
+	}
 }

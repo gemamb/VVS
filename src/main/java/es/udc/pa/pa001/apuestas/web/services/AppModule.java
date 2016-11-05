@@ -25,14 +25,14 @@ public class AppModule {
 
 	}
 
-    public static void contributeApplicationDefaults(
-        MappedConfiguration<String, Object> configuration) {
+	public static void contributeApplicationDefaults(
+			MappedConfiguration<String, Object> configuration) {
 
-        configuration.add(SymbolConstants.SUPPORTED_LOCALES, "en,es,gl");
-        configuration.add(SymbolConstants.JAVASCRIPT_INFRASTRUCTURE_PROVIDER,
-        	"jquery");
+		configuration.add(SymbolConstants.SUPPORTED_LOCALES, "en,es,gl");
+		configuration.add(SymbolConstants.JAVASCRIPT_INFRASTRUCTURE_PROVIDER,
+				"jquery");
 
-    }
+	}
 
 	/**
 	 * Contribute our {@link ComponentClassTransformWorker2} to transformation
@@ -54,8 +54,7 @@ public class AppModule {
 			SessionFilter sessionFilter) {
 
 		/* Add filters to the RequestHandler service. */
-		configuration.add("SessionFilter", sessionFilter,
-				"after:*");
+		configuration.add("SessionFilter", sessionFilter, "after:*");
 
 	}
 

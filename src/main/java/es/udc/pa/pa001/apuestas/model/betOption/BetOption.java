@@ -17,17 +17,17 @@ import es.udc.pa.pa001.apuestas.model.betType.BetType;
 @Entity
 @BatchSize(size = 10)
 public class BetOption {
-	
+
 	private Long betOptionId;
 	private String answer;
 	private Float rate;
 	private Boolean betState;
 	private BetType betType;
-	
-	public BetOption(){}
-	
-	public BetOption(Long betOptionId, String answer, Float rate,
-			Boolean betState, BetType betType) {
+
+	public BetOption() {
+	}
+
+	public BetOption(Long betOptionId, String answer, Float rate, Boolean betState, BetType betType) {
 		super();
 		this.betOptionId = betOptionId;
 		this.answer = answer;
@@ -35,9 +35,8 @@ public class BetOption {
 		this.betState = null;
 		this.betType = betType;
 	}
-	
-	public BetOption(String answer, Float rate, Boolean betState,
-			BetType betType) {
+
+	public BetOption(String answer, Float rate, Boolean betState, BetType betType) {
 		super();
 		this.answer = answer;
 		this.rate = rate;
@@ -45,13 +44,13 @@ public class BetOption {
 		this.betType = betType;
 	}
 
-	@Column(name="BetOptionId")
-    @SequenceGenerator(             // It only takes effect for
-         name="BetOptionIdGenerator", // databases providing identifier
-         sequenceName="BetOptionSeq") // generators.
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO,
-                    generator="BetOptionIdGenerator")
+	@Column(name = "BetOptionId")
+	@SequenceGenerator(// It only takes effect for
+	        name = "BetOptionIdGenerator", // databases providing identifier
+	        sequenceName = "BetOptionSeq")
+	// generators.
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "BetOptionIdGenerator")
 	public Long getBetOptionId() {
 		return betOptionId;
 	}
@@ -60,7 +59,7 @@ public class BetOption {
 		this.betOptionId = betOptionId;
 	}
 
-	@Column(name="answer")
+	@Column(name = "answer")
 	public String getAnswer() {
 		return answer;
 	}
@@ -69,7 +68,7 @@ public class BetOption {
 		this.answer = answer;
 	}
 
-	@Column(name="rate")
+	@Column(name = "rate")
 	public Float getRate() {
 		return rate;
 	}
@@ -78,8 +77,8 @@ public class BetOption {
 		this.rate = rate;
 	}
 
-	@Column(name="betState")
-    public Boolean getBetState() {
+	@Column(name = "betState")
+	public Boolean getBetState() {
 		return betState;
 	}
 
@@ -87,8 +86,8 @@ public class BetOption {
 		this.betState = betState;
 	}
 
-	@ManyToOne(optional=false, fetch=FetchType.LAZY)
-    @JoinColumn(name="betTypeId")
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "betTypeId")
 	public BetType getBetType() {
 		return betType;
 	}
@@ -96,5 +95,5 @@ public class BetOption {
 	public void setBetType(BetType betType) {
 		this.betType = betType;
 	}
-	
+
 }

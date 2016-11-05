@@ -8,5 +8,5 @@ public interface BetDao extends GenericDao<Bet, Long> {
 
 	public List<Bet> findBetsByUserId(Long userId, int startIndex, int count);
 
-	int findBetsByUserIdNumber(Long userId); 
+	int findBetsByUserIdNumber(Long userId);
 }

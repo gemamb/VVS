@@ -29,11 +29,11 @@ public class Bet {
 	private UserProfile userProfile;
 	private Event event;
 	private BetOption betOption;
-	
-	public Bet(){}
 
-	public Bet(Long betId, Float betedMoney, UserProfile userProfile, 
-			Event event, BetOption betOption) {
+	public Bet() {
+	}
+
+	public Bet(Long betId, Float betedMoney, UserProfile userProfile, Event event, BetOption betOption) {
 		super();
 		this.betId = betId;
 		this.betedMoney = betedMoney;
@@ -44,8 +44,7 @@ public class Bet {
 		this.betOption = betOption;
 	}
 
-	public Bet(Float betedMoney, UserProfile userProfile, Event eventId, 
-			BetOption betOption) {
+	public Bet(Float betedMoney, UserProfile userProfile, Event eventId, BetOption betOption) {
 		super();
 		this.betedMoney = betedMoney;
 		this.date = Calendar.getInstance();
@@ -54,14 +53,14 @@ public class Bet {
 		this.event = eventId;
 		this.betOption = betOption;
 	}
-	
-	@Column(name="BetId")
-    @SequenceGenerator(             // It only takes effect for
-         name="BetIdGenerator", // databases providing identifier
-         sequenceName="BetSeq") // generators.
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO,
-                    generator="BetIdGenerator")
+
+	@Column(name = "BetId")
+	@SequenceGenerator(// It only takes effect for
+	        name = "BetIdGenerator", // databases providing identifier
+	        sequenceName = "BetSeq")
+	// generators.
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "BetIdGenerator")
 	public Long getBetId() {
 		return betId;
 	}
@@ -70,7 +69,7 @@ public class Bet {
 		this.betId = betId;
 	}
 
-	@Column(name="betedMoney")
+	@Column(name = "betedMoney")
 	public Float getBetedMoney() {
 		return betedMoney;
 	}
@@ -80,7 +79,7 @@ public class Bet {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="date")
+	@Column(name = "date")
 	public Calendar getDate() {
 		return date;
 	}
@@ -89,8 +88,8 @@ public class Bet {
 		this.date = date;
 	}
 
-    @ManyToOne(optional=false, fetch=FetchType.LAZY)
-    @JoinColumn(name="usrId")
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "usrId")
 	public UserProfile getUserProfile() {
 		return userProfile;
 	}
@@ -99,8 +98,8 @@ public class Bet {
 		this.userProfile = userProfile;
 	}
 
-    @ManyToOne(optional=false, fetch=FetchType.LAZY)
-    @JoinColumn(name="eventId")
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "eventId")
 	public Event getEvent() {
 		return event;
 	}
@@ -109,8 +108,8 @@ public class Bet {
 		this.event = event;
 	}
 
-    @ManyToOne(optional=false, fetch=FetchType.LAZY)
-    @JoinColumn(name="betOptionId")
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "betOptionId")
 	public BetOption getBetOption() {
 		return betOption;
 	}
@@ -118,5 +117,5 @@ public class Bet {
 	public void setBetOption(BetOption betOption) {
 		this.betOption = betOption;
 	}
-	
+
 }

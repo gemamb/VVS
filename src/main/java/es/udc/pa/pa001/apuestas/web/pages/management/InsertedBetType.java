@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package es.udc.pa.pa001.apuestas.web.pages.management;
 
@@ -10,7 +10,7 @@ package es.udc.pa.pa001.apuestas.web.pages.management;
 public class InsertedBetType {
 
 	private Long betTypeId;
-	
+
 	public Long getBetTypeId() {
 		return betTypeId;
 	}
@@ -22,7 +22,7 @@ public class InsertedBetType {
 	Long onPassivate() {
 		return betTypeId;
 	}
-	
+
 	void onActivate(Long betTypeId) {
 		this.betTypeId = betTypeId;
 	}

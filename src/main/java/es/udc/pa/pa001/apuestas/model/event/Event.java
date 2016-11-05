@@ -35,8 +35,7 @@ public class Event {
 	public Event() {
 	}
 
-	public Event(Long eventId, String name, Calendar eventStart,
-			Category category, List<BetType> betTypes) {
+	public Event(Long eventId, String name, Calendar eventStart, Category category, List<BetType> betTypes) {
 		super();
 		this.eventId = eventId;
 		this.name = name;
@@ -62,9 +61,9 @@ public class Event {
 	}
 
 	@Column(name = "eventId")
-	@SequenceGenerator( // It only takes effect for
-	name = "EventIdGenerator", // databases providing identifier
-	sequenceName = "EventSeq")
+	@SequenceGenerator(// It only takes effect for
+	        name = "EventIdGenerator", // databases providing identifier
+	        sequenceName = "EventSeq")
 	// generators.
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "EventIdGenerator")
@@ -117,13 +116,13 @@ public class Event {
 	public void setBetTypes(List<BetType> betTypes) {
 		this.betTypes = betTypes;
 	}
-	
-	public void addBetType(BetType betType){
+
+	public void addBetType(BetType betType) {
 		this.betTypes.add(betType);
 		betType.setEvent(this);
 	}
-	
-	public boolean finishedEvent(Long eventId){
+
+	public boolean finishedEvent(Long eventId) {
 		return eventStart.getTime().before(Calendar.getInstance().getTime());
 	}
 }

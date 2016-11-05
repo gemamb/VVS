@@ -102,7 +102,8 @@ public class BetServiceIntegrationTest {
 	}
 
 	private void initializeDuplicatedBetType() {
-		duplicatedBetType = new BetType("¿Qué equipo ganará el encuentro?", false);
+		duplicatedBetType = new BetType("¿Qué equipo ganará el encuentro?",
+				false);
 
 		BetOption option1, option2;
 		option1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
@@ -117,13 +118,15 @@ public class BetServiceIntegrationTest {
 	}
 
 	private void initializeBetOptions() {
-		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
+		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null,
+				betType);
 		betOption2 = new BetOption("Barcelona", (float) 1.75, null, betType);
 	}
 
 	private void initializeBetTypeWithBetOptions() {
 		betType = new BetType("¿Qué equipo ganará el encuentro?", false);
-		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
+		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null,
+				betType);
 		betOption2 = new BetOption("Barcelona", (float) 1.75, null, betType);
 		List<BetOption> options = new ArrayList<BetOption>();
 		options.add(betOption1);
@@ -133,8 +136,10 @@ public class BetServiceIntegrationTest {
 
 	private void initializeBetTypeDuplicatedBetOptions() {
 		betType = new BetType("¿Qué equipo ganará el encuentro?", false);
-		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
-		betOption2 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
+		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null,
+				betType);
+		betOption2 = new BetOption("Real Madrid CF", (float) 1.75, null,
+				betType);
 		List<BetOption> options = new ArrayList<BetOption>();
 		options.add(betOption1);
 		options.add(betOption2);
@@ -143,14 +148,16 @@ public class BetServiceIntegrationTest {
 
 	private void initializeBetTypeWithOneOption() {
 		betType = new BetType("¿Qué equipo ganará el encuentro?", false);
-		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
+		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null,
+				betType);
 		List<BetOption> options = new ArrayList<BetOption>();
 		options.add(betOption1);
 		betType.setBetOptions(options);
 	}
 
 	private void initializeUser() {
-		user = new UserProfile("pepe6", "XxXyYyZzZ", "Pepe", "García", "pepe6@gmail.com");
+		user = new UserProfile("pepe6", "XxXyYyZzZ", "Pepe", "García",
+				"pepe6@gmail.com");
 		userProfileDao.save(user);
 	}
 
@@ -218,15 +225,16 @@ public class BetServiceIntegrationTest {
 
 	/**
 	 * PR-IN-001
-	 * 
+	 *
 	 * insertEvent findEvent insertBetType (no multi) insertBetOption
-	 * 
+	 *
 	 */
 
 	@Test
-	public void testCreationScenary()
-			throws InstanceNotFoundException, AlreadyPastedDateException, DuplicateEventNameException,
-			DuplicateBetTypeQuestionException, DuplicateBetOptionAnswerException, MinimunBetOptionException {
+	public void testCreationScenary() throws InstanceNotFoundException,
+	AlreadyPastedDateException, DuplicateEventNameException,
+	DuplicateBetTypeQuestionException,
+	DuplicateBetOptionAnswerException, MinimunBetOptionException {
 
 		initializeDate();
 		initializeCategory();
@@ -259,10 +267,12 @@ public class BetServiceIntegrationTest {
 		event1.addBetType(betType);
 
 		betType = betService.insertBetType(betType);
-		
+
 		BetType betTypeAssert = betTypeDao.find(betType.getBetTypeId());
-		BetOption betOption1Assert = betOptionDao.find(betOption1.getBetOptionId());
-		BetOption betOption2Assert = betOptionDao.find(betOption2.getBetOptionId());
+		BetOption betOption1Assert = betOptionDao.find(betOption1
+				.getBetOptionId());
+		BetOption betOption2Assert = betOptionDao.find(betOption2
+				.getBetOptionId());
 
 		assertEquals(betType, betTypeAssert);
 		assertEquals(betOption1, betOption1Assert);
@@ -271,16 +281,18 @@ public class BetServiceIntegrationTest {
 
 	/**
 	 * PR-IN-002
-	 * 
+	 *
 	 * insertEvent findEvent insertBetType (no multi) insertBetOption
 	 * checkWinners
-	 * 
+	 *
 	 */
 
 	@Test
-	public void testCheckingWinnersScenary() throws InstanceNotFoundException, AlreadyPastedDateException,
-			DuplicateEventNameException, DuplicateBetTypeQuestionException, DuplicateBetOptionAnswerException,
-			MinimunBetOptionException, OnlyOneWonOptionException, NotAllOptionsExistsException {
+	public void testCheckingWinnersScenary() throws InstanceNotFoundException,
+	AlreadyPastedDateException, DuplicateEventNameException,
+	DuplicateBetTypeQuestionException,
+	DuplicateBetOptionAnswerException, MinimunBetOptionException,
+	OnlyOneWonOptionException, NotAllOptionsExistsException {
 
 		initializeDate();
 		initializeCategory();
@@ -318,8 +330,10 @@ public class BetServiceIntegrationTest {
 
 		assertEquals(betType, betTypeAssert);
 
-		BetOption betOption1Assert = betOptionDao.find(betOption1.getBetOptionId());
-		BetOption betOption2Assert = betOptionDao.find(betOption2.getBetOptionId());
+		BetOption betOption1Assert = betOptionDao.find(betOption1
+				.getBetOptionId());
+		BetOption betOption2Assert = betOptionDao.find(betOption2
+				.getBetOptionId());
 		assertEquals(betOption1, betOption1Assert);
 		assertEquals(betOption2, betOption2Assert);
 
@@ -337,13 +351,14 @@ public class BetServiceIntegrationTest {
 
 	/**
 	 * PR-IN-003
-	 * 
+	 *
 	 * findEvents makeBet findBets
-	 * 
+	 *
 	 */
 
 	@Test
-	public void testMakeBetScenary() throws InstanceNotFoundException, OutdatedBetException {
+	public void testMakeBetScenary() throws InstanceNotFoundException,
+	OutdatedBetException {
 
 		/* SETUP */
 
@@ -354,16 +369,19 @@ public class BetServiceIntegrationTest {
 
 		/* Búsqueda de eventos */
 
-		EventBlock foundEvents = betService.findEvents("madrid", category1.getCategoryId(), 0, 2, false);
+		EventBlock foundEvents = betService.findEvents("madrid",
+				category1.getCategoryId(), 0, 2, false);
 		Event foundEvent = foundEvents.getEvents().get(0);
 
 		assertEquals(event1, foundEvent);
 
 		/* Realización de la apuesta */
 
-		BetOption option = foundEvent.getBetTypes().get(0).getBetOptions().get(0);
+		BetOption option = foundEvent.getBetTypes().get(0).getBetOptions()
+				.get(0);
 		float quantity = 10;
-		Bet bet = betService.makeBet(user.getUserProfileId(), option.getBetOptionId(), quantity);
+		Bet bet = betService.makeBet(user.getUserProfileId(),
+				option.getBetOptionId(), quantity);
 
 		/* Búsqueda de apuestas */
 
@@ -374,15 +392,16 @@ public class BetServiceIntegrationTest {
 
 	/**
 	 * PR-IN-004
-	 * 
+	 *
 	 * findEvents makeBet findBets
-	 * 
-	 * 
+	 *
+	 *
 	 */
 
 	@Test
-	public void testCheckBetStatusScenary() throws InstanceNotFoundException, OutdatedBetException,
-			OnlyOneWonOptionException, NotAllOptionsExistsException {
+	public void testCheckBetStatusScenary() throws InstanceNotFoundException,
+	OutdatedBetException, OnlyOneWonOptionException,
+	NotAllOptionsExistsException {
 
 		initializeUser();
 		initializeCategories();
@@ -393,7 +412,8 @@ public class BetServiceIntegrationTest {
 
 		float quantity = 10;
 		BetOption option = betType.getBetOptions().get(0);
-		betService.makeBet(user.getUserProfileId(), option.getBetOptionId(), quantity);
+		betService.makeBet(user.getUserProfileId(), option.getBetOptionId(),
+				quantity);
 
 		/* Cambiamos fecha del evento */
 
@@ -423,9 +443,10 @@ public class BetServiceIntegrationTest {
 	 */
 
 	@Test
-	public void testMakeBet() throws InstanceNotFoundException, OutdatedBetException, DuplicateBetTypeQuestionException,
-			DuplicateBetOptionAnswerException, MinimunBetOptionException, AlreadyPastedDateException,
-			DuplicateEventNameException {
+	public void testMakeBet() throws InstanceNotFoundException,
+	OutdatedBetException, DuplicateBetTypeQuestionException,
+	DuplicateBetOptionAnswerException, MinimunBetOptionException,
+	AlreadyPastedDateException, DuplicateEventNameException {
 
 		/* Buscar evento ya existente */
 
@@ -438,8 +459,10 @@ public class BetServiceIntegrationTest {
 
 		initializeCreatedBetType();
 		BetType betTypeAssert = betTypeDao.find(betType.getBetTypeId());
-		BetOption betOption1Assert = betOptionDao.find(betOption1.getBetOptionId());
-		BetOption betOption2Assert = betOptionDao.find(betOption2.getBetOptionId());
+		BetOption betOption1Assert = betOptionDao.find(betOption1
+				.getBetOptionId());
+		BetOption betOption2Assert = betOptionDao.find(betOption2
+				.getBetOptionId());
 
 		assertEquals(betType, betTypeAssert);
 		assertEquals(betOption1, betOption1Assert);
@@ -449,11 +472,13 @@ public class BetServiceIntegrationTest {
 
 		initializeUser();
 
-		Bet bet = betService.makeBet(user.getUserProfileId(), betOption1.getBetOptionId(), (float) 2);
+		Bet bet = betService.makeBet(user.getUserProfileId(),
+				betOption1.getBetOptionId(), (float) 2);
 		Bet betFound = betDao.find(bet.getBetId());
 		assertEquals(bet, betFound);
 
-		List<Bet> betFounds = betDao.findBetsByUserId(user.getUserProfileId(), 0, 10);
+		List<Bet> betFounds = betDao.findBetsByUserId(user.getUserProfileId(),
+				0, 10);
 		assertTrue(betFounds.contains(bet));
 	}
 
@@ -462,9 +487,10 @@ public class BetServiceIntegrationTest {
 	 */
 
 	@Test(expected = InstanceNotFoundException.class)
-	public void testMakeBetWrongUser() throws InstanceNotFoundException, OutdatedBetException,
-			DuplicateBetTypeQuestionException, DuplicateBetOptionAnswerException, MinimunBetOptionException,
-			AlreadyPastedDateException, DuplicateEventNameException {
+	public void testMakeBetWrongUser() throws InstanceNotFoundException,
+	OutdatedBetException, DuplicateBetTypeQuestionException,
+	DuplicateBetOptionAnswerException, MinimunBetOptionException,
+	AlreadyPastedDateException, DuplicateEventNameException {
 
 		/* Buscar evento ya existente */
 
@@ -477,8 +503,10 @@ public class BetServiceIntegrationTest {
 
 		initializeCreatedBetType();
 		BetType betTypeAssert = betTypeDao.find(betType.getBetTypeId());
-		BetOption betOption1Assert = betOptionDao.find(betOption1.getBetOptionId());
-		BetOption betOption2Assert = betOptionDao.find(betOption2.getBetOptionId());
+		BetOption betOption1Assert = betOptionDao.find(betOption1
+				.getBetOptionId());
+		BetOption betOption2Assert = betOptionDao.find(betOption2
+				.getBetOptionId());
 
 		assertEquals(betType, betTypeAssert);
 		assertEquals(betOption1, betOption1Assert);
@@ -495,7 +523,8 @@ public class BetServiceIntegrationTest {
 	 */
 
 	@Test(expected = InstanceNotFoundException.class)
-	public void testMakeBetWrongBetOption() throws InstanceNotFoundException, OutdatedBetException {
+	public void testMakeBetWrongBetOption() throws InstanceNotFoundException,
+	OutdatedBetException {
 
 		/* Buscar evento ya existente */
 
@@ -508,8 +537,10 @@ public class BetServiceIntegrationTest {
 
 		initializeCreatedBetType();
 		BetType betTypeAssert = betTypeDao.find(betType.getBetTypeId());
-		BetOption betOption1Assert = betOptionDao.find(betOption1.getBetOptionId());
-		BetOption betOption2Assert = betOptionDao.find(betOption2.getBetOptionId());
+		BetOption betOption1Assert = betOptionDao.find(betOption1
+				.getBetOptionId());
+		BetOption betOption2Assert = betOptionDao.find(betOption2
+				.getBetOptionId());
 
 		assertEquals(betType, betTypeAssert);
 		assertEquals(betOption1, betOption1Assert);
@@ -527,7 +558,8 @@ public class BetServiceIntegrationTest {
 	 */
 
 	@Test(expected = OutdatedBetException.class)
-	public void testOutDatedTrueMakeBet() throws InstanceNotFoundException, OutdatedBetException {
+	public void testOutDatedTrueMakeBet() throws InstanceNotFoundException,
+	OutdatedBetException {
 
 		/* Buscar evento ya existente */
 
@@ -540,7 +572,8 @@ public class BetServiceIntegrationTest {
 
 		initializeBetType();
 
-		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, true, betType);
+		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, true,
+				betType);
 		betOption2 = new BetOption("Barcelona", (float) 1.75, null, betType);
 
 		List<BetOption> betOptions = new ArrayList<>();
@@ -558,7 +591,8 @@ public class BetServiceIntegrationTest {
 
 		initializeUser();
 
-		betService.makeBet(user.getUserProfileId(), betOption1.getBetOptionId(), (float) 2);
+		betService.makeBet(user.getUserProfileId(),
+				betOption1.getBetOptionId(), (float) 2);
 
 	}
 
@@ -567,7 +601,8 @@ public class BetServiceIntegrationTest {
 	 */
 
 	@Test(expected = OutdatedBetException.class)
-	public void testOutDatedFalseMakeBet() throws InstanceNotFoundException, OutdatedBetException {
+	public void testOutDatedFalseMakeBet() throws InstanceNotFoundException,
+	OutdatedBetException {
 
 		/* Buscar evento ya existente */
 
@@ -580,7 +615,8 @@ public class BetServiceIntegrationTest {
 
 		initializeBetType();
 
-		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, false, betType);
+		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, false,
+				betType);
 		betOption2 = new BetOption("Barcelona", (float) 1.75, null, betType);
 
 		List<BetOption> betOptions = new ArrayList<>();
@@ -598,7 +634,8 @@ public class BetServiceIntegrationTest {
 
 		initializeUser();
 
-		betService.makeBet(user.getUserProfileId(), betOption1.getBetOptionId(), (float) 2);
+		betService.makeBet(user.getUserProfileId(),
+				betOption1.getBetOptionId(), (float) 2);
 
 	}
 
@@ -607,7 +644,8 @@ public class BetServiceIntegrationTest {
 	 */
 
 	@Test
-	public void testMakeBetWrongMoney() throws InstanceNotFoundException, OutdatedBetException {
+	public void testMakeBetWrongMoney() throws InstanceNotFoundException,
+	OutdatedBetException {
 
 		/* Buscar evento ya existente */
 
@@ -620,8 +658,10 @@ public class BetServiceIntegrationTest {
 
 		initializeCreatedBetType();
 		BetType betTypeAssert = betTypeDao.find(betType.getBetTypeId());
-		BetOption betOption1Assert = betOptionDao.find(betOption1.getBetOptionId());
-		BetOption betOption2Assert = betOptionDao.find(betOption2.getBetOptionId());
+		BetOption betOption1Assert = betOptionDao.find(betOption1
+				.getBetOptionId());
+		BetOption betOption2Assert = betOptionDao.find(betOption2
+				.getBetOptionId());
 
 		assertEquals(betType, betTypeAssert);
 		assertEquals(betOption1, betOption1Assert);
@@ -631,7 +671,8 @@ public class BetServiceIntegrationTest {
 
 		initializeUser();
 
-		betService.makeBet(user.getUserProfileId(), betOption1.getBetOptionId(), (float) -2);
+		betService.makeBet(user.getUserProfileId(),
+				betOption1.getBetOptionId(), (float) -2);
 	}
 
 	/**
@@ -639,8 +680,8 @@ public class BetServiceIntegrationTest {
 	 */
 
 	@Test
-	public void testInsertEvent()
-			throws InstanceNotFoundException, AlreadyPastedDateException, DuplicateEventNameException {
+	public void testInsertEvent() throws InstanceNotFoundException,
+	AlreadyPastedDateException, DuplicateEventNameException {
 
 		initializeDate();
 		initializeCategory();
@@ -660,8 +701,8 @@ public class BetServiceIntegrationTest {
 	 */
 
 	@Test(expected = AlreadyPastedDateException.class)
-	public void testInsertPastedEvent()
-			throws InstanceNotFoundException, AlreadyPastedDateException, DuplicateEventNameException {
+	public void testInsertPastedEvent() throws InstanceNotFoundException,
+	AlreadyPastedDateException, DuplicateEventNameException {
 
 		eventCalendar = Calendar.getInstance();
 		eventCalendar.set(2014, Calendar.AUGUST, 31);
@@ -680,15 +721,16 @@ public class BetServiceIntegrationTest {
 	 */
 
 	@Test(expected = DuplicateEventNameException.class)
-	public void testInsertDuplicateEvent()
-			throws InstanceNotFoundException, AlreadyPastedDateException, DuplicateEventNameException {
+	public void testInsertDuplicateEvent() throws InstanceNotFoundException,
+	AlreadyPastedDateException, DuplicateEventNameException {
 
 		initializeCreatedEvent();
 		Event eventFound = betService.findEvent(event1.getEventId());
 
 		assertEquals(event1, eventFound);
 
-		Event duplicatedEvent = event1 = new Event("Real Madrid - Barcelona", eventCalendar, category1);
+		Event duplicatedEvent = event1 = new Event("Real Madrid - Barcelona",
+				eventCalendar, category1);
 
 		betService.insertEvent(duplicatedEvent, category1.getCategoryId());
 	}
@@ -699,7 +741,8 @@ public class BetServiceIntegrationTest {
 
 	@Test(expected = InstanceNotFoundException.class)
 	public void testInsertEventWrongCategory()
-			throws InstanceNotFoundException, AlreadyPastedDateException, DuplicateEventNameException {
+			throws InstanceNotFoundException, AlreadyPastedDateException,
+			DuplicateEventNameException {
 
 		initializeDate();
 		category1 = new Category("Baloncesto");
@@ -714,9 +757,10 @@ public class BetServiceIntegrationTest {
 	 */
 
 	@Test
-	public void testInsertBetType()
-			throws AlreadyPastedDateException, InstanceNotFoundException, DuplicateEventNameException,
-			DuplicateBetTypeQuestionException, DuplicateBetOptionAnswerException, MinimunBetOptionException {
+	public void testInsertBetType() throws AlreadyPastedDateException,
+	InstanceNotFoundException, DuplicateEventNameException,
+	DuplicateBetTypeQuestionException,
+	DuplicateBetOptionAnswerException, MinimunBetOptionException {
 
 		initializeCreatedEvent();
 		initializeBetTypeWithBetOptions();
@@ -736,8 +780,9 @@ public class BetServiceIntegrationTest {
 
 	@Test(expected = MinimunBetOptionException.class)
 	public void testInsertBetTypeWithoutOptions()
-			throws AlreadyPastedDateException, InstanceNotFoundException, DuplicateEventNameException,
-			DuplicateBetTypeQuestionException, DuplicateBetOptionAnswerException, MinimunBetOptionException {
+			throws AlreadyPastedDateException, InstanceNotFoundException,
+			DuplicateEventNameException, DuplicateBetTypeQuestionException,
+			DuplicateBetOptionAnswerException, MinimunBetOptionException {
 
 		initializeCreatedEvent();
 		initializeBetType();
@@ -755,8 +800,9 @@ public class BetServiceIntegrationTest {
 
 	@Test(expected = MinimunBetOptionException.class)
 	public void testInsertBetTypeWithOneOption()
-			throws AlreadyPastedDateException, InstanceNotFoundException, DuplicateEventNameException,
-			DuplicateBetTypeQuestionException, DuplicateBetOptionAnswerException, MinimunBetOptionException {
+			throws AlreadyPastedDateException, InstanceNotFoundException,
+			DuplicateEventNameException, DuplicateBetTypeQuestionException,
+			DuplicateBetOptionAnswerException, MinimunBetOptionException {
 
 		initializeCreatedEvent();
 		initializeBetTypeWithOneOption();
@@ -774,8 +820,9 @@ public class BetServiceIntegrationTest {
 
 	@Test(expected = DuplicateBetOptionAnswerException.class)
 	public void testInsertBetTypeDuplicateAnswer()
-			throws AlreadyPastedDateException, InstanceNotFoundException, DuplicateEventNameException,
-			DuplicateBetTypeQuestionException, DuplicateBetOptionAnswerException, MinimunBetOptionException {
+			throws AlreadyPastedDateException, InstanceNotFoundException,
+			DuplicateEventNameException, DuplicateBetTypeQuestionException,
+			DuplicateBetOptionAnswerException, MinimunBetOptionException {
 
 		initializeCreatedEvent();
 		initializeBetTypeDuplicatedBetOptions();
@@ -793,8 +840,9 @@ public class BetServiceIntegrationTest {
 
 	@Test(expected = DuplicateBetTypeQuestionException.class)
 	public void testInsertBetTypeDuplicateQuestion()
-			throws AlreadyPastedDateException, InstanceNotFoundException, DuplicateEventNameException,
-			DuplicateBetTypeQuestionException, DuplicateBetOptionAnswerException, MinimunBetOptionException {
+			throws AlreadyPastedDateException, InstanceNotFoundException,
+			DuplicateEventNameException, DuplicateBetTypeQuestionException,
+			DuplicateBetOptionAnswerException, MinimunBetOptionException {
 
 		initializeCreatedEvent();
 		initializeCreatedBetType();
@@ -812,7 +860,8 @@ public class BetServiceIntegrationTest {
 
 	@Test
 	public void testCheckOptionsSimpleBetType()
-			throws InstanceNotFoundException, OnlyOneWonOptionException, NotAllOptionsExistsException {
+			throws InstanceNotFoundException, OnlyOneWonOptionException,
+			NotAllOptionsExistsException {
 
 		initializeCreatedEvent();
 		initializeCreatedBetType();
@@ -830,7 +879,8 @@ public class BetServiceIntegrationTest {
 
 	@Test
 	public void testCheckOptionsMultipleBetType()
-			throws InstanceNotFoundException, OnlyOneWonOptionException, NotAllOptionsExistsException {
+			throws InstanceNotFoundException, OnlyOneWonOptionException,
+			NotAllOptionsExistsException {
 
 		initializeCreatedEvent();
 		initializeCreatedMultipleBetType();
@@ -848,8 +898,8 @@ public class BetServiceIntegrationTest {
 	 */
 
 	@Test(expected = NotAllOptionsExistsException.class)
-	public void testCheckInvalidOptions()
-			throws NotAllOptionsExistsException, InstanceNotFoundException, OnlyOneWonOptionException {
+	public void testCheckInvalidOptions() throws NotAllOptionsExistsException,
+	InstanceNotFoundException, OnlyOneWonOptionException {
 
 		initializeCreatedEvent();
 		initializeCreatedBetType();
@@ -867,7 +917,8 @@ public class BetServiceIntegrationTest {
 
 	@Test(expected = OnlyOneWonOptionException.class)
 	public void testCheckMultipleOptionsSimpleBetType()
-			throws OnlyOneWonOptionException, InstanceNotFoundException, NotAllOptionsExistsException {
+			throws OnlyOneWonOptionException, InstanceNotFoundException,
+			NotAllOptionsExistsException {
 
 		initializeCreatedEvent();
 		initializeCreatedBetType();
@@ -885,7 +936,8 @@ public class BetServiceIntegrationTest {
 
 	@Test(expected = InstanceNotFoundException.class)
 	public void testCheckNonExistentBetTypeOption()
-			throws InstanceNotFoundException, OnlyOneWonOptionException, NotAllOptionsExistsException {
+			throws InstanceNotFoundException, OnlyOneWonOptionException,
+			NotAllOptionsExistsException {
 
 		Long nonExistentBetTypeId = 0L;
 

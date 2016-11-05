@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package es.udc.pa.pa001.apuestas.web.pages.management;
 
@@ -22,11 +22,9 @@ import es.udc.pa.pa001.apuestas.web.services.AuthenticationPolicy;
 import es.udc.pa.pa001.apuestas.web.services.AuthenticationPolicyType;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
-
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_ADMIN)
 public class InsertBetType {
 
-	
 	@Property
 	private String question;
 
@@ -43,7 +41,7 @@ public class InsertBetType {
 	public void setBetTypeId(Long betTypeId) {
 		this.betTypeId = betTypeId;
 	}
-	
+
 	public Long getEventId() {
 		return eventId;
 	}
@@ -71,36 +69,34 @@ public class InsertBetType {
 	private Form betTypeForm;
 
 	private BetType betType;
-	
+
 	void onValidateFromBetTypeForm() {
 		Event event;
 
 		try {
 			event = betService.findEvent(eventId);
 			betType = new BetType();
-			
-			if (betService.findDuplicates(eventId, question)){
-				betTypeForm.recordError(questionTextField, messages.format(
-						"error-duplicatedQuestion", question));
+
+			if (betService.findDuplicates(eventId, question)) {
+				betTypeForm.recordError(questionTextField, messages.format("error-duplicatedQuestion", question));
 				return;
 			}
-			
+
 			betType.setMultiple(multiple);
 			betType.setQuestion(question);
 		} catch (InstanceNotFoundException e) {
 			betTypeForm.recordError(messages.format("error-eventNotFound", eventId));
 		}
-		
+
 	}
 
-	Object onSuccess(){
+	Object onSuccess() {
 		insertBetOption.setEventId(eventId);
 		insertBetOption.setMultiple(multiple);
 		insertBetOption.setQuestion(question);
 		return insertBetOption;
 	}
 
-	
 	void onActivate(Long eventId) {
 		this.eventId = eventId;
 	}

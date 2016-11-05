@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package es.udc.pa.pa001.apuestas.web.pages.management;
 
@@ -8,9 +8,9 @@ package es.udc.pa.pa001.apuestas.web.pages.management;
  *
  */
 public class InsertedEvent {
-	
+
 	private Long eventId;
-	
+
 	public Long getEventId() {
 		return eventId;
 	}
@@ -22,7 +22,7 @@ public class InsertedEvent {
 	Long onPassivate() {
 		return eventId;
 	}
-	
+
 	void onActivate(Long eventId) {
 		this.eventId = eventId;
 	}

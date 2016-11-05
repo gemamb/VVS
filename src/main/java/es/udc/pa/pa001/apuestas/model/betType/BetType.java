@@ -22,14 +22,14 @@ import es.udc.pa.pa001.apuestas.model.event.Event;
 @Entity
 @BatchSize(size = 10)
 public class BetType {
-	
+
 	private Long betTypeId;
 	private String question;
 	private Boolean multiple;
-	private Event event=null;
+	private Event event = null;
 	private List<BetOption> betOptions;
 
-	public BetType(){
+	public BetType() {
 		this.betOptions = new LinkedList<BetOption>();
 	}
 
@@ -48,13 +48,13 @@ public class BetType {
 		this.betOptions = new LinkedList<BetOption>();
 	}
 
-	@Column(name="BetTypeId")
-    @SequenceGenerator(             // It only takes effect for
-         name="BetTypeIdGenerator", // databases providing identifier
-         sequenceName="BetTypeSeq") // generators.
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO,
-                    generator="BetTypeIdGenerator")
+	@Column(name = "BetTypeId")
+	@SequenceGenerator(// It only takes effect for
+	        name = "BetTypeIdGenerator", // databases providing identifier
+	        sequenceName = "BetTypeSeq")
+	// generators.
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "BetTypeIdGenerator")
 	public Long getBetTypeId() {
 		return betTypeId;
 	}
@@ -63,7 +63,7 @@ public class BetType {
 		this.betTypeId = betTypeId;
 	}
 
-	@Column(name="question")
+	@Column(name = "question")
 	public String getQuestion() {
 		return question;
 	}
@@ -72,7 +72,7 @@ public class BetType {
 		this.question = question;
 	}
 
-	@Column(name="multiple")
+	@Column(name = "multiple")
 	public Boolean getMultiple() {
 		return multiple;
 	}
@@ -81,8 +81,8 @@ public class BetType {
 		this.multiple = multiple;
 	}
 
-    @ManyToOne(optional=false, fetch=FetchType.LAZY)
-    @JoinColumn(name="eventId")
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "eventId")
 	public Event getEvent() {
 		return event;
 	}
@@ -90,6 +90,7 @@ public class BetType {
 	public void setEvent(Event event) {
 		this.event = event;
 	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "betType")
 	public List<BetOption> getBetOptions() {
 		return betOptions;
@@ -98,10 +99,10 @@ public class BetType {
 	public void setBetOptions(List<BetOption> betOptions) {
 		this.betOptions = betOptions;
 	}
-	
-	public void addBetOption(BetOption betOption){
+
+	public void addBetOption(BetOption betOption) {
 		this.betOptions.add(betOption);
 		betOption.setBetType(this);
 	}
-	
+
 }

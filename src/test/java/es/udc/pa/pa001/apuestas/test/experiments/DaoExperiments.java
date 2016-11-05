@@ -36,8 +36,9 @@ public class DaoExperiments {
 			System.out.println("User with userId '" + userId
 					+ "' has been retrieved");
 			System.out.println(userProfile);
-			
-			// ... proceed in the same way for other entities / methods / use cases
+
+			// ... proceed in the same way for other entities / methods / use
+			// cases
 
 			tx.commit();
 

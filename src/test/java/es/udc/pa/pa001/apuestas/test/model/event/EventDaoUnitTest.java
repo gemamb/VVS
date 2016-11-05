@@ -60,14 +60,18 @@ public class EventDaoUnitTest {
 	}
 
 	private void initializeEvent() {
-		event1 = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
+		event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
+				category1);
 		sessionFactory.getCurrentSession().saveOrUpdate(event1);
 	}
 
 	private void initializeEvents() {
-		event1 = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
-		event2 = new Event("Obradoiro - Real Madrid", eventCalendarFuture, category1);
-		event3 = new Event("Real Madrid - Celta", eventCalendarFuture, category2);
+		event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
+				category1);
+		event2 = new Event("Obradoiro - Real Madrid", eventCalendarFuture,
+				category1);
+		event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
+				category2);
 
 		sessionFactory.getCurrentSession().saveOrUpdate(event1);
 		sessionFactory.getCurrentSession().saveOrUpdate(event2);
@@ -85,7 +89,8 @@ public class EventDaoUnitTest {
 
 		initializeCategories();
 		initializeDates();
-		Event newEvent = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
+		Event newEvent = new Event("Real Madrid - Barcelona",
+				eventCalendarPast, category1);
 
 		/* INVOCACION */
 
@@ -108,7 +113,8 @@ public class EventDaoUnitTest {
 
 		initializeCategories();
 		initializeDates();
-		Event newEvent = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
+		Event newEvent = new Event("Real Madrid - Barcelona",
+				eventCalendarPast, category1);
 		eventDao.save(newEvent);
 		newEvent.setName("Deportivo - Celta");
 
@@ -156,7 +162,8 @@ public class EventDaoUnitTest {
 
 		initializeCategories();
 		initializeDates();
-		Event newEvent = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
+		Event newEvent = new Event("Real Madrid - Barcelona",
+				eventCalendarPast, category1);
 		eventDao.save(newEvent);
 		newEvent.setName("Deportivo - Celta");
 
@@ -205,7 +212,8 @@ public class EventDaoUnitTest {
 
 		initializeCategories();
 		initializeDates();
-		Event newEvent = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
+		Event newEvent = new Event("Real Madrid - Barcelona",
+				eventCalendarPast, category1);
 		eventDao.save(newEvent);
 		newEvent.setName("Deportivo - Celta");
 
@@ -280,7 +288,8 @@ public class EventDaoUnitTest {
 
 		/* INVOCACION */
 
-		int result = eventDao.getNumberOfEvents(null, category1.getCategoryId(), true);
+		int result = eventDao.getNumberOfEvents(null,
+				category1.getCategoryId(), true);
 
 		/* ASERCION */
 
@@ -434,7 +443,8 @@ public class EventDaoUnitTest {
 
 		/* INVOCACION */
 
-		int result = eventDao.getNumberOfEvents("Madrid", category1.getCategoryId(), true);
+		int result = eventDao.getNumberOfEvents("Madrid",
+				category1.getCategoryId(), true);
 
 		/* ASERCION */
 
@@ -460,7 +470,8 @@ public class EventDaoUnitTest {
 
 		/* INVOCACION */
 
-		List<Event> listFindEvents = eventDao.findEvents(null, null, 0, 10, true);
+		List<Event> listFindEvents = eventDao.findEvents(null, null, 0, 10,
+				true);
 
 		/* ASERCION */
 
@@ -485,7 +496,8 @@ public class EventDaoUnitTest {
 
 		/* INVOCACION */
 
-		List<Event> listFindEvents = eventDao.findEvents(null, null, 0, 10, false);
+		List<Event> listFindEvents = eventDao.findEvents(null, null, 0, 10,
+				false);
 
 		/* ASERCION */
 
@@ -510,7 +522,8 @@ public class EventDaoUnitTest {
 
 		/* INVOCACION */
 
-		List<Event> listFindEvents = eventDao.findEvents(null, category1.getCategoryId(), 0, 10, true);
+		List<Event> listFindEvents = eventDao.findEvents(null,
+				category1.getCategoryId(), 0, 10, true);
 
 		/* ASERCION */
 
@@ -533,7 +546,8 @@ public class EventDaoUnitTest {
 
 		/* INVOCACION */
 
-		List<Event> listFindEvents = eventDao.findEvents(null, (long) 10, 0, 10, true);
+		List<Event> listFindEvents = eventDao.findEvents(null, (long) 10, 0,
+				10, true);
 
 		/* ASERCION */
 
@@ -559,7 +573,8 @@ public class EventDaoUnitTest {
 
 		/* INVOCACION */
 
-		List<Event> listFindEvents = eventDao.findEvents("madrid", null, 0, 10, true);
+		List<Event> listFindEvents = eventDao.findEvents("madrid", null, 0, 10,
+				true);
 
 		/* ASERCION */
 
@@ -585,7 +600,8 @@ public class EventDaoUnitTest {
 
 		/* INVOCACION */
 
-		List<Event> listFindEvents = eventDao.findEvents("adri", null, 0, 10, true);
+		List<Event> listFindEvents = eventDao.findEvents("adri", null, 0, 10,
+				true);
 
 		/* ASERCION */
 
@@ -609,7 +625,8 @@ public class EventDaoUnitTest {
 
 		/* INVOCACION */
 
-		List<Event> listFindEvents = eventDao.findEvents("MADRID BARCELONA", null, 0, 10, true);
+		List<Event> listFindEvents = eventDao.findEvents("MADRID BARCELONA",
+				null, 0, 10, true);
 
 		/* ASERCION */
 
@@ -633,7 +650,8 @@ public class EventDaoUnitTest {
 
 		/* INVOCACION */
 
-		List<Event> listFindEvents = eventDao.findEvents("BARCELONA MADRID", null, 0, 10, true);
+		List<Event> listFindEvents = eventDao.findEvents("BARCELONA MADRID",
+				null, 0, 10, true);
 
 		/* ASERCION */
 
@@ -656,7 +674,8 @@ public class EventDaoUnitTest {
 
 		/* INVOCACION */
 
-		List<Event> listFindEvents = eventDao.findEvents("BarcMad", null, 0, 10, true);
+		List<Event> listFindEvents = eventDao.findEvents("BarcMad", null, 0,
+				10, true);
 
 		/* ASERCION */
 
@@ -681,7 +700,8 @@ public class EventDaoUnitTest {
 
 		/* INVOCACION */
 
-		List<Event> listFindEvents = eventDao.findEvents("Madrid", category1.getCategoryId(), 0, 10, true);
+		List<Event> listFindEvents = eventDao.findEvents("Madrid",
+				category1.getCategoryId(), 0, 10, true);
 
 		/* ASERCION */
 

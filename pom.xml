@@ -9,6 +9,11 @@
 	<version>1.0.0</version>
 	<name>${project.artifactId} Project</name>
 
+	<!-- ========================================================== -->
+	<!-- Site information -->
+
+
+
 	<!-- =================================================================== -->
 	<!-- Default values for properties. These default values are expected to 
 		be valid for most profiles. Specific profiles can overwrite values when necessary. -->
@@ -60,8 +65,6 @@
 			<properties>
 
 				<!-- Clases java que tiene que testear este profile -->
-				<!-- <testClass1>BetServiceTest.java</testClass1> -->
-				<!-- <testClass2>UserServiceTest.java</testClass2> -->
 				<testClass1>CategoryDaoUnitTest.java</testClass1>
 				<testClass2>EventDaoUnitTest.java</testClass2>
 				<testClass3>BetTypeDaoUnitTest.java</testClass3>
@@ -448,6 +451,16 @@
 						<version>${spring.version}</version>
 						<scope>runtime</scope>
 					</dependency>
+					<dependency>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>findbugs-maven-plugin</artifactId>
+						<version>3.0.1</version>
+					</dependency>
+					<dependency>
+						<groupId>org.graphwalker</groupId>
+						<artifactId>graphwalker-core</artifactId>
+						<version>3.4.2</version>
+					</dependency>
 				</dependencies>
 			</plugin>
 
@@ -464,6 +477,8 @@
 						<include>${testClass4}</include>
 						<include>${testClass5}</include>
 						<include>${testClass6}</include>
+						<include>${testClass7}</include>
+						<include>${testClass8}</include>
 					</includes>
 				</configuration>
 			</plugin>
@@ -506,12 +521,25 @@
 			</plugin>
 
 			<plugin>
-				<groupId>net.sf</groupId>
-				<artifactId>stat-scm</artifactId>
-			</plugin>
-			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.pitest</groupId>
+				<artifactId>pitest-maven</artifactId>
+				<version>1.0.0</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<effort>Max</effort>
+					<threshold>Low</threshold>
+					<xmlOutput>true</xmlOutput>
+				</configuration>
 			</plugin>
 		</plugins>
 	</reporting>

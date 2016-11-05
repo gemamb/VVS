@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package es.udc.pa.pa001.apuestas.web.pages.search;
 
@@ -31,52 +31,52 @@ import es.udc.pa.pa001.apuestas.web.util.BetOptionEncoder;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
 public class CheckWinners {
-	
+
 	@Property
 	private Event event;
-	
+
 	@Property
 	private BetOption betOption;
-	
+
 	@Inject
 	private BetService betService;
 
 	@Inject
 	private Locale locale;
-	
+
 	@Inject
 	private Messages messages;
-	
+
 	@Inject
 	private SelectModelFactory selectModelFactory;
-	
+
 	@Property
 	private SelectModel optionsModel;
-	
+
 	private BetType betType;
-	
+
 	private Long betTypeId;
 	private Long betOptionId;
-	
+
 	@Property
 	private boolean multiple;
-    
-    @Property
-    private List<BetOption> finals;
-    
-    @Component
+
+	@Property
+	private List<BetOption> finals;
+
+	@Component
 	private Form checkListForm;
-    
+
 	@InjectPage
 	private EventDetails eventDetails;
-	
+
 	@Property
 	private Long selectedId;
-	
-	public BetType getBetType(){
+
+	public BetType getBetType() {
 		return this.betType;
 	}
-	
+
 	public List<BetOption> getBetOptions() {
 
 		List<BetOption> options = new ArrayList<BetOption>();
@@ -87,7 +87,7 @@ public class CheckWinners {
 		}
 		return options;
 	}
-	
+
 	public Long getBetOptionId() {
 		return betOptionId;
 	}
@@ -95,7 +95,7 @@ public class CheckWinners {
 	public void setBetOptionId(Long betOptionId) {
 		this.betOptionId = betOptionId;
 	}
-	
+
 	public Long getBetTypeId() {
 		return betTypeId;
 	}
@@ -107,78 +107,77 @@ public class CheckWinners {
 	public Format getFormat() {
 		return NumberFormat.getInstance(locale);
 	}
-	
+
 	void setupRender() {
 		this.multiple = betType.getMultiple();
-		
+
 	}
-	
+
 	void onActivate(Long betTypeId) {
 
 		this.betTypeId = betTypeId;
 		this.betOption = new BetOption();
-		
+
 		try {
-			this.betType=betService.findBetType(betTypeId);
-		} 
-		catch (InstanceNotFoundException e) {
+			this.betType = betService.findBetType(betTypeId);
+		} catch (InstanceNotFoundException e) {
 		}
-		
-		optionsModel = selectModelFactory.create(getBetOptions(),"answer");
+
+		optionsModel = selectModelFactory.create(getBetOptions(), "answer");
 	}
-	
+
 	Long onPassivate() {
 		return betTypeId;
 	}
-	
+
 	public BetOptionEncoder getOptionEncoder() {
-        return new BetOptionEncoder(betService);
-    }
-	
-	@OnEvent(value="validate", component="checkListForm")
-	void onValidateFromCheckListForm(){
-		
+		return new BetOptionEncoder(betService);
+	}
+
+	@OnEvent(value = "validate", component = "checkListForm")
+	void onValidateFromCheckListForm() {
+
 		List<Long> ids = new ArrayList<>();
 		Set<Long> winners = new HashSet<Long>();
-		
-		if(betType.getMultiple()){
-			if(finals.isEmpty())
-				checkListForm.recordError(messages.format(
-						"error-notSufficient"));
-			
-			for(BetOption b: finals){
+
+		if (betType.getMultiple()) {
+			if (finals.isEmpty())
+				checkListForm.recordError(messages
+						.format("error-notSufficient"));
+
+			for (BetOption b : finals) {
 				ids.add(b.getBetOptionId());
 			}
-			
+
 			winners.addAll(ids);
-		}else {
-			if (selectedId==null)
-				checkListForm.recordError(messages.format(
-						"error-notSufficient"));
-			
+		} else {
+			if (selectedId == null)
+				checkListForm.recordError(messages
+						.format("error-notSufficient"));
+
 			winners.add(selectedId);
 		}
-		
+
 		try {
 			betService.checkOptions(betTypeId, winners);
 		} catch (InstanceNotFoundException e1) {
 		} catch (OnlyOneWonOptionException e1) {
-			checkListForm.recordError(messages.format(
-					"error-onlyOneWonOption"));
+			checkListForm
+			.recordError(messages.format("error-onlyOneWonOption"));
 		} catch (NotAllOptionsExistsException e1) {
 		}
 	}
 
-	Object onSuccess(){
-		
+	Object onSuccess() {
+
 		Long eventId = null;
 		try {
 			eventId = betService.findBetType(betTypeId).getEvent().getEventId();
 		} catch (InstanceNotFoundException e) {
 		}
-		
+
 		eventDetails.setEventId(eventId);
-		return eventDetails;		
+		return eventDetails;
 	}
 
 }

@@ -45,7 +45,8 @@ public class BetDaoUnitTest {
 	Bet bet1, bet2;
 
 	private void initializeUser() {
-		userProfile = new UserProfile("pepe6", "XxXyYyZzZ", "Pepe", "García", "pepe6@gmail.com");
+		userProfile = new UserProfile("pepe6", "XxXyYyZzZ", "Pepe", "García",
+				"pepe6@gmail.com");
 
 		sessionFactory.getCurrentSession().saveOrUpdate(userProfile);
 	}
@@ -66,9 +67,12 @@ public class BetDaoUnitTest {
 	}
 
 	private void initializeEvents() {
-		event1 = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
-		event2 = new Event("Obradoiro - Real Madrid", eventCalendarFuture, category1);
-		event3 = new Event("Real Madrid - Celta", eventCalendarFuture, category2);
+		event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
+				category1);
+		event2 = new Event("Obradoiro - Real Madrid", eventCalendarFuture,
+				category1);
+		event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
+				category2);
 
 		sessionFactory.getCurrentSession().saveOrUpdate(event1);
 		sessionFactory.getCurrentSession().saveOrUpdate(event2);
@@ -88,7 +92,8 @@ public class BetDaoUnitTest {
 	}
 
 	private void initializeBetOptions() {
-		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
+		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null,
+				betType);
 
 		betOption2 = new BetOption("Barcelona", (float) 1.5, null, betType);
 
@@ -119,7 +124,8 @@ public class BetDaoUnitTest {
 
 		/* INVOCACION */
 
-		foundBets = betDao.findBetsByUserId(userProfile.getUserProfileId(), 0, 1);
+		foundBets = betDao.findBetsByUserId(userProfile.getUserProfileId(), 0,
+				1);
 
 		/* ASERCION */
 
@@ -172,7 +178,8 @@ public class BetDaoUnitTest {
 
 		/* INVOCACION */
 
-		foundBets = betDao.findBetsByUserId(userProfile.getUserProfileId(), 0, 2);
+		foundBets = betDao.findBetsByUserId(userProfile.getUserProfileId(), 0,
+				2);
 
 		/* ASERCION */
 
@@ -192,7 +199,8 @@ public class BetDaoUnitTest {
 
 		/* INVOCACION */
 
-		int result = betDao.findBetsByUserIdNumber(userProfile.getUserProfileId());
+		int result = betDao.findBetsByUserIdNumber(userProfile
+				.getUserProfileId());
 
 		/* ASERCION */
 
@@ -238,7 +246,8 @@ public class BetDaoUnitTest {
 
 		/* INVOCACION */
 
-		int result = betDao.findBetsByUserIdNumber(userProfile.getUserProfileId());
+		int result = betDao.findBetsByUserIdNumber(userProfile
+				.getUserProfileId());
 
 		/* ASERCION */
 

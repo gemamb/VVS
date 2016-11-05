@@ -25,42 +25,41 @@ import es.udc.pa.pa001.apuestas.web.util.UserSession;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_NO_ADMIN)
-
 public class MakeBet {
-	@SessionState(create=false)
+	@SessionState(create = false)
 	private UserSession userSession;
-	
+
 	private Long betOptionId;
-	
+
 	private float betedMoneyAsFloat;
-	
+
 	@Property
 	private BetOption betOption;
-	
+
 	@Property
 	private String betedMoney;
-	
+
 	@Component
 	private Form makeBetForm;
-	
-	@Component(id="betedMoney")
+
+	@Component(id = "betedMoney")
 	private TextField betedMoneyTextField;
-	
+
 	@Inject
 	private Messages messages;
-	
+
 	@Inject
 	private Locale locale;
-	
+
 	@Inject
 	private BetService betService;
-	
+
 	@InjectPage
 	private SuccessfulOperation successfulOperation;
-	
-	public DateFormat getFormat(){
-		return DateFormat.getDateTimeInstance(DateFormat.SHORT, 
-                DateFormat.SHORT,locale);
+
+	public DateFormat getFormat() {
+		return DateFormat.getDateTimeInstance(DateFormat.SHORT,
+				DateFormat.SHORT, locale);
 	}
 
 	public Long getBetOptionId() {
@@ -70,21 +69,20 @@ public class MakeBet {
 	public void setbetOptionId(Long betOptionId) {
 		this.betOptionId = betOptionId;
 	}
-	
+
 	void onValidateFromMakeBetForm() {
-		
+
 		if (!makeBetForm.isValid()) {
 			return;
 		}
-		
+
 		NumberFormat numberFormatter = NumberFormat.getInstance(locale);
 		ParsePosition position = new ParsePosition(0);
-		Number number = 
-			numberFormatter.parse(betedMoney, position);
-		
+		Number number = numberFormatter.parse(betedMoney, position);
+
 		if (position.getIndex() != betedMoney.length()) {
-			makeBetForm.recordError(betedMoneyTextField, messages.format(
-					"error-incorrectNumberFormat", betedMoney));
+			makeBetForm.recordError(betedMoneyTextField,
+					messages.format("error-incorrectNumberFormat", betedMoney));
 		} else {
 			betedMoneyAsFloat = number.floatValue();
 		}
@@ -93,23 +91,25 @@ public class MakeBet {
 
 	Object onSuccess() {
 		try {
-			Bet bet = betService.makeBet(userSession.getUserProfileId(),betOptionId,betedMoneyAsFloat);
+			Bet bet = betService.makeBet(userSession.getUserProfileId(),
+					betOptionId, betedMoneyAsFloat);
 		} catch (InstanceNotFoundException e) {
 			makeBetForm.recordError(messages.format("error-instanceNotFound"));
-		}  catch (OutdatedBetException e) {
-			makeBetForm.recordError(messages.format("error-outdatedBetException"));
-		}	
+		} catch (OutdatedBetException e) {
+			makeBetForm.recordError(messages
+					.format("error-outdatedBetException"));
+		}
 		return successfulOperation;
 	}
-	
+
 	void onActivate(Long betOptionId) {
 
 		this.betOptionId = betOptionId;
 
 		try {
-			
+
 			this.betOption = betService.findBetOption(betOptionId);
-		
+
 		} catch (InstanceNotFoundException e) {
 		}
 
@@ -118,5 +118,5 @@ public class MakeBet {
 	Long onPassivate() {
 		return betOptionId;
 	}
-	
+
 }

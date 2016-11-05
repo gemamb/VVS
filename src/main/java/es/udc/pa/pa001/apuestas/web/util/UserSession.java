@@ -4,16 +4,15 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import es.udc.pa.pa001.apuestas.model.userservice.UserService;
 
-
 public class UserSession {
 
 	private Long userProfileId;
 	private String firstName;
-	private boolean admin=false;
+	private boolean admin = false;
 
 	@Inject
 	private UserService userService;
-	
+
 	public Long getUserProfileId() {
 		return userProfileId;
 	}
@@ -26,7 +25,7 @@ public class UserSession {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {		
+	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 

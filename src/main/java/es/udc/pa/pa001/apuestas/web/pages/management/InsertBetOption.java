@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package es.udc.pa.pa001.apuestas.web.pages.management;
 
@@ -152,15 +152,14 @@ public class InsertBetOption {
 	}
 
 	Object[] onPassivate() {
-		return new Object[] { eventId, multiple, question };
+		return new Object[] {eventId, multiple, question };
 	}
 
 	void onActivate(Long eventId, boolean multiple, String question) {
 		this.eventId = eventId;
 		this.multiple = multiple;
 		this.question = question;
-		this.savedBetOptions = this.savedBetOptions == null ? new ArrayList<BetOption>()
-				: this.savedBetOptions;
+		this.savedBetOptions = this.savedBetOptions == null ? new ArrayList<BetOption>() : this.savedBetOptions;
 	}
 
 	@OnEvent(value = "validate", component = "betOptionForm")
@@ -174,16 +173,14 @@ public class InsertBetOption {
 		ParsePosition position = new ParsePosition(0);
 		Number number = numberFormatter.parse(rate, position);
 		if (position.getIndex() != rate.length()) {
-			betOptionForm.recordError(balanceTextField,
-					messages.format("error-incorrectNumberFormat", rate));
+			betOptionForm.recordError(balanceTextField, messages.format("error-incorrectNumberFormat", rate));
 		} else {
 			rateAsFloat = number.floatValue();
 		}
 
 		for (BetOption b : savedBetOptions) {
 			if (b.getAnswer().equals(answer)) {
-				betOptionForm.recordError(answerTextField,
-						messages.format("error-duplicateAnswer", answer));
+				betOptionForm.recordError(answerTextField, messages.format("error-duplicateAnswer", answer));
 				return;
 			}
 		}
@@ -221,8 +218,7 @@ public class InsertBetOption {
 			betService.insertBetType(betType);
 			betTypeId = betType.getBetTypeId();
 		} catch (InstanceNotFoundException e) {
-			betTypeForm.recordError(messages.format("error-eventNotFound",
-					eventId));
+			betTypeForm.recordError(messages.format("error-eventNotFound", eventId));
 		} catch (DuplicateBetTypeQuestionException e) {
 		} catch (DuplicateBetOptionAnswerException e) {
 			betTypeForm.recordError(messages.format("error-duplicateAnswer"));

@@ -63,41 +63,41 @@
 		${bet.betOption.betType.question}
 		</p:betTypeQuestionCell>
 
-		<p:betOptionAnswerCell>
+			<p:betOptionAnswerCell>
 		${bet.betOption.answer}
 		</p:betOptionAnswerCell>
 
-		<p:betOptionRateCell>
-			<t:output value="bet.betOption.rate" format="numberFormat"/>
-		</p:betOptionRateCell>
+			<p:betOptionRateCell>
+				<t:output value="bet.betOption.rate" format="numberFormat" />
+			</p:betOptionRateCell>
 
-		<p:betedMoneyCell>
-			<t:output value="bet.betedMoney" format="numberFormat"/>
-		</p:betedMoneyCell>
+			<p:betedMoneyCell>
+				<t:output value="bet.betedMoney" format="numberFormat" />
+			</p:betedMoneyCell>
 
-		
-		<p:betStateCell>
-			<t:if test="pending">
+
+			<p:betStateCell>
+				<t:if test="pending">
 			   	${message:pendingBetState}
 			    <p:else>
-					<t:if test="won">
+						<t:if test="won">
 							${message:wonBetState}
-						<p:else>${message:lostBetState}</p:else>						
-					</t:if>
-				</p:else>
-			</t:if>
+						<p:else>${message:lostBetState}</p:else>
+						</t:if>
+					</p:else>
+				</t:if>
 			</p:betStateCell>
-			
-		<p:gainCell>	
-			<t:if test="won">
-				<t:output value="gain" format="numberFormat"/>
-			</t:if>
-		</p:gainCell>
 
-	
-		<p:empty>
-			<h4 class="alert alert-danger text-center">${message:noBets}</h4>
-		</p:empty>
+			<p:gainCell>
+				<t:if test="won">
+					<t:output value="gain" format="numberFormat" />
+				</t:if>
+			</p:gainCell>
+
+
+			<p:empty>
+				<h4 class="alert alert-danger text-center">${message:noBets}</h4>
+			</p:empty>
 
 		</t:grid>
 	</t:zone>

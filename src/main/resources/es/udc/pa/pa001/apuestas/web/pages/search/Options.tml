@@ -52,13 +52,15 @@
 						<p:else>
 							<t:If t:test="autenticated">
 								<tr t:type="Loop" t:source="betOptions" t:value="betOption">
-									<td><a href="#" id="betOtionLinkUserLogged" t:type="PageLink" t:page="search/MakeBet"
+									<td><a href="#" id="betOtionLinkUserLogged"
+										t:type="PageLink" t:page="search/MakeBet"
 										t:context="betOption.betOptionId"> ${betOption.answer} </a></td>
 									<td>${betOption.rate}</td>
 								</tr>
 								<p:else>
 									<tr t:type="Loop" t:source="betOptions" t:value="betOption">
-										<td><a href="#" id="betOtionLinkUserNoLogged" t:type="PageLink" t:page="user/Login"
+										<td><a href="#" id="betOtionLinkUserNoLogged"
+											t:type="PageLink" t:page="user/Login"
 											t:context="betOption.betOptionId"> ${betOption.answer} </a></td>
 										<td>${betOption.rate}</td>
 									</tr>

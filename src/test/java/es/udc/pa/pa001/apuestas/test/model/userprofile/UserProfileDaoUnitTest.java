@@ -30,14 +30,15 @@ public class UserProfileDaoUnitTest {
 	UserProfile userProfile;
 
 	private void initializeUser() {
-		userProfile = new UserProfile("pepe6", "XxXyYyZzZ", "Pepe", "García", "pepe6@gmail.com");
+		userProfile = new UserProfile("pepe6", "XxXyYyZzZ", "Pepe", "García",
+				"pepe6@gmail.com");
 
 		sessionFactory.getCurrentSession().saveOrUpdate(userProfile);
 	}
 
 	/**
 	 * PR-UN-039
-	 * 
+	 *
 	 */
 
 	@Test
@@ -47,7 +48,8 @@ public class UserProfileDaoUnitTest {
 		initializeUser();
 
 		/* INVOCACION */
-		UserProfile foundUser = userProfileDao.findByLoginName(userProfile.getLoginName());
+		UserProfile foundUser = userProfileDao.findByLoginName(userProfile
+				.getLoginName());
 
 		/* ASERCION */
 		assertEquals(userProfile, foundUser);
@@ -55,11 +57,12 @@ public class UserProfileDaoUnitTest {
 
 	/**
 	 * PR-UN-040
-	 * 
+	 *
 	 */
 
 	@Test(expected = InstanceNotFoundException.class)
-	public void testFindByNonExistentLoginName() throws InstanceNotFoundException {
+	public void testFindByNonExistentLoginName()
+			throws InstanceNotFoundException {
 
 		/* SETUP */
 		String nonExistentLoginName = "-";

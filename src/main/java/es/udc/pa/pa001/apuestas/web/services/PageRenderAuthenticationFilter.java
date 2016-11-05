@@ -12,34 +12,35 @@ import org.apache.tapestry5.services.PageRenderRequestParameters;
 
 public class PageRenderAuthenticationFilter implements PageRenderRequestFilter {
 
-    private ApplicationStateManager applicationStateManager;
-    private ComponentSource componentSource;
-    private MetaDataLocator locator;
+	private ApplicationStateManager applicationStateManager;
+	private ComponentSource componentSource;
+	private MetaDataLocator locator;
 
-    public PageRenderAuthenticationFilter(
-            ApplicationStateManager applicationStateManager,
-            ComponentSource componentSource, MetaDataLocator locator) {
+	public PageRenderAuthenticationFilter(
+			ApplicationStateManager applicationStateManager,
+			ComponentSource componentSource, MetaDataLocator locator) {
 
-        this.applicationStateManager = applicationStateManager;
-        this.componentSource = componentSource;
-        this.locator = locator;
+		this.applicationStateManager = applicationStateManager;
+		this.componentSource = componentSource;
+		this.locator = locator;
 
-    }
+	}
 
-    public void handle(PageRenderRequestParameters parameters,
-            PageRenderRequestHandler handler) throws IOException {
+	@Override
+	public void handle(PageRenderRequestParameters parameters,
+			PageRenderRequestHandler handler) throws IOException {
 
-        PageRenderRequestParameters handlerParameters = parameters;
-        String redirectPage = AuthenticationValidator.checkForPage(parameters
-                .getLogicalPageName(), applicationStateManager,
-                componentSource, locator);
-        if (redirectPage != null) {
-            handlerParameters = new PageRenderRequestParameters(redirectPage,
-                    new EmptyEventContext(), false);
-        }
+		PageRenderRequestParameters handlerParameters = parameters;
+		String redirectPage = AuthenticationValidator.checkForPage(
+				parameters.getLogicalPageName(), applicationStateManager,
+				componentSource, locator);
+		if (redirectPage != null) {
+			handlerParameters = new PageRenderRequestParameters(redirectPage,
+					new EmptyEventContext(), false);
+		}
 
-        handler.handle(handlerParameters);
+		handler.handle(handlerParameters);
 
-    }
+	}
 
 }

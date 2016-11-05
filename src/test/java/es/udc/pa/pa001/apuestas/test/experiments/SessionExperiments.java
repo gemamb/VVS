@@ -35,8 +35,9 @@ public class SessionExperiments {
 				System.out.println("User with userId '" + userId
 						+ "' has not been found");
 			}
-			
-			// ... proceed in the same way for other entities / methods /use cases
+
+			// ... proceed in the same way for other entities / methods /use
+			// cases
 
 			tx.commit();
 

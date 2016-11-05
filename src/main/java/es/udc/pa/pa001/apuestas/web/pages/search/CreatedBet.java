@@ -11,5 +11,5 @@ public class CreatedBet {
 	public void setBetId(Long betId) {
 		this.betId = betId;
 	}
-	
+
 }

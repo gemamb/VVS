@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package es.udc.pa.pa001.apuestas.web.pages.search;
 
@@ -38,11 +38,11 @@ public class MyBets {
 	private Bet bet;
 
 	private MyBetsGridDataSource MyBetsGridDataSource;
-	
+
 	public MyBetsGridDataSource getMyBetsGridDataSource() {
 		return MyBetsGridDataSource;
 	}
-	
+
 	public int getRowsPerPage() {
 		return BETS_PER_PAGE;
 	}
@@ -72,24 +72,21 @@ public class MyBets {
 	}
 
 	public DateFormat getFormat() {
-		return DateFormat.getDateTimeInstance(DateFormat.SHORT,
-				DateFormat.SHORT, locale);
+		return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
 	}
-	
+
 	public Format getNumberFormat() {
 		return NumberFormat.getInstance(locale);
 	}
 
 	void onActivate(int startIndex) {
 		this.startIndex = startIndex;
-		betBlock = betService.findBets(userSession.getUserProfileId(),
-				startIndex, BETS_PER_PAGE);
+		betBlock = betService.findBets(userSession.getUserProfileId(), startIndex, BETS_PER_PAGE);
 
-		MyBetsGridDataSource = new MyBetsGridDataSource(betService,
-				userSession.getUserProfileId());
+		MyBetsGridDataSource = new MyBetsGridDataSource(betService, userSession.getUserProfileId());
 	}
 
 	Object[] onPassivate() {
-		return new Object[] { startIndex };
+		return new Object[] {startIndex };
 	}
 }

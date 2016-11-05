@@ -9,48 +9,46 @@
 
 		<t:errors />
 
-			<table class="table table-striped">
-				<tr>
-					<th>${message:event-name}</th>
-					<td>${betOption.betType.event.name}</td>
-				</tr>
-				<tr>
-					<th>${message:event-eventStart}</th>
-					<td><t:output value="betOption.betType.event.eventStart.time" format="format"/></td>
-				</tr>
-				<tr>
-					<th>${message:bettype-question}</th>
-					<td>${betOption.betType.question}</td>
-				</tr>
-				<tr>
-					<th>${message:betoption-answer}</th>
-					<td>${betOption.answer}</td>
-				</tr>
-				<tr>
-					<th>${message:betoption-rate}</th>
-					<td>${betOption.rate}</td>
-				</tr>
-				<tr>
-					<th>
-						<t:label for="betedMoney" />
-					</th>
-					<td >
-						<div class="form-group col-xs-7">
-							<input t:type="TextField" t:id="betedMoney" size="10" maxlength="5" 
-							t:validate="required, min=1"/>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th/>
-					<td>
-						<button id="betButton" type="submit" class="btn btn-primary">
-							${message:button-bet}
-						</button> 
-					</td>
-				</tr>
-			</table>
-		
+		<table class="table table-striped">
+			<tr>
+				<th>${message:event-name}</th>
+				<td>${betOption.betType.event.name}</td>
+			</tr>
+			<tr>
+				<th>${message:event-eventStart}</th>
+				<td><t:output value="betOption.betType.event.eventStart.time"
+						format="format" /></td>
+			</tr>
+			<tr>
+				<th>${message:bettype-question}</th>
+				<td>${betOption.betType.question}</td>
+			</tr>
+			<tr>
+				<th>${message:betoption-answer}</th>
+				<td>${betOption.answer}</td>
+			</tr>
+			<tr>
+				<th>${message:betoption-rate}</th>
+				<td>${betOption.rate}</td>
+			</tr>
+			<tr>
+				<th><t:label for="betedMoney" /></th>
+				<td>
+					<div class="form-group col-xs-7">
+						<input t:type="TextField" t:id="betedMoney" size="10"
+							maxlength="5" t:validate="required, min=1" />
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th />
+				<td>
+					<button id="betButton" type="submit" class="btn btn-primary">
+						${message:button-bet}</button>
+				</td>
+			</tr>
+		</table>
+
 	</form>
 
 </div>

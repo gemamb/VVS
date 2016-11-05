@@ -22,21 +22,21 @@ import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
 public class EventDetails {
 
-	@SessionState(create=false)
+	@SessionState(create = false)
 	private UserSession userSession;
-	
+
 	private Long eventId;
 	private Long betTypeId;
 	private List<BetType> betTypes = new ArrayList<>();
-	
+
 	private boolean check;
-	
+
 	@Property
 	private Event event;
-	
+
 	@Property
 	private boolean eventStart;
-	
+
 	@Property
 	private boolean admin;
 
@@ -45,19 +45,19 @@ public class EventDetails {
 
 	@Property
 	private BetOption betOption;
-	
+
 	@Inject
 	private BetService betService;
 
 	@Inject
 	private Locale locale;
-	
+
 	@InjectPage
 	private InsertBetType insertBetType;
-	
+
 	@InjectPage
 	private Options options;
-	
+
 	public Long getEventId() {
 		return eventId;
 	}
@@ -65,7 +65,7 @@ public class EventDetails {
 	public void setEventId(Long eventId) {
 		this.eventId = eventId;
 	}
-	
+
 	public Long getBetTypeId() {
 		return betTypeId;
 	}
@@ -73,42 +73,41 @@ public class EventDetails {
 	public void setBetTypeId(Long betTypeId) {
 		this.betTypeId = betTypeId;
 	}
-	
+
 	public Format getFormat() {
 		return NumberFormat.getInstance(locale);
 	}
-	
-	public DateFormat getFormatDate(){
-		return DateFormat.getDateTimeInstance(DateFormat.SHORT, 
-                DateFormat.SHORT,locale);
+
+	public DateFormat getFormatDate() {
+		return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
 	}
-	
-	public List<BetType> getBetTypes(){
+
+	public List<BetType> getBetTypes() {
 		return betTypes;
 	}
 
 	void setupRender() {
-		this.admin = userSession!=null && userSession.isAdmin();
-		this.eventStart = event.finishedEvent(eventId);		
+		this.admin = userSession != null && userSession.isAdmin();
+		this.eventStart = event.finishedEvent(eventId);
 	}
 
-	Object onSuccess(){
-		
+	Object onSuccess() {
+
 		insertBetType.setEventId(this.eventId);
-		return insertBetType;		
+		return insertBetType;
 	}
-	
+
 	void onActivate(Long eventId) {
 
 		this.eventId = eventId;
 
 		try {
-			this.event=betService.findEvent(eventId);
+			this.event = betService.findEvent(eventId);
 			this.betTypes = this.event.getBetTypes();
 		} catch (InstanceNotFoundException e) {
 		}
 	}
-	
+
 	Long onPassivate() {
 		return eventId;
 	}
