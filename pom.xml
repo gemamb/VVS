@@ -20,7 +20,7 @@
 	<properties>
 
 
-    	<checkstyle.config.location>properties/sun_checks.xml</checkstyle.config.location>
+		<checkstyle.config.location>properties/sun_checks.xml</checkstyle.config.location>
 
 		<!-- Data source properties -->
 		<dataSource.user>pojo</dataSource.user>

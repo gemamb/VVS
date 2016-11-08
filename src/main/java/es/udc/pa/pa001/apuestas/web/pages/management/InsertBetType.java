@@ -22,91 +22,153 @@ import es.udc.pa.pa001.apuestas.web.services.AuthenticationPolicy;
 import es.udc.pa.pa001.apuestas.web.services.AuthenticationPolicyType;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class InsertBetType.
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_ADMIN)
 public class InsertBetType {
 
-	@Property
-	private String question;
+  /** The question. */
+  @Property
+  private String question;
 
-	@Property
-	private boolean multiple;
+  /** The multiple. */
+  @Property
+  private boolean multiple;
 
-	private Long eventId;
-	private Long betTypeId;
+  /** The event id. */
+  private Long eventId;
 
-	public Long getBetTypeId() {
-		return betTypeId;
-	}
+  /** The bet type id. */
+  private Long betTypeId;
 
-	public void setBetTypeId(Long betTypeId) {
-		this.betTypeId = betTypeId;
-	}
+  /**
+   * Gets the bet type id.
+   *
+   * @return the bet type id
+   */
+  public Long getBetTypeId() {
+    return betTypeId;
+  }
 
-	public Long getEventId() {
-		return eventId;
-	}
+  /**
+   * Sets the bet type id.
+   *
+   * @param betTypeId
+   *          the new bet type id
+   */
+  public void setBetTypeId(Long betTypeId) {
+    this.betTypeId = betTypeId;
+  }
 
-	public void setEventId(Long eventId) {
-		this.eventId = eventId;
-	}
+  /**
+   * Gets the event id.
+   *
+   * @return the event id
+   */
+  public Long getEventId() {
+    return eventId;
+  }
 
-	@Inject
-	private BetService betService;
+  /**
+   * Sets the event id.
+   *
+   * @param eventId
+   *          the new event id
+   */
+  public void setEventId(Long eventId) {
+    this.eventId = eventId;
+  }
 
-	@InjectPage
-	private InsertBetOption insertBetOption;
+  /** The bet service. */
+  @Inject
+  private BetService betService;
 
-	@Inject
-	private Locale locale;
+  /** The insert bet option. */
+  @InjectPage
+  private InsertBetOption insertBetOption;
 
-	@Component(id = "question")
-	private TextField questionTextField;
+  /** The locale. */
+  @Inject
+  private Locale locale;
 
-	@Inject
-	private Messages messages;
+  /** The question text field. */
+  @Component(id = "question")
+  private TextField questionTextField;
 
-	@Component
-	private Form betTypeForm;
+  /** The messages. */
+  @Inject
+  private Messages messages;
 
-	private BetType betType;
+  /** The bet type form. */
+  @Component
+  private Form betTypeForm;
 
-	void onValidateFromBetTypeForm() {
-		Event event;
+  /** The bet type. */
+  private BetType betType;
 
-		try {
-			event = betService.findEvent(eventId);
-			betType = new BetType();
+  /**
+   * On validate from bet type form.
+   */
+  void onValidateFromBetTypeForm() {
+    Event event;
 
-			if (betService.findDuplicates(eventId, question)) {
-				betTypeForm.recordError(questionTextField, messages.format("error-duplicatedQuestion", question));
-				return;
-			}
+    try {
+      event = betService.findEvent(eventId);
+      betType = new BetType();
 
-			betType.setMultiple(multiple);
-			betType.setQuestion(question);
-		} catch (InstanceNotFoundException e) {
-			betTypeForm.recordError(messages.format("error-eventNotFound", eventId));
-		}
+      if (betService.findDuplicates(eventId, question)) {
+        betTypeForm.recordError(questionTextField,
+            messages.format("error-duplicatedQuestion", question));
+        return;
+      }
 
-	}
+      betType.setMultiple(multiple);
+      betType.setQuestion(question);
+    } catch (InstanceNotFoundException e) {
+      betTypeForm.recordError(messages.format("error-eventNotFound", eventId));
+    }
 
-	Object onSuccess() {
-		insertBetOption.setEventId(eventId);
-		insertBetOption.setMultiple(multiple);
-		insertBetOption.setQuestion(question);
-		return insertBetOption;
-	}
+  }
 
-	void onActivate(Long eventId) {
-		this.eventId = eventId;
-	}
+  /**
+   * On success.
+   *
+   * @return the object
+   */
+  Object onSuccess() {
+    insertBetOption.setEventId(eventId);
+    insertBetOption.setMultiple(multiple);
+    insertBetOption.setQuestion(question);
+    return insertBetOption;
+  }
 
-	Long onPassivate() {
-		return this.eventId;
-	}
+  /**
+   * On activate.
+   *
+   * @param eventId
+   *          the event id
+   */
+  void onActivate(Long eventId) {
+    this.eventId = eventId;
+  }
 
-	public Format getFormat() {
-		return NumberFormat.getInstance(locale);
-	}
+  /**
+   * On passivate.
+   *
+   * @return the long
+   */
+  Long onPassivate() {
+    return this.eventId;
+  }
+
+  /**
+   * Gets the format.
+   *
+   * @return the format
+   */
+  public Format getFormat() {
+    return NumberFormat.getInstance(locale);
+  }
 
 }

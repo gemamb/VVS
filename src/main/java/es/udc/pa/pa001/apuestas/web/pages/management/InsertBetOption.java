@@ -34,208 +34,325 @@ import es.udc.pa.pa001.apuestas.model.betservice.util.MinimunBetOptionException;
 import es.udc.pa.pa001.apuestas.model.event.Event;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class InsertBetOption.
+ */
 public class InsertBetOption {
 
-	@Property
-	private BetOption betOption;
+  /** The bet option. */
+  @Property
+  private BetOption betOption;
 
-	@InjectComponent
-	private Zone counterZone;
+  /** The counter zone. */
+  @InjectComponent
+  private Zone counterZone;
 
-	@Inject
-	private Request request;
+  /** The request. */
+  @Inject
+  private Request request;
 
-	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
+  /** The ajax response renderer. */
+  @Inject
+  private AjaxResponseRenderer ajaxResponseRenderer;
 
-	@Property
-	@Persist
-	private List<BetOption> savedBetOptions;
+  /** The saved bet options. */
+  @Property
+  @Persist
+  private List<BetOption> savedBetOptions;
 
-	@Component
-	private Form betOptionForm;
+  /** The bet option form. */
+  @Component
+  private Form betOptionForm;
 
-	@Component
-	private Form betTypeForm;
+  /** The bet type form. */
+  @Component
+  private Form betTypeForm;
 
-	@Inject
-	private Messages messages;
+  /** The messages. */
+  @Inject
+  private Messages messages;
 
-	@Inject
-	private Locale locale;
+  /** The locale. */
+  @Inject
+  private Locale locale;
 
-	@Property
-	private String answer;
+  /** The answer. */
+  @Property
+  private String answer;
 
-	@Property
-	private String rate;
+  /** The rate. */
+  @Property
+  private String rate;
 
-	@Property
-	private Float rateAsFloat;
+  /** The rate as float. */
+  @Property
+  private Float rateAsFloat;
 
-	@InjectPage
-	private InsertBetOption insertBetOption;
+  /** The insert bet option. */
+  @InjectPage
+  private InsertBetOption insertBetOption;
 
-	@Component(id = "rate")
-	private TextField balanceTextField;
+  /** The balance text field. */
+  @Component(id = "rate")
+  private TextField balanceTextField;
 
-	@Component(id = "answer")
-	private TextField answerTextField;
+  /** The answer text field. */
+  @Component(id = "answer")
+  private TextField answerTextField;
 
-	@InjectPage
-	private InsertedBetType insertedBetType;
+  /** The inserted bet type. */
+  @InjectPage
+  private InsertedBetType insertedBetType;
 
-	@Inject
-	private BetService betService;
+  /** The bet service. */
+  @Inject
+  private BetService betService;
 
-	@Property
-	private final ValueEncoder<BetOption> encoder = new ValueEncoder<BetOption>() {
+  /** The encoder. */
+  @Property
+  private final ValueEncoder<BetOption> encoder = new ValueEncoder<BetOption>() {
 
-		@Override
-		public String toClient(BetOption value) {
-			return value.getAnswer();
-		}
+    @Override
+    public String toClient(BetOption value) {
+      return value.getAnswer();
+    }
 
-		@Override
-		public BetOption toValue(String clientValue) {
+    @Override
+    public BetOption toValue(String clientValue) {
 
-			int i = 0;
-			for (BetOption b : savedBetOptions) {
-				if (b.getAnswer().equals(clientValue)) {
-					return savedBetOptions.get(i);
-				}
-				i++;
-			}
-			return null;
-		}
-	};
+      int i = 0;
+      for (BetOption b : savedBetOptions) {
+        if (b.getAnswer().equals(clientValue)) {
+          return savedBetOptions.get(i);
+        }
+        i++;
+      }
+      return null;
+    }
+  };
 
-	private Long eventId;
-	private boolean multiple;
-	private String question;
-	private Long betTypeId;
+  /** The event id. */
+  private Long eventId;
 
-	public Long getBetTypeId() {
-		return betTypeId;
-	}
+  /** The multiple. */
+  private boolean multiple;
 
-	public void setBetTypeId(Long betTypeId) {
-		this.betTypeId = betTypeId;
-	}
+  /** The question. */
+  private String question;
 
-	void onActivate(Long betTypeId) {
-		this.betTypeId = betTypeId;
-	}
+  /** The bet type id. */
+  private Long betTypeId;
 
-	public Long getEventId() {
-		return eventId;
-	}
+  /**
+   * Gets the bet type id.
+   *
+   * @return the bet type id
+   */
+  public Long getBetTypeId() {
+    return betTypeId;
+  }
 
-	public void setEventId(Long eventId) {
-		this.eventId = eventId;
-	}
+  /**
+   * Sets the bet type id.
+   *
+   * @param betTypeId
+   *          the new bet type id
+   */
+  public void setBetTypeId(Long betTypeId) {
+    this.betTypeId = betTypeId;
+  }
 
-	public boolean isMultiple() {
-		return multiple;
-	}
+  /**
+   * On activate.
+   *
+   * @param betTypeId
+   *          the bet type id
+   */
+  void onActivate(Long betTypeId) {
+    this.betTypeId = betTypeId;
+  }
 
-	public void setMultiple(boolean multiple) {
-		this.multiple = multiple;
-	}
+  /**
+   * Gets the event id.
+   *
+   * @return the event id
+   */
+  public Long getEventId() {
+    return eventId;
+  }
 
-	public String getQuestion() {
-		return question;
-	}
+  /**
+   * Sets the event id.
+   *
+   * @param eventId
+   *          the new event id
+   */
+  public void setEventId(Long eventId) {
+    this.eventId = eventId;
+  }
 
-	public void setQuestion(String question) {
-		this.question = question;
-	}
+  /**
+   * Checks if is multiple.
+   *
+   * @return true, if is multiple
+   */
+  public boolean isMultiple() {
+    return multiple;
+  }
 
-	Object[] onPassivate() {
-		return new Object[] {eventId, multiple, question };
-	}
+  /**
+   * Sets the multiple.
+   *
+   * @param multiple
+   *          the new multiple
+   */
+  public void setMultiple(boolean multiple) {
+    this.multiple = multiple;
+  }
 
-	void onActivate(Long eventId, boolean multiple, String question) {
-		this.eventId = eventId;
-		this.multiple = multiple;
-		this.question = question;
-		this.savedBetOptions = this.savedBetOptions == null ? new ArrayList<BetOption>() : this.savedBetOptions;
-	}
+  /**
+   * Gets the question.
+   *
+   * @return the question
+   */
+  public String getQuestion() {
+    return question;
+  }
 
-	@OnEvent(value = "validate", component = "betOptionForm")
-	void onValidateFromBetOptionForm() {
+  /**
+   * Sets the question.
+   *
+   * @param question
+   *          the new question
+   */
+  public void setQuestion(String question) {
+    this.question = question;
+  }
 
-		if (!betOptionForm.isValid()) {
-			return;
-		}
+  /**
+   * On passivate.
+   *
+   * @return the object[]
+   */
+  Object[] onPassivate() {
+    return new Object[] { eventId, multiple, question };
+  }
 
-		NumberFormat numberFormatter = NumberFormat.getInstance(locale);
-		ParsePosition position = new ParsePosition(0);
-		Number number = numberFormatter.parse(rate, position);
-		if (position.getIndex() != rate.length()) {
-			betOptionForm.recordError(balanceTextField, messages.format("error-incorrectNumberFormat", rate));
-		} else {
-			rateAsFloat = number.floatValue();
-		}
+  /**
+   * On activate.
+   *
+   * @param eventId
+   *          the event id
+   * @param multiple
+   *          the multiple
+   * @param question
+   *          the question
+   */
+  void onActivate(Long eventId, boolean multiple, String question) {
+    this.eventId = eventId;
+    this.multiple = multiple;
+    this.question = question;
+    this.savedBetOptions = this.savedBetOptions == null
+        ? new ArrayList<BetOption>() : this.savedBetOptions;
+  }
 
-		for (BetOption b : savedBetOptions) {
-			if (b.getAnswer().equals(answer)) {
-				betOptionForm.recordError(answerTextField, messages.format("error-duplicateAnswer", answer));
-				return;
-			}
-		}
-	}
+  /**
+   * On validate from bet option form.
+   */
+  @OnEvent(value = "validate", component = "betOptionForm")
+  void onValidateFromBetOptionForm() {
 
-	Object onSuccessFromBetOptionForm() {
+    if (!betOptionForm.isValid()) {
+      return;
+    }
 
-		BetOption betOption = new BetOption();
-		betOption.setAnswer(answer);
-		betOption.setRate(rateAsFloat);
-		this.savedBetOptions.add(betOption);
+    NumberFormat numberFormatter = NumberFormat.getInstance(locale);
+    ParsePosition position = new ParsePosition(0);
+    Number number = numberFormatter.parse(rate, position);
+    if (position.getIndex() != rate.length()) {
+      betOptionForm.recordError(balanceTextField,
+          messages.format("error-incorrectNumberFormat", rate));
+    } else {
+      rateAsFloat = number.floatValue();
+    }
 
-		insertBetOption.setEventId(eventId);
-		insertBetOption.setMultiple(multiple);
-		insertBetOption.setQuestion(question);
+    for (BetOption b : savedBetOptions) {
+      if (b.getAnswer().equals(answer)) {
+        betOptionForm.recordError(answerTextField,
+            messages.format("error-duplicateAnswer", answer));
+        return;
+      }
+    }
+  }
 
-		return request.isXHR() ? counterZone.getBody() : null;
+  /**
+   * On success from bet option form.
+   *
+   * @return the object
+   */
+  Object onSuccessFromBetOptionForm() {
 
-		// return insertBetOption;
-	}
+    BetOption betOption = new BetOption();
+    betOption.setAnswer(answer);
+    betOption.setRate(rateAsFloat);
+    this.savedBetOptions.add(betOption);
 
-	@OnEvent(value = "validate", component = "betTypeForm")
-	void onValidateFromBetTypeForm() {
+    insertBetOption.setEventId(eventId);
+    insertBetOption.setMultiple(multiple);
+    insertBetOption.setQuestion(question);
 
-		Event event;
-		try {
-			event = betService.findEvent(eventId);
-			BetType betType = new BetType();
-			event.addBetType(betType);
-			for (BetOption newbetOption : savedBetOptions) {
-				betType.addBetOption(newbetOption);
-			}
-			betType.setMultiple(multiple);
-			betType.setQuestion(question);
-			betService.insertBetType(betType);
-			betTypeId = betType.getBetTypeId();
-		} catch (InstanceNotFoundException e) {
-			betTypeForm.recordError(messages.format("error-eventNotFound", eventId));
-		} catch (DuplicateBetTypeQuestionException e) {
-		} catch (DuplicateBetOptionAnswerException e) {
-			betTypeForm.recordError(messages.format("error-duplicateAnswer"));
-			this.savedBetOptions = null;
-		} catch (MinimunBetOptionException e) {
-			betTypeForm.recordError(messages.format("error-minimunBetOption"));
-		}
-	}
+    return request.isXHR() ? counterZone.getBody() : null;
 
-	Object onSuccessFromBetTypeForm() {
-		this.savedBetOptions = null;
-		insertedBetType.setBetTypeId(betTypeId);
-		return insertedBetType;
-	}
+    // return insertBetOption;
+  }
 
-	public Format getFormat() {
-		return NumberFormat.getInstance(locale);
-	}
+  /**
+   * On validate from bet type form.
+   */
+  @OnEvent(value = "validate", component = "betTypeForm")
+  void onValidateFromBetTypeForm() {
+
+    Event event;
+    try {
+      event = betService.findEvent(eventId);
+      BetType betType = new BetType();
+      event.addBetType(betType);
+      for (BetOption newbetOption : savedBetOptions) {
+        betType.addBetOption(newbetOption);
+      }
+      betType.setMultiple(multiple);
+      betType.setQuestion(question);
+      betService.insertBetType(betType);
+      betTypeId = betType.getBetTypeId();
+    } catch (InstanceNotFoundException e) {
+      betTypeForm.recordError(messages.format("error-eventNotFound", eventId));
+    } catch (DuplicateBetTypeQuestionException e) {
+    } catch (DuplicateBetOptionAnswerException e) {
+      betTypeForm.recordError(messages.format("error-duplicateAnswer"));
+      this.savedBetOptions = null;
+    } catch (MinimunBetOptionException e) {
+      betTypeForm.recordError(messages.format("error-minimunBetOption"));
+    }
+  }
+
+  /**
+   * On success from bet type form.
+   *
+   * @return the object
+   */
+  Object onSuccessFromBetTypeForm() {
+    this.savedBetOptions = null;
+    insertedBetType.setBetTypeId(betTypeId);
+    return insertedBetType;
+  }
+
+  /**
+   * Gets the format.
+   *
+   * @return the format
+   */
+  public Format getFormat() {
+    return NumberFormat.getInstance(locale);
+  }
 
 }

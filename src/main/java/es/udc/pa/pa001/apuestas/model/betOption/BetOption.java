@@ -14,86 +14,184 @@ import org.hibernate.annotations.BatchSize;
 
 import es.udc.pa.pa001.apuestas.model.betType.BetType;
 
+/**
+ * The Class BetOption.
+ */
 @Entity
 @BatchSize(size = 10)
 public class BetOption {
 
-	private Long betOptionId;
-	private String answer;
-	private Float rate;
-	private Boolean betState;
-	private BetType betType;
+  /** The bet option id. */
+  private Long betOptionId;
 
-	public BetOption() {
-	}
+  /** The answer. */
+  private String answer;
 
-	public BetOption(Long betOptionId, String answer, Float rate, Boolean betState, BetType betType) {
-		super();
-		this.betOptionId = betOptionId;
-		this.answer = answer;
-		this.rate = rate;
-		this.betState = null;
-		this.betType = betType;
-	}
+  /** The rate. */
+  private Float rate;
 
-	public BetOption(String answer, Float rate, Boolean betState, BetType betType) {
-		super();
-		this.answer = answer;
-		this.rate = rate;
-		this.betState = betState;
-		this.betType = betType;
-	}
+  /** The bet state. */
+  private Boolean betState;
 
-	@Column(name = "BetOptionId")
-	@SequenceGenerator(// It only takes effect for
-	        name = "BetOptionIdGenerator", // databases providing identifier
-	        sequenceName = "BetOptionSeq")
-	// generators.
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "BetOptionIdGenerator")
-	public Long getBetOptionId() {
-		return betOptionId;
-	}
+  /** The bet type. */
+  private BetType betType;
 
-	public void setBetOptionId(Long betOptionId) {
-		this.betOptionId = betOptionId;
-	}
+  /**
+   * Instantiates a new bet option.
+   */
+  public BetOption() {
+  }
 
-	@Column(name = "answer")
-	public String getAnswer() {
-		return answer;
-	}
+  /**
+   * Instantiates a new bet option.
+   *
+   * @param betOptionId
+   *          the bet option id
+   * @param answer
+   *          the answer
+   * @param rate
+   *          the rate
+   * @param betState
+   *          the bet state
+   * @param betType
+   *          the bet type
+   */
+  public BetOption(Long betOptionId, String answer, Float rate,
+      Boolean betState, BetType betType) {
+    super();
+    this.betOptionId = betOptionId;
+    this.answer = answer;
+    this.rate = rate;
+    this.betState = null;
+    this.betType = betType;
+  }
 
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
+  /**
+   * Instantiates a new bet option.
+   *
+   * @param answer
+   *          the answer
+   * @param rate
+   *          the rate
+   * @param betState
+   *          the bet state
+   * @param betType
+   *          the bet type
+   */
+  public BetOption(String answer, Float rate, Boolean betState,
+      BetType betType) {
+    super();
+    this.answer = answer;
+    this.rate = rate;
+    this.betState = betState;
+    this.betType = betType;
+  }
 
-	@Column(name = "rate")
-	public Float getRate() {
-		return rate;
-	}
+  /**
+   * Gets the bet option id.
+   *
+   * @return the bet option id
+   */
+  @Column(name = "BetOptionId")
+  @SequenceGenerator(// It only takes effect for
+      name = "BetOptionIdGenerator", // databases providing identifier
+      sequenceName = "BetOptionSeq")
+  // generators.
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "BetOptionIdGenerator")
+  public Long getBetOptionId() {
+    return betOptionId;
+  }
 
-	public void setRate(Float rate) {
-		this.rate = rate;
-	}
+  /**
+   * Sets the bet option id.
+   *
+   * @param betOptionId
+   *          the new bet option id
+   */
+  public void setBetOptionId(Long betOptionId) {
+    this.betOptionId = betOptionId;
+  }
 
-	@Column(name = "betState")
-	public Boolean getBetState() {
-		return betState;
-	}
+  /**
+   * Gets the answer.
+   *
+   * @return the answer
+   */
+  @Column(name = "answer")
+  public String getAnswer() {
+    return answer;
+  }
 
-	public void setBetState(Boolean betState) {
-		this.betState = betState;
-	}
+  /**
+   * Sets the answer.
+   *
+   * @param answer
+   *          the new answer
+   */
+  public void setAnswer(String answer) {
+    this.answer = answer;
+  }
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "betTypeId")
-	public BetType getBetType() {
-		return betType;
-	}
+  /**
+   * Gets the rate.
+   *
+   * @return the rate
+   */
+  @Column(name = "rate")
+  public Float getRate() {
+    return rate;
+  }
 
-	public void setBetType(BetType betType) {
-		this.betType = betType;
-	}
+  /**
+   * Sets the rate.
+   *
+   * @param rate
+   *          the new rate
+   */
+  public void setRate(Float rate) {
+    this.rate = rate;
+  }
+
+  /**
+   * Gets the bet state.
+   *
+   * @return the bet state
+   */
+  @Column(name = "betState")
+  public Boolean getBetState() {
+    return betState;
+  }
+
+  /**
+   * Sets the bet state.
+   *
+   * @param betState
+   *          the new bet state
+   */
+  public void setBetState(Boolean betState) {
+    this.betState = betState;
+  }
+
+  /**
+   * Gets the bet type.
+   *
+   * @return the bet type
+   */
+  @ManyToOne(optional = false, fetch = FetchType.LAZY)
+  @JoinColumn(name = "betTypeId")
+  public BetType getBetType() {
+    return betType;
+  }
+
+  /**
+   * Sets the bet type.
+   *
+   * @param betType
+   *          the new bet type
+   */
+  public void setBetType(BetType betType) {
+    this.betType = betType;
+  }
 
 }

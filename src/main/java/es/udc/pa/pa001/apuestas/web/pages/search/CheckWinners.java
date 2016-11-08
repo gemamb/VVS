@@ -30,154 +30,234 @@ import es.udc.pa.pa001.apuestas.model.event.Event;
 import es.udc.pa.pa001.apuestas.web.util.BetOptionEncoder;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class CheckWinners.
+ */
 public class CheckWinners {
 
-	@Property
-	private Event event;
+  /** The event. */
+  @Property
+  private Event event;
 
-	@Property
-	private BetOption betOption;
+  /** The bet option. */
+  @Property
+  private BetOption betOption;
 
-	@Inject
-	private BetService betService;
+  /** The bet service. */
+  @Inject
+  private BetService betService;
 
-	@Inject
-	private Locale locale;
+  /** The locale. */
+  @Inject
+  private Locale locale;
 
-	@Inject
-	private Messages messages;
+  /** The messages. */
+  @Inject
+  private Messages messages;
 
-	@Inject
-	private SelectModelFactory selectModelFactory;
+  /** The select model factory. */
+  @Inject
+  private SelectModelFactory selectModelFactory;
 
-	@Property
-	private SelectModel optionsModel;
+  /** The options model. */
+  @Property
+  private SelectModel optionsModel;
 
-	private BetType betType;
+  /** The bet type. */
+  private BetType betType;
 
-	private Long betTypeId;
-	private Long betOptionId;
+  /** The bet type id. */
+  private Long betTypeId;
 
-	@Property
-	private boolean multiple;
+  /** The bet option id. */
+  private Long betOptionId;
 
-	@Property
-	private List<BetOption> finals;
+  /** The multiple. */
+  @Property
+  private boolean multiple;
 
-	@Component
-	private Form checkListForm;
+  /** The finals. */
+  @Property
+  private List<BetOption> finals;
 
-	@InjectPage
-	private EventDetails eventDetails;
+  /** The check list form. */
+  @Component
+  private Form checkListForm;
 
-	@Property
-	private Long selectedId;
+  /** The event details. */
+  @InjectPage
+  private EventDetails eventDetails;
 
-	public BetType getBetType() {
-		return this.betType;
-	}
+  /** The selected id. */
+  @Property
+  private Long selectedId;
 
-	public List<BetOption> getBetOptions() {
+  /**
+   * Gets the bet type.
+   *
+   * @return the bet type
+   */
+  public BetType getBetType() {
+    return this.betType;
+  }
 
-		List<BetOption> options = new ArrayList<BetOption>();
-		try {
-			options = betService.findBetType(betTypeId).getBetOptions();
+  /**
+   * Gets the bet options.
+   *
+   * @return the bet options
+   */
+  public List<BetOption> getBetOptions() {
 
-		} catch (InstanceNotFoundException e) {
-		}
-		return options;
-	}
+    List<BetOption> options = new ArrayList<BetOption>();
+    try {
+      options = betService.findBetType(betTypeId).getBetOptions();
 
-	public Long getBetOptionId() {
-		return betOptionId;
-	}
+    } catch (InstanceNotFoundException e) {
+    }
+    return options;
+  }
 
-	public void setBetOptionId(Long betOptionId) {
-		this.betOptionId = betOptionId;
-	}
+  /**
+   * Gets the bet option id.
+   *
+   * @return the bet option id
+   */
+  public Long getBetOptionId() {
+    return betOptionId;
+  }
 
-	public Long getBetTypeId() {
-		return betTypeId;
-	}
+  /**
+   * Sets the bet option id.
+   *
+   * @param betOptionId
+   *          the new bet option id
+   */
+  public void setBetOptionId(Long betOptionId) {
+    this.betOptionId = betOptionId;
+  }
 
-	public void setBetTypeId(Long betTypeId) {
-		this.betTypeId = betTypeId;
-	}
+  /**
+   * Gets the bet type id.
+   *
+   * @return the bet type id
+   */
+  public Long getBetTypeId() {
+    return betTypeId;
+  }
 
-	public Format getFormat() {
-		return NumberFormat.getInstance(locale);
-	}
+  /**
+   * Sets the bet type id.
+   *
+   * @param betTypeId
+   *          the new bet type id
+   */
+  public void setBetTypeId(Long betTypeId) {
+    this.betTypeId = betTypeId;
+  }
 
-	void setupRender() {
-		this.multiple = betType.getMultiple();
+  /**
+   * Gets the format.
+   *
+   * @return the format
+   */
+  public Format getFormat() {
+    return NumberFormat.getInstance(locale);
+  }
 
-	}
+  /**
+   * Setup render.
+   */
+  void setupRender() {
+    this.multiple = betType.getMultiple();
 
-	void onActivate(Long betTypeId) {
+  }
 
-		this.betTypeId = betTypeId;
-		this.betOption = new BetOption();
+  /**
+   * On activate.
+   *
+   * @param betTypeId
+   *          the bet type id
+   */
+  void onActivate(Long betTypeId) {
 
-		try {
-			this.betType = betService.findBetType(betTypeId);
-		} catch (InstanceNotFoundException e) {
-		}
+    this.betTypeId = betTypeId;
+    this.betOption = new BetOption();
 
-		optionsModel = selectModelFactory.create(getBetOptions(), "answer");
-	}
+    try {
+      this.betType = betService.findBetType(betTypeId);
+    } catch (InstanceNotFoundException e) {
+    }
 
-	Long onPassivate() {
-		return betTypeId;
-	}
+    optionsModel = selectModelFactory.create(getBetOptions(), "answer");
+  }
 
-	public BetOptionEncoder getOptionEncoder() {
-		return new BetOptionEncoder(betService);
-	}
+  /**
+   * On passivate.
+   *
+   * @return the long
+   */
+  Long onPassivate() {
+    return betTypeId;
+  }
 
-	@OnEvent(value = "validate", component = "checkListForm")
-	void onValidateFromCheckListForm() {
+  /**
+   * Gets the option encoder.
+   *
+   * @return the option encoder
+   */
+  public BetOptionEncoder getOptionEncoder() {
+    return new BetOptionEncoder(betService);
+  }
 
-		List<Long> ids = new ArrayList<>();
-		Set<Long> winners = new HashSet<Long>();
+  /**
+   * On validate from check list form.
+   */
+  @OnEvent(value = "validate", component = "checkListForm")
+  void onValidateFromCheckListForm() {
 
-		if (betType.getMultiple()) {
-			if (finals.isEmpty())
-				checkListForm.recordError(messages
-						.format("error-notSufficient"));
+    List<Long> ids = new ArrayList<>();
+    Set<Long> winners = new HashSet<Long>();
 
-			for (BetOption b : finals) {
-				ids.add(b.getBetOptionId());
-			}
+    if (betType.getMultiple()) {
+      if (finals.isEmpty())
+        checkListForm.recordError(messages.format("error-notSufficient"));
 
-			winners.addAll(ids);
-		} else {
-			if (selectedId == null)
-				checkListForm.recordError(messages
-						.format("error-notSufficient"));
+      for (BetOption b : finals) {
+        ids.add(b.getBetOptionId());
+      }
 
-			winners.add(selectedId);
-		}
+      winners.addAll(ids);
+    } else {
+      if (selectedId == null)
+        checkListForm.recordError(messages.format("error-notSufficient"));
 
-		try {
-			betService.checkOptions(betTypeId, winners);
-		} catch (InstanceNotFoundException e1) {
-		} catch (OnlyOneWonOptionException e1) {
-			checkListForm
-			.recordError(messages.format("error-onlyOneWonOption"));
-		} catch (NotAllOptionsExistsException e1) {
-		}
-	}
+      winners.add(selectedId);
+    }
 
-	Object onSuccess() {
+    try {
+      betService.checkOptions(betTypeId, winners);
+    } catch (InstanceNotFoundException e1) {
+    } catch (OnlyOneWonOptionException e1) {
+      checkListForm.recordError(messages.format("error-onlyOneWonOption"));
+    } catch (NotAllOptionsExistsException e1) {
+    }
+  }
 
-		Long eventId = null;
-		try {
-			eventId = betService.findBetType(betTypeId).getEvent().getEventId();
-		} catch (InstanceNotFoundException e) {
-		}
+  /**
+   * On success.
+   *
+   * @return the object
+   */
+  Object onSuccess() {
 
-		eventDetails.setEventId(eventId);
-		return eventDetails;
-	}
+    Long eventId = null;
+    try {
+      eventId = betService.findBetType(betTypeId).getEvent().getEventId();
+    } catch (InstanceNotFoundException e) {
+    }
+
+    eventDetails.setEventId(eventId);
+    return eventDetails;
+  }
 
 }

@@ -9,42 +9,79 @@ import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.BatchSize;
 
+/**
+ * The Class Category.
+ */
 @Entity
 @BatchSize(size = 10)
 public class Category {
 
-	private Long categoryId;
-	private String name;
+  /** The category id. */
+  private Long categoryId;
 
-	public Category() {
-	}
+  /** The name. */
+  private String name;
 
-	public Category(String name) {
-		this.name = name;
-	}
+  /**
+   * Instantiates a new category.
+   */
+  public Category() {
+  }
 
-	@Column(name = "categoryId")
-	@SequenceGenerator(// It only takes effect for
-	        name = "CategoryIdGenerator", // databases providing identifier
-	        sequenceName = "CategorySeq")
-	// generators.
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "CategoryIdGenerator")
-	public Long getCategoryId() {
-		return categoryId;
-	}
+  /**
+   * Instantiates a new category.
+   *
+   * @param name
+   *          the name
+   */
+  public Category(String name) {
+    this.name = name;
+  }
 
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
-	}
+  /**
+   * Gets the category id.
+   *
+   * @return the category id
+   */
+  @Column(name = "categoryId")
+  @SequenceGenerator(// It only takes effect for
+      name = "CategoryIdGenerator", // databases providing identifier
+      sequenceName = "CategorySeq")
+  // generators.
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "CategoryIdGenerator")
+  public Long getCategoryId() {
+    return categoryId;
+  }
 
-	@Column(name = "name")
-	public String getName() {
-		return name;
-	}
+  /**
+   * Sets the category id.
+   *
+   * @param categoryId
+   *          the new category id
+   */
+  public void setCategoryId(Long categoryId) {
+    this.categoryId = categoryId;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
+  @Column(name = "name")
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Sets the name.
+   *
+   * @param name
+   *          the new name
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
 
 }

@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import net.java.quickcheck.Generator;
-import net.java.quickcheck.generator.PrimitiveGenerators;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,93 +36,133 @@ import es.udc.pa.pa001.apuestas.model.event.EventDao;
 import es.udc.pa.pa001.apuestas.model.userprofile.UserProfile;
 import es.udc.pa.pa001.apuestas.model.userprofile.UserProfileDao;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
+import net.java.quickcheck.Generator;
+import net.java.quickcheck.generator.PrimitiveGenerators;
 
+/**
+ * The Class BetServiceAleatoryIntegrationTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { SPRING_CONFIG_FILE, SPRING_CONFIG_TEST_FILE })
+@ContextConfiguration(locations = { SPRING_CONFIG_FILE,
+    SPRING_CONFIG_TEST_FILE })
 @Transactional
 public class BetServiceAleatoryIntegrationTest {
-	@Autowired
-	private CategoryDao categoryDao;
 
-	@Autowired
-	private EventDao eventDao;
+  /** The category dao. */
+  @Autowired
+  private CategoryDao categoryDao;
 
-	@Autowired
-	private BetTypeDao betTypeDao;
+  /** The event dao. */
+  @Autowired
+  private EventDao eventDao;
 
-	@Autowired
-	private BetOptionDao betOptionDao;
+  /** The bet type dao. */
+  @Autowired
+  private BetTypeDao betTypeDao;
 
-	@Autowired
-	private UserProfileDao userProfileDao;
+  /** The bet option dao. */
+  @Autowired
+  private BetOptionDao betOptionDao;
 
-	@Autowired
-	private BetDao betDao;
+  /** The user profile dao. */
+  @Autowired
+  private UserProfileDao userProfileDao;
 
-	@Autowired
-	private BetService betService;
+  /** The bet dao. */
+  @Autowired
+  private BetDao betDao;
 
-	BetOption betOption1, betOption2;
-	UserProfile user;
+  /** The bet service. */
+  @Autowired
+  private BetService betService;
 
-	private void initializeUser() {
-		user = new UserProfile("pepe6", "XxXyYyZzZ", "Pepe", "García",
-				"pepe6@gmail.com");
-		userProfileDao.save(user);
-	}
+  /** The bet option 2. */
+  BetOption betOption1, betOption2;
 
-	private void initializeBetOptions() {
+  /** The user. */
+  UserProfile user;
 
-		Category category1 = new Category("Baloncesto");
-		categoryDao.save(category1);
+  /**
+   * Initialize user.
+   */
+  private void initializeUser() {
+    user = new UserProfile("pepe6", "XxXyYyZzZ", "Pepe", "García",
+        "pepe6@gmail.com");
+    userProfileDao.save(user);
+  }
 
-		Calendar eventCalendar = Calendar.getInstance();
-		eventCalendar.set(2017, Calendar.AUGUST, 31);
+  /**
+   * Initialize bet options.
+   */
+  private void initializeBetOptions() {
 
-		Event event = new Event("Real Madrid - Barcelona", eventCalendar,
-				category1);
-		eventDao.save(event);
+    Category category1 = new Category("Baloncesto");
+    categoryDao.save(category1);
 
-		BetType betType = new BetType("¿Qué equipo ganará el encuentro?", false);
+    Calendar eventCalendar = Calendar.getInstance();
+    eventCalendar.set(2017, Calendar.AUGUST, 31);
 
-		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null,
-				betType);
-		betOption2 = new BetOption("Barcelona", (float) 1.75, null, betType);
+    Event event = new Event("Real Madrid - Barcelona", eventCalendar,
+        category1);
+    eventDao.save(event);
 
-		List<BetOption> betOptions = new ArrayList<>();
-		betOptions.add(betOption1);
-		betOptions.add(betOption2);
+    BetType betType = new BetType("¿Qué equipo ganará el encuentro?", false);
 
-		betType.setBetOptions(betOptions);
-		event.addBetType(betType);
-		betTypeDao.save(betType);
-		betOptionDao.save(betOption1);
-		betOptionDao.save(betOption2);
+    betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
+    betOption2 = new BetOption("Barcelona", (float) 1.75, null, betType);
 
-		event.addBetType(betType);
-	}
+    List<BetOption> betOptions = new ArrayList<>();
+    betOptions.add(betOption1);
+    betOptions.add(betOption2);
 
-	@Test
-	public void testMakeBet() throws InstanceNotFoundException,
-	OutdatedBetException, DuplicateBetTypeQuestionException,
-	DuplicateBetOptionAnswerException, MinimunBetOptionException,
-	AlreadyPastedDateException, DuplicateEventNameException {
+    betType.setBetOptions(betOptions);
+    event.addBetType(betType);
+    betTypeDao.save(betType);
+    betOptionDao.save(betOption1);
+    betOptionDao.save(betOption2);
 
-		initializeBetOptions();
-		initializeUser();
+    event.addBetType(betType);
+  }
 
-		Generator<Double> aleatoryQuantity = PrimitiveGenerators.doubles(
-				-100000, +100000);
+  /**
+   * Test make bet.
+   *
+   * @throws InstanceNotFoundException
+   *           the instance not found exception
+   * @throws OutdatedBetException
+   *           the outdated bet exception
+   * @throws DuplicateBetTypeQuestionException
+   *           the duplicate bet type question exception
+   * @throws DuplicateBetOptionAnswerException
+   *           the duplicate bet option answer exception
+   * @throws MinimunBetOptionException
+   *           the minimun bet option exception
+   * @throws AlreadyPastedDateException
+   *           the already pasted date exception
+   * @throws DuplicateEventNameException
+   *           the duplicate event name exception
+   */
+  @Test
+  public void testMakeBet() throws InstanceNotFoundException,
+      OutdatedBetException, DuplicateBetTypeQuestionException,
+      DuplicateBetOptionAnswerException, MinimunBetOptionException,
+      AlreadyPastedDateException, DuplicateEventNameException {
 
-		float quantity = aleatoryQuantity.next().floatValue();
+    initializeBetOptions();
+    initializeUser();
 
-		Bet bet = betService.makeBet(user.getUserProfileId(),
-				betOption1.getBetOptionId(), quantity);
-		Bet betFound = betDao.find(bet.getBetId());
-		assertEquals(bet, betFound);
+    Generator<Double> aleatoryQuantity = PrimitiveGenerators.doubles(-100000,
+        +100000);
 
-		List<Bet> betFounds = betDao.findBetsByUserId(user.getUserProfileId(),
-				0, 10);
-		assertTrue(betFounds.contains(bet));
-	}
+    float quantity = aleatoryQuantity.next().floatValue();
+
+    Bet bet = betService.makeBet(user.getUserProfileId(),
+        betOption1.getBetOptionId(), quantity);
+    Bet betFound = betDao.find(bet.getBetId());
+    assertEquals(bet, betFound);
+
+    List<Bet> betFounds = betDao.findBetsByUserId(user.getUserProfileId(), 0,
+        10);
+    assertTrue(betFounds.contains(bet));
+  }
 }

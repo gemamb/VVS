@@ -16,62 +16,82 @@ import es.udc.pa.pa001.apuestas.web.util.CookiesManager;
 import es.udc.pa.pa001.apuestas.web.util.UserSession;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class SessionFilter.
+ */
 public class SessionFilter implements RequestFilter {
 
-	private ApplicationStateManager applicationStateManager;
-	private Cookies cookies;
-	private UserService userService;
+  /** The application state manager. */
+  private ApplicationStateManager applicationStateManager;
 
-	public SessionFilter(ApplicationStateManager applicationStateManager,
-			Cookies cookies, UserService userService) {
+  /** The cookies. */
+  private Cookies cookies;
 
-		this.applicationStateManager = applicationStateManager;
-		this.cookies = cookies;
-		this.userService = userService;
+  /** The user service. */
+  private UserService userService;
 
-	}
+  /**
+   * Instantiates a new session filter.
+   *
+   * @param applicationStateManager
+   *          the application state manager
+   * @param cookies
+   *          the cookies
+   * @param userService
+   *          the user service
+   */
+  public SessionFilter(ApplicationStateManager applicationStateManager,
+      Cookies cookies, UserService userService) {
 
-	@Override
-	public boolean service(Request request, Response response,
-			RequestHandler handler) throws IOException {
+    this.applicationStateManager = applicationStateManager;
+    this.cookies = cookies;
+    this.userService = userService;
 
-		if (!applicationStateManager.exists(UserSession.class)) {
+  }
 
-			String loginName = CookiesManager.getLoginName(cookies);
-			if (loginName != null) {
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.apache.tapestry5.services.RequestFilter#service(org.apache.tapestry5.services.Request,
+   * org.apache.tapestry5.services.Response, org.apache.tapestry5.services.RequestHandler)
+   */
+  @Override
+  public boolean service(Request request, Response response,
+      RequestHandler handler) throws IOException {
 
-				String encryptedPassword = CookiesManager
-						.getEncryptedPassword(cookies);
-				if (encryptedPassword != null) {
+    if (!applicationStateManager.exists(UserSession.class)) {
 
-					try {
+      String loginName = CookiesManager.getLoginName(cookies);
+      if (loginName != null) {
 
-						UserProfile userProfile = userService.login(loginName,
-								encryptedPassword, true);
-						UserSession userSession = new UserSession();
-						userSession.setUserProfileId(userProfile
-								.getUserProfileId());
-						userSession.setAdmin(userProfile.getLoginName().equals(
-								"admin"));
-						userSession.setFirstName(userProfile.getFirstName());
-						applicationStateManager.set(UserSession.class,
-								userSession);
+        String encryptedPassword = CookiesManager.getEncryptedPassword(cookies);
+        if (encryptedPassword != null) {
 
-					} catch (InstanceNotFoundException e) {
-						CookiesManager.removeCookies(cookies);
-					} catch (IncorrectPasswordException e) {
-						CookiesManager.removeCookies(cookies);
-					}
+          try {
 
-				}
+            UserProfile userProfile = userService.login(loginName,
+                encryptedPassword, true);
+            UserSession userSession = new UserSession();
+            userSession.setUserProfileId(userProfile.getUserProfileId());
+            userSession.setAdmin(userProfile.getLoginName().equals("admin"));
+            userSession.setFirstName(userProfile.getFirstName());
+            applicationStateManager.set(UserSession.class, userSession);
 
-			}
+          } catch (InstanceNotFoundException e) {
+            CookiesManager.removeCookies(cookies);
+          } catch (IncorrectPasswordException e) {
+            CookiesManager.removeCookies(cookies);
+          }
 
-		}
+        }
 
-		handler.service(request, response);
+      }
 
-		return true;
-	}
+    }
+
+    handler.service(request, response);
+
+    return true;
+  }
 
 }

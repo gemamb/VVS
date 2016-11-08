@@ -17,61 +17,81 @@ import es.udc.pa.pa001.apuestas.web.util.CookiesManager;
 import es.udc.pa.pa001.apuestas.web.util.UserSession;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class ChangePassword.
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED)
 public class ChangePassword {
 
-	@Property
-	private String oldPassword;
+  /** The old password. */
+  @Property
+  private String oldPassword;
 
-	@Property
-	private String newPassword;
+  /** The new password. */
+  @Property
+  private String newPassword;
 
-	@Property
-	private String retypeNewPassword;
+  /** The retype new password. */
+  @Property
+  private String retypeNewPassword;
 
-	@SessionState(create = false)
-	private UserSession userSession;
+  /** The user session. */
+  @SessionState(create = false)
+  private UserSession userSession;
 
-	@Component
-	private Form changePasswordForm;
+  /** The change password form. */
+  @Component
+  private Form changePasswordForm;
 
-	@Inject
-	private Cookies cookies;
+  /** The cookies. */
+  @Inject
+  private Cookies cookies;
 
-	@Inject
-	private Messages messages;
+  /** The messages. */
+  @Inject
+  private Messages messages;
 
-	@Inject
-	private UserService userService;
+  /** The user service. */
+  @Inject
+  private UserService userService;
 
-	void onValidateFromChangePasswordForm() throws InstanceNotFoundException {
+  /**
+   * On validate from change password form.
+   *
+   * @throws InstanceNotFoundException
+   *           the instance not found exception
+   */
+  void onValidateFromChangePasswordForm() throws InstanceNotFoundException {
 
-		if (!changePasswordForm.isValid()) {
-			return;
-		}
+    if (!changePasswordForm.isValid()) {
+      return;
+    }
 
-		if (!newPassword.equals(retypeNewPassword)) {
-			changePasswordForm.recordError(messages
-					.get("error-passwordsDontMatch"));
-		} else {
+    if (!newPassword.equals(retypeNewPassword)) {
+      changePasswordForm.recordError(messages.get("error-passwordsDontMatch"));
+    } else {
 
-			try {
-				userService.changePassword(userSession.getUserProfileId(),
-						oldPassword, newPassword);
-			} catch (IncorrectPasswordException e) {
-				changePasswordForm.recordError(messages
-						.get("error-invalidPassword"));
-			}
+      try {
+        userService.changePassword(userSession.getUserProfileId(), oldPassword,
+            newPassword);
+      } catch (IncorrectPasswordException e) {
+        changePasswordForm.recordError(messages.get("error-invalidPassword"));
+      }
 
-		}
+    }
 
-	}
+  }
 
-	Object onSuccess() {
+  /**
+   * On success.
+   *
+   * @return the object
+   */
+  Object onSuccess() {
 
-		CookiesManager.removeCookies(cookies);
-		return Index.class;
+    CookiesManager.removeCookies(cookies);
+    return Index.class;
 
-	}
+  }
 
 }

@@ -18,96 +18,182 @@ import es.udc.pa.pa001.apuestas.web.services.AuthenticationPolicyType;
 import es.udc.pa.pa001.apuestas.web.util.FindEventGridDataSource;
 import es.udc.pa.pa001.apuestas.web.util.UserSession;
 
+/**
+ * The Class EventsDetails.
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.ALL_USERS)
 public class EventsDetails {
 
-	private final static int EVENTS_PER_PAGE = 10;
+  /** The Constant EVENTS_PER_PAGE. */
+  private final static int EVENTS_PER_PAGE = 10;
 
-	private String keyWords;
-	private int startIndex = 0;
-	private EventBlock eventBlock;
-	private Event event;
-	private Long category;
+  /** The key words. */
+  private String keyWords;
 
-	@SessionState(create = false)
-	private UserSession userSession;
+  /** The start index. */
+  private int startIndex = 0;
 
-	private boolean admin;
+  /** The event block. */
+  private EventBlock eventBlock;
 
-	@Inject
-	private Locale locale;
+  /** The event. */
+  private Event event;
 
-	@Inject
-	private BetService betService;
+  /** The category. */
+  private Long category;
 
-	private FindEventGridDataSource findEventGridDataSource;
+  /** The user session. */
+  @SessionState(create = false)
+  private UserSession userSession;
 
-	public FindEventGridDataSource getFindEventGridDataSource() {
-		return findEventGridDataSource;
-	}
+  /** The admin. */
+  private boolean admin;
 
-	public int getRowsPerPage() {
-		return EVENTS_PER_PAGE;
-	}
+  /** The locale. */
+  @Inject
+  private Locale locale;
 
-	public Event getEvent() {
-		return event;
-	}
+  /** The bet service. */
+  @Inject
+  private BetService betService;
 
-	public void setEvent(Event event) {
-		this.event = event;
-	}
+  /** The find event grid data source. */
+  private FindEventGridDataSource findEventGridDataSource;
 
-	public List<Event> getEvents() {
-		return (eventBlock == null) ? null : eventBlock.getEvents();
-	}
+  /**
+   * Gets the find event grid data source.
+   *
+   * @return the find event grid data source
+   */
+  public FindEventGridDataSource getFindEventGridDataSource() {
+    return findEventGridDataSource;
+  }
 
-	public String getKeyWords() {
-		return keyWords;
-	}
+  /**
+   * Gets the rows per page.
+   *
+   * @return the rows per page
+   */
+  public int getRowsPerPage() {
+    return EVENTS_PER_PAGE;
+  }
 
-	public void setKeyWords(String keyWords) {
-		this.keyWords = keyWords;
-	}
+  /**
+   * Gets the event.
+   *
+   * @return the event
+   */
+  public Event getEvent() {
+    return event;
+  }
 
-	public Long getCategory() {
-		return category;
-	}
+  /**
+   * Sets the event.
+   *
+   * @param event
+   *          the new event
+   */
+  public void setEvent(Event event) {
+    this.event = event;
+  }
 
-	public void setCategory(Long category) {
-		this.category = category;
-	}
+  /**
+   * Gets the events.
+   *
+   * @return the events
+   */
+  public List<Event> getEvents() {
+    return (eventBlock == null) ? null : eventBlock.getEvents();
+  }
 
-	// public Object[] getPreviousLinkContext(){
-	// return (startIndex-EVENTS_PER_PAGE >=0) ? new
-	// Object[]{keyWords,category,startIndex-EVENTS_PER_PAGE} : null;
-	// }
-	//
-	// public Object[] getNextLinkContext(){
-	// return eventBlock.getExistMoreEvents() ? new
-	// Object[]{keyWords,category,startIndex+EVENTS_PER_PAGE} : null;
-	// }
+  /**
+   * Gets the key words.
+   *
+   * @return the key words
+   */
+  public String getKeyWords() {
+    return keyWords;
+  }
 
-	public DateFormat getFormat() {
-		return DateFormat.getDateTimeInstance(DateFormat.SHORT,
-				DateFormat.SHORT, locale);
-	}
+  /**
+   * Sets the key words.
+   *
+   * @param keyWords
+   *          the new key words
+   */
+  public void setKeyWords(String keyWords) {
+    this.keyWords = keyWords;
+  }
 
-	void onActivate(String keyWords, Long category, int startIndex) {
-		this.keyWords = keyWords;
-		this.category = category;
-		this.startIndex = startIndex;
-		boolean admin = userSession != null && userSession.isAdmin();
+  /**
+   * Gets the category.
+   *
+   * @return the category
+   */
+  public Long getCategory() {
+    return category;
+  }
 
-		findEventGridDataSource = new FindEventGridDataSource(betService,
-				keyWords, category, admin);
+  /**
+   * Sets the category.
+   *
+   * @param category
+   *          the new category
+   */
+  public void setCategory(Long category) {
+    this.category = category;
+  }
 
-		// eventBlock = betService.findEvents(keyWords, category,
-		// startIndex,EVENTS_PER_PAGE,admin);
-	}
+  // public Object[] getPreviousLinkContext(){
+  // return (startIndex-EVENTS_PER_PAGE >=0) ? new
+  // Object[]{keyWords,category,startIndex-EVENTS_PER_PAGE} : null;
+  // }
+  //
+  // public Object[] getNextLinkContext(){
+  // return eventBlock.getExistMoreEvents() ? new
+  // Object[]{keyWords,category,startIndex+EVENTS_PER_PAGE} : null;
+  // }
 
-	Object[] onPassivate() {
-		return new Object[] { keyWords, category, startIndex };
-	}
+  /**
+   * Gets the format.
+   *
+   * @return the format
+   */
+  public DateFormat getFormat() {
+    return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT,
+        locale);
+  }
+
+  /**
+   * On activate.
+   *
+   * @param keyWords
+   *          the key words
+   * @param category
+   *          the category
+   * @param startIndex
+   *          the start index
+   */
+  void onActivate(String keyWords, Long category, int startIndex) {
+    this.keyWords = keyWords;
+    this.category = category;
+    this.startIndex = startIndex;
+    boolean admin = userSession != null && userSession.isAdmin();
+
+    findEventGridDataSource = new FindEventGridDataSource(betService, keyWords,
+        category, admin);
+
+    // eventBlock = betService.findEvents(keyWords, category,
+    // startIndex,EVENTS_PER_PAGE,admin);
+  }
+
+  /**
+   * On passivate.
+   *
+   * @return the object[]
+   */
+  Object[] onPassivate() {
+    return new Object[] { keyWords, category, startIndex };
+  }
 
 }

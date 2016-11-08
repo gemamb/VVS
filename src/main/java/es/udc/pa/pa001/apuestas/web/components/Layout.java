@@ -15,45 +15,64 @@ import es.udc.pa.pa001.apuestas.web.services.AuthenticationPolicyType;
 import es.udc.pa.pa001.apuestas.web.util.CookiesManager;
 import es.udc.pa.pa001.apuestas.web.util.UserSession;
 
+/**
+ * The Class Layout.
+ */
 @Import(library = { "tapestry5/bootstrap/js/collapse.js",
-		"tapestry5/bootstrap/js/dropdown.js" }, stylesheet = "tapestry5/bootstrap/css/bootstrap-theme.css")
+    "tapestry5/bootstrap/js/dropdown.js" }, stylesheet = "tapestry5/bootstrap/css/bootstrap-theme.css")
 public class Layout {
 
-	@Property
-	@Parameter(required = true, defaultPrefix = "message")
-	private String title;
+  /** The title. */
+  @Property
+  @Parameter(required = true, defaultPrefix = "message")
+  private String title;
 
-	@Parameter(defaultPrefix = "literal")
-	private Boolean showTitleInBody;
+  /** The show title in body. */
+  @Parameter(defaultPrefix = "literal")
+  private Boolean showTitleInBody;
 
-	@Property
-	@SessionState(create = false)
-	private UserSession userSession;
+  /** The user session. */
+  @Property
+  @SessionState(create = false)
+  private UserSession userSession;
 
-	@Inject
-	private Cookies cookies;
+  /** The cookies. */
+  @Inject
+  private Cookies cookies;
 
-	@Inject
-	private ComponentResources resources;
+  /** The resources. */
+  @Inject
+  private ComponentResources resources;
 
-	@Inject
-	private Request request;
+  /** The request. */
+  @Inject
+  private Request request;
 
-	public boolean getShowTitleInBody() {
+  /**
+   * Gets the show title in body.
+   *
+   * @return the show title in body
+   */
+  public boolean getShowTitleInBody() {
 
-		if (showTitleInBody == null) {
-			return true;
-		} else {
-			return showTitleInBody;
-		}
+    if (showTitleInBody == null) {
+      return true;
+    } else {
+      return showTitleInBody;
+    }
 
-	}
+  }
 
-	@AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED)
-	Object onActionFromLogout() {
-		userSession = null;
-		CookiesManager.removeCookies(cookies);
-		return Index.class;
-	}
+  /**
+   * On action from logout.
+   *
+   * @return the object
+   */
+  @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED)
+  Object onActionFromLogout() {
+    userSession = null;
+    CookiesManager.removeCookies(cookies);
+    return Index.class;
+  }
 
 }

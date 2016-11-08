@@ -4,37 +4,79 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import es.udc.pa.pa001.apuestas.model.userservice.UserService;
 
+/**
+ * The Class UserSession.
+ */
 public class UserSession {
 
-	private Long userProfileId;
-	private String firstName;
-	private boolean admin = false;
+  /** The user profile id. */
+  private Long userProfileId;
 
-	@Inject
-	private UserService userService;
+  /** The first name. */
+  private String firstName;
 
-	public Long getUserProfileId() {
-		return userProfileId;
-	}
+  /** The admin. */
+  private boolean admin = false;
 
-	public void setUserProfileId(Long userProfileId) {
-		this.userProfileId = userProfileId;
-	}
+  /** The user service. */
+  @Inject
+  private UserService userService;
 
-	public String getFirstName() {
-		return firstName;
-	}
+  /**
+   * Gets the user profile id.
+   *
+   * @return the user profile id
+   */
+  public Long getUserProfileId() {
+    return userProfileId;
+  }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+  /**
+   * Sets the user profile id.
+   *
+   * @param userProfileId
+   *          the new user profile id
+   */
+  public void setUserProfileId(Long userProfileId) {
+    this.userProfileId = userProfileId;
+  }
 
-	public boolean isAdmin() {
-		return admin;
-	}
+  /**
+   * Gets the first name.
+   *
+   * @return the first name
+   */
+  public String getFirstName() {
+    return firstName;
+  }
 
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
-	}
+  /**
+   * Sets the first name.
+   *
+   * @param firstName
+   *          the new first name
+   */
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  /**
+   * Checks if is admin.
+   *
+   * @return true, if is admin
+   */
+  public boolean isAdmin() {
+    return admin;
+  }
+
+  /**
+   * Sets the admin.
+   *
+   * @param admin
+   *          the new admin
+   */
+  public void setAdmin(boolean admin) {
+    this.admin = admin;
+  }
 
 }

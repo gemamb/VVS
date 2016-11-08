@@ -20,73 +20,153 @@ import es.udc.pa.pa001.apuestas.web.services.AuthenticationPolicyType;
 import es.udc.pa.pa001.apuestas.web.util.MyBetsGridDataSource;
 import es.udc.pa.pa001.apuestas.web.util.UserSession;
 
+/**
+ * The Class MyBets.
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_NO_ADMIN)
 public class MyBets {
 
-	@SessionState(create = false)
-	private UserSession userSession;
+  /** The user session. */
+  @SessionState(create = false)
+  private UserSession userSession;
 
-	@Inject
-	private BetService betService;
+  /** The bet service. */
+  @Inject
+  private BetService betService;
 
-	@Inject
-	private Locale locale;
+  /** The locale. */
+  @Inject
+  private Locale locale;
 
-	private final static int BETS_PER_PAGE = 10;
-	private int startIndex = 0;
-	private BetBlock betBlock;
-	private Bet bet;
+  /** The Constant BETS_PER_PAGE. */
+  private final static int BETS_PER_PAGE = 10;
 
-	private MyBetsGridDataSource MyBetsGridDataSource;
+  /** The start index. */
+  private int startIndex = 0;
 
-	public MyBetsGridDataSource getMyBetsGridDataSource() {
-		return MyBetsGridDataSource;
-	}
+  /** The bet block. */
+  private BetBlock betBlock;
 
-	public int getRowsPerPage() {
-		return BETS_PER_PAGE;
-	}
+  /** The bet. */
+  private Bet bet;
 
-	public boolean getPending() {
-		return bet.getBetOption().getBetState() == null;
-	}
+  /** The My bets grid data source. */
+  private MyBetsGridDataSource MyBetsGridDataSource;
 
-	public boolean getWon() {
-		return bet.getBetOption().getBetState() == null ? false : bet.getBetOption().getBetState();
-	}
+  /**
+   * Gets the my bets grid data source.
+   *
+   * @return the my bets grid data source
+   */
+  public MyBetsGridDataSource getMyBetsGridDataSource() {
+    return MyBetsGridDataSource;
+  }
 
-	public Float getGain() {
-		return bet.getBetedMoney() * bet.getBetOption().getRate();
-	}
+  /**
+   * Gets the rows per page.
+   *
+   * @return the rows per page
+   */
+  public int getRowsPerPage() {
+    return BETS_PER_PAGE;
+  }
 
-	public Bet getBet() {
-		return bet;
-	}
+  /**
+   * Gets the pending.
+   *
+   * @return the pending
+   */
+  public boolean getPending() {
+    return bet.getBetOption().getBetState() == null;
+  }
 
-	public void setBet(Bet bet) {
-		this.bet = bet;
-	}
+  /**
+   * Gets the won.
+   *
+   * @return the won
+   */
+  public boolean getWon() {
+    return bet.getBetOption().getBetState() == null ? false
+        : bet.getBetOption().getBetState();
+  }
 
-	public List<Bet> getBets() {
-		return betBlock.getBets();
-	}
+  /**
+   * Gets the gain.
+   *
+   * @return the gain
+   */
+  public Float getGain() {
+    return bet.getBetedMoney() * bet.getBetOption().getRate();
+  }
 
-	public DateFormat getFormat() {
-		return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
-	}
+  /**
+   * Gets the bet.
+   *
+   * @return the bet
+   */
+  public Bet getBet() {
+    return bet;
+  }
 
-	public Format getNumberFormat() {
-		return NumberFormat.getInstance(locale);
-	}
+  /**
+   * Sets the bet.
+   *
+   * @param bet
+   *          the new bet
+   */
+  public void setBet(Bet bet) {
+    this.bet = bet;
+  }
 
-	void onActivate(int startIndex) {
-		this.startIndex = startIndex;
-		betBlock = betService.findBets(userSession.getUserProfileId(), startIndex, BETS_PER_PAGE);
+  /**
+   * Gets the bets.
+   *
+   * @return the bets
+   */
+  public List<Bet> getBets() {
+    return betBlock.getBets();
+  }
 
-		MyBetsGridDataSource = new MyBetsGridDataSource(betService, userSession.getUserProfileId());
-	}
+  /**
+   * Gets the format.
+   *
+   * @return the format
+   */
+  public DateFormat getFormat() {
+    return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT,
+        locale);
+  }
 
-	Object[] onPassivate() {
-		return new Object[] {startIndex };
-	}
+  /**
+   * Gets the number format.
+   *
+   * @return the number format
+   */
+  public Format getNumberFormat() {
+    return NumberFormat.getInstance(locale);
+  }
+
+  /**
+   * On activate.
+   *
+   * @param startIndex
+   *          the start index
+   */
+  void onActivate(int startIndex) {
+    this.startIndex = startIndex;
+    betBlock = betService.findBets(userSession.getUserProfileId(), startIndex,
+        BETS_PER_PAGE);
+
+    MyBetsGridDataSource = new MyBetsGridDataSource(betService,
+        userSession.getUserProfileId());
+  }
+
+  /**
+   * On passivate.
+   *
+   * @return the object[]
+   */
+  Object[] onPassivate() {
+    return new Object[] { startIndex };
+  }
 }

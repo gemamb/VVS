@@ -20,82 +20,115 @@ import es.udc.pa.pa001.apuestas.web.util.CookiesManager;
 import es.udc.pa.pa001.apuestas.web.util.UserSession;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class Login.
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.NON_AUTHENTICATED_USERS)
 public class Login {
 
-	@Property
-	private String loginName;
+  /** The login name. */
+  @Property
+  private String loginName;
 
-	@Property
-	private String password;
+  /** The password. */
+  @Property
+  private String password;
 
-	@Property
-	private boolean rememberMyPassword;
+  /** The remember my password. */
+  @Property
+  private boolean rememberMyPassword;
 
-	@SessionState(create = false)
-	private UserSession userSession;
+  /** The user session. */
+  @SessionState(create = false)
+  private UserSession userSession;
 
-	@Inject
-	private Cookies cookies;
+  /** The cookies. */
+  @Inject
+  private Cookies cookies;
 
-	@Component
-	private Form loginForm;
+  /** The login form. */
+  @Component
+  private Form loginForm;
 
-	@Inject
-	private Messages messages;
+  /** The messages. */
+  @Inject
+  private Messages messages;
 
-	@Inject
-	private UserService userService;
+  /** The user service. */
+  @Inject
+  private UserService userService;
 
-	@InjectPage
-	private MakeBet makeBet;
+  /** The make bet. */
+  @InjectPage
+  private MakeBet makeBet;
 
-	private UserProfile userProfile = null;
+  /** The user profile. */
+  private UserProfile userProfile = null;
 
-	private Long betOptionId;
+  /** The bet option id. */
+  private Long betOptionId;
 
-	void onValidateFromLoginForm() {
+  /**
+   * On validate from login form.
+   */
+  void onValidateFromLoginForm() {
 
-		if (!loginForm.isValid()) {
-			return;
-		}
+    if (!loginForm.isValid()) {
+      return;
+    }
 
-		try {
-			userProfile = userService.login(loginName, password, false);
-		} catch (InstanceNotFoundException e) {
-			loginForm.recordError(messages.get("error-authenticationFailed"));
-		} catch (IncorrectPasswordException e) {
-			loginForm.recordError(messages.get("error-authenticationFailed"));
-		}
+    try {
+      userProfile = userService.login(loginName, password, false);
+    } catch (InstanceNotFoundException e) {
+      loginForm.recordError(messages.get("error-authenticationFailed"));
+    } catch (IncorrectPasswordException e) {
+      loginForm.recordError(messages.get("error-authenticationFailed"));
+    }
 
-	}
+  }
 
-	Object onSuccess() {
+  /**
+   * On success.
+   *
+   * @return the object
+   */
+  Object onSuccess() {
 
-		userSession = new UserSession();
-		userSession.setAdmin(userProfile.getLoginName().equals("admin"));
-		userSession.setUserProfileId(userProfile.getUserProfileId());
-		userSession.setFirstName(userProfile.getFirstName());
+    userSession = new UserSession();
+    userSession.setAdmin(userProfile.getLoginName().equals("admin"));
+    userSession.setUserProfileId(userProfile.getUserProfileId());
+    userSession.setFirstName(userProfile.getFirstName());
 
-		if (rememberMyPassword) {
-			CookiesManager.leaveCookies(cookies, loginName,
-					userProfile.getEncryptedPassword());
-		}
-		if (this.betOptionId == null)
-			return Index.class;
-		else {
-			makeBet.setbetOptionId(betOptionId);
-			return makeBet;
-		}
+    if (rememberMyPassword) {
+      CookiesManager.leaveCookies(cookies, loginName,
+          userProfile.getEncryptedPassword());
+    }
+    if (this.betOptionId == null)
+      return Index.class;
+    else {
+      makeBet.setbetOptionId(betOptionId);
+      return makeBet;
+    }
 
-	}
+  }
 
-	void onActivate(Long id) {
-		this.betOptionId = id;
-	}
+  /**
+   * On activate.
+   *
+   * @param id
+   *          the id
+   */
+  void onActivate(Long id) {
+    this.betOptionId = id;
+  }
 
-	Long onPassivate() {
-		return this.betOptionId;
-	}
+  /**
+   * On passivate.
+   *
+   * @return the long
+   */
+  Long onPassivate() {
+    return this.betOptionId;
+  }
 
 }

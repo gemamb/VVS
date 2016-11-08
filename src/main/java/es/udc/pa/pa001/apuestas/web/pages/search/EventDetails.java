@@ -20,95 +20,171 @@ import es.udc.pa.pa001.apuestas.web.pages.management.InsertBetType;
 import es.udc.pa.pa001.apuestas.web.util.UserSession;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class EventDetails.
+ */
 public class EventDetails {
 
-	@SessionState(create = false)
-	private UserSession userSession;
+  /** The user session. */
+  @SessionState(create = false)
+  private UserSession userSession;
 
-	private Long eventId;
-	private Long betTypeId;
-	private List<BetType> betTypes = new ArrayList<>();
+  /** The event id. */
+  private Long eventId;
 
-	private boolean check;
+  /** The bet type id. */
+  private Long betTypeId;
 
-	@Property
-	private Event event;
+  /** The bet types. */
+  private List<BetType> betTypes = new ArrayList<>();
 
-	@Property
-	private boolean eventStart;
+  /** The check. */
+  private boolean check;
 
-	@Property
-	private boolean admin;
+  /** The event. */
+  @Property
+  private Event event;
 
-	@Property
-	private BetType betType;
+  /** The event start. */
+  @Property
+  private boolean eventStart;
 
-	@Property
-	private BetOption betOption;
+  /** The admin. */
+  @Property
+  private boolean admin;
 
-	@Inject
-	private BetService betService;
+  /** The bet type. */
+  @Property
+  private BetType betType;
 
-	@Inject
-	private Locale locale;
+  /** The bet option. */
+  @Property
+  private BetOption betOption;
 
-	@InjectPage
-	private InsertBetType insertBetType;
+  /** The bet service. */
+  @Inject
+  private BetService betService;
 
-	@InjectPage
-	private Options options;
+  /** The locale. */
+  @Inject
+  private Locale locale;
 
-	public Long getEventId() {
-		return eventId;
-	}
+  /** The insert bet type. */
+  @InjectPage
+  private InsertBetType insertBetType;
 
-	public void setEventId(Long eventId) {
-		this.eventId = eventId;
-	}
+  /** The options. */
+  @InjectPage
+  private Options options;
 
-	public Long getBetTypeId() {
-		return betTypeId;
-	}
+  /**
+   * Gets the event id.
+   *
+   * @return the event id
+   */
+  public Long getEventId() {
+    return eventId;
+  }
 
-	public void setBetTypeId(Long betTypeId) {
-		this.betTypeId = betTypeId;
-	}
+  /**
+   * Sets the event id.
+   *
+   * @param eventId
+   *          the new event id
+   */
+  public void setEventId(Long eventId) {
+    this.eventId = eventId;
+  }
 
-	public Format getFormat() {
-		return NumberFormat.getInstance(locale);
-	}
+  /**
+   * Gets the bet type id.
+   *
+   * @return the bet type id
+   */
+  public Long getBetTypeId() {
+    return betTypeId;
+  }
 
-	public DateFormat getFormatDate() {
-		return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale);
-	}
+  /**
+   * Sets the bet type id.
+   *
+   * @param betTypeId
+   *          the new bet type id
+   */
+  public void setBetTypeId(Long betTypeId) {
+    this.betTypeId = betTypeId;
+  }
 
-	public List<BetType> getBetTypes() {
-		return betTypes;
-	}
+  /**
+   * Gets the format.
+   *
+   * @return the format
+   */
+  public Format getFormat() {
+    return NumberFormat.getInstance(locale);
+  }
 
-	void setupRender() {
-		this.admin = userSession != null && userSession.isAdmin();
-		this.eventStart = event.finishedEvent(eventId);
-	}
+  /**
+   * Gets the format date.
+   *
+   * @return the format date
+   */
+  public DateFormat getFormatDate() {
+    return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT,
+        locale);
+  }
 
-	Object onSuccess() {
+  /**
+   * Gets the bet types.
+   *
+   * @return the bet types
+   */
+  public List<BetType> getBetTypes() {
+    return betTypes;
+  }
 
-		insertBetType.setEventId(this.eventId);
-		return insertBetType;
-	}
+  /**
+   * Setup render.
+   */
+  void setupRender() {
+    this.admin = userSession != null && userSession.isAdmin();
+    this.eventStart = event.finishedEvent(eventId);
+  }
 
-	void onActivate(Long eventId) {
+  /**
+   * On success.
+   *
+   * @return the object
+   */
+  Object onSuccess() {
 
-		this.eventId = eventId;
+    insertBetType.setEventId(this.eventId);
+    return insertBetType;
+  }
 
-		try {
-			this.event = betService.findEvent(eventId);
-			this.betTypes = this.event.getBetTypes();
-		} catch (InstanceNotFoundException e) {
-		}
-	}
+  /**
+   * On activate.
+   *
+   * @param eventId
+   *          the event id
+   */
+  void onActivate(Long eventId) {
 
-	Long onPassivate() {
-		return eventId;
-	}
+    this.eventId = eventId;
+
+    try {
+      this.event = betService.findEvent(eventId);
+      this.betTypes = this.event.getBetTypes();
+    } catch (InstanceNotFoundException e) {
+    }
+  }
+
+  /**
+   * On passivate.
+   *
+   * @return the long
+   */
+  Long onPassivate() {
+    return eventId;
+  }
 }

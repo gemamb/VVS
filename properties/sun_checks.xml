@@ -39,7 +39,7 @@
 	<!-- <module name="RegexpHeader"/> -->
 
 	<module name="FileTabCharacter">
-		<property name="eachLine" value="false" />
+		<property name="eachLine" value="true" />
 	</module>
 
 	<module name="RegexpSingleline">
@@ -99,7 +99,7 @@
 		<!-- Checks for Size Violations. -->
 		<!-- See http://checkstyle.sf.net/config_sizes.html -->
 		<module name="LineLength">
-			<property name="max" value="150" />
+			<property name="max" value="80" />
 		</module>
 		<module name="MethodLength" />
 		<module name="ParameterNumber" />

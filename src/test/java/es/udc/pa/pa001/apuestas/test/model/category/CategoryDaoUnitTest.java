@@ -18,68 +18,78 @@ import org.springframework.transaction.annotation.Transactional;
 import es.udc.pa.pa001.apuestas.model.category.Category;
 import es.udc.pa.pa001.apuestas.model.category.CategoryDao;
 
+/**
+ * The Class CategoryDaoUnitTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { SPRING_CONFIG_FILE, SPRING_CONFIG_TEST_FILE })
+@ContextConfiguration(locations = { SPRING_CONFIG_FILE,
+    SPRING_CONFIG_TEST_FILE })
 @Transactional
 public class CategoryDaoUnitTest {
 
-	@Autowired
-	private SessionFactory sessionFactory;
+  /** The session factory. */
+  @Autowired
+  private SessionFactory sessionFactory;
 
-	@Autowired
-	private CategoryDao categoryDao;
+  /** The category dao. */
+  @Autowired
+  private CategoryDao categoryDao;
 
-	Category category1, category2;
+  /** The category 2. */
+  Category category1, category2;
 
-	private void initializeCategories() {
-		category1 = new Category("Baloncesto");
-		category2 = new Category("Futbol");
+  /**
+   * Initialize categories.
+   */
+  private void initializeCategories() {
+    category1 = new Category("Baloncesto");
+    category2 = new Category("Futbol");
 
-		sessionFactory.getCurrentSession().saveOrUpdate(category1);
-		sessionFactory.getCurrentSession().saveOrUpdate(category2);
-	}
+    sessionFactory.getCurrentSession().saveOrUpdate(category1);
+    sessionFactory.getCurrentSession().saveOrUpdate(category2);
+  }
 
-	/**
-	 * PR-UN-029
-	 */
+  /**
+   * PR-UN-029.
+   */
 
-	@Test
-	public void testFindCategories() {
+  @Test
+  public void testFindCategories() {
 
-		/* SETUP */
+    /* SETUP */
 
-		initializeCategories();
-		List<Category> listcategories = new ArrayList<>();
-		listcategories.add(category1);
-		listcategories.add(category2);
+    initializeCategories();
+    List<Category> listcategories = new ArrayList<>();
+    listcategories.add(category1);
+    listcategories.add(category2);
 
-		/* INVOCACION */
+    /* INVOCACION */
 
-		List<Category> listFindCategories = categoryDao.findCategories();
+    List<Category> listFindCategories = categoryDao.findCategories();
 
-		/* ASERCION */
+    /* ASERCION */
 
-		assertEquals(listFindCategories, listcategories);
-	}
+    assertEquals(listFindCategories, listcategories);
+  }
 
-	/**
-	 * PR-UN-030
-	 */
+  /**
+   * PR-UN-030.
+   */
 
-	@Test
-	public void testFindNoCategories() {
+  @Test
+  public void testFindNoCategories() {
 
-		/* SETUP */
+    /* SETUP */
 
-		List<Category> listcategories = new ArrayList<>();
+    List<Category> listcategories = new ArrayList<>();
 
-		/* INVOCACION */
+    /* INVOCACION */
 
-		List<Category> listFindCategories = categoryDao.findCategories();
+    List<Category> listFindCategories = categoryDao.findCategories();
 
-		/* ASERCION */
+    /* ASERCION */
 
-		assertEquals(listFindCategories, listcategories);
-	}
+    assertEquals(listFindCategories, listcategories);
+  }
 
 }

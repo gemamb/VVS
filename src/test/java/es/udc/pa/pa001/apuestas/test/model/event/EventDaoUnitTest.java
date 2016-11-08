@@ -25,731 +25,768 @@ import es.udc.pa.pa001.apuestas.model.event.EventDao;
 import es.udc.pa.pa001.apuestas.model.userprofile.UserProfile;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class EventDaoUnitTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { SPRING_CONFIG_FILE, SPRING_CONFIG_TEST_FILE })
+@ContextConfiguration(locations = { SPRING_CONFIG_FILE,
+    SPRING_CONFIG_TEST_FILE })
 @Transactional
 public class EventDaoUnitTest {
 
-	@Autowired
-	private SessionFactory sessionFactory;
+  /** The session factory. */
+  @Autowired
+  private SessionFactory sessionFactory;
 
-	@Autowired
-	private EventDao eventDao;
+  /** The event dao. */
+  @Autowired
+  private EventDao eventDao;
 
-	Calendar eventCalendarPast, eventCalendarFuture;
-	Category category1, category2;
-	Event event1, event2, event3;
-	UserProfile userProfile;
-	BetOption betOption1, betOption2;
-	BetType betType;
-	Bet bet1, bet2;
+  /** The event calendar future. */
+  Calendar eventCalendarPast, eventCalendarFuture;
+
+  /** The category 2. */
+  Category category1, category2;
+
+  /** The event 3. */
+  Event event1, event2, event3;
 
-	private void initializeDates() {
-		eventCalendarPast = Calendar.getInstance();
-		eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-	}
+  /** The user profile. */
+  UserProfile userProfile;
 
-	private void initializeCategories() {
-		category1 = new Category("Baloncesto");
-		category2 = new Category("Futbol");
+  /** The bet option 2. */
+  BetOption betOption1, betOption2;
 
-		sessionFactory.getCurrentSession().saveOrUpdate(category1);
-		sessionFactory.getCurrentSession().saveOrUpdate(category2);
-	}
+  /** The bet type. */
+  BetType betType;
 
-	private void initializeEvent() {
-		event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		sessionFactory.getCurrentSession().saveOrUpdate(event1);
-	}
+  /** The bet 2. */
+  Bet bet1, bet2;
 
-	private void initializeEvents() {
-		event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		event2 = new Event("Obradoiro - Real Madrid", eventCalendarFuture,
-				category1);
-		event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
+  /**
+   * Initialize dates.
+   */
+  private void initializeDates() {
+    eventCalendarPast = Calendar.getInstance();
+    eventCalendarFuture = Calendar.getInstance();
+    eventCalendarPast.set(2016, Calendar.JANUARY, 31);
+    eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
+  }
 
-		sessionFactory.getCurrentSession().saveOrUpdate(event1);
-		sessionFactory.getCurrentSession().saveOrUpdate(event2);
-		sessionFactory.getCurrentSession().saveOrUpdate(event3);
-	}
+  /**
+   * Initialize categories.
+   */
+  private void initializeCategories() {
+    category1 = new Category("Baloncesto");
+    category2 = new Category("Futbol");
 
-	/**
-	 * PR-UN-001
-	 */
+    sessionFactory.getCurrentSession().saveOrUpdate(category1);
+    sessionFactory.getCurrentSession().saveOrUpdate(category2);
+  }
 
-	@Test
-	public void testSaveEvent() {
+  /**
+   * Initialize event.
+   */
+  private void initializeEvent() {
+    event1 = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
+    sessionFactory.getCurrentSession().saveOrUpdate(event1);
+  }
 
-		/* SETUP */
+  /**
+   * Initialize events.
+   */
+  private void initializeEvents() {
+    event1 = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
+    event2 = new Event("Obradoiro - Real Madrid", eventCalendarFuture,
+        category1);
+    event3 = new Event("Real Madrid - Celta", eventCalendarFuture, category2);
 
-		initializeCategories();
-		initializeDates();
-		Event newEvent = new Event("Real Madrid - Barcelona",
-				eventCalendarPast, category1);
+    sessionFactory.getCurrentSession().saveOrUpdate(event1);
+    sessionFactory.getCurrentSession().saveOrUpdate(event2);
+    sessionFactory.getCurrentSession().saveOrUpdate(event3);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-001.
+   */
 
-		eventDao.save(newEvent);
+  @Test
+  public void testSaveEvent() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		/* void method */
+    initializeCategories();
+    initializeDates();
+    Event newEvent = new Event("Real Madrid - Barcelona", eventCalendarPast,
+        category1);
 
-	}
+    /* INVOCACION */
 
-	/**
-	 * PR-UN-002
-	 */
+    eventDao.save(newEvent);
 
-	@Test
-	public void testUpdateEvent() {
+    /* ASERCION */
 
-		/* SETUP */
+    /* void method */
 
-		initializeCategories();
-		initializeDates();
-		Event newEvent = new Event("Real Madrid - Barcelona",
-				eventCalendarPast, category1);
-		eventDao.save(newEvent);
-		newEvent.setName("Deportivo - Celta");
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-002.
+   */
 
-		eventDao.save(newEvent);
+  @Test
+  public void testUpdateEvent() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		/* void method */
+    initializeCategories();
+    initializeDates();
+    Event newEvent = new Event("Real Madrid - Barcelona", eventCalendarPast,
+        category1);
+    eventDao.save(newEvent);
+    newEvent.setName("Deportivo - Celta");
 
-	}
+    /* INVOCACION */
 
-	/**
-	 * PR-UN-003
-	 */
+    eventDao.save(newEvent);
 
-	@Test
-	public void testRemoveEvent() throws InstanceNotFoundException {
+    /* ASERCION */
 
-		/* SETUP */
+    /* void method */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvent(); /* event1 */
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-003.
+   *
+   * @throws InstanceNotFoundException
+   *           the instance not found exception
+   */
 
-		eventDao.remove(event1.getEventId());
+  @Test
+  public void testRemoveEvent() throws InstanceNotFoundException {
 
-		/* ASERCION */
+    /* SETUP */
 
-		/* void method */
+    initializeCategories();
+    initializeDates();
+    initializeEvent(); /* event1 */
 
-	}
+    /* INVOCACION */
 
-	/**
-	 * PR-UN-004
-	 */
+    eventDao.remove(event1.getEventId());
 
-	@Test(expected = InstanceNotFoundException.class)
-	public void testRemoveNonExistentEvent() throws InstanceNotFoundException {
+    /* ASERCION */
 
-		/* SETUP */
+    /* void method */
 
-		initializeCategories();
-		initializeDates();
-		Event newEvent = new Event("Real Madrid - Barcelona",
-				eventCalendarPast, category1);
-		eventDao.save(newEvent);
-		newEvent.setName("Deportivo - Celta");
+  }
 
-		Long nonExistentId = 0L;
+  /**
+   * PR-UN-004.
+   *
+   * @throws InstanceNotFoundException
+   *           the instance not found exception
+   */
 
-		/* INVOCACION */
+  @Test(expected = InstanceNotFoundException.class)
+  public void testRemoveNonExistentEvent() throws InstanceNotFoundException {
 
-		eventDao.remove(nonExistentId);
+    /* SETUP */
 
-		/* ASERCION */
+    initializeCategories();
+    initializeDates();
+    Event newEvent = new Event("Real Madrid - Barcelona", eventCalendarPast,
+        category1);
+    eventDao.save(newEvent);
+    newEvent.setName("Deportivo - Celta");
 
-		/* InstanceNotFoundException expected */
-	}
+    Long nonExistentId = 0L;
 
-	/**
-	 * PR-UN-005
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testFindEvent() throws InstanceNotFoundException {
+    eventDao.remove(nonExistentId);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvent(); /* event1 */
+    /* InstanceNotFoundException expected */
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-005.
+   *
+   * @throws InstanceNotFoundException
+   *           the instance not found exception
+   */
 
-		Event foundEvent = eventDao.find(event1.getEventId());
+  @Test
+  public void testFindEvent() throws InstanceNotFoundException {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(event1, foundEvent);
+    initializeCategories();
+    initializeDates();
+    initializeEvent(); /* event1 */
 
-	}
+    /* INVOCACION */
 
-	/**
-	 * PR-UN-006
-	 */
+    Event foundEvent = eventDao.find(event1.getEventId());
 
-	@Test(expected = InstanceNotFoundException.class)
-	public void testFindNonExistentEvent() throws InstanceNotFoundException {
+    /* ASERCION */
 
-		/* SETUP */
+    assertEquals(event1, foundEvent);
 
-		initializeCategories();
-		initializeDates();
-		Event newEvent = new Event("Real Madrid - Barcelona",
-				eventCalendarPast, category1);
-		eventDao.save(newEvent);
-		newEvent.setName("Deportivo - Celta");
+  }
 
-		Long nonExistentId = 0L;
+  /**
+   * PR-UN-006.
+   *
+   * @throws InstanceNotFoundException
+   *           the instance not found exception
+   */
 
-		/* INVOCACION */
+  @Test(expected = InstanceNotFoundException.class)
+  public void testFindNonExistentEvent() throws InstanceNotFoundException {
 
-		eventDao.find(nonExistentId);
+    /* SETUP */
 
-		/* ASERCION */
+    initializeCategories();
+    initializeDates();
+    Event newEvent = new Event("Real Madrid - Barcelona", eventCalendarPast,
+        category1);
+    eventDao.save(newEvent);
+    newEvent.setName("Deportivo - Celta");
 
-		/* InstanceNotFoundException expected */
+    Long nonExistentId = 0L;
 
-	}
+    /* INVOCACION */
 
-	/**
-	 * PR-UN-007
-	 */
+    eventDao.find(nonExistentId);
 
-	@Test
-	public void testGetNumberOfAllEvents() {
+    /* ASERCION */
 
-		/* SETUP */
+    /* InstanceNotFoundException expected */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-007.
+   */
 
-		int result = eventDao.getNumberOfEvents(null, null, true);
+  @Test
+  public void testGetNumberOfAllEvents() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(3, result);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
 
-	/**
-	 * PR-UN-008
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testGetNumberOfFutureEvents() {
+    int result = eventDao.getNumberOfEvents(null, null, true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
+    assertEquals(3, result);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-008.
+   */
 
-		int result = eventDao.getNumberOfEvents(null, null, false);
+  @Test
+  public void testGetNumberOfFutureEvents() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(2, result);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
 
-	/**
-	 * PR-UN-009
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testGetNumberOfCategoryEvents() {
+    int result = eventDao.getNumberOfEvents(null, null, false);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
+    assertEquals(2, result);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-009.
+   */
 
-		int result = eventDao.getNumberOfEvents(null,
-				category1.getCategoryId(), true);
+  @Test
+  public void testGetNumberOfCategoryEvents() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(2, result);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
 
-	/**
-	 * PR-UN-010
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testGetNumberOfWrongCategoryEvents() {
+    int result = eventDao.getNumberOfEvents(null, category1.getCategoryId(),
+        true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
+    assertEquals(2, result);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-010.
+   */
 
-		int result = eventDao.getNumberOfEvents(null, 0L, true);
+  @Test
+  public void testGetNumberOfWrongCategoryEvents() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(0, result);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
 
-	/**
-	 * PR-UN-011
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testGetNumberEventsByMinusKeyWords() {
+    int result = eventDao.getNumberOfEvents(null, 0L, true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
+    assertEquals(0, result);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-011.
+   */
 
-		int result = eventDao.getNumberOfEvents("madrid", null, true);
+  @Test
+  public void testGetNumberEventsByMinusKeyWords() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(3, result);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
 
-	/**
-	 * PR-UN-012
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testGetNumberEventsByKeyWords() {
+    int result = eventDao.getNumberOfEvents("madrid", null, true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
+    assertEquals(3, result);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-012.
+   */
 
-		int result = eventDao.getNumberOfEvents("adri", null, true);
+  @Test
+  public void testGetNumberEventsByKeyWords() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(3, result);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
 
-	/**
-	 * PR-UN-013
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testGetNumberEventsByMayusKeyWords() {
+    int result = eventDao.getNumberOfEvents("adri", null, true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
+    assertEquals(3, result);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-013.
+   */
 
-		int result = eventDao.getNumberOfEvents("MADRID BARCELONA", null, true);
+  @Test
+  public void testGetNumberEventsByMayusKeyWords() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(1, result);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
 
-	/**
-	 * PR-UN-014
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testGetNumberEventsByOrderKeyWords() {
+    int result = eventDao.getNumberOfEvents("MADRID BARCELONA", null, true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
+    assertEquals(1, result);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-014.
+   */
 
-		int result = eventDao.getNumberOfEvents("BARCELONA MADRID", null, true);
+  @Test
+  public void testGetNumberEventsByOrderKeyWords() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(1, result);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
 
-	/**
-	 * PR-UN-015
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testGetNumberEventsByWrongKeyWords() {
+    int result = eventDao.getNumberOfEvents("BARCELONA MADRID", null, true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
+    assertEquals(1, result);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-015.
+   */
 
-		int result = eventDao.getNumberOfEvents("BarcMad", null, true);
+  @Test
+  public void testGetNumberEventsByWrongKeyWords() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(0, result);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
 
-	/**
-	 * PR-UN-016
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testGetNumberEventsByKeyWordsCategory() {
+    int result = eventDao.getNumberOfEvents("BarcMad", null, true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
+    assertEquals(0, result);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-016.
+   */
 
-		int result = eventDao.getNumberOfEvents("Madrid",
-				category1.getCategoryId(), true);
+  @Test
+  public void testGetNumberEventsByKeyWordsCategory() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(2, result);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
 
-	/**
-	 * PR-UN-017
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testfindAllEvents() {
+    int result = eventDao.getNumberOfEvents("Madrid", category1.getCategoryId(),
+        true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
-		List<Event> listEvents = new ArrayList<>();
-		listEvents.add(event1);
-		listEvents.add(event2);
-		listEvents.add(event3);
+    assertEquals(2, result);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-017.
+   */
 
-		List<Event> listFindEvents = eventDao.findEvents(null, null, 0, 10,
-				true);
+  @Test
+  public void testfindAllEvents() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(listFindEvents, listEvents);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
+    List<Event> listEvents = new ArrayList<>();
+    listEvents.add(event1);
+    listEvents.add(event2);
+    listEvents.add(event3);
 
-	/**
-	 * PR-UN-018
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testfindFutureEvents() {
+    List<Event> listFindEvents = eventDao.findEvents(null, null, 0, 10, true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
-		List<Event> listEvents = new ArrayList<>();
-		listEvents.add(event2);
-		listEvents.add(event3);
+    assertEquals(listFindEvents, listEvents);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-018.
+   */
 
-		List<Event> listFindEvents = eventDao.findEvents(null, null, 0, 10,
-				false);
+  @Test
+  public void testfindFutureEvents() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(listFindEvents, listEvents);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
+    List<Event> listEvents = new ArrayList<>();
+    listEvents.add(event2);
+    listEvents.add(event3);
 
-	/**
-	 * PR-UN-019
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testfindEventsByCategory() {
+    List<Event> listFindEvents = eventDao.findEvents(null, null, 0, 10, false);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
-		List<Event> listEvents = new ArrayList<>();
-		listEvents.add(event1);
-		listEvents.add(event2);
+    assertEquals(listFindEvents, listEvents);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-019.
+   */
 
-		List<Event> listFindEvents = eventDao.findEvents(null,
-				category1.getCategoryId(), 0, 10, true);
+  @Test
+  public void testfindEventsByCategory() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(listFindEvents, listEvents);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
+    List<Event> listEvents = new ArrayList<>();
+    listEvents.add(event1);
+    listEvents.add(event2);
 
-	/**
-	 * PR-UN-020
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testfindEventsByWrongCategory() {
+    List<Event> listFindEvents = eventDao.findEvents(null,
+        category1.getCategoryId(), 0, 10, true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
-		List<Event> listEvents = new ArrayList<>();
+    assertEquals(listFindEvents, listEvents);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-020.
+   */
 
-		List<Event> listFindEvents = eventDao.findEvents(null, (long) 10, 0,
-				10, true);
+  @Test
+  public void testfindEventsByWrongCategory() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(listFindEvents, listEvents);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
+    List<Event> listEvents = new ArrayList<>();
 
-	/**
-	 * PR-UN-021
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testfindEventsByMinusKeyWords() {
+    List<Event> listFindEvents = eventDao.findEvents(null, (long) 10, 0, 10,
+        true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
-		List<Event> listEvents = new ArrayList<>();
-		listEvents.add(event1);
-		listEvents.add(event2);
-		listEvents.add(event3);
+    assertEquals(listFindEvents, listEvents);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-021.
+   */
 
-		List<Event> listFindEvents = eventDao.findEvents("madrid", null, 0, 10,
-				true);
+  @Test
+  public void testfindEventsByMinusKeyWords() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(listFindEvents, listEvents);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
+    List<Event> listEvents = new ArrayList<>();
+    listEvents.add(event1);
+    listEvents.add(event2);
+    listEvents.add(event3);
 
-	/**
-	 * PR-UN-022
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testfindEventsByKeyWords() {
+    List<Event> listFindEvents = eventDao.findEvents("madrid", null, 0, 10,
+        true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
-		List<Event> listEvents = new ArrayList<>();
-		listEvents.add(event1);
-		listEvents.add(event2);
-		listEvents.add(event3);
+    assertEquals(listFindEvents, listEvents);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-022.
+   */
 
-		List<Event> listFindEvents = eventDao.findEvents("adri", null, 0, 10,
-				true);
+  @Test
+  public void testfindEventsByKeyWords() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(listFindEvents, listEvents);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
+    List<Event> listEvents = new ArrayList<>();
+    listEvents.add(event1);
+    listEvents.add(event2);
+    listEvents.add(event3);
 
-	/**
-	 * PR-UN-023
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testfindEventsByMayusKeyWords() {
+    List<Event> listFindEvents = eventDao.findEvents("adri", null, 0, 10, true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
-		List<Event> listEvents = new ArrayList<>();
-		listEvents.add(event1);
+    assertEquals(listFindEvents, listEvents);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-023.
+   */
 
-		List<Event> listFindEvents = eventDao.findEvents("MADRID BARCELONA",
-				null, 0, 10, true);
+  @Test
+  public void testfindEventsByMayusKeyWords() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(listFindEvents, listEvents);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
+    List<Event> listEvents = new ArrayList<>();
+    listEvents.add(event1);
 
-	/**
-	 * PR-UN-024
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testfindEventsByOrderKeyWords() {
+    List<Event> listFindEvents = eventDao.findEvents("MADRID BARCELONA", null,
+        0, 10, true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
-		List<Event> listEvents = new ArrayList<>();
-		listEvents.add(event1);
+    assertEquals(listFindEvents, listEvents);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-024.
+   */
 
-		List<Event> listFindEvents = eventDao.findEvents("BARCELONA MADRID",
-				null, 0, 10, true);
+  @Test
+  public void testfindEventsByOrderKeyWords() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(listFindEvents, listEvents);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
+    List<Event> listEvents = new ArrayList<>();
+    listEvents.add(event1);
 
-	/**
-	 * PR-UN-025
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testfindEventsByWrongKeyWords() {
+    List<Event> listFindEvents = eventDao.findEvents("BARCELONA MADRID", null,
+        0, 10, true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
-		List<Event> listEvents = new ArrayList<>();
+    assertEquals(listFindEvents, listEvents);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-025.
+   */
 
-		List<Event> listFindEvents = eventDao.findEvents("BarcMad", null, 0,
-				10, true);
+  @Test
+  public void testfindEventsByWrongKeyWords() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(listFindEvents, listEvents);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
+    List<Event> listEvents = new ArrayList<>();
 
-	/**
-	 * PR-UN-026
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testfindEventsByKeyWordsCategory() {
+    List<Event> listFindEvents = eventDao.findEvents("BarcMad", null, 0, 10,
+        true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
-		List<Event> listEvents = new ArrayList<>();
-		listEvents.add(event1);
-		listEvents.add(event2);
+    assertEquals(listFindEvents, listEvents);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-026.
+   */
 
-		List<Event> listFindEvents = eventDao.findEvents("Madrid",
-				category1.getCategoryId(), 0, 10, true);
+  @Test
+  public void testfindEventsByKeyWordsCategory() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(listFindEvents, listEvents);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
+    List<Event> listEvents = new ArrayList<>();
+    listEvents.add(event1);
+    listEvents.add(event2);
 
-	/**
-	 * PR-UN-027
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testEventFindDuplicates() {
+    List<Event> listFindEvents = eventDao.findEvents("Madrid",
+        category1.getCategoryId(), 0, 10, true);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
+    assertEquals(listFindEvents, listEvents);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-027.
+   */
 
-		boolean duplicate = eventDao.findDuplicates("Real Madrid - Barcelona");
+  @Test
+  public void testEventFindDuplicates() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(true, duplicate);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
 
-	/**
-	 * PR-UN-028
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testFindNoDuplicates() {
+    boolean duplicate = eventDao.findDuplicates("Real Madrid - Barcelona");
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
+    assertEquals(true, duplicate);
+  }
 
-		/* INVOCACION */
+  /**
+   * PR-UN-028.
+   */
 
-		boolean duplicate = eventDao.findDuplicates("Real Madrid - Barce");
+  @Test
+  public void testFindNoDuplicates() {
 
-		/* ASERCION */
+    /* SETUP */
 
-		assertEquals(false, duplicate);
-	}
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
+
+    /* INVOCACION */
+
+    boolean duplicate = eventDao.findDuplicates("Real Madrid - Barce");
+
+    /* ASERCION */
+
+    assertEquals(false, duplicate);
+  }
 
 }

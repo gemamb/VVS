@@ -2,24 +2,48 @@ package es.udc.pa.pa001.apuestas.model.event;
 
 import java.util.List;
 
+/**
+ * The Class EventBlock.
+ */
 public class EventBlock {
 
-	private List<Event> events;
-	private boolean existMoreEvents;
+  /** The events. */
+  private List<Event> events;
 
-	public EventBlock(List<Event> events, boolean existMoreEvents) {
+  /** The exist more events. */
+  private boolean existMoreEvents;
 
-		this.events = events;
-		this.existMoreEvents = existMoreEvents;
+  /**
+   * Instantiates a new event block.
+   *
+   * @param events
+   *          the events
+   * @param existMoreEvents
+   *          the exist more events
+   */
+  public EventBlock(List<Event> events, boolean existMoreEvents) {
 
-	}
+    this.events = events;
+    this.existMoreEvents = existMoreEvents;
 
-	public List<Event> getEvents() {
-		return events;
-	}
+  }
 
-	public boolean getExistMoreEvents() {
-		return existMoreEvents;
-	}
+  /**
+   * Gets the events.
+   *
+   * @return the events
+   */
+  public List<Event> getEvents() {
+    return events;
+  }
+
+  /**
+   * Gets the exist more events.
+   *
+   * @return the exist more events
+   */
+  public boolean getExistMoreEvents() {
+    return existMoreEvents;
+  }
 
 }

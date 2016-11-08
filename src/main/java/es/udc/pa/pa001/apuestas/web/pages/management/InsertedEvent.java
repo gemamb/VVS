@@ -4,27 +4,50 @@
 package es.udc.pa.pa001.apuestas.web.pages.management;
 
 /**
- * @author Gema
+ * The Class InsertedEvent.
  *
  */
 public class InsertedEvent {
 
-	private Long eventId;
+  /** The event id. */
+  private Long eventId;
 
-	public Long getEventId() {
-		return eventId;
-	}
+  /**
+   * Gets the event id.
+   *
+   * @return the event id
+   */
+  public Long getEventId() {
+    return eventId;
+  }
 
-	public void setEventId(Long eventId) {
-		this.eventId = eventId;
-	}
+  /**
+   * Sets the event id.
+   *
+   * @param eventId
+   *          the new event id
+   */
+  public void setEventId(Long eventId) {
+    this.eventId = eventId;
+  }
 
-	Long onPassivate() {
-		return eventId;
-	}
+  /**
+   * On passivate.
+   *
+   * @return the long
+   */
+  Long onPassivate() {
+    return eventId;
+  }
 
-	void onActivate(Long eventId) {
-		this.eventId = eventId;
-	}
+  /**
+   * On activate.
+   *
+   * @param eventId
+   *          the event id
+   */
+  void onActivate(Long eventId) {
+    this.eventId = eventId;
+  }
 
 }

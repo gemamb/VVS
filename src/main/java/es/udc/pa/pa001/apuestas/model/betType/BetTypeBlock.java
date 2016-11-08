@@ -2,31 +2,68 @@ package es.udc.pa.pa001.apuestas.model.betType;
 
 import java.util.List;
 
+/**
+ * The Class BetTypeBlock.
+ */
 public class BetTypeBlock {
 
-	private List<BetType> bets;
-	private boolean existMoreBetTypes;
+  /** The bets. */
+  private List<BetType> bets;
 
-	public BetTypeBlock(List<BetType> bets, boolean existMoreBetTypes) {
-		super();
-		this.bets = bets;
-		this.existMoreBetTypes = existMoreBetTypes;
-	}
+  /** The exist more bet types. */
+  private boolean existMoreBetTypes;
 
-	public List<BetType> getBets() {
-		return bets;
-	}
+  /**
+   * Instantiates a new bet type block.
+   *
+   * @param bets
+   *          the bets
+   * @param existMoreBetTypes
+   *          the exist more bet types
+   */
+  public BetTypeBlock(List<BetType> bets, boolean existMoreBetTypes) {
+    super();
+    this.bets = bets;
+    this.existMoreBetTypes = existMoreBetTypes;
+  }
 
-	public void setBets(List<BetType> bets) {
-		this.bets = bets;
-	}
+  /**
+   * Gets the bets.
+   *
+   * @return the bets
+   */
+  public List<BetType> getBets() {
+    return bets;
+  }
 
-	public boolean getExistMoreBetTypes() {
-		return existMoreBetTypes;
-	}
+  /**
+   * Sets the bets.
+   *
+   * @param bets
+   *          the new bets
+   */
+  public void setBets(List<BetType> bets) {
+    this.bets = bets;
+  }
 
-	public void getExistMoreBetTypes(boolean existMoreBetTypes) {
-		this.existMoreBetTypes = existMoreBetTypes;
-	}
+  /**
+   * Gets the exist more bet types.
+   *
+   * @return the exist more bet types
+   */
+  public boolean getExistMoreBetTypes() {
+    return existMoreBetTypes;
+  }
+
+  /**
+   * Gets the exist more bet types.
+   *
+   * @param existMoreBetTypes
+   *          the exist more bet types
+   * @return the existmorebettypes
+   */
+  public void getExistMoreBetTypes(boolean existMoreBetTypes) {
+    this.existMoreBetTypes = existMoreBetTypes;
+  }
 
 }

@@ -23,81 +23,108 @@ import es.udc.pa.pa001.apuestas.model.category.Category;
 import es.udc.pa.pa001.apuestas.model.event.Event;
 import es.udc.pa.pa001.apuestas.model.userprofile.UserProfile;
 
+/**
+ * The Class BetTypeDaoUnitTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { SPRING_CONFIG_FILE, SPRING_CONFIG_TEST_FILE })
+@ContextConfiguration(locations = { SPRING_CONFIG_FILE,
+    SPRING_CONFIG_TEST_FILE })
 @Transactional
 public class BetTypeDaoUnitTest {
 
-	@Autowired
-	private SessionFactory sessionFactory;
+  /** The session factory. */
+  @Autowired
+  private SessionFactory sessionFactory;
 
-	@Autowired
-	private BetTypeDao betTypeDao;
+  /** The bet type dao. */
+  @Autowired
+  private BetTypeDao betTypeDao;
 
-	Calendar eventCalendarPast, eventCalendarFuture;
-	Category category1, category2;
-	Event event1, event2, event3;
-	UserProfile userProfile;
-	BetOption betOption1, betOption2;
-	BetType betType;
-	Bet bet1, bet2;
+  /** The event calendar future. */
+  Calendar eventCalendarPast, eventCalendarFuture;
 
-	private void initializeEvent() {
-		event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		sessionFactory.getCurrentSession().saveOrUpdate(event1);
-	}
+  /** The category 2. */
+  Category category1, category2;
 
-	private void initializeBetType() {
-		betType = new BetType("¿Que jugador marcara el primer gol?", false);
+  /** The event 3. */
+  Event event1, event2, event3;
 
-	}
+  /** The user profile. */
+  UserProfile userProfile;
 
-	private void initializeEventWithBetType() {
-		initializeBetType();
-		event1.addBetType(betType);
-		betType.setEvent(event1);
-		sessionFactory.getCurrentSession().saveOrUpdate(betType);
-	}
+  /** The bet option 2. */
+  BetOption betOption1, betOption2;
 
-	/**
-	 * PR-UN-031
-	 */
+  /** The bet type. */
+  BetType betType;
 
-	@Test
-	public void testBetTypeFindDuplicates() {
+  /** The bet 2. */
+  Bet bet1, bet2;
 
-		/* SETUP */
-		initializeEvent();
-		initializeEventWithBetType();
+  /**
+   * Initialize event.
+   */
+  private void initializeEvent() {
+    event1 = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
+    sessionFactory.getCurrentSession().saveOrUpdate(event1);
+  }
 
-		/* INVOCACION */
-		boolean duplicates = betTypeDao.findDuplicates(event1.getEventId(),
-				"¿Que jugador marcara el primer gol?");
+  /**
+   * Initialize bet type.
+   */
+  private void initializeBetType() {
+    betType = new BetType("¿Que jugador marcara el primer gol?", false);
 
-		/* ASERCION */
-		assertTrue(duplicates);
+  }
 
-	}
+  /**
+   * Initialize event with bet type.
+   */
+  private void initializeEventWithBetType() {
+    initializeBetType();
+    event1.addBetType(betType);
+    betType.setEvent(event1);
+    sessionFactory.getCurrentSession().saveOrUpdate(betType);
+  }
 
-	/**
-	 * PR-UN-032
-	 */
+  /**
+   * PR-UN-031.
+   */
 
-	@Test
-	public void testBetTypeFindNoDuplicates() {
+  @Test
+  public void testBetTypeFindDuplicates() {
 
-		/* SETUP */
-		initializeEvent();
-		initializeEventWithBetType();
+    /* SETUP */
+    initializeEvent();
+    initializeEventWithBetType();
 
-		/* INVOCACION */
-		boolean duplicates = betTypeDao.findDuplicates(event1.getEventId(),
-				"Bla bla bla");
+    /* INVOCACION */
+    boolean duplicates = betTypeDao.findDuplicates(event1.getEventId(),
+        "¿Que jugador marcara el primer gol?");
 
-		/* ASERCION */
-		assertFalse(duplicates);
+    /* ASERCION */
+    assertTrue(duplicates);
 
-	}
+  }
+
+  /**
+   * PR-UN-032.
+   */
+
+  @Test
+  public void testBetTypeFindNoDuplicates() {
+
+    /* SETUP */
+    initializeEvent();
+    initializeEventWithBetType();
+
+    /* INVOCACION */
+    boolean duplicates = betTypeDao.findDuplicates(event1.getEventId(),
+        "Bla bla bla");
+
+    /* ASERCION */
+    assertFalse(duplicates);
+
+  }
 
 }

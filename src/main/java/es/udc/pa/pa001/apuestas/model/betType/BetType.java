@@ -19,90 +19,184 @@ import org.hibernate.annotations.BatchSize;
 import es.udc.pa.pa001.apuestas.model.betOption.BetOption;
 import es.udc.pa.pa001.apuestas.model.event.Event;
 
+/**
+ * The Class BetType.
+ */
 @Entity
 @BatchSize(size = 10)
 public class BetType {
 
-	private Long betTypeId;
-	private String question;
-	private Boolean multiple;
-	private Event event = null;
-	private List<BetOption> betOptions;
+  /** The bet type id. */
+  private Long betTypeId;
 
-	public BetType() {
-		this.betOptions = new LinkedList<BetOption>();
-	}
+  /** The question. */
+  private String question;
 
-	public BetType(Long betTypeId, String question, Boolean multiple) {
-		super();
-		this.betTypeId = betTypeId;
-		this.question = question;
-		this.multiple = multiple;
-		this.betOptions = new LinkedList<BetOption>();
-	}
+  /** The multiple. */
+  private Boolean multiple;
 
-	public BetType(String question, Boolean multiple) {
-		super();
-		this.question = question;
-		this.multiple = multiple;
-		this.betOptions = new LinkedList<BetOption>();
-	}
+  /** The event. */
+  private Event event = null;
 
-	@Column(name = "BetTypeId")
-	@SequenceGenerator(// It only takes effect for
-	        name = "BetTypeIdGenerator", // databases providing identifier
-	        sequenceName = "BetTypeSeq")
-	// generators.
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "BetTypeIdGenerator")
-	public Long getBetTypeId() {
-		return betTypeId;
-	}
+  /** The bet options. */
+  private List<BetOption> betOptions;
 
-	public void setBetTypeId(Long betTypeId) {
-		this.betTypeId = betTypeId;
-	}
+  /**
+   * Instantiates a new bet type.
+   */
+  public BetType() {
+    this.betOptions = new LinkedList<BetOption>();
+  }
 
-	@Column(name = "question")
-	public String getQuestion() {
-		return question;
-	}
+  /**
+   * Instantiates a new bet type.
+   *
+   * @param betTypeId
+   *          the bet type id
+   * @param question
+   *          the question
+   * @param multiple
+   *          the multiple
+   */
+  public BetType(Long betTypeId, String question, Boolean multiple) {
+    super();
+    this.betTypeId = betTypeId;
+    this.question = question;
+    this.multiple = multiple;
+    this.betOptions = new LinkedList<BetOption>();
+  }
 
-	public void setQuestion(String question) {
-		this.question = question;
-	}
+  /**
+   * Instantiates a new bet type.
+   *
+   * @param question
+   *          the question
+   * @param multiple
+   *          the multiple
+   */
+  public BetType(String question, Boolean multiple) {
+    super();
+    this.question = question;
+    this.multiple = multiple;
+    this.betOptions = new LinkedList<BetOption>();
+  }
 
-	@Column(name = "multiple")
-	public Boolean getMultiple() {
-		return multiple;
-	}
+  /**
+   * Gets the bet type id.
+   *
+   * @return the bet type id
+   */
+  @Column(name = "BetTypeId")
+  @SequenceGenerator(// It only takes effect for
+      name = "BetTypeIdGenerator", // databases providing identifier
+      sequenceName = "BetTypeSeq")
+  // generators.
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "BetTypeIdGenerator")
+  public Long getBetTypeId() {
+    return betTypeId;
+  }
 
-	public void setMultiple(Boolean multiple) {
-		this.multiple = multiple;
-	}
+  /**
+   * Sets the bet type id.
+   *
+   * @param betTypeId
+   *          the new bet type id
+   */
+  public void setBetTypeId(Long betTypeId) {
+    this.betTypeId = betTypeId;
+  }
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "eventId")
-	public Event getEvent() {
-		return event;
-	}
+  /**
+   * Gets the question.
+   *
+   * @return the question
+   */
+  @Column(name = "question")
+  public String getQuestion() {
+    return question;
+  }
 
-	public void setEvent(Event event) {
-		this.event = event;
-	}
+  /**
+   * Sets the question.
+   *
+   * @param question
+   *          the new question
+   */
+  public void setQuestion(String question) {
+    this.question = question;
+  }
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "betType")
-	public List<BetOption> getBetOptions() {
-		return betOptions;
-	}
+  /**
+   * Gets the multiple.
+   *
+   * @return the multiple
+   */
+  @Column(name = "multiple")
+  public Boolean getMultiple() {
+    return multiple;
+  }
 
-	public void setBetOptions(List<BetOption> betOptions) {
-		this.betOptions = betOptions;
-	}
+  /**
+   * Sets the multiple.
+   *
+   * @param multiple
+   *          the new multiple
+   */
+  public void setMultiple(Boolean multiple) {
+    this.multiple = multiple;
+  }
 
-	public void addBetOption(BetOption betOption) {
-		this.betOptions.add(betOption);
-		betOption.setBetType(this);
-	}
+  /**
+   * Gets the event.
+   *
+   * @return the event
+   */
+  @ManyToOne(optional = false, fetch = FetchType.LAZY)
+  @JoinColumn(name = "eventId")
+  public Event getEvent() {
+    return event;
+  }
+
+  /**
+   * Sets the event.
+   *
+   * @param event
+   *          the new event
+   */
+  public void setEvent(Event event) {
+    this.event = event;
+  }
+
+  /**
+   * Gets the bet options.
+   *
+   * @return the bet options
+   */
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "betType")
+  public List<BetOption> getBetOptions() {
+    return betOptions;
+  }
+
+  /**
+   * Sets the bet options.
+   *
+   * @param betOptions
+   *          the new bet options
+   */
+  public void setBetOptions(List<BetOption> betOptions) {
+    this.betOptions = betOptions;
+  }
+
+  /**
+   * Adds the bet option.
+   *
+   * @param betOption
+   *          the bet option
+   */
+  public void addBetOption(BetOption betOption) {
+    this.betOptions.add(betOption);
+    betOption.setBetType(this);
+  }
 
 }

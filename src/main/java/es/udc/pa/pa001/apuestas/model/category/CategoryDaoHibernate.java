@@ -6,14 +6,22 @@ import org.springframework.stereotype.Repository;
 
 import es.udc.pojo.modelutil.dao.GenericDaoHibernate;
 
+/**
+ * The Class CategoryDaoHibernate.
+ */
 @Repository
 public class CategoryDaoHibernate extends GenericDaoHibernate<Category, Long>
-implements CategoryDao {
+    implements CategoryDao {
 
-	@Override
-	public List<Category> findCategories() {
+  /*
+   * (non-Javadoc)
+   * 
+   * @see es.udc.pa.pa001.apuestas.model.category.CategoryDao#findCategories()
+   */
+  @Override
+  public List<Category> findCategories() {
 
-		return getSession().createQuery("SELECT u FROM Category u").list();
-	}
+    return getSession().createQuery("SELECT u FROM Category u").list();
+  }
 
 }

@@ -12,61 +12,89 @@ import org.apache.tapestry5.services.MetaDataLocator;
 import org.apache.tapestry5.services.PageRenderRequestHandler;
 import org.apache.tapestry5.services.PageRenderRequestParameters;
 
-public class ComponentEventAuthenticationFilter implements
-ComponentEventRequestFilter {
+/**
+ * The Class ComponentEventAuthenticationFilter.
+ */
+public class ComponentEventAuthenticationFilter
+    implements ComponentEventRequestFilter {
 
-	private ApplicationStateManager applicationStateManager;
-	private ComponentSource componentSource;
-	private MetaDataLocator locator;
-	private PageRenderRequestHandler pageRenderRequestHandler;
+  /** The application state manager. */
+  private ApplicationStateManager applicationStateManager;
 
-	public ComponentEventAuthenticationFilter(
-			ApplicationStateManager applicationStateManager,
-			ComponentSource componentSource, MetaDataLocator locator,
-			PageRenderRequestHandler pageRenderRequestHandler) {
+  /** The component source. */
+  private ComponentSource componentSource;
 
-		this.applicationStateManager = applicationStateManager;
-		this.componentSource = componentSource;
-		this.locator = locator;
-		this.pageRenderRequestHandler = pageRenderRequestHandler;
+  /** The locator. */
+  private MetaDataLocator locator;
 
-	}
+  /** The page render request handler. */
+  private PageRenderRequestHandler pageRenderRequestHandler;
 
-	@Override
-	public void handle(ComponentEventRequestParameters parameters,
-			ComponentEventRequestHandler handler) throws IOException {
+  /**
+   * Instantiates a new component event authentication filter.
+   *
+   * @param applicationStateManager
+   *          the application state manager
+   * @param componentSource
+   *          the component source
+   * @param locator
+   *          the locator
+   * @param pageRenderRequestHandler
+   *          the page render request handler
+   */
+  public ComponentEventAuthenticationFilter(
+      ApplicationStateManager applicationStateManager,
+      ComponentSource componentSource, MetaDataLocator locator,
+      PageRenderRequestHandler pageRenderRequestHandler) {
 
-		ComponentEventRequestParameters handlerParameters = parameters;
-		String redirectPage = AuthenticationValidator.checkForPage(
-				parameters.getActivePageName(), applicationStateManager,
-				componentSource, locator);
-		if (redirectPage == null) {
-			String componentId = parameters.getNestedComponentId();
-			if (componentId != null) {
-				String mainComponentId = null;
-				String eventId = null;
-				if (componentId.indexOf(".") != -1) {
-					mainComponentId = componentId.substring(0,
-							componentId.lastIndexOf("."));
-					eventId = componentId.substring(componentId
-							.lastIndexOf(".") + 1);
-				} else {
-					eventId = componentId;
-				}
+    this.applicationStateManager = applicationStateManager;
+    this.componentSource = componentSource;
+    this.locator = locator;
+    this.pageRenderRequestHandler = pageRenderRequestHandler;
 
-				redirectPage = AuthenticationValidator.checkForComponentEvent(
-						parameters.getActivePageName(), mainComponentId,
-						eventId, parameters.getEventType(),
-						applicationStateManager, componentSource, locator);
+  }
 
-			}
-		}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.apache.tapestry5.services.ComponentEventRequestFilter#handle(org.apache.tapestry5.services.
+   * ComponentEventRequestParameters, org.apache.tapestry5.services.ComponentEventRequestHandler)
+   */
+  @Override
+  public void handle(ComponentEventRequestParameters parameters,
+      ComponentEventRequestHandler handler) throws IOException {
 
-		if (redirectPage != null) {
-			pageRenderRequestHandler.handle(new PageRenderRequestParameters(
-					redirectPage, new EmptyEventContext(), false));
-		} else {
-			handler.handle(handlerParameters);
-		}
-	}
+    ComponentEventRequestParameters handlerParameters = parameters;
+    String redirectPage = AuthenticationValidator.checkForPage(
+        parameters.getActivePageName(), applicationStateManager,
+        componentSource, locator);
+    if (redirectPage == null) {
+      String componentId = parameters.getNestedComponentId();
+      if (componentId != null) {
+        String mainComponentId = null;
+        String eventId = null;
+        if (componentId.indexOf(".") != -1) {
+          mainComponentId = componentId.substring(0,
+              componentId.lastIndexOf("."));
+          eventId = componentId.substring(componentId.lastIndexOf(".") + 1);
+        } else {
+          eventId = componentId;
+        }
+
+        redirectPage = AuthenticationValidator.checkForComponentEvent(
+            parameters.getActivePageName(), mainComponentId, eventId,
+            parameters.getEventType(), applicationStateManager, componentSource,
+            locator);
+
+      }
+    }
+
+    if (redirectPage != null) {
+      pageRenderRequestHandler.handle(new PageRenderRequestParameters(
+          redirectPage, new EmptyEventContext(), false));
+    } else {
+      handler.handle(handlerParameters);
+    }
+  }
 }

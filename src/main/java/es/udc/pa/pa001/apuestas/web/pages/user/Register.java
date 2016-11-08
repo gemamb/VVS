@@ -18,79 +18,102 @@ import es.udc.pa.pa001.apuestas.web.services.AuthenticationPolicyType;
 import es.udc.pa.pa001.apuestas.web.util.UserSession;
 import es.udc.pojo.modelutil.exceptions.DuplicateInstanceException;
 
+/**
+ * The Class Register.
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.NON_AUTHENTICATED_USERS)
 public class Register {
 
-	@Property
-	private String loginName;
+  /** The login name. */
+  @Property
+  private String loginName;
 
-	@Property
-	private String password;
+  /** The password. */
+  @Property
+  private String password;
 
-	@Property
-	private String retypePassword;
+  /** The retype password. */
+  @Property
+  private String retypePassword;
 
-	@Property
-	private String firstName;
+  /** The first name. */
+  @Property
+  private String firstName;
 
-	@Property
-	private String lastName;
+  /** The last name. */
+  @Property
+  private String lastName;
 
-	@Property
-	private String email;
+  /** The email. */
+  @Property
+  private String email;
 
-	@SessionState(create = false)
-	private UserSession userSession;
+  /** The user session. */
+  @SessionState(create = false)
+  private UserSession userSession;
 
-	@Inject
-	private UserService userService;
+  /** The user service. */
+  @Inject
+  private UserService userService;
 
-	@Component
-	private Form registrationForm;
+  /** The registration form. */
+  @Component
+  private Form registrationForm;
 
-	@Component(id = "loginName")
-	private TextField loginNameField;
+  /** The login name field. */
+  @Component(id = "loginName")
+  private TextField loginNameField;
 
-	@Component(id = "password")
-	private PasswordField passwordField;
+  /** The password field. */
+  @Component(id = "password")
+  private PasswordField passwordField;
 
-	@Inject
-	private Messages messages;
+  /** The messages. */
+  @Inject
+  private Messages messages;
 
-	private Long userProfileId;
+  /** The user profile id. */
+  private Long userProfileId;
 
-	void onValidateFromRegistrationForm() {
+  /**
+   * On validate from registration form.
+   */
+  void onValidateFromRegistrationForm() {
 
-		if (!registrationForm.isValid()) {
-			return;
-		}
+    if (!registrationForm.isValid()) {
+      return;
+    }
 
-		if (!password.equals(retypePassword)) {
-			registrationForm.recordError(passwordField,
-					messages.get("error-passwordsDontMatch"));
-		} else {
+    if (!password.equals(retypePassword)) {
+      registrationForm.recordError(passwordField,
+          messages.get("error-passwordsDontMatch"));
+    } else {
 
-			try {
-				UserProfile userProfile = userService.registerUser(loginName,
-						password, new UserProfileDetails(firstName, lastName,
-								email));
-				userProfileId = userProfile.getUserProfileId();
-			} catch (DuplicateInstanceException e) {
-				registrationForm.recordError(loginNameField,
-						messages.get("error-loginNameAlreadyExists"));
-			}
+      try {
+        UserProfile userProfile = userService.registerUser(loginName, password,
+            new UserProfileDetails(firstName, lastName, email));
+        userProfileId = userProfile.getUserProfileId();
+      } catch (DuplicateInstanceException e) {
+        registrationForm.recordError(loginNameField,
+            messages.get("error-loginNameAlreadyExists"));
+      }
 
-		}
+    }
 
-	}
+  }
 
-	Object onSuccess() {
+  /**
+   * On success.
+   *
+   * @return the object
+   */
+  Object onSuccess() {
 
-		userSession = new UserSession();
-		userSession.setUserProfileId(userProfileId);
-		userSession.setFirstName(firstName);
-		return Index.class;
+    userSession = new UserSession();
+    userSession.setUserProfileId(userProfileId);
+    userSession.setFirstName(firstName);
+    return Index.class;
 
-	}
+  }
 
 }

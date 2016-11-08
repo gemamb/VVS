@@ -19,89 +19,143 @@ import es.udc.pa.pa001.apuestas.web.util.UserSession;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
 /**
- * @author Gema
+ * The Class Options.
  *
  */
 public class Options {
 
-	@SessionState(create = false)
-	private UserSession userSession;
+  /** The user session. */
+  @SessionState(create = false)
+  private UserSession userSession;
 
-	@Property
-	private boolean checked;
+  /** The checked. */
+  @Property
+  private boolean checked;
 
-	@Property
-	private boolean eventStart;
+  /** The event start. */
+  @Property
+  private boolean eventStart;
 
-	@Property
-	private BetOption betOption;
+  /** The bet option. */
+  @Property
+  private BetOption betOption;
 
-	@Property
-	private boolean admin;
-	@Property
-	private boolean autenticated;
+  /** The admin. */
+  @Property
+  private boolean admin;
 
-	@Property
-	private BetType betType;
+  /** The autenticated. */
+  @Property
+  private boolean autenticated;
 
-	private Long betTypeId;
+  /** The bet type. */
+  @Property
+  private BetType betType;
 
-	@Inject
-	private BetService betService;
+  /** The bet type id. */
+  private Long betTypeId;
 
-	@InjectPage
-	private CheckWinners checkWinners;
+  /** The bet service. */
+  @Inject
+  private BetService betService;
 
-	private List<BetOption> betOptions = new ArrayList<>();
+  /** The check winners. */
+  @InjectPage
+  private CheckWinners checkWinners;
 
-	public Long getBetTypeId() {
-		return betTypeId;
-	}
+  /** The bet options. */
+  private List<BetOption> betOptions = new ArrayList<>();
 
-	public void setBetTypeId(Long betTypeId) {
-		this.betTypeId = betTypeId;
-	}
+  /**
+   * Gets the bet type id.
+   *
+   * @return the bet type id
+   */
+  public Long getBetTypeId() {
+    return betTypeId;
+  }
 
-	public List<BetOption> getbetOptions() {
-		return betOptions;
-	}
+  /**
+   * Sets the bet type id.
+   *
+   * @param betTypeId
+   *          the new bet type id
+   */
+  public void setBetTypeId(Long betTypeId) {
+    this.betTypeId = betTypeId;
+  }
 
-	boolean checkOptions(Long betTypeId) {
+  /**
+   * Gets the bet options.
+   *
+   * @return the bet options
+   */
+  public List<BetOption> getbetOptions() {
+    return betOptions;
+  }
 
-		boolean checked = false;
-		for (BetOption b : betType.getBetOptions()) {
-			if (b.getBetState() != null) {
-				checked = true;
-			}
-		}
-		return checked;
-	}
+  /**
+   * Check options.
+   *
+   * @param betTypeId
+   *          the bet type id
+   * @return true, if successful
+   */
+  boolean checkOptions(Long betTypeId) {
 
-	void setupRender() {
-		this.autenticated = userSession != null;
-		this.admin = userSession != null && userSession.isAdmin();
-		this.checked = checkOptions(betTypeId);
-		Event e = betType.getEvent();
-		this.eventStart = e.finishedEvent(e.getEventId());
-	}
+    boolean checked = false;
+    for (BetOption b : betType.getBetOptions()) {
+      if (b.getBetState() != null) {
+        checked = true;
+      }
+    }
+    return checked;
+  }
 
-	void onActivate(Long betTypeId) {
+  /**
+   * Setup render.
+   */
+  void setupRender() {
+    this.autenticated = userSession != null;
+    this.admin = userSession != null && userSession.isAdmin();
+    this.checked = checkOptions(betTypeId);
+    Event e = betType.getEvent();
+    this.eventStart = e.finishedEvent(e.getEventId());
+  }
 
-		this.betTypeId = betTypeId;
+  /**
+   * On activate.
+   *
+   * @param betTypeId
+   *          the bet type id
+   */
+  void onActivate(Long betTypeId) {
 
-		try {
-			this.betType = betService.findBetType(betTypeId);
-			this.betOptions = betType.getBetOptions();
-		} catch (InstanceNotFoundException e) {
-		}
-	}
+    this.betTypeId = betTypeId;
 
-	Long onPassivate() {
-		return betTypeId;
-	}
+    try {
+      this.betType = betService.findBetType(betTypeId);
+      this.betOptions = betType.getBetOptions();
+    } catch (InstanceNotFoundException e) {
+    }
+  }
 
-	Object onSuccess() {
-		checkWinners.setBetTypeId(betTypeId);
-		return checkWinners;
-	}
+  /**
+   * On passivate.
+   *
+   * @return the long
+   */
+  Long onPassivate() {
+    return betTypeId;
+  }
+
+  /**
+   * On success.
+   *
+   * @return the object
+   */
+  Object onSuccess() {
+    checkWinners.setBetTypeId(betTypeId);
+    return checkWinners;
+  }
 }

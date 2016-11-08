@@ -1,8 +1,14 @@
 package es.udc.pa.pa001.apuestas.model.betservice.util;
 
+/**
+ * The Class OutdatedBetException.
+ */
 public class OutdatedBetException extends Exception {
 
-	public OutdatedBetException() {
-		super();
-	}
+  /**
+   * Instantiates a new outdated bet exception.
+   */
+  public OutdatedBetException() {
+    super();
+  }
 }

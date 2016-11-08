@@ -25,233 +25,269 @@ import es.udc.pa.pa001.apuestas.model.category.Category;
 import es.udc.pa.pa001.apuestas.model.event.Event;
 import es.udc.pa.pa001.apuestas.model.userprofile.UserProfile;
 
+/**
+ * The Class BetDaoUnitTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { SPRING_CONFIG_FILE, SPRING_CONFIG_TEST_FILE })
+@ContextConfiguration(locations = { SPRING_CONFIG_FILE,
+    SPRING_CONFIG_TEST_FILE })
 @Transactional
 public class BetDaoUnitTest {
 
-	@Autowired
-	private SessionFactory sessionFactory;
+  /** The session factory. */
+  @Autowired
+  private SessionFactory sessionFactory;
+
+  /** The bet dao. */
+  @Autowired
+  private BetDao betDao;
+
+  /** The event calendar future. */
+  Calendar eventCalendarPast, eventCalendarFuture;
+
+  /** The category 2. */
+  Category category1, category2;
+
+  /** The event 3. */
+  Event event1, event2, event3;
+
+  /** The user profile. */
+  UserProfile userProfile;
+
+  /** The bet option 2. */
+  BetOption betOption1, betOption2;
+
+  /** The bet type. */
+  BetType betType;
+
+  /** The bet 2. */
+  Bet bet1, bet2;
+
+  /**
+   * Initialize user.
+   */
+  private void initializeUser() {
+    userProfile = new UserProfile("pepe6", "XxXyYyZzZ", "Pepe", "García",
+        "pepe6@gmail.com");
+
+    sessionFactory.getCurrentSession().saveOrUpdate(userProfile);
+  }
+
+  /**
+   * Initialize dates.
+   */
+  private void initializeDates() {
+    eventCalendarPast = Calendar.getInstance();
+    eventCalendarFuture = Calendar.getInstance();
+    eventCalendarPast.set(2016, Calendar.JANUARY, 31);
+    eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
+  }
+
+  /**
+   * Initialize categories.
+   */
+  private void initializeCategories() {
+    category1 = new Category("Baloncesto");
+    category2 = new Category("Futbol");
 
-	@Autowired
-	private BetDao betDao;
+    sessionFactory.getCurrentSession().saveOrUpdate(category1);
+    sessionFactory.getCurrentSession().saveOrUpdate(category2);
+  }
 
-	Calendar eventCalendarPast, eventCalendarFuture;
-	Category category1, category2;
-	Event event1, event2, event3;
-	UserProfile userProfile;
-	BetOption betOption1, betOption2;
-	BetType betType;
-	Bet bet1, bet2;
+  /**
+   * Initialize events.
+   */
+  private void initializeEvents() {
+    event1 = new Event("Real Madrid - Barcelona", eventCalendarPast, category1);
+    event2 = new Event("Obradoiro - Real Madrid", eventCalendarFuture,
+        category1);
+    event3 = new Event("Real Madrid - Celta", eventCalendarFuture, category2);
 
-	private void initializeUser() {
-		userProfile = new UserProfile("pepe6", "XxXyYyZzZ", "Pepe", "García",
-				"pepe6@gmail.com");
+    sessionFactory.getCurrentSession().saveOrUpdate(event1);
+    sessionFactory.getCurrentSession().saveOrUpdate(event2);
+    sessionFactory.getCurrentSession().saveOrUpdate(event3);
+  }
 
-		sessionFactory.getCurrentSession().saveOrUpdate(userProfile);
-	}
+  /**
+   * Initialize bet type.
+   */
+  private void initializeBetType() {
+    betType = new BetType("¿Que jugador marcara el primer gol?", false);
 
-	private void initializeDates() {
-		eventCalendarPast = Calendar.getInstance();
-		eventCalendarFuture = Calendar.getInstance();
-		eventCalendarPast.set(2016, Calendar.JANUARY, 31);
-		eventCalendarFuture.set(2017, Calendar.AUGUST, 31);
-	}
+  }
 
-	private void initializeCategories() {
-		category1 = new Category("Baloncesto");
-		category2 = new Category("Futbol");
+  /**
+   * Initialize event with bet type.
+   */
+  private void initializeEventWithBetType() {
+    initializeBetType();
+    event1.addBetType(betType);
+    betType.setEvent(event1);
+    sessionFactory.getCurrentSession().saveOrUpdate(betType);
+  }
 
-		sessionFactory.getCurrentSession().saveOrUpdate(category1);
-		sessionFactory.getCurrentSession().saveOrUpdate(category2);
-	}
+  /**
+   * Initialize bet options.
+   */
+  private void initializeBetOptions() {
+    betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
 
-	private void initializeEvents() {
-		event1 = new Event("Real Madrid - Barcelona", eventCalendarPast,
-				category1);
-		event2 = new Event("Obradoiro - Real Madrid", eventCalendarFuture,
-				category1);
-		event3 = new Event("Real Madrid - Celta", eventCalendarFuture,
-				category2);
+    betOption2 = new BetOption("Barcelona", (float) 1.5, null, betType);
 
-		sessionFactory.getCurrentSession().saveOrUpdate(event1);
-		sessionFactory.getCurrentSession().saveOrUpdate(event2);
-		sessionFactory.getCurrentSession().saveOrUpdate(event3);
-	}
+    sessionFactory.getCurrentSession().saveOrUpdate(betOption1);
+    sessionFactory.getCurrentSession().saveOrUpdate(betOption2);
+  }
 
-	private void initializeBetType() {
-		betType = new BetType("¿Que jugador marcara el primer gol?", false);
+  /**
+   * Inicialize bets.
+   */
+  private void inicializeBets() {
 
-	}
+    bet1 = new Bet((float) 2, userProfile, event1, betOption1);
+    bet2 = new Bet((float) 2, userProfile, event1, betOption2);
 
-	private void initializeEventWithBetType() {
-		initializeBetType();
-		event1.addBetType(betType);
-		betType.setEvent(event1);
-		sessionFactory.getCurrentSession().saveOrUpdate(betType);
-	}
+    sessionFactory.getCurrentSession().saveOrUpdate(bet1);
+    sessionFactory.getCurrentSession().saveOrUpdate(bet2);
+  }
 
-	private void initializeBetOptions() {
-		betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null,
-				betType);
+  /**
+   * PR-UN-033.
+   */
 
-		betOption2 = new BetOption("Barcelona", (float) 1.5, null, betType);
+  @Test
+  public void testFindNoBetsByUserId() {
 
-		sessionFactory.getCurrentSession().saveOrUpdate(betOption1);
-		sessionFactory.getCurrentSession().saveOrUpdate(betOption2);
-	}
+    /* SETUP */
 
-	private void inicializeBets() {
+    initializeUser();
+    List<Bet> foundBets = new ArrayList<Bet>();
 
-		bet1 = new Bet((float) 2, userProfile, event1, betOption1);
-		bet2 = new Bet((float) 2, userProfile, event1, betOption2);
+    /* INVOCACION */
 
-		sessionFactory.getCurrentSession().saveOrUpdate(bet1);
-		sessionFactory.getCurrentSession().saveOrUpdate(bet2);
-	}
+    foundBets = betDao.findBetsByUserId(userProfile.getUserProfileId(), 0, 1);
 
-	/**
-	 * PR-UN-033
-	 */
+    /* ASERCION */
 
-	@Test
-	public void testFindNoBetsByUserId() {
+    assertTrue(foundBets.isEmpty());
+  }
 
-		/* SETUP */
+  /**
+   * PR-UN-034.
+   */
 
-		initializeUser();
-		List<Bet> foundBets = new ArrayList<Bet>();
+  @Test
+  public void testFindBetsByNonExistentUserId() {
 
-		/* INVOCACION */
+    /* SETUP */
 
-		foundBets = betDao.findBetsByUserId(userProfile.getUserProfileId(), 0,
-				1);
+    Long nonExistentId = 0L;
+    List<Bet> foundBets = new ArrayList<Bet>();
 
-		/* ASERCION */
+    /* INVOCACION */
 
-		assertTrue(foundBets.isEmpty());
-	}
+    foundBets = betDao.findBetsByUserId(nonExistentId, 0, 1);
 
-	/**
-	 * PR-UN-034
-	 */
+    /* ASERCION */
 
-	@Test
-	public void testFindBetsByNonExistentUserId() {
+    assertTrue(foundBets.isEmpty());
+  }
 
-		/* SETUP */
+  /**
+   * PR-UN-035.
+   */
 
-		Long nonExistentId = 0L;
-		List<Bet> foundBets = new ArrayList<Bet>();
+  @Test
+  public void testFindSomeBetsByUserId() {
 
-		/* INVOCACION */
+    /* SETUP */
 
-		foundBets = betDao.findBetsByUserId(nonExistentId, 0, 1);
+    initializeUser();
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
+    initializeEventWithBetType();
+    initializeBetOptions();
+    inicializeBets();
 
-		/* ASERCION */
+    List<Bet> bets = new ArrayList<Bet>();
+    List<Bet> foundBets = new ArrayList<Bet>();
 
-		assertTrue(foundBets.isEmpty());
-	}
+    bets.add(bet1);
+    bets.add(bet2);
 
-	/**
-	 * PR-UN-035
-	 */
+    /* INVOCACION */
 
-	@Test
-	public void testFindSomeBetsByUserId() {
+    foundBets = betDao.findBetsByUserId(userProfile.getUserProfileId(), 0, 2);
 
-		/* SETUP */
+    /* ASERCION */
 
-		initializeUser();
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
-		initializeEventWithBetType();
-		initializeBetOptions();
-		inicializeBets();
+    assertEquals(bets, foundBets);
+  }
 
-		List<Bet> bets = new ArrayList<Bet>();
-		List<Bet> foundBets = new ArrayList<Bet>();
+  /**
+   * PR-UN-036.
+   */
 
-		bets.add(bet1);
-		bets.add(bet2);
+  @Test
+  public void testFindNoBetsByUserIdNumber() {
 
-		/* INVOCACION */
+    /* SETUP */
 
-		foundBets = betDao.findBetsByUserId(userProfile.getUserProfileId(), 0,
-				2);
+    initializeUser();
 
-		/* ASERCION */
+    /* INVOCACION */
 
-		assertEquals(bets, foundBets);
-	}
+    int result = betDao.findBetsByUserIdNumber(userProfile.getUserProfileId());
 
-	/**
-	 * PR-UN-036
-	 */
+    /* ASERCION */
 
-	@Test
-	public void testFindNoBetsByUserIdNumber() {
+    assertEquals(result, 0);
+  }
 
-		/* SETUP */
+  /**
+   * PR-UN-037.
+   */
 
-		initializeUser();
+  @Test
+  public void testFindBetsByWrongUserIdNumber() {
 
-		/* INVOCACION */
+    /* SETUP */
 
-		int result = betDao.findBetsByUserIdNumber(userProfile
-				.getUserProfileId());
+    Long nonExistentId = 0L;
 
-		/* ASERCION */
+    /* INVOCACION */
 
-		assertEquals(result, 0);
-	}
+    int result = betDao.findBetsByUserIdNumber(nonExistentId);
 
-	/**
-	 * PR-UN-037
-	 */
+    /* ASERCION */
 
-	@Test
-	public void testFindBetsByWrongUserIdNumber() {
+    assertEquals(result, 0);
+  }
 
-		/* SETUP */
+  /**
+   * PR-UN-038.
+   */
 
-		Long nonExistentId = 0L;
+  @Test
+  public void testFindSomeBetsByUserIdNumber() {
 
-		/* INVOCACION */
+    /* SETUP */
 
-		int result = betDao.findBetsByUserIdNumber(nonExistentId);
+    initializeUser();
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
+    initializeEventWithBetType();
+    initializeBetOptions();
+    inicializeBets();
 
-		/* ASERCION */
+    /* INVOCACION */
 
-		assertEquals(result, 0);
-	}
+    int result = betDao.findBetsByUserIdNumber(userProfile.getUserProfileId());
 
-	/**
-	 * PR-UN-038
-	 */
+    /* ASERCION */
 
-	@Test
-	public void testFindSomeBetsByUserIdNumber() {
-
-		/* SETUP */
-
-		initializeUser();
-		initializeCategories();
-		initializeDates();
-		initializeEvents();
-		initializeEventWithBetType();
-		initializeBetOptions();
-		inicializeBets();
-
-		/* INVOCACION */
-
-		int result = betDao.findBetsByUserIdNumber(userProfile
-				.getUserProfileId());
-
-		/* ASERCION */
-
-		assertEquals(result, 2);
-	}
+    assertEquals(result, 2);
+  }
 
 }

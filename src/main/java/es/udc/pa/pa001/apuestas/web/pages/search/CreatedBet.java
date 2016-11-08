@@ -1,15 +1,30 @@
 package es.udc.pa.pa001.apuestas.web.pages.search;
 
+/**
+ * The Class CreatedBet.
+ */
 public class CreatedBet {
 
-	private Long betId;
+  /** The bet id. */
+  private Long betId;
 
-	public Long getBetId() {
-		return betId;
-	}
+  /**
+   * Gets the bet id.
+   *
+   * @return the bet id
+   */
+  public Long getBetId() {
+    return betId;
+  }
 
-	public void setBetId(Long betId) {
-		this.betId = betId;
-	}
+  /**
+   * Sets the bet id.
+   *
+   * @param betId
+   *          the new bet id
+   */
+  public void setBetId(Long betId) {
+    this.betId = betId;
+  }
 
 }

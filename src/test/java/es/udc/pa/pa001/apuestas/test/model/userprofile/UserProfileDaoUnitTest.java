@@ -16,62 +16,76 @@ import es.udc.pa.pa001.apuestas.model.userprofile.UserProfile;
 import es.udc.pa.pa001.apuestas.model.userprofile.UserProfileDao;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class UserProfileDaoUnitTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { SPRING_CONFIG_FILE, SPRING_CONFIG_TEST_FILE })
+@ContextConfiguration(locations = { SPRING_CONFIG_FILE,
+    SPRING_CONFIG_TEST_FILE })
 @Transactional
 public class UserProfileDaoUnitTest {
 
-	@Autowired
-	private SessionFactory sessionFactory;
+  /** The session factory. */
+  @Autowired
+  private SessionFactory sessionFactory;
 
-	@Autowired
-	private UserProfileDao userProfileDao;
+  /** The user profile dao. */
+  @Autowired
+  private UserProfileDao userProfileDao;
 
-	UserProfile userProfile;
+  /** The user profile. */
+  UserProfile userProfile;
 
-	private void initializeUser() {
-		userProfile = new UserProfile("pepe6", "XxXyYyZzZ", "Pepe", "García",
-				"pepe6@gmail.com");
+  /**
+   * Initialize user.
+   */
+  private void initializeUser() {
+    userProfile = new UserProfile("pepe6", "XxXyYyZzZ", "Pepe", "García",
+        "pepe6@gmail.com");
 
-		sessionFactory.getCurrentSession().saveOrUpdate(userProfile);
-	}
+    sessionFactory.getCurrentSession().saveOrUpdate(userProfile);
+  }
 
-	/**
-	 * PR-UN-039
-	 *
-	 */
+  /**
+   * PR-UN-039.
+   *
+   * @throws InstanceNotFoundException
+   *           the instance not found exception
+   */
 
-	@Test
-	public void testFindByLoginName() throws InstanceNotFoundException {
+  @Test
+  public void testFindByLoginName() throws InstanceNotFoundException {
 
-		/* SETUP */
-		initializeUser();
+    /* SETUP */
+    initializeUser();
 
-		/* INVOCACION */
-		UserProfile foundUser = userProfileDao.findByLoginName(userProfile
-				.getLoginName());
+    /* INVOCACION */
+    UserProfile foundUser = userProfileDao
+        .findByLoginName(userProfile.getLoginName());
 
-		/* ASERCION */
-		assertEquals(userProfile, foundUser);
-	}
+    /* ASERCION */
+    assertEquals(userProfile, foundUser);
+  }
 
-	/**
-	 * PR-UN-040
-	 *
-	 */
+  /**
+   * PR-UN-040.
+   *
+   * @throws InstanceNotFoundException
+   *           the instance not found exception
+   */
 
-	@Test(expected = InstanceNotFoundException.class)
-	public void testFindByNonExistentLoginName()
-			throws InstanceNotFoundException {
+  @Test(expected = InstanceNotFoundException.class)
+  public void testFindByNonExistentLoginName()
+      throws InstanceNotFoundException {
 
-		/* SETUP */
-		String nonExistentLoginName = "-";
+    /* SETUP */
+    String nonExistentLoginName = "-";
 
-		/* INVOCACION */
-		userProfileDao.findByLoginName(nonExistentLoginName);
+    /* INVOCACION */
+    userProfileDao.findByLoginName(nonExistentLoginName);
 
-		/* ASERCION */
-		/* InstanceNotFoundException expected */
-	}
+    /* ASERCION */
+    /* InstanceNotFoundException expected */
+  }
 
 }

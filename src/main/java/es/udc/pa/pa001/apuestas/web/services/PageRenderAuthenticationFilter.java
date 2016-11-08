@@ -10,37 +10,62 @@ import org.apache.tapestry5.services.PageRenderRequestFilter;
 import org.apache.tapestry5.services.PageRenderRequestHandler;
 import org.apache.tapestry5.services.PageRenderRequestParameters;
 
+/**
+ * The Class PageRenderAuthenticationFilter.
+ */
 public class PageRenderAuthenticationFilter implements PageRenderRequestFilter {
 
-	private ApplicationStateManager applicationStateManager;
-	private ComponentSource componentSource;
-	private MetaDataLocator locator;
+  /** The application state manager. */
+  private ApplicationStateManager applicationStateManager;
 
-	public PageRenderAuthenticationFilter(
-			ApplicationStateManager applicationStateManager,
-			ComponentSource componentSource, MetaDataLocator locator) {
+  /** The component source. */
+  private ComponentSource componentSource;
 
-		this.applicationStateManager = applicationStateManager;
-		this.componentSource = componentSource;
-		this.locator = locator;
+  /** The locator. */
+  private MetaDataLocator locator;
 
-	}
+  /**
+   * Instantiates a new page render authentication filter.
+   *
+   * @param applicationStateManager
+   *          the application state manager
+   * @param componentSource
+   *          the component source
+   * @param locator
+   *          the locator
+   */
+  public PageRenderAuthenticationFilter(
+      ApplicationStateManager applicationStateManager,
+      ComponentSource componentSource, MetaDataLocator locator) {
 
-	@Override
-	public void handle(PageRenderRequestParameters parameters,
-			PageRenderRequestHandler handler) throws IOException {
+    this.applicationStateManager = applicationStateManager;
+    this.componentSource = componentSource;
+    this.locator = locator;
 
-		PageRenderRequestParameters handlerParameters = parameters;
-		String redirectPage = AuthenticationValidator.checkForPage(
-				parameters.getLogicalPageName(), applicationStateManager,
-				componentSource, locator);
-		if (redirectPage != null) {
-			handlerParameters = new PageRenderRequestParameters(redirectPage,
-					new EmptyEventContext(), false);
-		}
+  }
 
-		handler.handle(handlerParameters);
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.apache.tapestry5.services.PageRenderRequestFilter#handle(org.apache.tapestry5.services.
+   * PageRenderRequestParameters, org.apache.tapestry5.services.PageRenderRequestHandler)
+   */
+  @Override
+  public void handle(PageRenderRequestParameters parameters,
+      PageRenderRequestHandler handler) throws IOException {
 
-	}
+    PageRenderRequestParameters handlerParameters = parameters;
+    String redirectPage = AuthenticationValidator.checkForPage(
+        parameters.getLogicalPageName(), applicationStateManager,
+        componentSource, locator);
+    if (redirectPage != null) {
+      handlerParameters = new PageRenderRequestParameters(redirectPage,
+          new EmptyEventContext(), false);
+    }
+
+    handler.handle(handlerParameters);
+
+  }
 
 }

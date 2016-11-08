@@ -6,9 +6,18 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * The Interface AuthenticationPolicy.
+ */
 @Target({ ElementType.TYPE, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface AuthenticationPolicy {
-	AuthenticationPolicyType value() default AuthenticationPolicyType.ALL_USERS;
+
+  /**
+   * Value.
+   *
+   * @return the authenticationpolicytype
+   */
+  AuthenticationPolicyType value() default AuthenticationPolicyType.ALL_USERS;
 }

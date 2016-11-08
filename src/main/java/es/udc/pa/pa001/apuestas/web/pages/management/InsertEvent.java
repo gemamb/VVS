@@ -29,143 +29,196 @@ import es.udc.pa.pa001.apuestas.web.services.AuthenticationPolicy;
 import es.udc.pa.pa001.apuestas.web.services.AuthenticationPolicyType;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class InsertEvent.
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_ADMIN)
 public class InsertEvent {
 
-	private Event event;
+  /** The event. */
+  private Event event;
 
-	private Long categoryId;
+  /** The category id. */
+  private Long categoryId;
 
-	@Property
-	private String dateInFormatStr = "dd/MM/yyyy";
+  /** The date in format str. */
+  @Property
+  private String dateInFormatStr = "dd/MM/yyyy";
 
-	@Property
-	private String hoursInFormatStr = "HH:MM";
+  /** The hours in format str. */
+  @Property
+  private String hoursInFormatStr = "HH:MM";
 
-	@Property
-	private String name;
+  /** The name. */
+  @Property
+  private String name;
 
-	@Property
-	private String category;
+  /** The category. */
+  @Property
+  private String category;
 
-	@Property
-	private Date eventStart;
+  /** The event start. */
+  @Property
+  private Date eventStart;
 
-	@Property
-	private String timeStart;
+  /** The time start. */
+  @Property
+  private String timeStart;
 
-	@Component(id = "timeStart")
-	private TextField timeStartDateField;
+  /** The time start date field. */
+  @Component(id = "timeStart")
+  private TextField timeStartDateField;
 
-	@Component(id = "eventStart")
-	private DateField eventStartDateField;
+  /** The event start date field. */
+  @Component(id = "eventStart")
+  private DateField eventStartDateField;
 
-	@Component(id = "name")
-	private TextField nameTextField;
+  /** The name text field. */
+  @Component(id = "name")
+  private TextField nameTextField;
 
-	@Component
-	private Form insertEventForm;
+  /** The insert event form. */
+  @Component
+  private Form insertEventForm;
 
-	@Inject
-	private BetService betService;
+  /** The bet service. */
+  @Inject
+  private BetService betService;
 
-	@InjectPage
-	private InsertedEvent insertedEvent;
+  /** The inserted event. */
+  @InjectPage
+  private InsertedEvent insertedEvent;
 
-	@Inject
-	private Messages messages;
+  /** The messages. */
+  @Inject
+  private Messages messages;
 
-	@Inject
-	private Locale locale;
+  /** The locale. */
+  @Inject
+  private Locale locale;
 
-	public DateFormat getFormat() {
-		return DateFormat.getDateInstance(DateFormat.SHORT, locale);
-	}
+  /**
+   * Gets the format.
+   *
+   * @return the format
+   */
+  public DateFormat getFormat() {
+    return DateFormat.getDateInstance(DateFormat.SHORT, locale);
+  }
 
-	private static String lastletter(String str) {
-		if (str != null && str.length() > 0
-				&& str.charAt(str.length() - 1) == 'x') {
-			str = str.substring(0, str.length() - 1);
-		}
-		return str;
-	}
+  /**
+   * Lastletter.
+   *
+   * @param str
+   *          the str
+   * @return the string
+   */
+  private static String lastletter(String str) {
+    if (str != null && str.length() > 0
+        && str.charAt(str.length() - 1) == 'x') {
+      str = str.substring(0, str.length() - 1);
+    }
+    return str;
+  }
 
-	public String getCategories() {
-		List<Category> categories = betService.findCategories();
-		String model = "";
-		for (Category c : categories) {
-			model = model + c.getCategoryId().toString() + "=" + c.getName()
-					+ ",";
-		}
-		return lastletter(model);
-	}
+  /**
+   * Gets the categories.
+   *
+   * @return the categories
+   */
+  public String getCategories() {
+    List<Category> categories = betService.findCategories();
+    String model = "";
+    for (Category c : categories) {
+      model = model + c.getCategoryId().toString() + "=" + c.getName() + ",";
+    }
+    return lastletter(model);
+  }
 
-	public boolean validateTime(String timeStart) {
+  /**
+   * Validate time.
+   *
+   * @param timeStart
+   *          the time start
+   * @return true, if successful
+   */
+  public boolean validateTime(String timeStart) {
 
-		if (timeStart.contains(":")) {
-			String[] hours = timeStart.split(":");
-			String h1 = hours[0];
-			String h2 = hours[1];
-			if ((Integer.valueOf(h1) >= 00) && (Integer.valueOf(h1) <= 23))
-				if ((Integer.valueOf(h2) >= 00) && (Integer.valueOf(h2) <= 59)) {
-					return true;
-				}
-		}
-		return false;
-	}
+    if (timeStart.contains(":")) {
+      String[] hours = timeStart.split(":");
+      String h1 = hours[0];
+      String h2 = hours[1];
+      if ((Integer.valueOf(h1) >= 00) && (Integer.valueOf(h1) <= 23))
+        if ((Integer.valueOf(h2) >= 00) && (Integer.valueOf(h2) <= 59)) {
+          return true;
+        }
+    }
+    return false;
+  }
 
-	@SuppressWarnings("deprecation")
-	@OnEvent(value = "validate", component = "insertEventForm")
-	void onValidateFromInsertEventForm() throws AlreadyPastedDateException {
+  /**
+   * On validate from insert event form.
+   *
+   * @throws AlreadyPastedDateException
+   *           the already pasted date exception
+   */
+  @SuppressWarnings("deprecation")
+  @OnEvent(value = "validate", component = "insertEventForm")
+  void onValidateFromInsertEventForm() throws AlreadyPastedDateException {
 
-		if (!insertEventForm.isValid()) {
-			return;
-		}
+    if (!insertEventForm.isValid()) {
+      return;
+    }
 
-		if (!validateTime(timeStart)) {
-			insertEventForm.recordError(timeStartDateField,
-					messages.format("error-notValidateNumber"));
-			return;
-		}
-		String[] hours = timeStart.split(":");
-		String h1 = hours[0];
-		String h2 = hours[1];
+    if (!validateTime(timeStart)) {
+      insertEventForm.recordError(timeStartDateField,
+          messages.format("error-notValidateNumber"));
+      return;
+    }
+    String[] hours = timeStart.split(":");
+    String h1 = hours[0];
+    String h2 = hours[1];
 
-		Calendar start = Calendar.getInstance();
-		eventStart.setHours(Integer.valueOf(h1));
-		eventStart.setMinutes(Integer.valueOf(h2));
-		DateFormat format = new SimpleDateFormat("yyyy/mm/dd hh:mm");
-		format.format(eventStart);
-		start = format.getCalendar();
+    Calendar start = Calendar.getInstance();
+    eventStart.setHours(Integer.valueOf(h1));
+    eventStart.setMinutes(Integer.valueOf(h2));
+    DateFormat format = new SimpleDateFormat("yyyy/mm/dd hh:mm");
+    format.format(eventStart);
+    start = format.getCalendar();
 
-		if (start.before(Calendar.getInstance())) {
-			insertEventForm.recordError(eventStartDateField,
-					messages.format("error-alreadyPastedDate"));
-			insertEventForm.recordError(timeStartDateField,
-					messages.format("error-alreadyPastedDate"));
-			return;
-		}
+    if (start.before(Calendar.getInstance())) {
+      insertEventForm.recordError(eventStartDateField,
+          messages.format("error-alreadyPastedDate"));
+      insertEventForm.recordError(timeStartDateField,
+          messages.format("error-alreadyPastedDate"));
+      return;
+    }
 
-		if (category != null) {
-			categoryId = Long.parseLong(category);
-		}
+    if (category != null) {
+      categoryId = Long.parseLong(category);
+    }
 
-		try {
-			event = new Event(name, start, betService.findCategory(categoryId));
-			betService.insertEvent(event, categoryId);
-			insertedEvent.setEventId(event.getEventId());
-		} catch (InstanceNotFoundException e) {
-			insertEventForm.recordError(nameTextField,
-					messages.format("error-instanceNotFound"));
-		} catch (DuplicateEventNameException e) {
-			insertEventForm.recordError(nameTextField,
-					messages.format("error-duplicateEventName", name));
-		}
+    try {
+      event = new Event(name, start, betService.findCategory(categoryId));
+      betService.insertEvent(event, categoryId);
+      insertedEvent.setEventId(event.getEventId());
+    } catch (InstanceNotFoundException e) {
+      insertEventForm.recordError(nameTextField,
+          messages.format("error-instanceNotFound"));
+    } catch (DuplicateEventNameException e) {
+      insertEventForm.recordError(nameTextField,
+          messages.format("error-duplicateEventName", name));
+    }
 
-	}
+  }
 
-	Object onSuccess() {
-		return insertedEvent;
-	}
+  /**
+   * On success.
+   *
+   * @return the object
+   */
+  Object onSuccess() {
+    return insertedEvent;
+  }
 
 }

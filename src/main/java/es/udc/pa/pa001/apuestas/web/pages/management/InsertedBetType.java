@@ -4,26 +4,49 @@
 package es.udc.pa.pa001.apuestas.web.pages.management;
 
 /**
- * @author Gema
+ * The Class InsertedBetType.
  *
  */
 public class InsertedBetType {
 
-	private Long betTypeId;
+  /** The bet type id. */
+  private Long betTypeId;
 
-	public Long getBetTypeId() {
-		return betTypeId;
-	}
+  /**
+   * Gets the bet type id.
+   *
+   * @return the bet type id
+   */
+  public Long getBetTypeId() {
+    return betTypeId;
+  }
 
-	public void setBetTypeId(Long betTypeId) {
-		this.betTypeId = betTypeId;
-	}
+  /**
+   * Sets the bet type id.
+   *
+   * @param betTypeId
+   *          the new bet type id
+   */
+  public void setBetTypeId(Long betTypeId) {
+    this.betTypeId = betTypeId;
+  }
 
-	Long onPassivate() {
-		return betTypeId;
-	}
+  /**
+   * On passivate.
+   *
+   * @return the long
+   */
+  Long onPassivate() {
+    return betTypeId;
+  }
 
-	void onActivate(Long betTypeId) {
-		this.betTypeId = betTypeId;
-	}
+  /**
+   * On activate.
+   *
+   * @param betTypeId
+   *          the bet type id
+   */
+  void onActivate(Long betTypeId) {
+    this.betTypeId = betTypeId;
+  }
 }
