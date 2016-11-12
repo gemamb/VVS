@@ -863,6 +863,46 @@ public class BetServiceUnitTest {
    */
 
   @Test(expected = MinimunBetOptionException.class)
+  public void testInsertBetTypeWithNullOptions()
+      throws AlreadyPastedDateException, InstanceNotFoundException,
+      DuplicateEventNameException, DuplicateBetTypeQuestionException,
+      DuplicateBetOptionAnswerException, MinimunBetOptionException {
+
+    initializeDate();
+    initializeCategories();
+    initializeEvent();
+    initializeBetType();
+
+    when(categoryDaoMock.find(2L)).thenReturn(categoryDemo);
+
+    betService.insertEvent(eventDemo, 2L);
+
+    eventDemo.addBetType(betTypeDemo);
+
+    List<BetOption> betOptions = null;
+    betTypeDemo.setBetOptions(betOptions);
+
+    betService.insertBetType(betTypeDemo);
+  }
+
+  /**
+   * PR-UN-064.
+   *
+   * @throws AlreadyPastedDateException
+   *           the already pasted date exception
+   * @throws InstanceNotFoundException
+   *           the instance not found exception
+   * @throws DuplicateEventNameException
+   *           the duplicate event name exception
+   * @throws DuplicateBetTypeQuestionException
+   *           the duplicate bet type question exception
+   * @throws DuplicateBetOptionAnswerException
+   *           the duplicate bet option answer exception
+   * @throws MinimunBetOptionException
+   *           the minimun bet option exception
+   */
+
+  @Test(expected = MinimunBetOptionException.class)
   public void testInsertBetTypeWithOneOption()
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
@@ -890,7 +930,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-064.
+   * PR-UN-065.
    *
    * @throws AlreadyPastedDateException
    *           the already pasted date exception
@@ -940,7 +980,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-065.
+   * PR-UN-066.
    *
    * @throws InstanceNotFoundException
    *           the instance not found exception
@@ -959,7 +999,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-066.
+   * PR-UN-067.
    *
    * @throws InstanceNotFoundException
    *           the instance not found exception
@@ -978,7 +1018,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-067.
+   * PR-UN-068.
    *
    * @throws InstanceNotFoundException
    *           the instance not found exception
@@ -1000,7 +1040,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-068.
+   * PR-UN-069.
    *
    * @throws InstanceNotFoundException
    *           the instance not found exception
@@ -1016,7 +1056,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-069.
+   * PR-UN-070.
    *
    * @throws InstanceNotFoundException
    *           the instance not found exception
@@ -1040,7 +1080,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-070.
+   * PR-UN-071.
    *
    * @throws InstanceNotFoundException
    *           the instance not found exception
@@ -1056,7 +1096,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-071.
+   * PR-UN-072.
    *
    * @throws InstanceNotFoundException
    *           the instance not found exception
@@ -1090,7 +1130,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-072.
+   * PR-UN-073.
    *
    * @throws InstanceNotFoundException
    *           the instance not found exception
@@ -1126,7 +1166,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-073.
+   * PR-UN-074.
    *
    * @throws NotAllOptionsExistsException
    *           the not all options exists exception
@@ -1161,7 +1201,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-074.
+   * PR-UN-075.
    *
    * @throws OnlyOneWonOptionException
    *           the only one won option exception
@@ -1197,7 +1237,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-075.
+   * PR-UN-076.
    *
    * @throws InstanceNotFoundException
    *           the instance not found exception
@@ -1224,7 +1264,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-076.
+   * PR-UN-077.
    */
 
   @Test
@@ -1242,7 +1282,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-077.
+   * PR-UN-078.
    */
 
   @Test
@@ -1258,7 +1298,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-078.
+   * PR-UN-079.
    *
    * @throws InstanceNotFoundException
    *           the instance not found exception
@@ -1277,7 +1317,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-079.
+   * PR-UN-080.
    *
    * @throws InstanceNotFoundException
    *           the instance not found exception
@@ -1298,7 +1338,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-080.
+   * PR-UN-081.
    *
    * @throws InstanceNotFoundException
    *           the instance not found exception
@@ -1323,7 +1363,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-081.
+   * PR-UN-082.
    *
    * @throws InstanceNotFoundException
    *           the instance not found exception
@@ -1347,7 +1387,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-082.
+   * PR-UN-083.
    */
 
   @Test
@@ -1366,7 +1406,7 @@ public class BetServiceUnitTest {
   }
 
   /**
-   * PR-UN-083.
+   * PR-UN-084.
    */
 
   @Test

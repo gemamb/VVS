@@ -692,6 +692,26 @@ Valor retorno:
 
 		BetServiceImpl - insertBetType
 
+		Motivación: obtener excepción MinimunBetOptionException por intentar insertar un tipo de apuesta con ninguna opcion de apuesta
+
+		Parámetros:
+			- betType: tipo de apuesta inicializada 
+
+		Valor retorno:
+			- MinimunBetOptionException
+
+		Inicialización:
+			- Creación de una categoría
+			- Creación de un evento
+			- Creación de un tipo de apuesta
+			- Inicialización de un categoryDaoMock que devuelva la categoría creada
+			
+	---------------------------------------------------------
+
+		CU-016 PR-UN-064
+
+		BetServiceImpl - insertBetType
+
 		Motivación: obtener excepción MinimunBetOptionException por intentar insertar un tipo de apuesta con una opción de apuesta
 
 		Parámetros:
@@ -708,7 +728,7 @@ Valor retorno:
 
 	---------------------------------------------------------
 
-		CU-016 PR-UN-064
+		CU-016 PR-UN-065
 
 		BetServiceImpl - insertBetType
 
@@ -746,7 +766,7 @@ Valor retorno:
 
 	---------------------------------------------------------
 
-		CU-017 PR-UN-065
+		CU-017 PR-UN-066
 
 		BetServiceImpl - findEvent
 
@@ -763,7 +783,7 @@ Valor retorno:
 			
 	---------------------------------------------------------
 
-		CU-017 PR-UN-066
+		CU-017 PR-UN-067
 
 		BetServiceImpl - findEvent
 
@@ -800,7 +820,7 @@ Valor retorno:
 
 	---------------------------------------------------------
 
-		CU-018 PR-UN-067
+		CU-018 PR-UN-068
 
 		BetServiceImpl - findBetType
 
@@ -820,7 +840,7 @@ Valor retorno:
 			
 	---------------------------------------------------------
 
-		CU-018 PR-UN-068
+		CU-018 PR-UN-069
 
 		BetServiceImpl - findBetType
 
@@ -859,7 +879,7 @@ Valor retorno:
 
 	---------------------------------------------------------
 
-		CU-019 PR-UN-069
+		CU-019 PR-UN-070
 
 		BetServiceImpl - findBetOption
 
@@ -880,7 +900,7 @@ Valor retorno:
 
 	---------------------------------------------------------
 
-		CU-019 PR-UN-070
+		CU-019 PR-UN-071
 
 		BetServiceImpl - findBetOption
 
@@ -925,7 +945,7 @@ Valor retorno:
 
 ---------------------------------------------------------
 
-		CU-020 PR-UN-071
+		CU-020 PR-UN-072
 
 		BetServiceImpl - checkOptions
 
@@ -943,7 +963,7 @@ Valor retorno:
 
 ---------------------------------------------------------
 
-		CU-020 PR-UN-072
+		CU-020 PR-UN-073
 
 		BetServiceImpl - checkOptions
 
@@ -960,7 +980,7 @@ Valor retorno:
 
 ---------------------------------------------------------
 
-		CU-020 PR-UN-073
+		CU-020 PR-UN-074
 
 		BetServiceImpl - checkOptions
 
@@ -976,7 +996,7 @@ Valor retorno:
 
 ---------------------------------------------------------
 
-		CU-020 PR-UN-074
+		CU-020 PR-UN-075
 
 		BetServiceImpl - checkOptions
 
@@ -994,7 +1014,7 @@ Valor retorno:
 
 ---------------------------------------------------------
 
-		CU-020 PR-UN-075
+		CU-020 PR-UN-076
 
 		BetServiceImpl - checkOptions
 
@@ -1032,7 +1052,7 @@ Valor retorno:
 
 	---------------------------------------------------------
 
-		CU-021 PR-UN-076
+		CU-021 PR-UN-077
 
 		BetServiceImpl - findCategory
 
@@ -1049,7 +1069,7 @@ Valor retorno:
 
 	---------------------------------------------------------
 
-		CU-021 PR-UN-077
+		CU-021 PR-UN-078
 
 		BetServiceImpl - findCategory
 
@@ -1087,7 +1107,7 @@ Valor retorno:
 
 	---------------------------------------------------------
 
-		CU-022 PR-UN-078
+		CU-022 PR-UN-079
 
 		BetServiceImpl - findCategories
 
@@ -1105,7 +1125,7 @@ Valor retorno:
 
 	---------------------------------------------------------
 
-		CU-022 PR-UN-079
+		CU-022 PR-UN-080
 
 		BetServiceImpl - findCategories
 
@@ -1144,7 +1164,7 @@ Valor retorno:
 
 	---------------------------------------------------------
 
-		CU-023 PR-UN-080
+		CU-023 PR-UN-081
 
 		BetServiceImpl - findDuplicates
 
@@ -1166,7 +1186,7 @@ Valor retorno:
 
 	---------------------------------------------------------
 
-		CU-023 PR-UN-081
+		CU-023 PR-UN-082
 
 		BetServiceImpl - findDuplicates
 
@@ -1210,7 +1230,7 @@ Valor retorno:
 
 	---------------------------------------------------------
 
-		CU-024 PR-UN-082
+		CU-024 PR-UN-083
 
 		BetServiceImpl - findBetByUserIdNumber
 
@@ -1227,7 +1247,7 @@ Valor retorno:
 
 	---------------------------------------------------------
 		
-		CU-024 PR-UN-083
+		CU-024 PR-UN-084
 
 		BetServiceImpl - findBetByUserIdNumber
 
