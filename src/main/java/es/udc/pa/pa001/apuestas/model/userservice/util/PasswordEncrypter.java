@@ -68,7 +68,7 @@ public final class PasswordEncrypter {
    *          the clear password
    * @return the string
    */
-  public static final String crypt(String clearPassword) {
+  public static String crypt(String clearPassword) {
 
     String salt = generateRandomSalt();
 
@@ -85,7 +85,8 @@ public final class PasswordEncrypter {
    *          the encrypted password
    * @return true, if is clear password correct
    */
-  public static final boolean isClearPasswordCorrect(String clearPassword,
+
+  public static boolean isClearPasswordCorrect(String clearPassword,
       String encryptedPassword) {
 
     String salt = encryptedPassword.substring(0, 2);
