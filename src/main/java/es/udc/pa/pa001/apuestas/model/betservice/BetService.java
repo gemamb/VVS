@@ -36,7 +36,7 @@ public interface BetService {
    *          the admin
    * @return the int
    */
-  public int findEventsGetNumber(String keywords, Long categoryId,
+  int findEventsGetNumber(String keywords, Long categoryId,
       boolean admin);
 
   /**
@@ -54,7 +54,7 @@ public interface BetService {
    *          the admin
    * @return the event block
    */
-  public EventBlock findEvents(String keywords, Long categoryId, int startIndex,
+  EventBlock findEvents(String keywords, Long categoryId, int startIndex,
       int count, boolean admin);
 
   /**
@@ -72,7 +72,7 @@ public interface BetService {
    * @throws OutdatedBetException
    *           the outdated bet exception
    */
-  public Bet makeBet(Long userId, Long betOptionId, Float betedMoney)
+  Bet makeBet(Long userId, Long betOptionId, Float betedMoney)
       throws InstanceNotFoundException, OutdatedBetException;
 
   /**
@@ -86,7 +86,7 @@ public interface BetService {
    *          the count
    * @return the bet block
    */
-  public BetBlock findBets(Long userId, int startIndex, int count);
+  BetBlock findBets(Long userId, int startIndex, int count);
 
   /**
    * Insert event.
@@ -103,7 +103,7 @@ public interface BetService {
    * @throws DuplicateEventNameException
    *           the duplicate event name exception
    */
-  public Event insertEvent(Event event, Long CategoryId)
+  Event insertEvent(Event event, Long CategoryId)
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException;
 
@@ -120,7 +120,7 @@ public interface BetService {
    * @throws MinimunBetOptionException
    *           the minimun bet option exception
    */
-  public BetType insertBetType(BetType betType)
+  BetType insertBetType(BetType betType)
       throws DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException;
 
@@ -133,7 +133,7 @@ public interface BetService {
    * @throws InstanceNotFoundException
    *           the instance not found exception
    */
-  public Event findEvent(Long Event) throws InstanceNotFoundException;
+  Event findEvent(Long Event) throws InstanceNotFoundException;
 
   /**
    * Find bet type.
@@ -144,7 +144,7 @@ public interface BetService {
    * @throws InstanceNotFoundException
    *           the instance not found exception
    */
-  public BetType findBetType(Long betTypeId) throws InstanceNotFoundException;
+  BetType findBetType(Long betTypeId) throws InstanceNotFoundException;
 
   /**
    * Find bet option.
@@ -155,7 +155,7 @@ public interface BetService {
    * @throws InstanceNotFoundException
    *           the instance not found exception
    */
-  public BetOption findBetOption(Long betOptionId)
+  BetOption findBetOption(Long betOptionId)
       throws InstanceNotFoundException;
 
   /**
@@ -172,7 +172,7 @@ public interface BetService {
    * @throws NotAllOptionsExistsException
    *           the not all options exists exception
    */
-  public void checkOptions(Long betTypeId, Set<Long> winned)
+  void checkOptions(Long betTypeId, Set<Long> winned)
       throws InstanceNotFoundException, OnlyOneWonOptionException,
       NotAllOptionsExistsException;
 
@@ -181,7 +181,7 @@ public interface BetService {
    *
    * @return the list
    */
-  public List<Category> findCategories();
+  List<Category> findCategories();
 
   /**
    * Find category.
@@ -192,7 +192,7 @@ public interface BetService {
    * @throws InstanceNotFoundException
    *           the instance not found exception
    */
-  public Category findCategory(Long categoryId)
+  Category findCategory(Long categoryId)
       throws InstanceNotFoundException;
 
   /**
@@ -204,7 +204,7 @@ public interface BetService {
    *          the full name
    * @return true, if successful
    */
-  public boolean findDuplicates(Long eventId, String fullName);
+  boolean findDuplicates(Long eventId, String fullName);
 
   /**
    * Find bets by user id number.
@@ -213,5 +213,5 @@ public interface BetService {
    *          the user id
    * @return the int
    */
-  public int findBetsByUserIdNumber(Long userId);
+  int findBetsByUserIdNumber(Long userId);
 }

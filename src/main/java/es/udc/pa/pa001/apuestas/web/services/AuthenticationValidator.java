@@ -13,10 +13,10 @@ import es.udc.pa.pa001.apuestas.web.util.UserSession;
 public class AuthenticationValidator {
 
   /** The Constant LOGIN_PAGE. */
-  private final static String LOGIN_PAGE = "user/Login";
+  private static final String LOGIN_PAGE = "user/Login";
 
   /** The Constant INIT_PAGE. */
-  private final static String INIT_PAGE = "Index";
+  private static final String INIT_PAGE = "Index";
 
   /** The Constant PAGE_AUTHENTICATION_TYPE. */
   public static final String PAGE_AUTHENTICATION_TYPE = "page-authentication-type";

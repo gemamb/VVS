@@ -1,8 +1,8 @@
 package es.udc.pa.pa001.apuestas.model.userservice.util;
 
 /**
- * This utility class is a implementation of the C source code written by Eric Young
- * (eay@psych.uq.oz.au) of the UNIX crypt command.
+ * This utility class is a implementation of the C source code written by Eric
+ * Young (eay@psych.uq.oz.au) of the UNIX crypt command.
  * <p>
  */
 public final class jcrypt {
@@ -289,7 +289,7 @@ public final class jcrypt {
    *          the b
    * @return the int
    */
-  private static final int byteToUnsigned(byte b) {
+  private static int byteToUnsigned(byte b) {
     int value = b;
 
     return (value >= 0 ? value : value + 256);
@@ -325,7 +325,7 @@ public final class jcrypt {
    * @param offset
    *          the offset
    */
-  private static final void intToFourBytes(int iValue, byte b[], int offset) {
+  private static void intToFourBytes(int iValue, byte b[], int offset) {
     b[offset++] = (byte) ((iValue) & 0xff);
     b[offset++] = (byte) ((iValue >>> 8) & 0xff);
     b[offset++] = (byte) ((iValue >>> 16) & 0xff);
@@ -346,7 +346,7 @@ public final class jcrypt {
    * @param results
    *          the results
    */
-  private static final void PERM_OP(int a, int b, int n, int m, int results[]) {
+  private static void PERM_OP(int a, int b, int n, int m, int results[]) {
     int t;
 
     t = ((a >>> n) ^ b) & m;
@@ -368,7 +368,7 @@ public final class jcrypt {
    *          the m
    * @return the int
    */
-  private static final int HPERM_OP(int a, int n, int m) {
+  private static int HPERM_OP(int a, int n, int m) {
     int t;
 
     t = ((a << (16 - n)) ^ a) & m;
@@ -465,7 +465,7 @@ public final class jcrypt {
    *          the s
    * @return the int
    */
-  private static final int D_ENCRYPT(int L, int R, int S, int E0, int E1,
+  private static int D_ENCRYPT(int L, int R, int S, int E0, int E1,
       int s[]) {
     int t, u, v;
 
@@ -495,7 +495,7 @@ public final class jcrypt {
    *          the eswap 1
    * @return the int[]
    */
-  private static final int[] body(int schedule[], int Eswap0, int Eswap1) {
+  private static int[] body(int schedule[], int Eswap0, int Eswap1) {
     int left = 0;
     int right = 0;
     int t = 0;
@@ -557,7 +557,7 @@ public final class jcrypt {
    *          the original
    * @return the string
    */
-  public static final String crypt(String salt, String original) {
+  public static String crypt(String salt, String original) {
     while (salt.length() < 2)
       salt += "A";
 

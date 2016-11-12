@@ -22,7 +22,7 @@ public interface UserService {
    * @throws DuplicateInstanceException
    *           the duplicate instance exception
    */
-  public UserProfile registerUser(String loginName, String clearPassword,
+  UserProfile registerUser(String loginName, String clearPassword,
       UserProfileDetails userProfileDetails) throws DuplicateInstanceException;
 
   /**
@@ -40,7 +40,7 @@ public interface UserService {
    * @throws IncorrectPasswordException
    *           the incorrect password exception
    */
-  public UserProfile login(String loginName, String password,
+  UserProfile login(String loginName, String password,
       boolean passwordIsEncrypted)
       throws InstanceNotFoundException, IncorrectPasswordException;
 
@@ -53,7 +53,7 @@ public interface UserService {
    * @throws InstanceNotFoundException
    *           the instance not found exception
    */
-  public UserProfile findUserProfile(Long userProfileId)
+  UserProfile findUserProfile(Long userProfileId)
       throws InstanceNotFoundException;
 
   /**
@@ -66,7 +66,7 @@ public interface UserService {
    * @throws InstanceNotFoundException
    *           the instance not found exception
    */
-  public void updateUserProfileDetails(Long userProfileId,
+  void updateUserProfileDetails(Long userProfileId,
       UserProfileDetails userProfileDetails) throws InstanceNotFoundException;
 
   /**
@@ -83,7 +83,7 @@ public interface UserService {
    * @throws InstanceNotFoundException
    *           the instance not found exception
    */
-  public void changePassword(Long userProfileId, String oldClearPassword,
+  void changePassword(Long userProfileId, String oldClearPassword,
       String newClearPassword)
       throws IncorrectPasswordException, InstanceNotFoundException;
 

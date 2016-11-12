@@ -16,6 +16,6 @@ public interface BetTypeDao extends GenericDao<BetType, Long> {
    *          the full name
    * @return true, if successful
    */
-  public boolean findDuplicates(Long eventId, String fullName);
+  boolean findDuplicates(Long eventId, String fullName);
 
 }

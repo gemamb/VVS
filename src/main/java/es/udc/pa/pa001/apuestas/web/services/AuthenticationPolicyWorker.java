@@ -17,12 +17,13 @@ public class AuthenticationPolicyWorker
    * (non-Javadoc)
    * 
    * @see
-   * org.apache.tapestry5.services.transform.ComponentClassTransformWorker2#transform(org.apache.
-   * tapestry5.plastic.PlasticClass, org.apache.tapestry5.services.transform.TransformationSupport,
+   * org.apache.tapestry5.services.transform.ComponentClassTransformWorker2#
+   * transform(org.apache. tapestry5.plastic.PlasticClass,
+   * org.apache.tapestry5.services.transform.TransformationSupport,
    * org.apache.tapestry5.model.MutableComponentModel)
    */
   @Override
-  public void transform(PlasticClass plasticClass,
+  public final void transform(PlasticClass plasticClass,
       TransformationSupport support, MutableComponentModel model) {
 
     processPageAnnotations(plasticClass, model);
@@ -31,14 +32,15 @@ public class AuthenticationPolicyWorker
   }
 
   /**
-   * Read and process restriction on page classes annotated with {@link AuthenticationPolicy}
-   * annotation.
+   * Read and process restriction on page classes annotated with
+   * {@link AuthenticationPolicy} annotation.
    *
    * @param plasticClass
-   *          Contains class-specific information used when transforming a raw component class into
-   *          an executable component class.
+   *          Contains class-specific information used when transforming a raw
+   *          component class into an executable component class.
    * @param model
-   *          Mutable version of {@link org.apache.tapestry5.model.ComponentModel} used during the
+   *          Mutable version of
+   *          {@link org.apache.tapestry5.model.ComponentModel} used during the
    *          transformation phase.
    */
   private void processPageAnnotations(PlasticClass plasticClass,
@@ -57,10 +59,11 @@ public class AuthenticationPolicyWorker
    * Inject meta datas about annotated methods.
    *
    * @param plasticClass
-   *          Contains class-specific information used when transforming a raw component class into
-   *          an executable component class.
+   *          Contains class-specific information used when transforming a raw
+   *          component class into an executable component class.
    * @param model
-   *          Mutable version of {@link org.apache.tapestry5.model.ComponentModel} used during the
+   *          Mutable version of
+   *          {@link org.apache.tapestry5.model.ComponentModel} used during the
    *          transformation phase.
    */
   private void processEventHandlerAnnotations(PlasticClass plasticClass,
@@ -90,12 +93,14 @@ public class AuthenticationPolicyWorker
 
   /**
    * This code is taken deliberatly from:
-   * http://svn.apache.org/viewvc/tapestry/tapestry5/trunk/tapestry-core/src/ main
-   * /java/org/apache/tapestry5/internal/transform/OnEventWorker.java?view= markup
+   * http://svn.apache.org/viewvc/tapestry/tapestry5/trunk/tapestry-core/src/
+   * main /java/org/apache/tapestry5/internal/transform/OnEventWorker.java?view=
+   * markup
    * 
-   * Returns the component id to match against, or the empty string if the component id is not
-   * specified. The component id is provided by the OnEvent annotation or (if that is not present)
-   * by the part of the method name following "From" ("onActionFromFoo").
+   * Returns the component id to match against, or the empty string if the
+   * component id is not specified. The component id is provided by the OnEvent
+   * annotation or (if that is not present) by the part of the method name
+   * following "From" ("onActionFromFoo").
    *
    * @param methodName
    *          the method name
@@ -119,11 +124,13 @@ public class AuthenticationPolicyWorker
 
   /**
    * This code is taken deliberatly from:
-   * http://svn.apache.org/viewvc/tapestry/tapestry5/trunk/tapestry-core/src/ main
-   * /java/org/apache/tapestry5/internal/transform/OnEventWorker.java?view= markup
+   * http://svn.apache.org/viewvc/tapestry/tapestry5/trunk/tapestry-core/src/
+   * main /java/org/apache/tapestry5/internal/transform/OnEventWorker.java?view=
+   * markup
    * 
-   * Returns the event name to match against, as specified in the annotation or (if the annotation
-   * is not present) extracted from the name of the method. "onActionFromFoo" or just "onAction".
+   * Returns the event name to match against, as specified in the annotation or
+   * (if the annotation is not present) extracted from the name of the method.
+   * "onActionFromFoo" or just "onAction".
    *
    * @param methodName
    *          the method name

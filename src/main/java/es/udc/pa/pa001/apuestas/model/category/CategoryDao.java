@@ -14,6 +14,6 @@ public interface CategoryDao extends GenericDao<Category, Long> {
    *
    * @return the list
    */
-  public List<Category> findCategories();
+  List<Category> findCategories();
 
 }

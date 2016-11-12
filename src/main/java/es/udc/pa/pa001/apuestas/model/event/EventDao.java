@@ -20,7 +20,7 @@ public interface EventDao extends GenericDao<Event, Long> {
    *          the admin
    * @return the number of events
    */
-  public int getNumberOfEvents(String keyWords, Long categoryId, boolean admin);
+  int getNumberOfEvents(String keyWords, Long categoryId, boolean admin);
 
   /**
    * Find events.
@@ -37,7 +37,7 @@ public interface EventDao extends GenericDao<Event, Long> {
    *          the admin
    * @return the list
    */
-  public List<Event> findEvents(String keyWords, Long categoryId,
+  List<Event> findEvents(String keyWords, Long categoryId,
       int startIndex, int count, boolean admin);
 
   /**
@@ -47,5 +47,5 @@ public interface EventDao extends GenericDao<Event, Long> {
    *          the full name
    * @return true, if successful
    */
-  public boolean findDuplicates(String fullName);
+  boolean findDuplicates(String fullName);
 }

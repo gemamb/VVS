@@ -3,7 +3,7 @@ package es.udc.pa.pa001.apuestas.model.util;
 /**
  * The Class GlobalNames.
  */
-public class GlobalNames {
+public final class GlobalNames {
 
   /** The Constant SPRING_CONFIG_FILE. */
   public static final String SPRING_CONFIG_FILE = "classpath:/spring-config.xml";

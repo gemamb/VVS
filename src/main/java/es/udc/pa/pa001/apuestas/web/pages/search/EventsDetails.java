@@ -25,7 +25,7 @@ import es.udc.pa.pa001.apuestas.web.util.UserSession;
 public class EventsDetails {
 
   /** The Constant EVENTS_PER_PAGE. */
-  private final static int EVENTS_PER_PAGE = 10;
+  private static final int EVENTS_PER_PAGE = 10;
 
   /** The key words. */
   private String keyWords;

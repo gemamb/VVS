@@ -39,7 +39,7 @@ public class MyBets {
   private Locale locale;
 
   /** The Constant BETS_PER_PAGE. */
-  private final static int BETS_PER_PAGE = 10;
+  private static final int BETS_PER_PAGE = 10;
 
   /** The start index. */
   private int startIndex = 0;
