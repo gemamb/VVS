@@ -40,8 +40,8 @@ public class SessionFilter implements RequestFilter {
    * @param userService
    *          the user service
    */
-  public SessionFilter(ApplicationStateManager applicationStateManager,
-      Cookies cookies, UserService userService) {
+  public SessionFilter(final ApplicationStateManager applicationStateManager,
+      final Cookies cookies, final UserService userService) {
 
     this.applicationStateManager = applicationStateManager;
     this.cookies = cookies;
@@ -49,15 +49,10 @@ public class SessionFilter implements RequestFilter {
 
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.apache.tapestry5.services.RequestFilter#service(org.apache.tapestry5.services.Request,
-   * org.apache.tapestry5.services.Response, org.apache.tapestry5.services.RequestHandler)
-   */
+
   @Override
-  public boolean service(Request request, Response response,
-      RequestHandler handler) throws IOException {
+  public final boolean service(final Request request, final Response response,
+      final RequestHandler handler) throws IOException {
 
     if (!applicationStateManager.exists(UserSession.class)) {
 

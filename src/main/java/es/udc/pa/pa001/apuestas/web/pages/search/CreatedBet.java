@@ -13,7 +13,7 @@ public class CreatedBet {
    *
    * @return the bet id
    */
-  public Long getBetId() {
+  public final Long getBetId() {
     return betId;
   }
 
@@ -23,7 +23,7 @@ public class CreatedBet {
    * @param betId
    *          the new bet id
    */
-  public void setBetId(Long betId) {
+  public final void setBetId(final Long betId) {
     this.betId = betId;
   }
 

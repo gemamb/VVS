@@ -21,15 +21,11 @@ public class UserServiceImpl implements UserService {
   @Autowired
   private UserProfileDao userProfileDao;
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see es.udc.pa.pa001.apuestas.model.userservice.UserService#registerUser(java.lang.String,
-   * java.lang.String, es.udc.pa.pa001.apuestas.model.userservice.UserProfileDetails)
-   */
   @Override
-  public UserProfile registerUser(String loginName, String clearPassword,
-      UserProfileDetails userProfileDetails) throws DuplicateInstanceException {
+  public final UserProfile registerUser(final String loginName,
+      final String clearPassword,
+      final UserProfileDetails userProfileDetails)
+      throws DuplicateInstanceException {
 
     try {
       userProfileDao.findByLoginName(loginName);
@@ -48,16 +44,10 @@ public class UserServiceImpl implements UserService {
 
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see es.udc.pa.pa001.apuestas.model.userservice.UserService#login(java.lang.String,
-   * java.lang.String, boolean)
-   */
   @Override
   @Transactional(readOnly = true)
-  public UserProfile login(String loginName, String password,
-      boolean passwordIsEncrypted)
+  public final UserProfile login(final String loginName, final String password,
+      final boolean passwordIsEncrypted)
       throws InstanceNotFoundException, IncorrectPasswordException {
 
     UserProfile userProfile = userProfileDao.findByLoginName(loginName);
@@ -76,29 +66,18 @@ public class UserServiceImpl implements UserService {
 
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see es.udc.pa.pa001.apuestas.model.userservice.UserService#findUserProfile(java.lang.Long)
-   */
   @Override
   @Transactional(readOnly = true)
-  public UserProfile findUserProfile(Long userProfileId)
+  public final UserProfile findUserProfile(final Long userProfileId)
       throws InstanceNotFoundException {
 
     return userProfileDao.find(userProfileId);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * es.udc.pa.pa001.apuestas.model.userservice.UserService#updateUserProfileDetails(java.lang.Long,
-   * es.udc.pa.pa001.apuestas.model.userservice.UserProfileDetails)
-   */
   @Override
-  public void updateUserProfileDetails(Long userProfileId,
-      UserProfileDetails userProfileDetails) throws InstanceNotFoundException {
+  public final void updateUserProfileDetails(final Long userProfileId,
+      final UserProfileDetails userProfileDetails)
+      throws InstanceNotFoundException {
 
     UserProfile userProfile = userProfileDao.find(userProfileId);
     userProfile.setFirstName(userProfileDetails.getFirstName());
@@ -107,15 +86,10 @@ public class UserServiceImpl implements UserService {
 
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see es.udc.pa.pa001.apuestas.model.userservice.UserService#changePassword(java.lang.Long,
-   * java.lang.String, java.lang.String)
-   */
   @Override
-  public void changePassword(Long userProfileId, String oldClearPassword,
-      String newClearPassword)
+  public final void changePassword(final Long userProfileId,
+      final String oldClearPassword,
+      final String newClearPassword)
       throws IncorrectPasswordException, InstanceNotFoundException {
 
     UserProfile userProfile;

@@ -19,7 +19,8 @@ import es.udc.pa.pa001.apuestas.web.util.UserSession;
  * The Class Layout.
  */
 @Import(library = { "tapestry5/bootstrap/js/collapse.js",
-    "tapestry5/bootstrap/js/dropdown.js" }, stylesheet = "tapestry5/bootstrap/css/bootstrap-theme.css")
+    "tapestry5/bootstrap/js/dropdown.js" },
+    stylesheet = "tapestry5/bootstrap/css/bootstrap-theme.css")
 public class Layout {
 
   /** The title. */

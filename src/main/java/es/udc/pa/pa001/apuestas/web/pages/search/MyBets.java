@@ -58,7 +58,7 @@ public class MyBets {
    *
    * @return the my bets grid data source
    */
-  public MyBetsGridDataSource getMyBetsGridDataSource() {
+  public final MyBetsGridDataSource getMyBetsGridDataSource() {
     return MyBetsGridDataSource;
   }
 
@@ -67,7 +67,7 @@ public class MyBets {
    *
    * @return the rows per page
    */
-  public int getRowsPerPage() {
+  public final int getRowsPerPage() {
     return BETS_PER_PAGE;
   }
 
@@ -76,7 +76,7 @@ public class MyBets {
    *
    * @return the pending
    */
-  public boolean getPending() {
+  public final boolean getPending() {
     return bet.getBetOption().getBetState() == null;
   }
 
@@ -85,7 +85,7 @@ public class MyBets {
    *
    * @return the won
    */
-  public boolean getWon() {
+  public final boolean getWon() {
     return bet.getBetOption().getBetState() == null ? false
         : bet.getBetOption().getBetState();
   }
@@ -95,7 +95,7 @@ public class MyBets {
    *
    * @return the gain
    */
-  public Float getGain() {
+  public final Float getGain() {
     return bet.getBetedMoney() * bet.getBetOption().getRate();
   }
 
@@ -104,7 +104,7 @@ public class MyBets {
    *
    * @return the bet
    */
-  public Bet getBet() {
+  public final Bet getBet() {
     return bet;
   }
 
@@ -114,7 +114,7 @@ public class MyBets {
    * @param bet
    *          the new bet
    */
-  public void setBet(Bet bet) {
+  public final void setBet(final Bet bet) {
     this.bet = bet;
   }
 
@@ -123,7 +123,7 @@ public class MyBets {
    *
    * @return the bets
    */
-  public List<Bet> getBets() {
+  public final List<Bet> getBets() {
     return betBlock.getBets();
   }
 
@@ -132,7 +132,7 @@ public class MyBets {
    *
    * @return the format
    */
-  public DateFormat getFormat() {
+  public final DateFormat getFormat() {
     return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT,
         locale);
   }
@@ -142,7 +142,7 @@ public class MyBets {
    *
    * @return the number format
    */
-  public Format getNumberFormat() {
+  public final Format getNumberFormat() {
     return NumberFormat.getInstance(locale);
   }
 
@@ -152,7 +152,7 @@ public class MyBets {
    * @param startIndex
    *          the start index
    */
-  void onActivate(int startIndex) {
+  final void onActivate(final int startIndex) {
     this.startIndex = startIndex;
     betBlock = betService.findBets(userSession.getUserProfileId(), startIndex,
         BETS_PER_PAGE);
@@ -166,7 +166,7 @@ public class MyBets {
    *
    * @return the object[]
    */
-  Object[] onPassivate() {
-    return new Object[] { startIndex };
+  final Object[] onPassivate() {
+    return new Object[] {startIndex};
   }
 }

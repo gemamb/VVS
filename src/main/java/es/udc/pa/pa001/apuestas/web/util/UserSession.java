@@ -27,7 +27,7 @@ public class UserSession {
    *
    * @return the user profile id
    */
-  public Long getUserProfileId() {
+  public final Long getUserProfileId() {
     return userProfileId;
   }
 
@@ -37,7 +37,7 @@ public class UserSession {
    * @param userProfileId
    *          the new user profile id
    */
-  public void setUserProfileId(Long userProfileId) {
+  public final void setUserProfileId(final Long userProfileId) {
     this.userProfileId = userProfileId;
   }
 
@@ -46,7 +46,7 @@ public class UserSession {
    *
    * @return the first name
    */
-  public String getFirstName() {
+  public final String getFirstName() {
     return firstName;
   }
 
@@ -56,7 +56,7 @@ public class UserSession {
    * @param firstName
    *          the new first name
    */
-  public void setFirstName(String firstName) {
+  public final void setFirstName(final String firstName) {
     this.firstName = firstName;
   }
 
@@ -65,7 +65,7 @@ public class UserSession {
    *
    * @return true, if is admin
    */
-  public boolean isAdmin() {
+  public final boolean isAdmin() {
     return admin;
   }
 
@@ -75,7 +75,7 @@ public class UserSession {
    * @param admin
    *          the new admin
    */
-  public void setAdmin(boolean admin) {
+  public final void setAdmin(final boolean admin) {
     this.admin = admin;
   }
 

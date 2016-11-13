@@ -51,11 +51,12 @@ public class UserProfile {
    * @param email
    *          the email
    */
-  public UserProfile(String loginName, String encryptedPassword,
-      String firstName, String lastName, String email) {
+  public UserProfile(final String loginName, final String encryptedPassword,
+      final String firstName, final String lastName, final String email) {
 
     /**
-     * NOTE: "userProfileId" *must* be left as "null" since its value is automatically generated.
+     * NOTE: "userProfileId" *must* be left as "null" since its value is
+     * automatically generated.
      */
 
     this.loginName = loginName;
@@ -76,8 +77,9 @@ public class UserProfile {
       sequenceName = "UserProfileSeq")
   // generators.
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO, generator = "UserProfileIdGenerator")
-  public Long getUserProfileId() {
+  @GeneratedValue(strategy = GenerationType.AUTO,
+  generator = "UserProfileIdGenerator")
+  public final Long getUserProfileId() {
     return userProfileId;
   }
 
@@ -87,7 +89,7 @@ public class UserProfile {
    * @param userProfileId
    *          the new user profile id
    */
-  public void setUserProfileId(Long userProfileId) {
+  public final void setUserProfileId(final Long userProfileId) {
     this.userProfileId = userProfileId;
   }
 
@@ -96,7 +98,7 @@ public class UserProfile {
    *
    * @return the login name
    */
-  public String getLoginName() {
+  public final String getLoginName() {
     return loginName;
   }
 
@@ -106,7 +108,7 @@ public class UserProfile {
    * @param loginName
    *          the new login name
    */
-  public void setLoginName(String loginName) {
+  public final void setLoginName(final String loginName) {
     this.loginName = loginName;
   }
 
@@ -116,7 +118,7 @@ public class UserProfile {
    * @return the encrypted password
    */
   @Column(name = "enPassword")
-  public String getEncryptedPassword() {
+  public final String getEncryptedPassword() {
     return encryptedPassword;
   }
 
@@ -126,7 +128,7 @@ public class UserProfile {
    * @param encryptedPassword
    *          the new encrypted password
    */
-  public void setEncryptedPassword(String encryptedPassword) {
+  public final void setEncryptedPassword(final String encryptedPassword) {
     this.encryptedPassword = encryptedPassword;
   }
 
@@ -135,7 +137,7 @@ public class UserProfile {
    *
    * @return the first name
    */
-  public String getFirstName() {
+  public final String getFirstName() {
     return firstName;
   }
 
@@ -145,7 +147,7 @@ public class UserProfile {
    * @param firstName
    *          the new first name
    */
-  public void setFirstName(String firstName) {
+  public final void setFirstName(final String firstName) {
     this.firstName = firstName;
   }
 
@@ -154,7 +156,7 @@ public class UserProfile {
    *
    * @return the last name
    */
-  public String getLastName() {
+  public final String getLastName() {
     return lastName;
   }
 
@@ -164,7 +166,7 @@ public class UserProfile {
    * @param lastName
    *          the new last name
    */
-  public void setLastName(String lastName) {
+  public final void setLastName(final String lastName) {
     this.lastName = lastName;
   }
 
@@ -173,7 +175,7 @@ public class UserProfile {
    *
    * @return the email
    */
-  public String getEmail() {
+  public final String getEmail() {
     return email;
   }
 
@@ -183,17 +185,12 @@ public class UserProfile {
    * @param email
    *          the new email
    */
-  public void setEmail(String email) {
+  public final void setEmail(final String email) {
     this.email = email;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#toString()
-   */
   @Override
-  public String toString() {
+  public final String toString() {
     return "UserProfile [userProfileId=" + userProfileId + ", loginName="
         + loginName + ", encryptedPassword=" + encryptedPassword
         + ", firstName=" + firstName + ", lastName=" + lastName + ", email="

@@ -21,7 +21,8 @@ public class BetTypeBlock {
    * @param existMoreBetTypes
    *          the exist more bet types
    */
-  public BetTypeBlock(List<BetType> bets, boolean existMoreBetTypes) {
+  public BetTypeBlock(final List<BetType> bets,
+      final boolean existMoreBetTypes) {
     super();
     this.bets = bets;
     this.existMoreBetTypes = existMoreBetTypes;
@@ -32,7 +33,7 @@ public class BetTypeBlock {
    *
    * @return the bets
    */
-  public List<BetType> getBets() {
+  public final List<BetType> getBets() {
     return bets;
   }
 
@@ -42,7 +43,7 @@ public class BetTypeBlock {
    * @param bets
    *          the new bets
    */
-  public void setBets(List<BetType> bets) {
+  public final void setBets(final List<BetType> bets) {
     this.bets = bets;
   }
 
@@ -51,7 +52,7 @@ public class BetTypeBlock {
    *
    * @return the exist more bet types
    */
-  public boolean getExistMoreBetTypes() {
+  public final boolean getExistMoreBetTypes() {
     return existMoreBetTypes;
   }
 
@@ -60,9 +61,8 @@ public class BetTypeBlock {
    *
    * @param existMoreBetTypes
    *          the exist more bet types
-   * @return the existmorebettypes
    */
-  public void getExistMoreBetTypes(boolean existMoreBetTypes) {
+  public final void getExistMoreBetTypes(final boolean existMoreBetTypes) {
     this.existMoreBetTypes = existMoreBetTypes;
   }
 

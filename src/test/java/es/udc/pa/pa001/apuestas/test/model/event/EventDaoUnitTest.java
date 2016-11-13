@@ -111,7 +111,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testSaveEvent() {
+  public final void testSaveEvent() {
 
     /* SETUP */
 
@@ -135,7 +135,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testUpdateEvent() {
+  public final void testUpdateEvent() {
 
     /* SETUP */
 
@@ -164,7 +164,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testRemoveEvent() throws InstanceNotFoundException {
+  public final void testRemoveEvent() throws InstanceNotFoundException {
 
     /* SETUP */
 
@@ -190,7 +190,8 @@ public class EventDaoUnitTest {
    */
 
   @Test(expected = InstanceNotFoundException.class)
-  public void testRemoveNonExistentEvent() throws InstanceNotFoundException {
+  public final void testRemoveNonExistentEvent()
+      throws InstanceNotFoundException {
 
     /* SETUP */
 
@@ -220,7 +221,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testFindEvent() throws InstanceNotFoundException {
+  public final void testFindEvent() throws InstanceNotFoundException {
 
     /* SETUP */
 
@@ -246,7 +247,8 @@ public class EventDaoUnitTest {
    */
 
   @Test(expected = InstanceNotFoundException.class)
-  public void testFindNonExistentEvent() throws InstanceNotFoundException {
+  public final void testFindNonExistentEvent()
+      throws InstanceNotFoundException {
 
     /* SETUP */
 
@@ -274,7 +276,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testGetNumberOfAllEvents() {
+  public final void testGetNumberOfAllEvents() {
 
     /* SETUP */
 
@@ -296,7 +298,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testGetNumberOfFutureEvents() {
+  public final void testGetNumberOfFutureEvents() {
 
     /* SETUP */
 
@@ -318,7 +320,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testGetNumberOfCategoryEvents() {
+  public final void testGetNumberOfCategoryEvents() {
 
     /* SETUP */
 
@@ -341,7 +343,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testGetNumberOfWrongCategoryEvents() {
+  public final void testGetNumberOfWrongCategoryEvents() {
 
     /* SETUP */
 
@@ -363,7 +365,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testGetNumberEventsByMinusKeyWords() {
+  public final void testGetNumberEventsByMinusKeyWords() {
 
     /* SETUP */
 
@@ -385,7 +387,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testGetNumberEventsByKeyWords() {
+  public final void testGetNumberEventsByKeyWords() {
 
     /* SETUP */
 
@@ -407,7 +409,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testGetNumberEventsByMayusKeyWords() {
+  public final void testGetNumberEventsByMayusKeyWords() {
 
     /* SETUP */
 
@@ -429,7 +431,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testGetNumberEventsByOrderKeyWords() {
+  public final void testGetNumberEventsByOrderKeyWords() {
 
     /* SETUP */
 
@@ -451,7 +453,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testGetNumberEventsByWrongKeyWords() {
+  public final void testGetNumberEventsByWrongKeyWords() {
 
     /* SETUP */
 
@@ -473,7 +475,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testGetNumberEventsByKeyWordsCategory() {
+  public final void testGetNumberEventsByKeyWordsCategory() {
 
     /* SETUP */
 
@@ -496,7 +498,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testfindAllEvents() {
+  public final void testfindAllEvents() {
 
     /* SETUP */
 
@@ -522,7 +524,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testfindFutureEvents() {
+  public final void testfindFutureEvents() {
 
     /* SETUP */
 
@@ -547,7 +549,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testfindEventsByCategory() {
+  public final void testfindEventsByCategory() {
 
     /* SETUP */
 
@@ -573,7 +575,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testfindEventsByWrongCategory() {
+  public final void testfindEventsByWrongCategory() {
 
     /* SETUP */
 
@@ -597,7 +599,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testfindEventsByMinusKeyWords() {
+  public final void testfindEventsByMinusKeyWords() {
 
     /* SETUP */
 
@@ -624,7 +626,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testfindEventsByKeyWords() {
+  public final void testfindEventsByKeyWords() {
 
     /* SETUP */
 
@@ -650,7 +652,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testfindEventsByMayusKeyWords() {
+  public final void testfindEventsByMayusKeyWords() {
 
     /* SETUP */
 
@@ -675,7 +677,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testfindEventsByOrderKeyWords() {
+  public final void testfindEventsByOrderKeyWords() {
 
     /* SETUP */
 
@@ -700,7 +702,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testfindEventsByWrongKeyWords() {
+  public final void testfindEventsByWrongKeyWords() {
 
     /* SETUP */
 
@@ -724,7 +726,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testfindEventsByKeyWordsCategory() {
+  public final void testfindEventsByKeyWordsCategory() {
 
     /* SETUP */
 
@@ -750,7 +752,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testEventFindDuplicates() {
+  public final void testEventFindDuplicates() {
 
     /* SETUP */
 
@@ -772,7 +774,7 @@ public class EventDaoUnitTest {
    */
 
   @Test
-  public void testFindNoDuplicates() {
+  public final void testFindNoDuplicates() {
 
     /* SETUP */
 

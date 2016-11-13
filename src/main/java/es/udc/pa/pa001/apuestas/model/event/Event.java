@@ -64,8 +64,8 @@ public class Event {
    * @param betTypes
    *          the bet types
    */
-  public Event(Long eventId, String name, Calendar eventStart,
-      Category category, List<BetType> betTypes) {
+  public Event(final Long eventId, final String name, final Calendar eventStart,
+      final Category category, final List<BetType> betTypes) {
     super();
     this.eventId = eventId;
     this.name = name;
@@ -88,7 +88,8 @@ public class Event {
    * @param category
    *          the category
    */
-  public Event(String name, Calendar eventStart, Category category) {
+  public Event(final String name, final Calendar eventStart,
+      final Category category) {
     super();
     this.name = name;
     this.eventStart = eventStart;
@@ -111,8 +112,9 @@ public class Event {
       sequenceName = "EventSeq")
   // generators.
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO, generator = "EventIdGenerator")
-  public Long getEventId() {
+  @GeneratedValue(strategy = GenerationType.AUTO,
+  generator = "EventIdGenerator")
+  public final Long getEventId() {
     return eventId;
   }
 
@@ -122,7 +124,7 @@ public class Event {
    * @param eventId
    *          the new event id
    */
-  public void setEventId(Long eventId) {
+  public final void setEventId(final Long eventId) {
     this.eventId = eventId;
   }
 
@@ -132,7 +134,7 @@ public class Event {
    * @return the name
    */
   @Column(name = "name")
-  public String getName() {
+  public final String getName() {
     return name;
   }
 
@@ -142,7 +144,7 @@ public class Event {
    * @param name
    *          the new name
    */
-  public void setName(String name) {
+  public final void setName(final String name) {
     this.name = name;
   }
 
@@ -153,7 +155,7 @@ public class Event {
    */
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "eventStart")
-  public Calendar getEventStart() {
+  public final Calendar getEventStart() {
     return eventStart;
   }
 
@@ -163,7 +165,7 @@ public class Event {
    * @param eventStart
    *          the new event start
    */
-  public void setEventStart(Calendar eventStart) {
+  public final void setEventStart(final Calendar eventStart) {
     this.eventStart = eventStart;
     if (this.eventStart != null) {
       this.eventStart.set(Calendar.SECOND, 0);
@@ -178,7 +180,7 @@ public class Event {
    */
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "categoryId")
-  public Category getCategory() {
+  public final Category getCategory() {
     return category;
   }
 
@@ -188,7 +190,7 @@ public class Event {
    * @param category
    *          the new category
    */
-  public void setCategory(Category category) {
+  public final void setCategory(final Category category) {
     this.category = category;
   }
 
@@ -198,7 +200,7 @@ public class Event {
    * @return the bet types
    */
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
-  public List<BetType> getBetTypes() {
+  public final List<BetType> getBetTypes() {
     return betTypes;
   }
 
@@ -208,7 +210,7 @@ public class Event {
    * @param betTypes
    *          the new bet types
    */
-  public void setBetTypes(List<BetType> betTypes) {
+  public final void setBetTypes(final List<BetType> betTypes) {
     this.betTypes = betTypes;
   }
 
@@ -218,7 +220,7 @@ public class Event {
    * @param betType
    *          the bet type
    */
-  public void addBetType(BetType betType) {
+  public final void addBetType(final BetType betType) {
     this.betTypes.add(betType);
     betType.setEvent(this);
   }
@@ -230,7 +232,7 @@ public class Event {
    *          the event id
    * @return true, if successful
    */
-  public boolean finishedEvent(Long eventId) {
+  public final boolean finishedEvent(final Long eventId) {
     return eventStart.getTime().before(Calendar.getInstance().getTime());
   }
 }

@@ -19,10 +19,12 @@ public class AuthenticationValidator {
   private static final String INIT_PAGE = "Index";
 
   /** The Constant PAGE_AUTHENTICATION_TYPE. */
-  public static final String PAGE_AUTHENTICATION_TYPE = "page-authentication-type";
+  public static final String PAGE_AUTHENTICATION_TYPE =
+      "page-authentication-type";
 
   /** The Constant EVENT_HANDLER_AUTHENTICATION_TYPE. */
-  public static final String EVENT_HANDLER_AUTHENTICATION_TYPE = "event-handler-authentication-type";
+  public static final String EVENT_HANDLER_AUTHENTICATION_TYPE =
+      "event-handler-authentication-type";
 
   /**
    * Check for page.
@@ -37,9 +39,9 @@ public class AuthenticationValidator {
    *          the locator
    * @return the string
    */
-  public static String checkForPage(String pageName,
-      ApplicationStateManager applicationStateManager,
-      ComponentSource componentSource, MetaDataLocator locator) {
+  public static String checkForPage(final String pageName,
+      final ApplicationStateManager applicationStateManager,
+      final ComponentSource componentSource, final MetaDataLocator locator) {
 
     String redirectPage = null;
     Component page = componentSource.getPage(pageName);
@@ -76,10 +78,10 @@ public class AuthenticationValidator {
    *          the locator
    * @return the string
    */
-  public static String checkForComponentEvent(String pageName,
-      String componentId, String eventId, String eventType,
-      ApplicationStateManager applicationStateManager,
-      ComponentSource componentSource, MetaDataLocator locator) {
+  public static String checkForComponentEvent(final String pageName,
+      final String componentId, final String eventId, final String eventType,
+      final ApplicationStateManager applicationStateManager,
+      final ComponentSource componentSource, final MetaDataLocator locator) {
 
     String redirectPage = null;
     String authenticationPolicyMeta = EVENT_HANDLER_AUTHENTICATION_TYPE + "-"
@@ -116,8 +118,8 @@ public class AuthenticationValidator {
    *          the application state manager
    * @return the string
    */
-  public static String check(AuthenticationPolicy policy,
-      ApplicationStateManager applicationStateManager) {
+  public static String check(final AuthenticationPolicy policy,
+      final ApplicationStateManager applicationStateManager) {
 
     if (policy != null) {
       return check(policy.value(), applicationStateManager);
@@ -136,8 +138,8 @@ public class AuthenticationValidator {
    *          the application state manager
    * @return the string
    */
-  public static String check(AuthenticationPolicyType policyType,
-      ApplicationStateManager applicationStateManager) {
+  public static String check(final AuthenticationPolicyType policyType,
+      final ApplicationStateManager applicationStateManager) {
     String redirectPage = null;
 
     boolean userAuthenticated = applicationStateManager

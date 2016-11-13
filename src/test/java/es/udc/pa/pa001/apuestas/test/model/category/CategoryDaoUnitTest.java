@@ -54,7 +54,7 @@ public class CategoryDaoUnitTest {
    */
 
   @Test
-  public void testFindCategories() {
+  public final void testFindCategories() {
 
     /* SETUP */
 
@@ -77,7 +77,7 @@ public class CategoryDaoUnitTest {
    */
 
   @Test
-  public void testFindNoCategories() {
+  public final void testFindNoCategories() {
 
     /* SETUP */
 

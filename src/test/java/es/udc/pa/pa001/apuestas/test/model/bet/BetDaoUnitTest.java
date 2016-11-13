@@ -155,7 +155,7 @@ public class BetDaoUnitTest {
    */
 
   @Test
-  public void testFindNoBetsByUserId() {
+  public final void testFindNoBetsByUserId() {
 
     /* SETUP */
 
@@ -176,7 +176,7 @@ public class BetDaoUnitTest {
    */
 
   @Test
-  public void testFindBetsByNonExistentUserId() {
+  public final void testFindBetsByNonExistentUserId() {
 
     /* SETUP */
 
@@ -197,7 +197,7 @@ public class BetDaoUnitTest {
    */
 
   @Test
-  public void testFindSomeBetsByUserId() {
+  public final void testFindSomeBetsByUserId() {
 
     /* SETUP */
 
@@ -229,7 +229,7 @@ public class BetDaoUnitTest {
    */
 
   @Test
-  public void testFindNoBetsByUserIdNumber() {
+  public final void testFindNoBetsByUserIdNumber() {
 
     /* SETUP */
 
@@ -249,7 +249,7 @@ public class BetDaoUnitTest {
    */
 
   @Test
-  public void testFindBetsByWrongUserIdNumber() {
+  public final void testFindBetsByWrongUserIdNumber() {
 
     /* SETUP */
 
@@ -269,7 +269,7 @@ public class BetDaoUnitTest {
    */
 
   @Test
-  public void testFindSomeBetsByUserIdNumber() {
+  public final void testFindSomeBetsByUserIdNumber() {
 
     /* SETUP */
 

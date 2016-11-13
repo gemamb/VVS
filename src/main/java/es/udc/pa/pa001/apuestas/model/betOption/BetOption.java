@@ -56,8 +56,9 @@ public class BetOption {
    * @param betType
    *          the bet type
    */
-  public BetOption(Long betOptionId, String answer, Float rate,
-      Boolean betState, BetType betType) {
+  public BetOption(final Long betOptionId, final String answer,
+      final Float rate,
+      final Boolean betState, final BetType betType) {
     super();
     this.betOptionId = betOptionId;
     this.answer = answer;
@@ -78,8 +79,9 @@ public class BetOption {
    * @param betType
    *          the bet type
    */
-  public BetOption(String answer, Float rate, Boolean betState,
-      BetType betType) {
+  public BetOption(final String answer, final Float rate,
+      final Boolean betState,
+      final BetType betType) {
     super();
     this.answer = answer;
     this.rate = rate;
@@ -98,8 +100,9 @@ public class BetOption {
       sequenceName = "BetOptionSeq")
   // generators.
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO, generator = "BetOptionIdGenerator")
-  public Long getBetOptionId() {
+  @GeneratedValue(strategy = GenerationType.AUTO,
+  generator = "BetOptionIdGenerator")
+  public final Long getBetOptionId() {
     return betOptionId;
   }
 
@@ -109,7 +112,7 @@ public class BetOption {
    * @param betOptionId
    *          the new bet option id
    */
-  public void setBetOptionId(Long betOptionId) {
+  public final void setBetOptionId(final Long betOptionId) {
     this.betOptionId = betOptionId;
   }
 
@@ -119,7 +122,7 @@ public class BetOption {
    * @return the answer
    */
   @Column(name = "answer")
-  public String getAnswer() {
+  public final String getAnswer() {
     return answer;
   }
 
@@ -129,7 +132,7 @@ public class BetOption {
    * @param answer
    *          the new answer
    */
-  public void setAnswer(String answer) {
+  public final void setAnswer(final String answer) {
     this.answer = answer;
   }
 
@@ -139,7 +142,7 @@ public class BetOption {
    * @return the rate
    */
   @Column(name = "rate")
-  public Float getRate() {
+  public final Float getRate() {
     return rate;
   }
 
@@ -149,7 +152,7 @@ public class BetOption {
    * @param rate
    *          the new rate
    */
-  public void setRate(Float rate) {
+  public final void setRate(final Float rate) {
     this.rate = rate;
   }
 
@@ -159,7 +162,7 @@ public class BetOption {
    * @return the bet state
    */
   @Column(name = "betState")
-  public Boolean getBetState() {
+  public final Boolean getBetState() {
     return betState;
   }
 
@@ -169,7 +172,7 @@ public class BetOption {
    * @param betState
    *          the new bet state
    */
-  public void setBetState(Boolean betState) {
+  public final void setBetState(final Boolean betState) {
     this.betState = betState;
   }
 
@@ -180,7 +183,7 @@ public class BetOption {
    */
   @ManyToOne(optional = false, fetch = FetchType.LAZY)
   @JoinColumn(name = "betTypeId")
-  public BetType getBetType() {
+  public final BetType getBetType() {
     return betType;
   }
 
@@ -190,7 +193,7 @@ public class BetOption {
    * @param betType
    *          the new bet type
    */
-  public void setBetType(BetType betType) {
+  public final void setBetType(final BetType betType) {
     this.betType = betType;
   }
 

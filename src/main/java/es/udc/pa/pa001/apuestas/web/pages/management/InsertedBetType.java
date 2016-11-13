@@ -17,7 +17,7 @@ public class InsertedBetType {
    *
    * @return the bet type id
    */
-  public Long getBetTypeId() {
+  public final Long getBetTypeId() {
     return betTypeId;
   }
 
@@ -27,7 +27,7 @@ public class InsertedBetType {
    * @param betTypeId
    *          the new bet type id
    */
-  public void setBetTypeId(Long betTypeId) {
+  public final void setBetTypeId(final Long betTypeId) {
     this.betTypeId = betTypeId;
   }
 
@@ -36,7 +36,7 @@ public class InsertedBetType {
    *
    * @return the long
    */
-  Long onPassivate() {
+  final Long onPassivate() {
     return betTypeId;
   }
 
@@ -46,7 +46,7 @@ public class InsertedBetType {
    * @param betTypeId
    *          the bet type id
    */
-  void onActivate(Long betTypeId) {
+  final void onActivate(final Long betTypeId) {
     this.betTypeId = betTypeId;
   }
 }

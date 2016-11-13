@@ -54,7 +54,7 @@ public class UserProfileDaoUnitTest {
    */
 
   @Test
-  public void testFindByLoginName() throws InstanceNotFoundException {
+  public final void testFindByLoginName() throws InstanceNotFoundException {
 
     /* SETUP */
     initializeUser();
@@ -75,7 +75,7 @@ public class UserProfileDaoUnitTest {
    */
 
   @Test(expected = InstanceNotFoundException.class)
-  public void testFindByNonExistentLoginName()
+  public final void testFindByNonExistentLoginName()
       throws InstanceNotFoundException {
 
     /* SETUP */

@@ -47,7 +47,7 @@ public class InsertBetType {
    *
    * @return the bet type id
    */
-  public Long getBetTypeId() {
+  public final Long getBetTypeId() {
     return betTypeId;
   }
 
@@ -57,7 +57,7 @@ public class InsertBetType {
    * @param betTypeId
    *          the new bet type id
    */
-  public void setBetTypeId(Long betTypeId) {
+  public final void setBetTypeId(final Long betTypeId) {
     this.betTypeId = betTypeId;
   }
 
@@ -66,7 +66,7 @@ public class InsertBetType {
    *
    * @return the event id
    */
-  public Long getEventId() {
+  public final Long getEventId() {
     return eventId;
   }
 
@@ -76,7 +76,7 @@ public class InsertBetType {
    * @param eventId
    *          the new event id
    */
-  public void setEventId(Long eventId) {
+  public final void setEventId(final Long eventId) {
     this.eventId = eventId;
   }
 
@@ -110,7 +110,7 @@ public class InsertBetType {
   /**
    * On validate from bet type form.
    */
-  void onValidateFromBetTypeForm() {
+  final void onValidateFromBetTypeForm() {
     Event event;
 
     try {
@@ -136,7 +136,7 @@ public class InsertBetType {
    *
    * @return the object
    */
-  Object onSuccess() {
+  final Object onSuccess() {
     insertBetOption.setEventId(eventId);
     insertBetOption.setMultiple(multiple);
     insertBetOption.setQuestion(question);
@@ -149,7 +149,7 @@ public class InsertBetType {
    * @param eventId
    *          the event id
    */
-  void onActivate(Long eventId) {
+  final void onActivate(final Long eventId) {
     this.eventId = eventId;
   }
 
@@ -158,7 +158,7 @@ public class InsertBetType {
    *
    * @return the long
    */
-  Long onPassivate() {
+  final Long onPassivate() {
     return this.eventId;
   }
 
@@ -167,7 +167,7 @@ public class InsertBetType {
    *
    * @return the format
    */
-  public Format getFormat() {
+  public final Format getFormat() {
     return NumberFormat.getInstance(locale);
   }
 

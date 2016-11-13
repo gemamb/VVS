@@ -71,7 +71,7 @@ public class Login {
   /**
    * On validate from login form.
    */
-  void onValidateFromLoginForm() {
+  final void onValidateFromLoginForm() {
 
     if (!loginForm.isValid()) {
       return;
@@ -92,7 +92,7 @@ public class Login {
    *
    * @return the object
    */
-  Object onSuccess() {
+  final Object onSuccess() {
 
     userSession = new UserSession();
     userSession.setAdmin(userProfile.getLoginName().equals("admin"));
@@ -103,9 +103,9 @@ public class Login {
       CookiesManager.leaveCookies(cookies, loginName,
           userProfile.getEncryptedPassword());
     }
-    if (this.betOptionId == null)
+    if (this.betOptionId == null) {
       return Index.class;
-    else {
+    } else {
       makeBet.setbetOptionId(betOptionId);
       return makeBet;
     }
@@ -118,7 +118,7 @@ public class Login {
    * @param id
    *          the id
    */
-  void onActivate(Long id) {
+  final void onActivate(final Long id) {
     this.betOptionId = id;
   }
 
@@ -127,7 +127,7 @@ public class Login {
    *
    * @return the long
    */
-  Long onPassivate() {
+  final Long onPassivate() {
     return this.betOptionId;
   }
 

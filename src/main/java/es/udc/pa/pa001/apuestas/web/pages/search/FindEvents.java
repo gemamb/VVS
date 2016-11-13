@@ -50,10 +50,11 @@ public class FindEvents {
    *          the key words
    * @return the list
    */
-  List<String> onProvideCompletionsFromKeyWords(String keyWords) {
+  final List<String> onProvideCompletionsFromKeyWords(final String keyWords) {
 
-    if (keyWords.length() < 3)
+    if (keyWords.length() < 3) {
       return null;
+    }
 
     List<String> matches = new ArrayList<String>();
     EventBlock events = betService.findEvents(keyWords, null, 0, 10,
@@ -86,7 +87,7 @@ public class FindEvents {
    *
    * @return the categories
    */
-  public String getCategories() {
+  public final String getCategories() {
     List<Category> categories = betService.findCategories();
     String model = "";
     for (Category c : categories) {
@@ -100,7 +101,7 @@ public class FindEvents {
    *
    * @return the object
    */
-  Object onSuccess() {
+  final Object onSuccess() {
     eventsDetails.setKeyWords(keyWords);
     eventsDetails
         .setCategory(category == null ? null : Long.parseLong(category));

@@ -77,7 +77,7 @@ public class MakeBet {
    *
    * @return the format
    */
-  public DateFormat getFormat() {
+  public final DateFormat getFormat() {
     return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT,
         locale);
   }
@@ -87,7 +87,7 @@ public class MakeBet {
    *
    * @return the bet option id
    */
-  public Long getBetOptionId() {
+  public final Long getBetOptionId() {
     return betOptionId;
   }
 
@@ -97,14 +97,14 @@ public class MakeBet {
    * @param betOptionId
    *          the new bet option id
    */
-  public void setbetOptionId(Long betOptionId) {
+  public final void setbetOptionId(final Long betOptionId) {
     this.betOptionId = betOptionId;
   }
 
   /**
    * On validate from make bet form.
    */
-  void onValidateFromMakeBetForm() {
+  final void onValidateFromMakeBetForm() {
 
     if (!makeBetForm.isValid()) {
       return;
@@ -128,7 +128,7 @@ public class MakeBet {
    *
    * @return the object
    */
-  Object onSuccess() {
+  final Object onSuccess() {
     try {
       Bet bet = betService.makeBet(userSession.getUserProfileId(), betOptionId,
           betedMoneyAsFloat);
@@ -146,7 +146,7 @@ public class MakeBet {
    * @param betOptionId
    *          the bet option id
    */
-  void onActivate(Long betOptionId) {
+  final void onActivate(final Long betOptionId) {
 
     this.betOptionId = betOptionId;
 
@@ -164,7 +164,7 @@ public class MakeBet {
    *
    * @return the long
    */
-  Long onPassivate() {
+  final Long onPassivate() {
     return betOptionId;
   }
 

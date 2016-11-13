@@ -34,7 +34,7 @@ public class Category {
    * @param name
    *          the name
    */
-  public Category(String name) {
+  public Category(final String name) {
     this.name = name;
   }
 
@@ -49,8 +49,9 @@ public class Category {
       sequenceName = "CategorySeq")
   // generators.
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO, generator = "CategoryIdGenerator")
-  public Long getCategoryId() {
+  @GeneratedValue(strategy = GenerationType.AUTO,
+  generator = "CategoryIdGenerator")
+  public final Long getCategoryId() {
     return categoryId;
   }
 
@@ -60,7 +61,7 @@ public class Category {
    * @param categoryId
    *          the new category id
    */
-  public void setCategoryId(Long categoryId) {
+  public final void setCategoryId(final Long categoryId) {
     this.categoryId = categoryId;
   }
 
@@ -70,7 +71,7 @@ public class Category {
    * @return the name
    */
   @Column(name = "name")
-  public String getName() {
+  public final String getName() {
     return name;
   }
 
@@ -80,7 +81,7 @@ public class Category {
    * @param name
    *          the new name
    */
-  public void setName(String name) {
+  public final void setName(final String name) {
     this.name = name;
   }
 

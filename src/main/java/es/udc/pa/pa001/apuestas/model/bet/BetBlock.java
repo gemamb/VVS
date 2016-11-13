@@ -21,7 +21,7 @@ public class BetBlock {
    * @param existMoreBets
    *          the exist more bets
    */
-  public BetBlock(List<Bet> bets, boolean existMoreBets) {
+  public BetBlock(final List<Bet> bets, final boolean existMoreBets) {
     this.bets = bets;
     this.existMoreBets = existMoreBets;
   }
@@ -31,7 +31,7 @@ public class BetBlock {
    *
    * @return the bets
    */
-  public List<Bet> getBets() {
+  public final List<Bet> getBets() {
     return bets;
   }
 
@@ -40,7 +40,7 @@ public class BetBlock {
    *
    * @return the exist more bets
    */
-  public boolean getExistMoreBets() {
+  public final boolean getExistMoreBets() {
     return existMoreBets;
   }
 

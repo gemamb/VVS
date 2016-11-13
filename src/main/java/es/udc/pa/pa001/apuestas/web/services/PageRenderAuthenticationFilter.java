@@ -35,8 +35,8 @@ public class PageRenderAuthenticationFilter implements PageRenderRequestFilter {
    *          the locator
    */
   public PageRenderAuthenticationFilter(
-      ApplicationStateManager applicationStateManager,
-      ComponentSource componentSource, MetaDataLocator locator) {
+      final ApplicationStateManager applicationStateManager,
+      final ComponentSource componentSource, final MetaDataLocator locator) {
 
     this.applicationStateManager = applicationStateManager;
     this.componentSource = componentSource;
@@ -44,16 +44,10 @@ public class PageRenderAuthenticationFilter implements PageRenderRequestFilter {
 
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.apache.tapestry5.services.PageRenderRequestFilter#handle(org.apache.tapestry5.services.
-   * PageRenderRequestParameters, org.apache.tapestry5.services.PageRenderRequestHandler)
-   */
+
   @Override
-  public void handle(PageRenderRequestParameters parameters,
-      PageRenderRequestHandler handler) throws IOException {
+  public final void handle(final PageRenderRequestParameters parameters,
+      final PageRenderRequestHandler handler) throws IOException {
 
     PageRenderRequestParameters handlerParameters = parameters;
     String redirectPage = AuthenticationValidator.checkForPage(

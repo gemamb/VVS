@@ -20,28 +20,19 @@ public class BetOptionEncoder implements ValueEncoder<BetOption> {
    * @param betService
    *          the bet service
    */
-  public BetOptionEncoder(BetService betService) {
+  public BetOptionEncoder(final BetService betService) {
     this.betService = betService;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.apache.tapestry5.ValueEncoder#toClient(java.lang.Object)
-   */
+
   @Override
-  public String toClient(BetOption option) {
+  public final String toClient(final BetOption option) {
 
     return option.getBetOptionId().toString();
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.apache.tapestry5.ValueEncoder#toValue(java.lang.String)
-   */
   @Override
-  public BetOption toValue(String betOptionIdAsString) {
+  public final BetOption toValue(final String betOptionIdAsString) {
     Long bet = Long.valueOf(betOptionIdAsString).longValue();
     try {
       return betService.findBetOption(bet);

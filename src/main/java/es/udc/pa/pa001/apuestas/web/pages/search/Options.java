@@ -71,7 +71,7 @@ public class Options {
    *
    * @return the bet type id
    */
-  public Long getBetTypeId() {
+  public final Long getBetTypeId() {
     return betTypeId;
   }
 
@@ -81,7 +81,7 @@ public class Options {
    * @param betTypeId
    *          the new bet type id
    */
-  public void setBetTypeId(Long betTypeId) {
+  public final void setBetTypeId(final Long betTypeId) {
     this.betTypeId = betTypeId;
   }
 
@@ -90,7 +90,7 @@ public class Options {
    *
    * @return the bet options
    */
-  public List<BetOption> getbetOptions() {
+  public final List<BetOption> getbetOptions() {
     return betOptions;
   }
 
@@ -101,7 +101,7 @@ public class Options {
    *          the bet type id
    * @return true, if successful
    */
-  boolean checkOptions(Long betTypeId) {
+  final boolean checkOptions(final Long betTypeId) {
 
     boolean checked = false;
     for (BetOption b : betType.getBetOptions()) {
@@ -115,7 +115,7 @@ public class Options {
   /**
    * Setup render.
    */
-  void setupRender() {
+  final void setupRender() {
     this.autenticated = userSession != null;
     this.admin = userSession != null && userSession.isAdmin();
     this.checked = checkOptions(betTypeId);
@@ -129,7 +129,7 @@ public class Options {
    * @param betTypeId
    *          the bet type id
    */
-  void onActivate(Long betTypeId) {
+  final void onActivate(final Long betTypeId) {
 
     this.betTypeId = betTypeId;
 
@@ -145,7 +145,7 @@ public class Options {
    *
    * @return the long
    */
-  Long onPassivate() {
+  final Long onPassivate() {
     return betTypeId;
   }
 
@@ -154,7 +154,7 @@ public class Options {
    *
    * @return the object
    */
-  Object onSuccess() {
+  final Object onSuccess() {
     checkWinners.setBetTypeId(betTypeId);
     return checkWinners;
   }

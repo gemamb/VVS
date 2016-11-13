@@ -143,7 +143,7 @@ public class BetServiceAleatoryIntegrationTest {
    *           the duplicate event name exception
    */
   @Test
-  public void testMakeBet() throws InstanceNotFoundException,
+  public final void testMakeBet() throws InstanceNotFoundException,
       OutdatedBetException, DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException,
       AlreadyPastedDateException, DuplicateEventNameException {

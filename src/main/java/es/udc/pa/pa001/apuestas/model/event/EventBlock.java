@@ -21,7 +21,7 @@ public class EventBlock {
    * @param existMoreEvents
    *          the exist more events
    */
-  public EventBlock(List<Event> events, boolean existMoreEvents) {
+  public EventBlock(final List<Event> events, final boolean existMoreEvents) {
 
     this.events = events;
     this.existMoreEvents = existMoreEvents;
@@ -33,7 +33,7 @@ public class EventBlock {
    *
    * @return the events
    */
-  public List<Event> getEvents() {
+  public final List<Event> getEvents() {
     return events;
   }
 
@@ -42,7 +42,7 @@ public class EventBlock {
    *
    * @return the exist more events
    */
-  public boolean getExistMoreEvents() {
+  public final boolean getExistMoreEvents() {
     return existMoreEvents;
   }
 

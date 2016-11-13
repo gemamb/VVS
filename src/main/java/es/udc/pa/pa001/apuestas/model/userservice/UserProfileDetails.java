@@ -24,7 +24,8 @@ public class UserProfileDetails {
    * @param email
    *          the email
    */
-  public UserProfileDetails(String firstName, String lastName, String email) {
+  public UserProfileDetails(final String firstName, final String lastName,
+      final String email) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
@@ -35,7 +36,7 @@ public class UserProfileDetails {
    *
    * @return the first name
    */
-  public String getFirstName() {
+  public final String getFirstName() {
     return firstName;
   }
 
@@ -44,7 +45,7 @@ public class UserProfileDetails {
    *
    * @return the last name
    */
-  public String getLastName() {
+  public final String getLastName() {
     return lastName;
   }
 
@@ -53,7 +54,7 @@ public class UserProfileDetails {
    *
    * @return the email
    */
-  public String getEmail() {
+  public final String getEmail() {
     return email;
   }
 

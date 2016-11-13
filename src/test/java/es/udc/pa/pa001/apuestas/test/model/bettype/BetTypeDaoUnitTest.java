@@ -92,7 +92,7 @@ public class BetTypeDaoUnitTest {
    */
 
   @Test
-  public void testBetTypeFindDuplicates() {
+  public final void testBetTypeFindDuplicates() {
 
     /* SETUP */
     initializeEvent();
@@ -112,7 +112,7 @@ public class BetTypeDaoUnitTest {
    */
 
   @Test
-  public void testBetTypeFindNoDuplicates() {
+  public final void testBetTypeFindNoDuplicates() {
 
     /* SETUP */
     initializeEvent();

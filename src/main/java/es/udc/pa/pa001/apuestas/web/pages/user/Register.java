@@ -78,7 +78,7 @@ public class Register {
   /**
    * On validate from registration form.
    */
-  void onValidateFromRegistrationForm() {
+  final void onValidateFromRegistrationForm() {
 
     if (!registrationForm.isValid()) {
       return;
@@ -107,7 +107,7 @@ public class Register {
    *
    * @return the object
    */
-  Object onSuccess() {
+  final Object onSuccess() {
 
     userSession = new UserSession();
     userSession.setUserProfileId(userProfileId);

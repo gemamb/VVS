@@ -45,7 +45,7 @@ public class UpdateProfile {
    * @throws InstanceNotFoundException
    *           the instance not found exception
    */
-  void onPrepareForRender() throws InstanceNotFoundException {
+  final void onPrepareForRender() throws InstanceNotFoundException {
 
     UserProfile userProfile;
 
@@ -63,7 +63,7 @@ public class UpdateProfile {
    * @throws InstanceNotFoundException
    *           the instance not found exception
    */
-  Object onSuccess() throws InstanceNotFoundException {
+  final Object onSuccess() throws InstanceNotFoundException {
 
     userService.updateUserProfileDetails(userSession.getUserProfileId(),
         new UserProfileDetails(firstName, lastName, email));

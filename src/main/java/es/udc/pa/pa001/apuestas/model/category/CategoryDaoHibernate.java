@@ -13,11 +13,6 @@ import es.udc.pojo.modelutil.dao.GenericDaoHibernate;
 public class CategoryDaoHibernate extends GenericDaoHibernate<Category, Long>
     implements CategoryDao {
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see es.udc.pa.pa001.apuestas.model.category.CategoryDao#findCategories()
-   */
   @Override
   public List<Category> findCategories() {
 

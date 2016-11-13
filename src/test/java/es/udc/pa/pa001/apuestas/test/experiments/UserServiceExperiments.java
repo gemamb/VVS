@@ -24,7 +24,7 @@ public class UserServiceExperiments {
    * @param args
    *          the arguments
    */
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
 
     /* Get service object. */
     ApplicationContext ctx = new ClassPathXmlApplicationContext(

@@ -64,8 +64,9 @@ public class Bet {
    * @param betOption
    *          the bet option
    */
-  public Bet(Long betId, Float betedMoney, UserProfile userProfile, Event event,
-      BetOption betOption) {
+  public Bet(final Long betId, final Float betedMoney,
+      final UserProfile userProfile, final Event event,
+      final BetOption betOption) {
     super();
     this.betId = betId;
     this.betedMoney = betedMoney;
@@ -88,8 +89,9 @@ public class Bet {
    * @param betOption
    *          the bet option
    */
-  public Bet(Float betedMoney, UserProfile userProfile, Event eventId,
-      BetOption betOption) {
+  public Bet(final Float betedMoney, final UserProfile userProfile,
+      final Event eventId,
+      final BetOption betOption) {
     super();
     this.betedMoney = betedMoney;
     this.date = Calendar.getInstance();
@@ -111,7 +113,7 @@ public class Bet {
   // generators.
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO, generator = "BetIdGenerator")
-  public Long getBetId() {
+  public final Long getBetId() {
     return betId;
   }
 
@@ -121,7 +123,7 @@ public class Bet {
    * @param betId
    *          the new bet id
    */
-  public void setBetId(Long betId) {
+  public final void setBetId(final Long betId) {
     this.betId = betId;
   }
 
@@ -131,7 +133,7 @@ public class Bet {
    * @return the beted money
    */
   @Column(name = "betedMoney")
-  public Float getBetedMoney() {
+  public final Float getBetedMoney() {
     return betedMoney;
   }
 
@@ -141,7 +143,7 @@ public class Bet {
    * @param betedMoney
    *          the new beted money
    */
-  public void setBetedMoney(Float betedMoney) {
+  public final void setBetedMoney(final Float betedMoney) {
     this.betedMoney = betedMoney;
   }
 
@@ -152,7 +154,7 @@ public class Bet {
    */
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "date")
-  public Calendar getDate() {
+  public final Calendar getDate() {
     return date;
   }
 
@@ -162,7 +164,7 @@ public class Bet {
    * @param date
    *          the new date
    */
-  public void setDate(Calendar date) {
+  public final void setDate(final Calendar date) {
     this.date = date;
   }
 
@@ -173,7 +175,7 @@ public class Bet {
    */
   @ManyToOne(optional = false, fetch = FetchType.LAZY)
   @JoinColumn(name = "usrId")
-  public UserProfile getUserProfile() {
+  public final UserProfile getUserProfile() {
     return userProfile;
   }
 
@@ -183,7 +185,7 @@ public class Bet {
    * @param userProfile
    *          the new user profile
    */
-  public void setUserProfile(UserProfile userProfile) {
+  public final void setUserProfile(final UserProfile userProfile) {
     this.userProfile = userProfile;
   }
 
@@ -194,7 +196,7 @@ public class Bet {
    */
   @ManyToOne(optional = false, fetch = FetchType.LAZY)
   @JoinColumn(name = "eventId")
-  public Event getEvent() {
+  public final Event getEvent() {
     return event;
   }
 
@@ -204,7 +206,7 @@ public class Bet {
    * @param event
    *          the new event
    */
-  public void setEvent(Event event) {
+  public final void setEvent(final Event event) {
     this.event = event;
   }
 
@@ -215,7 +217,7 @@ public class Bet {
    */
   @ManyToOne(optional = false, fetch = FetchType.LAZY)
   @JoinColumn(name = "betOptionId")
-  public BetOption getBetOption() {
+  public final BetOption getBetOption() {
     return betOption;
   }
 
@@ -225,7 +227,7 @@ public class Bet {
    * @param betOption
    *          the new bet option
    */
-  public void setBetOption(BetOption betOption) {
+  public final void setBetOption(final BetOption betOption) {
     this.betOption = betOption;
   }
 

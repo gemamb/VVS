@@ -82,7 +82,7 @@ public class EventDetails {
    *
    * @return the event id
    */
-  public Long getEventId() {
+  public final Long getEventId() {
     return eventId;
   }
 
@@ -92,7 +92,7 @@ public class EventDetails {
    * @param eventId
    *          the new event id
    */
-  public void setEventId(Long eventId) {
+  public final void setEventId(final Long eventId) {
     this.eventId = eventId;
   }
 
@@ -101,7 +101,7 @@ public class EventDetails {
    *
    * @return the bet type id
    */
-  public Long getBetTypeId() {
+  public final Long getBetTypeId() {
     return betTypeId;
   }
 
@@ -111,7 +111,7 @@ public class EventDetails {
    * @param betTypeId
    *          the new bet type id
    */
-  public void setBetTypeId(Long betTypeId) {
+  public final void setBetTypeId(final Long betTypeId) {
     this.betTypeId = betTypeId;
   }
 
@@ -120,7 +120,7 @@ public class EventDetails {
    *
    * @return the format
    */
-  public Format getFormat() {
+  public final Format getFormat() {
     return NumberFormat.getInstance(locale);
   }
 
@@ -129,7 +129,7 @@ public class EventDetails {
    *
    * @return the format date
    */
-  public DateFormat getFormatDate() {
+  public final DateFormat getFormatDate() {
     return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT,
         locale);
   }
@@ -139,14 +139,14 @@ public class EventDetails {
    *
    * @return the bet types
    */
-  public List<BetType> getBetTypes() {
+  public final List<BetType> getBetTypes() {
     return betTypes;
   }
 
   /**
    * Setup render.
    */
-  void setupRender() {
+  final void setupRender() {
     this.admin = userSession != null && userSession.isAdmin();
     this.eventStart = event.finishedEvent(eventId);
   }
@@ -156,7 +156,7 @@ public class EventDetails {
    *
    * @return the object
    */
-  Object onSuccess() {
+  final Object onSuccess() {
 
     insertBetType.setEventId(this.eventId);
     return insertBetType;
@@ -168,7 +168,7 @@ public class EventDetails {
    * @param eventId
    *          the event id
    */
-  void onActivate(Long eventId) {
+  final void onActivate(final Long eventId) {
 
     this.eventId = eventId;
 
@@ -184,7 +184,7 @@ public class EventDetails {
    *
    * @return the long
    */
-  Long onPassivate() {
+  final Long onPassivate() {
     return eventId;
   }
 }

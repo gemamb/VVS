@@ -214,7 +214,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindNoEventsGetNumber() {
+  public final void testFindNoEventsGetNumber() {
 
     when(eventDaoMock.getNumberOfEvents(null, null, true)).thenReturn(0);
 
@@ -228,7 +228,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindEventsGetNumber() {
+  public final void testFindEventsGetNumber() {
 
     when(eventDaoMock.getNumberOfEvents("deportivo", null, true)).thenReturn(3);
 
@@ -242,7 +242,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindEmptyFalseEvents() {
+  public final void testFindEmptyFalseEvents() {
 
     initializeDate();
     initializeCategories();
@@ -264,7 +264,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindNotEmptyFalseEvents() {
+  public final void testFindNotEmptyFalseEvents() {
 
     initializeDate();
     initializeCategories();
@@ -287,7 +287,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindNotEmptyTrueEvents() {
+  public final void testFindNotEmptyTrueEvents() {
 
     initializeDate();
     initializeCategories();
@@ -311,7 +311,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindFalseEvents() {
+  public final void testFindFalseEvents() {
 
     initializeDate();
     initializeCategories();
@@ -335,7 +335,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindTrueEvents() {
+  public final void testFindTrueEvents() {
 
     initializeDate();
     initializeCategories();
@@ -360,7 +360,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindEmptyFalseBets() {
+  public final void testFindEmptyFalseBets() {
 
     initializeUser();
     List<Bet> bets = new ArrayList<Bet>();
@@ -380,7 +380,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindNotEmptyFalseBets() {
+  public final void testFindNotEmptyFalseBets() {
 
     initializeUser();
     initializeBets();
@@ -403,7 +403,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindNotEmptyTrueBets() {
+  public final void testFindNotEmptyTrueBets() {
 
     initializeUser();
     initializeBets();
@@ -427,7 +427,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindIndexFalseBets() {
+  public final void testFindIndexFalseBets() {
 
     initializeUser();
     initializeBets();
@@ -451,7 +451,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindIndexTrueEvents() {
+  public final void testFindIndexTrueEvents() {
 
     initializeUser();
     initializeBets();
@@ -481,7 +481,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testMakeBet()
+  public final void testMakeBet()
       throws InstanceNotFoundException, OutdatedBetException {
 
     initializeDate();
@@ -513,7 +513,7 @@ public class BetServiceUnitTest {
 
   @SuppressWarnings("unchecked")
   @Test(expected = InstanceNotFoundException.class)
-  public void testMakeBetWrongUser()
+  public final void testMakeBetWrongUser()
       throws InstanceNotFoundException, OutdatedBetException {
 
     initializeDate();
@@ -541,7 +541,7 @@ public class BetServiceUnitTest {
 
   @SuppressWarnings("unchecked")
   @Test(expected = InstanceNotFoundException.class)
-  public void testMakeBetWrongBetOption()
+  public final void testMakeBetWrongBetOption()
       throws InstanceNotFoundException, OutdatedBetException {
 
     initializeDate();
@@ -567,7 +567,7 @@ public class BetServiceUnitTest {
    */
 
   @Test(expected = OutdatedBetException.class)
-  public void testOutDatedTrueMakeBet()
+  public final void testOutDatedTrueMakeBet()
       throws InstanceNotFoundException, OutdatedBetException {
 
     initializeDate();
@@ -601,7 +601,7 @@ public class BetServiceUnitTest {
    */
 
   @Test(expected = OutdatedBetException.class)
-  public void testOutDatedFalseMakeBet()
+  public final void testOutDatedFalseMakeBet()
       throws InstanceNotFoundException, OutdatedBetException {
 
     initializeDate();
@@ -634,7 +634,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testMakeBetWrongMoney()
+  public final void testMakeBetWrongMoney()
       throws InstanceNotFoundException, OutdatedBetException {
 
     initializeDate();
@@ -667,7 +667,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testInsertEvent() throws InstanceNotFoundException,
+  public final void testInsertEvent() throws InstanceNotFoundException,
       AlreadyPastedDateException, DuplicateEventNameException {
 
     initializeDate();
@@ -695,7 +695,7 @@ public class BetServiceUnitTest {
    */
 
   @Test(expected = AlreadyPastedDateException.class)
-  public void testInsertPastedEvent() throws InstanceNotFoundException,
+  public final void testInsertPastedEvent() throws InstanceNotFoundException,
       AlreadyPastedDateException, DuplicateEventNameException {
 
     initializeCategories();
@@ -723,7 +723,7 @@ public class BetServiceUnitTest {
    */
 
   @Test(expected = DuplicateEventNameException.class)
-  public void testInsertDuplicateEvent() throws InstanceNotFoundException,
+  public final void testInsertDuplicateEvent() throws InstanceNotFoundException,
       AlreadyPastedDateException, DuplicateEventNameException {
 
     initializeDate();
@@ -749,7 +749,8 @@ public class BetServiceUnitTest {
 
   @SuppressWarnings("unchecked")
   @Test(expected = InstanceNotFoundException.class)
-  public void testInsertEventWrongCategory() throws InstanceNotFoundException,
+  public final void testInsertEventWrongCategory()
+      throws InstanceNotFoundException,
       AlreadyPastedDateException, DuplicateEventNameException {
 
     initializeDate();
@@ -778,7 +779,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testInsertBetType()
+  public final void testInsertBetType()
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException {
@@ -826,7 +827,7 @@ public class BetServiceUnitTest {
    */
 
   @Test(expected = MinimunBetOptionException.class)
-  public void testInsertBetTypeWithoutOptions()
+  public final void testInsertBetTypeWithoutOptions()
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException {
@@ -863,7 +864,7 @@ public class BetServiceUnitTest {
    */
 
   @Test(expected = MinimunBetOptionException.class)
-  public void testInsertBetTypeWithNullOptions()
+  public final void testInsertBetTypeWithNullOptions()
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException {
@@ -903,7 +904,7 @@ public class BetServiceUnitTest {
    */
 
   @Test(expected = MinimunBetOptionException.class)
-  public void testInsertBetTypeWithOneOption()
+  public final void testInsertBetTypeWithOneOption()
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException {
@@ -947,7 +948,7 @@ public class BetServiceUnitTest {
    */
 
   @Test(expected = DuplicateBetOptionAnswerException.class)
-  public void testInsertBetTypeDuplicateAnswer()
+  public final void testInsertBetTypeDuplicateAnswer()
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException {
@@ -987,7 +988,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindExistentEvent() throws InstanceNotFoundException {
+  public final void testFindExistentEvent() throws InstanceNotFoundException {
 
     initializeEvent();
 
@@ -1007,7 +1008,8 @@ public class BetServiceUnitTest {
 
   @SuppressWarnings("unchecked")
   @Test(expected = InstanceNotFoundException.class)
-  public void testFindNotExistentEvent() throws InstanceNotFoundException {
+  public final void testFindNotExistentEvent()
+      throws InstanceNotFoundException {
 
     Long nonExistentEventId = 0L;
 
@@ -1025,7 +1027,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindExistentBetType() throws InstanceNotFoundException {
+  public final void testFindExistentBetType() throws InstanceNotFoundException {
 
     initializeDate();
     initializeCategories();
@@ -1048,7 +1050,8 @@ public class BetServiceUnitTest {
 
   @SuppressWarnings("unchecked")
   @Test(expected = InstanceNotFoundException.class)
-  public void testFindNotExistentBetType() throws InstanceNotFoundException {
+  public final void testFindNotExistentBetType()
+      throws InstanceNotFoundException {
 
     when(betTypeDaoMock.find(-1L)).thenThrow(InstanceNotFoundException.class);
 
@@ -1063,7 +1066,8 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindExistentBetOption() throws InstanceNotFoundException {
+  public final void testFindExistentBetOption()
+      throws InstanceNotFoundException {
 
     initializeDate();
     initializeCategories();
@@ -1088,7 +1092,8 @@ public class BetServiceUnitTest {
 
   @SuppressWarnings("unchecked")
   @Test(expected = InstanceNotFoundException.class)
-  public void testFindNotExistentBetOption() throws InstanceNotFoundException {
+  public final void testFindNotExistentBetOption()
+      throws InstanceNotFoundException {
 
     when(betOptionDaoMock.find(-1L)).thenThrow(InstanceNotFoundException.class);
 
@@ -1107,7 +1112,8 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testCheckOptionsSimpleBetType() throws InstanceNotFoundException,
+  public final void testCheckOptionsSimpleBetType()
+      throws InstanceNotFoundException,
       OnlyOneWonOptionException, NotAllOptionsExistsException {
 
     initializeSimpleBetType();
@@ -1141,7 +1147,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testCheckOptionsMultipleBetType()
+  public final void testCheckOptionsMultipleBetType()
       throws InstanceNotFoundException, OnlyOneWonOptionException,
       NotAllOptionsExistsException {
 
@@ -1177,7 +1183,8 @@ public class BetServiceUnitTest {
    */
 
   @Test(expected = NotAllOptionsExistsException.class)
-  public void testCheckInvalidOptions() throws NotAllOptionsExistsException,
+  public final void testCheckInvalidOptions()
+      throws NotAllOptionsExistsException,
       InstanceNotFoundException, OnlyOneWonOptionException {
     initializeMultipleBetType();
     initializeCheckBetOptions();
@@ -1212,7 +1219,7 @@ public class BetServiceUnitTest {
    */
 
   @Test(expected = OnlyOneWonOptionException.class)
-  public void testCheckMultipleOptionsSimpleBetType()
+  public final void testCheckMultipleOptionsSimpleBetType()
       throws OnlyOneWonOptionException, InstanceNotFoundException,
       NotAllOptionsExistsException {
 
@@ -1248,7 +1255,7 @@ public class BetServiceUnitTest {
    */
 
   @Test(expected = InstanceNotFoundException.class)
-  public void testCheckNonExistentBetTypeOption()
+  public final void testCheckNonExistentBetTypeOption()
       throws InstanceNotFoundException, OnlyOneWonOptionException,
       NotAllOptionsExistsException {
 
@@ -1268,7 +1275,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindCategories() {
+  public final void testFindCategories() {
 
     initializeCategories();
     List<Category> listcategories = new ArrayList<>();
@@ -1286,7 +1293,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testNotFindCategories() {
+  public final void testNotFindCategories() {
 
     initializeCategories();
     List<Category> listcategories = new ArrayList<>();
@@ -1306,7 +1313,8 @@ public class BetServiceUnitTest {
 
   @SuppressWarnings("unchecked")
   @Test(expected = InstanceNotFoundException.class)
-  public void testFindNotExistentCategory() throws InstanceNotFoundException {
+  public final void testFindNotExistentCategory()
+      throws InstanceNotFoundException {
 
     Long nonExistentCategoryId = 0L;
 
@@ -1324,7 +1332,8 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindExistentCategory() throws InstanceNotFoundException {
+  public final void testFindExistentCategory()
+      throws InstanceNotFoundException {
 
     initializeCategories();
 
@@ -1345,7 +1354,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindDuplicates() throws InstanceNotFoundException {
+  public final void testFindDuplicates() throws InstanceNotFoundException {
 
     initializeDate();
     initializeCategories();
@@ -1370,7 +1379,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void testFindNotDuplicates() throws InstanceNotFoundException {
+  public final void testFindNotDuplicates() throws InstanceNotFoundException {
 
     initializeDate();
     initializeCategories();
@@ -1391,7 +1400,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void findNoBetsByUserIdNumber() {
+  public final void findNoBetsByUserIdNumber() {
 
     initializeUser();
 
@@ -1410,7 +1419,7 @@ public class BetServiceUnitTest {
    */
 
   @Test
-  public void findBetsByUserIdNumber() {
+  public final void findBetsByUserIdNumber() {
 
     initializeUser();
 

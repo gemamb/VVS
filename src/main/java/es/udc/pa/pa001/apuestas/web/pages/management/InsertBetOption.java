@@ -28,9 +28,7 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import es.udc.pa.pa001.apuestas.model.betOption.BetOption;
 import es.udc.pa.pa001.apuestas.model.betType.BetType;
 import es.udc.pa.pa001.apuestas.model.betservice.BetService;
-import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateBetOptionAnswerException;
-import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateBetTypeQuestionException;
-import es.udc.pa.pa001.apuestas.model.betservice.util.MinimunBetOptionException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.*;
 import es.udc.pa.pa001.apuestas.model.event.Event;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
@@ -110,15 +108,16 @@ public class InsertBetOption {
 
   /** The encoder. */
   @Property
-  private final ValueEncoder<BetOption> encoder = new ValueEncoder<BetOption>() {
+  private final ValueEncoder<BetOption> encoder =
+    new ValueEncoder<BetOption>() {
 
     @Override
-    public String toClient(BetOption value) {
+    public String toClient(final BetOption value) {
       return value.getAnswer();
     }
 
     @Override
-    public BetOption toValue(String clientValue) {
+    public BetOption toValue(final String clientValue) {
 
       int i = 0;
       for (BetOption b : savedBetOptions) {
@@ -148,7 +147,7 @@ public class InsertBetOption {
    *
    * @return the bet type id
    */
-  public Long getBetTypeId() {
+  public final Long getBetTypeId() {
     return betTypeId;
   }
 
@@ -158,7 +157,7 @@ public class InsertBetOption {
    * @param betTypeId
    *          the new bet type id
    */
-  public void setBetTypeId(Long betTypeId) {
+  public final void setBetTypeId(final Long betTypeId) {
     this.betTypeId = betTypeId;
   }
 
@@ -168,7 +167,7 @@ public class InsertBetOption {
    * @param betTypeId
    *          the bet type id
    */
-  void onActivate(Long betTypeId) {
+  final void onActivate(final Long betTypeId) {
     this.betTypeId = betTypeId;
   }
 
@@ -177,7 +176,7 @@ public class InsertBetOption {
    *
    * @return the event id
    */
-  public Long getEventId() {
+  public final Long getEventId() {
     return eventId;
   }
 
@@ -187,7 +186,7 @@ public class InsertBetOption {
    * @param eventId
    *          the new event id
    */
-  public void setEventId(Long eventId) {
+  public final void setEventId(final Long eventId) {
     this.eventId = eventId;
   }
 
@@ -196,7 +195,7 @@ public class InsertBetOption {
    *
    * @return true, if is multiple
    */
-  public boolean isMultiple() {
+  public final boolean isMultiple() {
     return multiple;
   }
 
@@ -206,7 +205,7 @@ public class InsertBetOption {
    * @param multiple
    *          the new multiple
    */
-  public void setMultiple(boolean multiple) {
+  public final void setMultiple(final boolean multiple) {
     this.multiple = multiple;
   }
 
@@ -215,7 +214,7 @@ public class InsertBetOption {
    *
    * @return the question
    */
-  public String getQuestion() {
+  public final String getQuestion() {
     return question;
   }
 
@@ -225,7 +224,7 @@ public class InsertBetOption {
    * @param question
    *          the new question
    */
-  public void setQuestion(String question) {
+  public final void setQuestion(final String question) {
     this.question = question;
   }
 
@@ -234,8 +233,8 @@ public class InsertBetOption {
    *
    * @return the object[]
    */
-  Object[] onPassivate() {
-    return new Object[] { eventId, multiple, question };
+  final Object[] onPassivate() {
+    return new Object[] {eventId, multiple, question};
   }
 
   /**
@@ -248,7 +247,8 @@ public class InsertBetOption {
    * @param question
    *          the question
    */
-  void onActivate(Long eventId, boolean multiple, String question) {
+  final void onActivate(final Long eventId, final boolean multiple,
+      final String question) {
     this.eventId = eventId;
     this.multiple = multiple;
     this.question = question;
@@ -260,7 +260,7 @@ public class InsertBetOption {
    * On validate from bet option form.
    */
   @OnEvent(value = "validate", component = "betOptionForm")
-  void onValidateFromBetOptionForm() {
+  final void onValidateFromBetOptionForm() {
 
     if (!betOptionForm.isValid()) {
       return;
@@ -290,7 +290,7 @@ public class InsertBetOption {
    *
    * @return the object
    */
-  Object onSuccessFromBetOptionForm() {
+  final Object onSuccessFromBetOptionForm() {
 
     BetOption betOption = new BetOption();
     betOption.setAnswer(answer);
@@ -310,7 +310,7 @@ public class InsertBetOption {
    * On validate from bet type form.
    */
   @OnEvent(value = "validate", component = "betTypeForm")
-  void onValidateFromBetTypeForm() {
+  final void onValidateFromBetTypeForm() {
 
     Event event;
     try {
@@ -340,7 +340,7 @@ public class InsertBetOption {
    *
    * @return the object
    */
-  Object onSuccessFromBetTypeForm() {
+  final Object onSuccessFromBetTypeForm() {
     this.savedBetOptions = null;
     insertedBetType.setBetTypeId(betTypeId);
     return insertedBetType;
@@ -351,7 +351,7 @@ public class InsertBetOption {
    *
    * @return the format
    */
-  public Format getFormat() {
+  public final Format getFormat() {
     return NumberFormat.getInstance(locale);
   }
 

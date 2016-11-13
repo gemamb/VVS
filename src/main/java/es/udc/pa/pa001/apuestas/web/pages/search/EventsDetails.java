@@ -65,7 +65,7 @@ public class EventsDetails {
    *
    * @return the find event grid data source
    */
-  public FindEventGridDataSource getFindEventGridDataSource() {
+  public final FindEventGridDataSource getFindEventGridDataSource() {
     return findEventGridDataSource;
   }
 
@@ -74,7 +74,7 @@ public class EventsDetails {
    *
    * @return the rows per page
    */
-  public int getRowsPerPage() {
+  public final int getRowsPerPage() {
     return EVENTS_PER_PAGE;
   }
 
@@ -83,7 +83,7 @@ public class EventsDetails {
    *
    * @return the event
    */
-  public Event getEvent() {
+  public final Event getEvent() {
     return event;
   }
 
@@ -93,7 +93,7 @@ public class EventsDetails {
    * @param event
    *          the new event
    */
-  public void setEvent(Event event) {
+  public final void setEvent(final Event event) {
     this.event = event;
   }
 
@@ -102,7 +102,7 @@ public class EventsDetails {
    *
    * @return the events
    */
-  public List<Event> getEvents() {
+  public final List<Event> getEvents() {
     return (eventBlock == null) ? null : eventBlock.getEvents();
   }
 
@@ -111,7 +111,7 @@ public class EventsDetails {
    *
    * @return the key words
    */
-  public String getKeyWords() {
+  public final String getKeyWords() {
     return keyWords;
   }
 
@@ -121,7 +121,7 @@ public class EventsDetails {
    * @param keyWords
    *          the new key words
    */
-  public void setKeyWords(String keyWords) {
+  public final void setKeyWords(final String keyWords) {
     this.keyWords = keyWords;
   }
 
@@ -130,7 +130,7 @@ public class EventsDetails {
    *
    * @return the category
    */
-  public Long getCategory() {
+  public final Long getCategory() {
     return category;
   }
 
@@ -140,26 +140,16 @@ public class EventsDetails {
    * @param category
    *          the new category
    */
-  public void setCategory(Long category) {
+  public final void setCategory(final Long category) {
     this.category = category;
   }
-
-  // public Object[] getPreviousLinkContext(){
-  // return (startIndex-EVENTS_PER_PAGE >=0) ? new
-  // Object[]{keyWords,category,startIndex-EVENTS_PER_PAGE} : null;
-  // }
-  //
-  // public Object[] getNextLinkContext(){
-  // return eventBlock.getExistMoreEvents() ? new
-  // Object[]{keyWords,category,startIndex+EVENTS_PER_PAGE} : null;
-  // }
 
   /**
    * Gets the format.
    *
    * @return the format
    */
-  public DateFormat getFormat() {
+  public final DateFormat getFormat() {
     return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT,
         locale);
   }
@@ -174,7 +164,8 @@ public class EventsDetails {
    * @param startIndex
    *          the start index
    */
-  void onActivate(String keyWords, Long category, int startIndex) {
+  final void onActivate(final String keyWords, final Long category,
+      final int startIndex) {
     this.keyWords = keyWords;
     this.category = category;
     this.startIndex = startIndex;
@@ -182,9 +173,6 @@ public class EventsDetails {
 
     findEventGridDataSource = new FindEventGridDataSource(betService, keyWords,
         category, admin);
-
-    // eventBlock = betService.findEvents(keyWords, category,
-    // startIndex,EVENTS_PER_PAGE,admin);
   }
 
   /**
@@ -192,8 +180,8 @@ public class EventsDetails {
    *
    * @return the object[]
    */
-  Object[] onPassivate() {
-    return new Object[] { keyWords, category, startIndex };
+  final Object[] onPassivate() {
+    return new Object[] {keyWords, category, startIndex};
   }
 
 }

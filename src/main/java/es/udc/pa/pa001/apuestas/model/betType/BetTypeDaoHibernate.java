@@ -11,14 +11,9 @@ import es.udc.pojo.modelutil.dao.GenericDaoHibernate;
 public class BetTypeDaoHibernate extends GenericDaoHibernate<BetType, Long>
     implements BetTypeDao {
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see es.udc.pa.pa001.apuestas.model.betType.BetTypeDao#findDuplicates(java.lang.Long,
-   * java.lang.String)
-   */
   @Override
-  public boolean findDuplicates(Long eventId, String fullName) {
+  public final boolean findDuplicates(final Long eventId,
+      final String fullName) {
     return !getSession()
         .createQuery("Select e from BetType e where e.question = :fullName and"
             + " e.event.eventId =:eventId")

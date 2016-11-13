@@ -12,14 +12,8 @@ import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 public class UserProfileDaoHibernate
     extends GenericDaoHibernate<UserProfile, Long> implements UserProfileDao {
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * es.udc.pa.pa001.apuestas.model.userprofile.UserProfileDao#findByLoginName(java.lang.String)
-   */
   @Override
-  public UserProfile findByLoginName(String loginName)
+  public final UserProfile findByLoginName(final String loginName)
       throws InstanceNotFoundException {
 
     UserProfile userProfile = (UserProfile) getSession()

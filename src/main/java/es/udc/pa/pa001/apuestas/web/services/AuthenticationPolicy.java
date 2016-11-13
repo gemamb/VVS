@@ -17,7 +17,6 @@ public @interface AuthenticationPolicy {
   /**
    * Value.
    *
-   * @return the authenticationpolicytype
    */
   AuthenticationPolicyType value() default AuthenticationPolicyType.ALL_USERS;
 }

@@ -43,9 +43,9 @@ public class ComponentEventAuthenticationFilter
    *          the page render request handler
    */
   public ComponentEventAuthenticationFilter(
-      ApplicationStateManager applicationStateManager,
-      ComponentSource componentSource, MetaDataLocator locator,
-      PageRenderRequestHandler pageRenderRequestHandler) {
+      final ApplicationStateManager applicationStateManager,
+      final ComponentSource componentSource, final MetaDataLocator locator,
+      final PageRenderRequestHandler pageRenderRequestHandler) {
 
     this.applicationStateManager = applicationStateManager;
     this.componentSource = componentSource;
@@ -54,16 +54,10 @@ public class ComponentEventAuthenticationFilter
 
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.apache.tapestry5.services.ComponentEventRequestFilter#handle(org.apache.tapestry5.services.
-   * ComponentEventRequestParameters, org.apache.tapestry5.services.ComponentEventRequestHandler)
-   */
+
   @Override
-  public void handle(ComponentEventRequestParameters parameters,
-      ComponentEventRequestHandler handler) throws IOException {
+  public final void handle(final ComponentEventRequestParameters parameters,
+      final ComponentEventRequestHandler handler) throws IOException {
 
     ComponentEventRequestParameters handlerParameters = parameters;
     String redirectPage = AuthenticationValidator.checkForPage(

@@ -21,8 +21,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import es.udc.pa.pa001.apuestas.model.betservice.BetService;
-import es.udc.pa.pa001.apuestas.model.betservice.util.AlreadyPastedDateException;
-import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateEventNameException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.*;
 import es.udc.pa.pa001.apuestas.model.category.Category;
 import es.udc.pa.pa001.apuestas.model.event.Event;
 import es.udc.pa.pa001.apuestas.web.services.AuthenticationPolicy;
@@ -102,7 +101,7 @@ public class InsertEvent {
    *
    * @return the format
    */
-  public DateFormat getFormat() {
+  public final DateFormat getFormat() {
     return DateFormat.getDateInstance(DateFormat.SHORT, locale);
   }
 
@@ -126,7 +125,7 @@ public class InsertEvent {
    *
    * @return the categories
    */
-  public String getCategories() {
+  public final String getCategories() {
     List<Category> categories = betService.findCategories();
     String model = "";
     for (Category c : categories) {
@@ -142,16 +141,17 @@ public class InsertEvent {
    *          the time start
    * @return true, if successful
    */
-  public boolean validateTime(String timeStart) {
+  public final boolean validateTime(final String timeStart) {
 
     if (timeStart.contains(":")) {
       String[] hours = timeStart.split(":");
       String h1 = hours[0];
       String h2 = hours[1];
-      if ((Integer.valueOf(h1) >= 00) && (Integer.valueOf(h1) <= 23))
+      if ((Integer.valueOf(h1) >= 00) && (Integer.valueOf(h1) <= 23)) {
         if ((Integer.valueOf(h2) >= 00) && (Integer.valueOf(h2) <= 59)) {
           return true;
         }
+      }
     }
     return false;
   }
@@ -164,7 +164,7 @@ public class InsertEvent {
    */
   @SuppressWarnings("deprecation")
   @OnEvent(value = "validate", component = "insertEventForm")
-  void onValidateFromInsertEventForm() throws AlreadyPastedDateException {
+  final void onValidateFromInsertEventForm() throws AlreadyPastedDateException {
 
     if (!insertEventForm.isValid()) {
       return;
@@ -217,7 +217,7 @@ public class InsertEvent {
    *
    * @return the object
    */
-  Object onSuccess() {
+  final Object onSuccess() {
     return insertedEvent;
   }
 

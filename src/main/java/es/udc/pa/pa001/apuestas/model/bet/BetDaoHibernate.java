@@ -15,16 +15,11 @@ public class BetDaoHibernate extends GenericDaoHibernate<Bet, Long>
     implements
     BetDao {
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * es.udc.pa.pa001.apuestas.model.bet.BetDao#findBetsByUserId(java.lang.Long,
-   * int, int)
-   */
+  @SuppressWarnings("unchecked")
   @Override
-  public List<Bet> findBetsByUserId(Long userId, int startIndex,
-      int count) {
+  public final List<Bet> findBetsByUserId(final Long userId,
+      final int startIndex,
+      final int count) {
 
     return getSession().createQuery(
         "SELECT b FROM Bet b WHERE b.userProfile.userProfileId = :usrId"
@@ -33,17 +28,11 @@ public class BetDaoHibernate extends GenericDaoHibernate<Bet, Long>
         .setFirstResult(startIndex).setMaxResults(count).list();
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * es.udc.pa.pa001.apuestas.model.bet.BetDao#findBetsByUserIdNumber(java.lang.
-   * Long)
-   */
   @Override
-  public int findBetsByUserIdNumber(Long userId) {
+  public final int findBetsByUserIdNumber(final Long userId) {
 
-    String hqlQuery = "SELECT COUNT (b) FROM Bet b WHERE b.userProfile.userProfileId = :usrId";
+    String hqlQuery = "SELECT COUNT (b) FROM Bet b WHERE "
+        + "b.userProfile.userProfileId = :usrId";
 
     Query queryHql = getSession().createQuery(hqlQuery);
 

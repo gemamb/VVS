@@ -58,7 +58,8 @@ public class BetType {
    * @param multiple
    *          the multiple
    */
-  public BetType(Long betTypeId, String question, Boolean multiple) {
+  public BetType(final Long betTypeId, final String question,
+      final Boolean multiple) {
     super();
     this.betTypeId = betTypeId;
     this.question = question;
@@ -74,7 +75,7 @@ public class BetType {
    * @param multiple
    *          the multiple
    */
-  public BetType(String question, Boolean multiple) {
+  public BetType(final String question, final Boolean multiple) {
     super();
     this.question = question;
     this.multiple = multiple;
@@ -92,8 +93,9 @@ public class BetType {
       sequenceName = "BetTypeSeq")
   // generators.
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO, generator = "BetTypeIdGenerator")
-  public Long getBetTypeId() {
+  @GeneratedValue(strategy = GenerationType.AUTO,
+  generator = "BetTypeIdGenerator")
+  public final Long getBetTypeId() {
     return betTypeId;
   }
 
@@ -103,7 +105,7 @@ public class BetType {
    * @param betTypeId
    *          the new bet type id
    */
-  public void setBetTypeId(Long betTypeId) {
+  public final void setBetTypeId(final Long betTypeId) {
     this.betTypeId = betTypeId;
   }
 
@@ -113,7 +115,7 @@ public class BetType {
    * @return the question
    */
   @Column(name = "question")
-  public String getQuestion() {
+  public final String getQuestion() {
     return question;
   }
 
@@ -123,7 +125,7 @@ public class BetType {
    * @param question
    *          the new question
    */
-  public void setQuestion(String question) {
+  public final void setQuestion(final String question) {
     this.question = question;
   }
 
@@ -133,7 +135,7 @@ public class BetType {
    * @return the multiple
    */
   @Column(name = "multiple")
-  public Boolean getMultiple() {
+  public final Boolean getMultiple() {
     return multiple;
   }
 
@@ -143,7 +145,7 @@ public class BetType {
    * @param multiple
    *          the new multiple
    */
-  public void setMultiple(Boolean multiple) {
+  public final void setMultiple(final Boolean multiple) {
     this.multiple = multiple;
   }
 
@@ -154,7 +156,7 @@ public class BetType {
    */
   @ManyToOne(optional = false, fetch = FetchType.LAZY)
   @JoinColumn(name = "eventId")
-  public Event getEvent() {
+  public final Event getEvent() {
     return event;
   }
 
@@ -164,7 +166,7 @@ public class BetType {
    * @param event
    *          the new event
    */
-  public void setEvent(Event event) {
+  public final void setEvent(final Event event) {
     this.event = event;
   }
 
@@ -174,7 +176,7 @@ public class BetType {
    * @return the bet options
    */
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "betType")
-  public List<BetOption> getBetOptions() {
+  public final List<BetOption> getBetOptions() {
     return betOptions;
   }
 
@@ -184,7 +186,7 @@ public class BetType {
    * @param betOptions
    *          the new bet options
    */
-  public void setBetOptions(List<BetOption> betOptions) {
+  public final void setBetOptions(final List<BetOption> betOptions) {
     this.betOptions = betOptions;
   }
 
@@ -194,7 +196,7 @@ public class BetType {
    * @param betOption
    *          the bet option
    */
-  public void addBetOption(BetOption betOption) {
+  public final void addBetOption(final BetOption betOption) {
     this.betOptions.add(betOption);
     betOption.setBetType(this);
   }

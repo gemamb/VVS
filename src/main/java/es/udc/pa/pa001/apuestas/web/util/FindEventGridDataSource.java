@@ -46,8 +46,9 @@ public class FindEventGridDataSource implements GridDataSource {
    * @param admin
    *          the admin
    */
-  public FindEventGridDataSource(BetService betService, String keyWords,
-      Long categoryId, boolean admin) {
+  public FindEventGridDataSource(final BetService betService,
+      final String keyWords,
+      final Long categoryId, final boolean admin) {
     super();
     this.betService = betService;
     this.keyWords = keyWords;
@@ -55,48 +56,32 @@ public class FindEventGridDataSource implements GridDataSource {
     this.admin = admin;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.apache.tapestry5.grid.GridDataSource#getAvailableRows()
-   */
+
   @Override
-  public int getAvailableRows() {
+  public final int getAvailableRows() {
 
     return betService.findEventsGetNumber(keyWords, categoryId, admin);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.apache.tapestry5.grid.GridDataSource#prepare(int, int, java.util.List)
-   */
+
   @Override
-  public void prepare(int startIndex, int endIndex,
-      List<SortConstraint> sortConstraints) {
+  public final void prepare(final int startIndex, final int endIndex,
+      final List<SortConstraint> sortConstraints) {
 
     events = betService.findEvents(keyWords, categoryId, startIndex,
         endIndex - startIndex + 1, admin).getEvents();
     this.startIndex = startIndex;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.apache.tapestry5.grid.GridDataSource#getRowValue(int)
-   */
+
   @Override
-  public Object getRowValue(int index) {
+  public final Object getRowValue(final int index) {
     return events.get(index - this.startIndex);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.apache.tapestry5.grid.GridDataSource#getRowType()
-   */
+
   @Override
-  public Class<Event> getRowType() {
+  public final Class<Event> getRowType() {
     return Event.class;
   }
 
@@ -105,7 +90,7 @@ public class FindEventGridDataSource implements GridDataSource {
    *
    * @return the event not found
    */
-  public boolean getEventNotFound() {
+  public final boolean getEventNotFound() {
     return eventNotFound;
   }
 }

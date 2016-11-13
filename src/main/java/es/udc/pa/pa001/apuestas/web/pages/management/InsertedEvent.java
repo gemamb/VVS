@@ -17,7 +17,7 @@ public class InsertedEvent {
    *
    * @return the event id
    */
-  public Long getEventId() {
+  public final Long getEventId() {
     return eventId;
   }
 
@@ -27,7 +27,7 @@ public class InsertedEvent {
    * @param eventId
    *          the new event id
    */
-  public void setEventId(Long eventId) {
+  public final void setEventId(final Long eventId) {
     this.eventId = eventId;
   }
 
@@ -36,7 +36,7 @@ public class InsertedEvent {
    *
    * @return the long
    */
-  Long onPassivate() {
+  final Long onPassivate() {
     return eventId;
   }
 
@@ -46,7 +46,7 @@ public class InsertedEvent {
    * @param eventId
    *          the event id
    */
-  void onActivate(Long eventId) {
+  final void onActivate(final Long eventId) {
     this.eventId = eventId;
   }
 

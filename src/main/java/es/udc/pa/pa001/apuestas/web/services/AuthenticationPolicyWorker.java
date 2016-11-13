@@ -13,18 +13,10 @@ import org.apache.tapestry5.services.transform.TransformationSupport;
 public class AuthenticationPolicyWorker
     implements ComponentClassTransformWorker2 {
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.apache.tapestry5.services.transform.ComponentClassTransformWorker2#
-   * transform(org.apache. tapestry5.plastic.PlasticClass,
-   * org.apache.tapestry5.services.transform.TransformationSupport,
-   * org.apache.tapestry5.model.MutableComponentModel)
-   */
+
   @Override
-  public final void transform(PlasticClass plasticClass,
-      TransformationSupport support, MutableComponentModel model) {
+  public final void transform(final PlasticClass plasticClass,
+      final TransformationSupport support, final MutableComponentModel model) {
 
     processPageAnnotations(plasticClass, model);
     processEventHandlerAnnotations(plasticClass, model);
@@ -43,8 +35,8 @@ public class AuthenticationPolicyWorker
    *          {@link org.apache.tapestry5.model.ComponentModel} used during the
    *          transformation phase.
    */
-  private void processPageAnnotations(PlasticClass plasticClass,
-      MutableComponentModel model) {
+  private void processPageAnnotations(final PlasticClass plasticClass,
+      final MutableComponentModel model) {
 
     AuthenticationPolicy policy = plasticClass
         .getAnnotation(AuthenticationPolicy.class);
@@ -66,8 +58,8 @@ public class AuthenticationPolicyWorker
    *          {@link org.apache.tapestry5.model.ComponentModel} used during the
    *          transformation phase.
    */
-  private void processEventHandlerAnnotations(PlasticClass plasticClass,
-      MutableComponentModel model) {
+  private void processEventHandlerAnnotations(final PlasticClass plasticClass,
+      final MutableComponentModel model) {
 
     for (PlasticMethod method : plasticClass
         .getMethodsWithAnnotation(AuthenticationPolicy.class)) {
@@ -78,14 +70,16 @@ public class AuthenticationPolicyWorker
       if (methodName.startsWith("on") || event != null) {
         String componentId = extractComponentId(methodName, event);
         String eventType = extractEventType(methodName, event);
-        String authenticationPolicyMeta = AuthenticationValidator.EVENT_HANDLER_AUTHENTICATION_TYPE
+        String authenticationPolicyMeta =
+            AuthenticationValidator.EVENT_HANDLER_AUTHENTICATION_TYPE
             + "-" + componentId + "-" + eventType;
 
         authenticationPolicyMeta = authenticationPolicyMeta.toLowerCase();
         model.setMeta(authenticationPolicyMeta, policy.value().toString());
       } else {
         throw new RuntimeException(
-            "Cannot put AuthenticationPolicy annotation on a non event handler method");
+            "Cannot put AuthenticationPolicy annotation on a "
+            + "non event handler method");
       }
     }
 
@@ -96,7 +90,6 @@ public class AuthenticationPolicyWorker
    * http://svn.apache.org/viewvc/tapestry/tapestry5/trunk/tapestry-core/src/
    * main /java/org/apache/tapestry5/internal/transform/OnEventWorker.java?view=
    * markup
-   * 
    * Returns the component id to match against, or the empty string if the
    * component id is not specified. The component id is provided by the OnEvent
    * annotation or (if that is not present) by the part of the method name
@@ -108,16 +101,19 @@ public class AuthenticationPolicyWorker
    *          the annotation
    * @return the string
    */
-  private String extractComponentId(String methodName, OnEvent annotation) {
-    if (annotation != null)
+  private String extractComponentId(final String methodName,
+      final OnEvent annotation) {
+    if (annotation != null) {
       return annotation.component();
+    }
 
     // Method name started with "on". Extract the component id, if present.
 
     int fromx = methodName.indexOf("From");
 
-    if (fromx < 0)
+    if (fromx < 0) {
       return "";
+    }
 
     return methodName.substring(fromx + 4);
   }
@@ -127,7 +123,6 @@ public class AuthenticationPolicyWorker
    * http://svn.apache.org/viewvc/tapestry/tapestry5/trunk/tapestry-core/src/
    * main /java/org/apache/tapestry5/internal/transform/OnEventWorker.java?view=
    * markup
-   * 
    * Returns the event name to match against, as specified in the annotation or
    * (if the annotation is not present) extracted from the name of the method.
    * "onActionFromFoo" or just "onAction".
@@ -138,9 +133,11 @@ public class AuthenticationPolicyWorker
    *          the annotation
    * @return the string
    */
-  private String extractEventType(String methodName, OnEvent annotation) {
-    if (annotation != null)
+  private String extractEventType(final String methodName,
+      final OnEvent annotation) {
+    if (annotation != null) {
       return annotation.value();
+    }
 
     int fromx = methodName.indexOf("From");
 

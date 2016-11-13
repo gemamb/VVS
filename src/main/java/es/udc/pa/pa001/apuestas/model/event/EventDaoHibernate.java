@@ -15,16 +15,11 @@ import es.udc.pojo.modelutil.dao.GenericDaoHibernate;
 public class EventDaoHibernate extends GenericDaoHibernate<Event, Long>
     implements EventDao {
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see es.udc.pa.pa001.apuestas.model.event.EventDao#findEvents(java.lang.String, java.lang.Long,
-   * int, int, boolean)
-   */
   @SuppressWarnings("unchecked")
   @Override
-  public List<Event> findEvents(String keyWords, Long categoryId,
-      int startIndex, int count, boolean admin) {
+  public final List<Event> findEvents(final String keyWords,
+      final Long categoryId,
+      final int startIndex, final int count, final boolean admin) {
 
     String[] words = keyWords != null ? keyWords.split(" ") : null;
 
@@ -32,8 +27,9 @@ public class EventDaoHibernate extends GenericDaoHibernate<Event, Long>
 
     if (categoryId != null) {
       hqlQuery += " WHERE e.category.categoryId = :categoryId";
-      if (words != null)
+      if (words != null) {
         hqlQuery += " AND ";
+      }
     }
 
     String w;
@@ -52,11 +48,11 @@ public class EventDaoHibernate extends GenericDaoHibernate<Event, Long>
 
     Calendar date = Calendar.getInstance();
     if ((words == null) && (categoryId == null)) {
-      if (admin == false) {
+      if (!admin) {
         hqlQuery += " WHERE e.eventStart >= :date";
       }
     } else {
-      if (admin == false) {
+      if (!admin) {
         hqlQuery += " AND e.eventStart >= :date";
       }
     }
@@ -74,42 +70,33 @@ public class EventDaoHibernate extends GenericDaoHibernate<Event, Long>
       }
     }
 
-    if (admin == false) {
+    if (!admin) {
       queryHql.setParameter("date", date);
     }
 
     return queryHql.setFirstResult(startIndex).setMaxResults(count).list();
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see es.udc.pa.pa001.apuestas.model.event.EventDao#findDuplicates(java.lang.String)
-   */
   @Override
-  public boolean findDuplicates(String fullName) {
+  public final boolean findDuplicates(final String fullName) {
     return !getSession()
         .createQuery("Select e from Event e where e.name = :fullName")
         .setParameter("fullName", fullName).list().isEmpty();
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see es.udc.pa.pa001.apuestas.model.event.EventDao#getNumberOfEvents(java.lang.String,
-   * java.lang.Long, boolean)
-   */
   @Override
-  public int getNumberOfEvents(String keyWords, Long categoryId,
-      boolean admin) {
+  public final int getNumberOfEvents(final String keyWords,
+      final Long categoryId,
+      final boolean admin) {
     String[] words = keyWords != null ? keyWords.split(" ") : null;
 
     String hqlQuery = "SELECT count(e) FROM Event e";
 
     if (categoryId != null) {
       hqlQuery += " WHERE e.category.categoryId = :categoryId";
-      if (words != null)
+      if (words != null) {
         hqlQuery += " AND ";
+      }
     }
 
     String w;
@@ -128,11 +115,11 @@ public class EventDaoHibernate extends GenericDaoHibernate<Event, Long>
 
     Calendar date = Calendar.getInstance();
     if ((words == null) && (categoryId == null)) {
-      if (admin == false) {
+      if (!admin) {
         hqlQuery += " WHERE e.eventStart >= :date";
       }
     } else {
-      if (admin == false) {
+      if (!admin) {
         hqlQuery += " AND e.eventStart >= :date";
       }
     }
@@ -150,7 +137,7 @@ public class EventDaoHibernate extends GenericDaoHibernate<Event, Long>
       }
     }
 
-    if (admin == false) {
+    if (!admin) {
       queryHql.setParameter("date", date);
     }
 

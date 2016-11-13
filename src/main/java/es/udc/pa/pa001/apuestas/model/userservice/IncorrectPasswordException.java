@@ -15,7 +15,7 @@ public class IncorrectPasswordException extends Exception {
    * @param loginName
    *          the login name
    */
-  public IncorrectPasswordException(String loginName) {
+  public IncorrectPasswordException(final String loginName) {
     super("Incorrect password exception => loginName = " + loginName);
     this.loginName = loginName;
   }
@@ -25,7 +25,7 @@ public class IncorrectPasswordException extends Exception {
    *
    * @return the login name
    */
-  public String getLoginName() {
+  public final String getLoginName() {
     return loginName;
   }
 

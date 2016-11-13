@@ -36,31 +36,24 @@ public class MyBetsGridDataSource implements GridDataSource {
    * @param userProfileId
    *          the user profile id
    */
-  public MyBetsGridDataSource(BetService betService, Long userProfileId) {
+  public MyBetsGridDataSource(final BetService betService,
+      final Long userProfileId) {
     super();
     this.betService = betService;
     this.userProfileId = userProfileId;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.apache.tapestry5.grid.GridDataSource#getAvailableRows()
-   */
+
   @Override
-  public int getAvailableRows() {
+  public final int getAvailableRows() {
 
     return betService.findBetsByUserIdNumber(userProfileId);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.apache.tapestry5.grid.GridDataSource#prepare(int, int, java.util.List)
-   */
+
   @Override
-  public void prepare(int startIndex, int endIndex,
-      List<SortConstraint> sortConstraints) {
+  public final void prepare(final int startIndex, final int endIndex,
+      final List<SortConstraint> sortConstraints) {
 
     bets = betService
         .findBets(userProfileId, startIndex, endIndex - startIndex + 1)
@@ -68,23 +61,14 @@ public class MyBetsGridDataSource implements GridDataSource {
     this.startIndex = startIndex;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.apache.tapestry5.grid.GridDataSource#getRowValue(int)
-   */
   @Override
-  public Object getRowValue(int index) {
+  public final Object getRowValue(final int index) {
     return bets.get(index - this.startIndex);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.apache.tapestry5.grid.GridDataSource#getRowType()
-   */
+
   @Override
-  public Class<Bet> getRowType() {
+  public final Class<Bet> getRowType() {
     return Bet.class;
   }
 
@@ -93,7 +77,7 @@ public class MyBetsGridDataSource implements GridDataSource {
    *
    * @return the bet not found
    */
-  public boolean getBetNotFound() {
+  public final boolean getBetNotFound() {
     return betNotFound;
   }
 }

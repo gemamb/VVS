@@ -24,8 +24,7 @@ import org.apache.tapestry5.services.SelectModelFactory;
 import es.udc.pa.pa001.apuestas.model.betOption.BetOption;
 import es.udc.pa.pa001.apuestas.model.betType.BetType;
 import es.udc.pa.pa001.apuestas.model.betservice.BetService;
-import es.udc.pa.pa001.apuestas.model.betservice.util.NotAllOptionsExistsException;
-import es.udc.pa.pa001.apuestas.model.betservice.util.OnlyOneWonOptionException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.*;
 import es.udc.pa.pa001.apuestas.model.event.Event;
 import es.udc.pa.pa001.apuestas.web.util.BetOptionEncoder;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
@@ -97,7 +96,7 @@ public class CheckWinners {
    *
    * @return the bet type
    */
-  public BetType getBetType() {
+  public final BetType getBetType() {
     return this.betType;
   }
 
@@ -106,7 +105,7 @@ public class CheckWinners {
    *
    * @return the bet options
    */
-  public List<BetOption> getBetOptions() {
+  public final List<BetOption> getBetOptions() {
 
     List<BetOption> options = new ArrayList<BetOption>();
     try {
@@ -122,7 +121,7 @@ public class CheckWinners {
    *
    * @return the bet option id
    */
-  public Long getBetOptionId() {
+  public final Long getBetOptionId() {
     return betOptionId;
   }
 
@@ -132,7 +131,7 @@ public class CheckWinners {
    * @param betOptionId
    *          the new bet option id
    */
-  public void setBetOptionId(Long betOptionId) {
+  public final void setBetOptionId(final Long betOptionId) {
     this.betOptionId = betOptionId;
   }
 
@@ -141,7 +140,7 @@ public class CheckWinners {
    *
    * @return the bet type id
    */
-  public Long getBetTypeId() {
+  public final Long getBetTypeId() {
     return betTypeId;
   }
 
@@ -151,7 +150,7 @@ public class CheckWinners {
    * @param betTypeId
    *          the new bet type id
    */
-  public void setBetTypeId(Long betTypeId) {
+  public final void setBetTypeId(final Long betTypeId) {
     this.betTypeId = betTypeId;
   }
 
@@ -160,14 +159,14 @@ public class CheckWinners {
    *
    * @return the format
    */
-  public Format getFormat() {
+  public final Format getFormat() {
     return NumberFormat.getInstance(locale);
   }
 
   /**
    * Setup render.
    */
-  void setupRender() {
+  final void setupRender() {
     this.multiple = betType.getMultiple();
 
   }
@@ -178,7 +177,7 @@ public class CheckWinners {
    * @param betTypeId
    *          the bet type id
    */
-  void onActivate(Long betTypeId) {
+  final void onActivate(final Long betTypeId) {
 
     this.betTypeId = betTypeId;
     this.betOption = new BetOption();
@@ -196,7 +195,7 @@ public class CheckWinners {
    *
    * @return the long
    */
-  Long onPassivate() {
+  final Long onPassivate() {
     return betTypeId;
   }
 
@@ -205,7 +204,7 @@ public class CheckWinners {
    *
    * @return the option encoder
    */
-  public BetOptionEncoder getOptionEncoder() {
+  public final BetOptionEncoder getOptionEncoder() {
     return new BetOptionEncoder(betService);
   }
 
@@ -213,14 +212,15 @@ public class CheckWinners {
    * On validate from check list form.
    */
   @OnEvent(value = "validate", component = "checkListForm")
-  void onValidateFromCheckListForm() {
+  final void onValidateFromCheckListForm() {
 
     List<Long> ids = new ArrayList<>();
     Set<Long> winners = new HashSet<Long>();
 
     if (betType.getMultiple()) {
-      if (finals.isEmpty())
+      if (finals.isEmpty()) {
         checkListForm.recordError(messages.format("error-notSufficient"));
+      }
 
       for (BetOption b : finals) {
         ids.add(b.getBetOptionId());
@@ -228,8 +228,9 @@ public class CheckWinners {
 
       winners.addAll(ids);
     } else {
-      if (selectedId == null)
+      if (selectedId == null) {
         checkListForm.recordError(messages.format("error-notSufficient"));
+      }
 
       winners.add(selectedId);
     }
@@ -248,7 +249,7 @@ public class CheckWinners {
    *
    * @return the object
    */
-  Object onSuccess() {
+  final Object onSuccess() {
 
     Long eventId = null;
     try {

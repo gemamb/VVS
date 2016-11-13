@@ -17,7 +17,7 @@ public final class jcrypt {
   private static final int ITERATIONS = 16;
 
   /** The Constant con_salt. */
-  private static final int con_salt[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+  private static final int[] con_salt = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -31,11 +31,11 @@ public final class jcrypt {
       0x00, 0x00, };
 
   /** The Constant shifts2. */
-  private static final boolean shifts2[] = { false, false, true, true, true,
+  private static final boolean[] shifts2 = {false, false, true, true, true,
       true, true, true, false, true, true, true, true, true, true, false };
 
   /** The Constant skb. */
-  private static final int skb[][] = { {
+  private static final int[][] skb = {{
       /* for C bits (numbered as per FIPS 46) 1 2 3 4 5 6 */
       0x00000000, 0x00000010, 0x20000000, 0x20000010, 0x00010000, 0x00010010,
       0x20010000, 0x20010010, 0x00000800, 0x00000810, 0x20000800, 0x20000810,
@@ -155,7 +155,7 @@ public final class jcrypt {
           0x00002822, 0x04002822, 0x00042822, 0x04042822, }, };
 
   /** The Constant SPtrans. */
-  private static final int SPtrans[][] = { {
+  private static final int[][] SPtrans = {{
       /* nibble 0 */
       0x00820200, 0x00020000, 0x80800000, 0x80820200, 0x00800000, 0x80020200,
       0x80020000, 0x80800000, 0x80020200, 0x00820200, 0x00820000, 0x80000200,
@@ -275,7 +275,7 @@ public final class jcrypt {
           0x08000000, 0x08200020, 0x00008000, 0x00208020 } };
 
   /** The Constant cov_2char. */
-  private static final int cov_2char[] = { 0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33,
+  private static final int[] cov_2char = {0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33,
       0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46,
       0x47, 0x48, 0x49, 0x4A, 0x4B, 0x4C, 0x4D, 0x4E, 0x4F, 0x50, 0x51, 0x52,
       0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5A, 0x61, 0x62, 0x63, 0x64,
@@ -289,7 +289,7 @@ public final class jcrypt {
    *          the b
    * @return the int
    */
-  private static int byteToUnsigned(byte b) {
+  private static int byteToUnsigned(final byte b) {
     int value = b;
 
     return (value >= 0 ? value : value + 256);
@@ -304,7 +304,7 @@ public final class jcrypt {
    *          the offset
    * @return the int
    */
-  private static int fourBytesToInt(byte b[], int offset) {
+  private static int fourBytesToInt(final byte[] b, int offset) {
     int value;
 
     value = byteToUnsigned(b[offset++]);
@@ -325,7 +325,8 @@ public final class jcrypt {
    * @param offset
    *          the offset
    */
-  private static void intToFourBytes(int iValue, byte b[], int offset) {
+  private static void intToFourBytes(final int iValue, final byte[] b,
+      int offset) {
     b[offset++] = (byte) ((iValue) & 0xff);
     b[offset++] = (byte) ((iValue >>> 8) & 0xff);
     b[offset++] = (byte) ((iValue >>> 16) & 0xff);
@@ -346,7 +347,8 @@ public final class jcrypt {
    * @param results
    *          the results
    */
-  private static void PERM_OP(int a, int b, int n, int m, int results[]) {
+  private static void PERM_OP(int a, int b, final int n,
+      final int m, final int[] results) {
     int t;
 
     t = ((a >>> n) ^ b) & m;
@@ -368,7 +370,7 @@ public final class jcrypt {
    *          the m
    * @return the int
    */
-  private static int HPERM_OP(int a, int n, int m) {
+  private static int HPERM_OP(int a, final int n, final int m) {
     int t;
 
     t = ((a << (16 - n)) ^ a) & m;
@@ -384,13 +386,13 @@ public final class jcrypt {
    *          the key
    * @return the int[]
    */
-  private static int[] des_set_key(byte key[]) {
-    int schedule[] = new int[ITERATIONS * 2];
+  private static int[] des_set_key(final byte[] key) {
+    int[] schedule = new int[ITERATIONS * 2];
 
     int c = fourBytesToInt(key, 0);
     int d = fourBytesToInt(key, 4);
 
-    int results[] = new int[2];
+    int[] results = new int[2];
 
     PERM_OP(d, c, 4, 0x0f0f0f0f, results);
     d = results[0];
@@ -465,8 +467,9 @@ public final class jcrypt {
    *          the s
    * @return the int
    */
-  private static int D_ENCRYPT(int L, int R, int S, int E0, int E1,
-      int s[]) {
+  private static int D_ENCRYPT(int L, final int R, final int S,
+      final int E0, final int E1,
+      final int[] s) {
     int t, u, v;
 
     v = R ^ (R >>> 16);
@@ -495,7 +498,8 @@ public final class jcrypt {
    *          the eswap 1
    * @return the int[]
    */
-  private static int[] body(int schedule[], int Eswap0, int Eswap1) {
+  private static int[] body(final int[] schedule, final int Eswap0,
+      final int Eswap1) {
     int left = 0;
     int right = 0;
     int t = 0;
@@ -518,7 +522,7 @@ public final class jcrypt {
     left &= 0xffffffff;
     right &= 0xffffffff;
 
-    int results[] = new int[2];
+    int[] results = new int[2];
 
     PERM_OP(right, left, 1, 0x55555555, results);
     right = results[0];
@@ -540,7 +544,7 @@ public final class jcrypt {
     right = results[0];
     left = results[1];
 
-    int out[] = new int[2];
+    int[] out = new int[2];
 
     out[0] = left;
     out[1] = right;
@@ -557,9 +561,10 @@ public final class jcrypt {
    *          the original
    * @return the string
    */
-  public static String crypt(String salt, String original) {
-    while (salt.length() < 2)
+  public static String crypt(String salt, final String original) {
+    while (salt.length() < 2) {
       salt += "A";
+    }
 
     StringBuffer buffer = new StringBuffer("             ");
 
@@ -572,10 +577,11 @@ public final class jcrypt {
     int Eswap0 = con_salt[charZero];
     int Eswap1 = con_salt[charOne] << 4;
 
-    byte key[] = new byte[8];
+    byte[] key = new byte[8];
 
-    for (int i = 0; i < key.length; i++)
+    for (int i = 0; i < key.length; i++) {
       key[i] = (byte) 0;
+    }
 
     for (int i = 0; i < key.length && i < original.length(); i++) {
       int iChar = original.charAt(i);
@@ -583,10 +589,10 @@ public final class jcrypt {
       key[i] = (byte) (iChar << 1);
     }
 
-    int schedule[] = des_set_key(key);
-    int out[] = body(schedule, Eswap0, Eswap1);
+    int[] schedule = des_set_key(key);
+    int[] out = body(schedule, Eswap0, Eswap1);
 
-    byte b[] = new byte[9];
+    byte[] b = new byte[9];
 
     intToFourBytes(out[0], b, 0);
     intToFourBytes(out[1], b, 4);
@@ -596,8 +602,9 @@ public final class jcrypt {
       for (int j = 0, c = 0; j < 6; j++) {
         c <<= 1;
 
-        if ((b[y] & u) != 0)
+        if ((b[y] & u) != 0) {
           c |= 1;
+        }
 
         u >>>= 1;
 
@@ -617,7 +624,7 @@ public final class jcrypt {
    * @param args
    *          the arguments
    */
-  public static void main(String args[]) {
+  public static void main(final String[] args) {
     if (args.length >= 2) {
       System.out.println("[" + args[0] + "] [" + args[1] + "] => ["
           + jcrypt.crypt(args[0], args[1]) + "]");

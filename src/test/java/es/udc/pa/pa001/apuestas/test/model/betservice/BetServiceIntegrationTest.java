@@ -304,7 +304,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test
-  public void testCreationScenary()
+  public final void testCreationScenary()
       throws InstanceNotFoundException, AlreadyPastedDateException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException {
@@ -353,7 +353,8 @@ public class BetServiceIntegrationTest {
   /**
    * PR-IN-002
    * 
-   * insertEvent findEvent insertBetType (no multi) insertBetOption checkWinners.
+   * insertEvent findEvent insertBetType (no multi) insertBetOption
+   * checkWinners.
    *
    * @throws InstanceNotFoundException
    *           the instance not found exception
@@ -374,7 +375,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test
-  public void testCheckingWinnersScenary()
+  public final void testCheckingWinnersScenary()
       throws InstanceNotFoundException, AlreadyPastedDateException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException,
@@ -445,7 +446,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test
-  public void testMakeBetScenary()
+  public final void testMakeBetScenary()
       throws InstanceNotFoundException, OutdatedBetException {
 
     /* SETUP */
@@ -493,7 +494,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test
-  public void testCheckBetStatusScenary()
+  public final void testCheckBetStatusScenary()
       throws InstanceNotFoundException, OutdatedBetException,
       OnlyOneWonOptionException, NotAllOptionsExistsException {
 
@@ -552,7 +553,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test
-  public void testMakeBet() throws InstanceNotFoundException,
+  public final void testMakeBet() throws InstanceNotFoundException,
       OutdatedBetException, DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException,
       AlreadyPastedDateException, DuplicateEventNameException {
@@ -609,7 +610,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test(expected = InstanceNotFoundException.class)
-  public void testMakeBetWrongUser() throws InstanceNotFoundException,
+  public final void testMakeBetWrongUser() throws InstanceNotFoundException,
       OutdatedBetException, DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException,
       AlreadyPastedDateException, DuplicateEventNameException {
@@ -648,7 +649,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test(expected = InstanceNotFoundException.class)
-  public void testMakeBetWrongBetOption()
+  public final void testMakeBetWrongBetOption()
       throws InstanceNotFoundException, OutdatedBetException {
 
     /* Buscar evento ya existente */
@@ -686,7 +687,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test(expected = OutdatedBetException.class)
-  public void testOutDatedTrueMakeBet()
+  public final void testOutDatedTrueMakeBet()
       throws InstanceNotFoundException, OutdatedBetException {
 
     /* Buscar evento ya existente */
@@ -733,7 +734,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test(expected = OutdatedBetException.class)
-  public void testOutDatedFalseMakeBet()
+  public final void testOutDatedFalseMakeBet()
       throws InstanceNotFoundException, OutdatedBetException {
 
     /* Buscar evento ya existente */
@@ -780,7 +781,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test
-  public void testMakeBetWrongMoney()
+  public final void testMakeBetWrongMoney()
       throws InstanceNotFoundException, OutdatedBetException {
 
     /* Buscar evento ya existente */
@@ -821,7 +822,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test
-  public void testInsertEvent() throws InstanceNotFoundException,
+  public final void testInsertEvent() throws InstanceNotFoundException,
       AlreadyPastedDateException, DuplicateEventNameException {
 
     initializeDate();
@@ -849,7 +850,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test(expected = AlreadyPastedDateException.class)
-  public void testInsertPastedEvent() throws InstanceNotFoundException,
+  public final void testInsertPastedEvent() throws InstanceNotFoundException,
       AlreadyPastedDateException, DuplicateEventNameException {
 
     eventCalendar = Calendar.getInstance();
@@ -876,7 +877,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test(expected = DuplicateEventNameException.class)
-  public void testInsertDuplicateEvent() throws InstanceNotFoundException,
+  public final void testInsertDuplicateEvent() throws InstanceNotFoundException,
       AlreadyPastedDateException, DuplicateEventNameException {
 
     initializeCreatedEvent();
@@ -902,7 +903,8 @@ public class BetServiceIntegrationTest {
    */
 
   @Test(expected = InstanceNotFoundException.class)
-  public void testInsertEventWrongCategory() throws InstanceNotFoundException,
+  public final void testInsertEventWrongCategory()
+      throws InstanceNotFoundException,
       AlreadyPastedDateException, DuplicateEventNameException {
 
     initializeDate();
@@ -931,7 +933,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test
-  public void testInsertBetType()
+  public final void testInsertBetType()
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException {
@@ -966,7 +968,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test(expected = MinimunBetOptionException.class)
-  public void testInsertBetTypeWithoutOptions()
+  public final void testInsertBetTypeWithoutOptions()
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException {
@@ -999,7 +1001,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test(expected = MinimunBetOptionException.class)
-  public void testInsertBetTypeWithOneOption()
+  public final void testInsertBetTypeWithOneOption()
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException {
@@ -1032,7 +1034,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test(expected = DuplicateBetOptionAnswerException.class)
-  public void testInsertBetTypeDuplicateAnswer()
+  public final void testInsertBetTypeDuplicateAnswer()
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException {
@@ -1065,7 +1067,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test(expected = DuplicateBetTypeQuestionException.class)
-  public void testInsertBetTypeDuplicateQuestion()
+  public final void testInsertBetTypeDuplicateQuestion()
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException {
@@ -1092,7 +1094,8 @@ public class BetServiceIntegrationTest {
    */
 
   @Test
-  public void testCheckOptionsSimpleBetType() throws InstanceNotFoundException,
+  public final void testCheckOptionsSimpleBetType()
+      throws InstanceNotFoundException,
       OnlyOneWonOptionException, NotAllOptionsExistsException {
 
     initializeCreatedEvent();
@@ -1117,7 +1120,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test
-  public void testCheckOptionsMultipleBetType()
+  public final void testCheckOptionsMultipleBetType()
       throws InstanceNotFoundException, OnlyOneWonOptionException,
       NotAllOptionsExistsException {
 
@@ -1144,7 +1147,8 @@ public class BetServiceIntegrationTest {
    */
 
   @Test(expected = NotAllOptionsExistsException.class)
-  public void testCheckInvalidOptions() throws NotAllOptionsExistsException,
+  public final void testCheckInvalidOptions()
+      throws NotAllOptionsExistsException,
       InstanceNotFoundException, OnlyOneWonOptionException {
 
     initializeCreatedEvent();
@@ -1169,7 +1173,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test(expected = OnlyOneWonOptionException.class)
-  public void testCheckMultipleOptionsSimpleBetType()
+  public final void testCheckMultipleOptionsSimpleBetType()
       throws OnlyOneWonOptionException, InstanceNotFoundException,
       NotAllOptionsExistsException {
 
@@ -1195,7 +1199,7 @@ public class BetServiceIntegrationTest {
    */
 
   @Test(expected = InstanceNotFoundException.class)
-  public void testCheckNonExistentBetTypeOption()
+  public final void testCheckNonExistentBetTypeOption()
       throws InstanceNotFoundException, OnlyOneWonOptionException,
       NotAllOptionsExistsException {
 
