@@ -17,10 +17,10 @@ import org.hibernate.annotations.BatchSize;
 public class Category {
 
   /** The category id. */
-  private Long categoryId;
+  private Long categoryID;
 
   /** The name. */
-  private String name;
+  private String categoryName;
 
   /**
    * Instantiates a new category.
@@ -35,7 +35,7 @@ public class Category {
    *          the name
    */
   public Category(final String name) {
-    this.name = name;
+    this.categoryName = name;
   }
 
   /**
@@ -49,10 +49,9 @@ public class Category {
       sequenceName = "CategorySeq")
   // generators.
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO,
-  generator = "CategoryIdGenerator")
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "CategoryIdGenerator")
   public final Long getCategoryId() {
-    return categoryId;
+    return categoryID;
   }
 
   /**
@@ -62,7 +61,7 @@ public class Category {
    *          the new category id
    */
   public final void setCategoryId(final Long categoryId) {
-    this.categoryId = categoryId;
+    this.categoryID = categoryId;
   }
 
   /**
@@ -72,7 +71,7 @@ public class Category {
    */
   @Column(name = "name")
   public final String getName() {
-    return name;
+    return categoryName;
   }
 
   /**
@@ -82,7 +81,7 @@ public class Category {
    *          the new name
    */
   public final void setName(final String name) {
-    this.name = name;
+    this.categoryName = name;
   }
 
 }

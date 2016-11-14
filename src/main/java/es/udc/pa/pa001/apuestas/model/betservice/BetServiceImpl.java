@@ -185,10 +185,10 @@ public class BetServiceImpl implements BetService {
 
   @Transactional(readOnly = true)
   @Override
-  public final Event findEvent(final Long EventId)
+  public final Event findEvent(final Long eventId)
       throws InstanceNotFoundException {
 
-    return eventDao.find(EventId);
+    return eventDao.find(eventId);
   }
 
   @Transactional(readOnly = true)
