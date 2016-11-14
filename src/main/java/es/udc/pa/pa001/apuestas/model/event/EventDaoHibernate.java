@@ -18,11 +18,13 @@ public class EventDaoHibernate extends GenericDaoHibernate<Event, Long>
   @SuppressWarnings("unchecked")
   @Override
   public final List<Event> findEvents(final String keyWords,
-      final Long categoryId,
-      final int startIndex, final int count, final boolean admin) {
+      final Long categoryId, final int startIndex, final int count,
+      final boolean admin) {
 
-    String[] words = keyWords != null ? keyWords.split(" ") : null;
-
+    String[] words = null;
+    if (keyWords != null) {
+      words = keyWords.split(" ");
+    }
     String hqlQuery = "SELECT e FROM Event e";
 
     if (categoryId != null) {
@@ -32,7 +34,6 @@ public class EventDaoHibernate extends GenericDaoHibernate<Event, Long>
       }
     }
 
-    String w;
     if (words != null && words.length > 0) {
       if (categoryId == null) {
         hqlQuery += " WHERE ";
@@ -41,12 +42,11 @@ public class EventDaoHibernate extends GenericDaoHibernate<Event, Long>
         if (i > 0) {
           hqlQuery += " AND";
         }
-        w = words[i];
         hqlQuery += " LOWER(e.name) LIKE LOWER(:name" + i + ")";
       }
     }
 
-    Calendar date = Calendar.getInstance();
+    final Calendar date = Calendar.getInstance();
     if ((words == null) && (categoryId == null)) {
       if (!admin) {
         hqlQuery += " WHERE e.eventStart >= :date";
@@ -57,7 +57,7 @@ public class EventDaoHibernate extends GenericDaoHibernate<Event, Long>
       }
     }
 
-    Query queryHql = getSession()
+    final Query queryHql = getSession()
         .createQuery(hqlQuery + " ORDER BY e.eventStart, e.name");
 
     if (categoryId != null) {
@@ -86,9 +86,12 @@ public class EventDaoHibernate extends GenericDaoHibernate<Event, Long>
 
   @Override
   public final int getNumberOfEvents(final String keyWords,
-      final Long categoryId,
-      final boolean admin) {
-    String[] words = keyWords != null ? keyWords.split(" ") : null;
+      final Long categoryId, final boolean admin) {
+
+    String[] words = null;
+    if (keyWords != null) {
+      words = keyWords.split(" ");
+    }
 
     String hqlQuery = "SELECT count(e) FROM Event e";
 
@@ -99,7 +102,6 @@ public class EventDaoHibernate extends GenericDaoHibernate<Event, Long>
       }
     }
 
-    String w;
     if (words != null && words.length > 0) {
       if (categoryId == null) {
         hqlQuery += " WHERE ";
@@ -108,12 +110,11 @@ public class EventDaoHibernate extends GenericDaoHibernate<Event, Long>
         if (i > 0) {
           hqlQuery += " AND";
         }
-        w = words[i];
         hqlQuery += " LOWER(e.name) LIKE LOWER(:name" + i + ")";
       }
     }
 
-    Calendar date = Calendar.getInstance();
+    final Calendar date = Calendar.getInstance();
     if ((words == null) && (categoryId == null)) {
       if (!admin) {
         hqlQuery += " WHERE e.eventStart >= :date";
@@ -124,7 +125,7 @@ public class EventDaoHibernate extends GenericDaoHibernate<Event, Long>
       }
     }
 
-    Query queryHql = getSession()
+    final Query queryHql = getSession()
         .createQuery(hqlQuery + " ORDER BY e.eventStart, e.name");
 
     if (categoryId != null) {
@@ -141,7 +142,7 @@ public class EventDaoHibernate extends GenericDaoHibernate<Event, Long>
       queryHql.setParameter("date", date);
     }
 
-    long numberOfOperations = (Long) queryHql.uniqueResult();
+    final long numberOfOperations = (Long) queryHql.uniqueResult();
 
     return (int) numberOfOperations;
   }

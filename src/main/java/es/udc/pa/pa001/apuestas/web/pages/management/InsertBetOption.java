@@ -28,7 +28,9 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import es.udc.pa.pa001.apuestas.model.betOption.BetOption;
 import es.udc.pa.pa001.apuestas.model.betType.BetType;
 import es.udc.pa.pa001.apuestas.model.betservice.BetService;
-import es.udc.pa.pa001.apuestas.model.betservice.util.*;
+import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateBetOptionAnswerException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateBetTypeQuestionException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.MinimunBetOptionException;
 import es.udc.pa.pa001.apuestas.model.event.Event;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
@@ -108,8 +110,7 @@ public class InsertBetOption {
 
   /** The encoder. */
   @Property
-  private final ValueEncoder<BetOption> encoder =
-    new ValueEncoder<BetOption>() {
+  private final ValueEncoder<BetOption> encoder = new ValueEncoder<BetOption>() {
 
     @Override
     public String toClient(final BetOption value) {
@@ -120,7 +121,7 @@ public class InsertBetOption {
     public BetOption toValue(final String clientValue) {
 
       int i = 0;
-      for (BetOption b : savedBetOptions) {
+      for (final BetOption b : savedBetOptions) {
         if (b.getAnswer().equals(clientValue)) {
           return savedBetOptions.get(i);
         }
@@ -234,7 +235,7 @@ public class InsertBetOption {
    * @return the object[]
    */
   final Object[] onPassivate() {
-    return new Object[] {eventId, multiple, question};
+    return new Object[] { eventId, multiple, question };
   }
 
   /**
@@ -252,8 +253,9 @@ public class InsertBetOption {
     this.eventId = eventId;
     this.multiple = multiple;
     this.question = question;
-    this.savedBetOptions = this.savedBetOptions == null
-        ? new ArrayList<BetOption>() : this.savedBetOptions;
+    if (this.savedBetOptions == null) {
+      this.savedBetOptions = new ArrayList<BetOption>();
+    }
   }
 
   /**
@@ -266,9 +268,9 @@ public class InsertBetOption {
       return;
     }
 
-    NumberFormat numberFormatter = NumberFormat.getInstance(locale);
-    ParsePosition position = new ParsePosition(0);
-    Number number = numberFormatter.parse(rate, position);
+    final NumberFormat numberFormatter = NumberFormat.getInstance(locale);
+    final ParsePosition position = new ParsePosition(0);
+    final Number number = numberFormatter.parse(rate, position);
     if (position.getIndex() != rate.length()) {
       betOptionForm.recordError(balanceTextField,
           messages.format("error-incorrectNumberFormat", rate));
@@ -276,7 +278,7 @@ public class InsertBetOption {
       rateAsFloat = number.floatValue();
     }
 
-    for (BetOption b : savedBetOptions) {
+    for (final BetOption b : savedBetOptions) {
       if (b.getAnswer().equals(answer)) {
         betOptionForm.recordError(answerTextField,
             messages.format("error-duplicateAnswer", answer));
@@ -292,7 +294,7 @@ public class InsertBetOption {
    */
   final Object onSuccessFromBetOptionForm() {
 
-    BetOption betOption = new BetOption();
+    final BetOption betOption = new BetOption();
     betOption.setAnswer(answer);
     betOption.setRate(rateAsFloat);
     this.savedBetOptions.add(betOption);
@@ -300,10 +302,10 @@ public class InsertBetOption {
     insertBetOption.setEventId(eventId);
     insertBetOption.setMultiple(multiple);
     insertBetOption.setQuestion(question);
-
-    return request.isXHR() ? counterZone.getBody() : null;
-
-    // return insertBetOption;
+    if (request.isXHR()) {
+      return counterZone.getBody();
+    }
+    return null;
   }
 
   /**
@@ -315,22 +317,22 @@ public class InsertBetOption {
     Event event;
     try {
       event = betService.findEvent(eventId);
-      BetType betType = new BetType();
+      final BetType betType = new BetType();
       event.addBetType(betType);
-      for (BetOption newbetOption : savedBetOptions) {
+      for (final BetOption newbetOption : savedBetOptions) {
         betType.addBetOption(newbetOption);
       }
       betType.setMultiple(multiple);
       betType.setQuestion(question);
       betService.insertBetType(betType);
       betTypeId = betType.getBetTypeId();
-    } catch (InstanceNotFoundException e) {
+    } catch (final InstanceNotFoundException e) {
       betTypeForm.recordError(messages.format("error-eventNotFound", eventId));
-    } catch (DuplicateBetTypeQuestionException e) {
-    } catch (DuplicateBetOptionAnswerException e) {
+    } catch (final DuplicateBetTypeQuestionException e) {
+    } catch (final DuplicateBetOptionAnswerException e) {
       betTypeForm.recordError(messages.format("error-duplicateAnswer"));
       this.savedBetOptions = null;
-    } catch (MinimunBetOptionException e) {
+    } catch (final MinimunBetOptionException e) {
       betTypeForm.recordError(messages.format("error-minimunBetOption"));
     }
   }

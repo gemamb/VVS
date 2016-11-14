@@ -56,11 +56,15 @@ public class FindEvents {
       return null;
     }
 
-    List<String> matches = new ArrayList<String>();
-    EventBlock events = betService.findEvents(keyWords, null, 0, 10,
-        userSession == null ? false : userSession.isAdmin());
+    final List<String> matches = new ArrayList<String>();
+    boolean admin = false;
+    if (userSession != null) {
+      admin = userSession.isAdmin();
+    }
+    final EventBlock events = betService.findEvents(keyWords, null, 0, 10,
+        admin);
 
-    for (Event e : events.getEvents()) {
+    for (final Event e : events.getEvents()) {
       matches.add(e.getName());
     }
 
@@ -88,9 +92,9 @@ public class FindEvents {
    * @return the categories
    */
   public final String getCategories() {
-    List<Category> categories = betService.findCategories();
+    final List<Category> categories = betService.findCategories();
     String model = "";
-    for (Category c : categories) {
+    for (final Category c : categories) {
       model = model + c.getCategoryId().toString() + "=" + c.getName() + ",";
     }
     return lastletter(model);
@@ -103,8 +107,9 @@ public class FindEvents {
    */
   final Object onSuccess() {
     eventsDetails.setKeyWords(keyWords);
-    eventsDetails
-        .setCategory(category == null ? null : Long.parseLong(category));
+    if (category != null) {
+      eventsDetails.setCategory(Long.parseLong(category));
+    }
     return eventsDetails;
   }
 }

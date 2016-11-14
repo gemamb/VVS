@@ -103,7 +103,10 @@ public class EventsDetails {
    * @return the events
    */
   public final List<Event> getEvents() {
-    return (eventBlock == null) ? null : eventBlock.getEvents();
+    if (eventBlock == null) {
+      return null;
+    }
+    return eventBlock.getEvents();
   }
 
   /**
@@ -169,7 +172,7 @@ public class EventsDetails {
     this.keyWords = keyWords;
     this.category = category;
     this.startIndex = startIndex;
-    boolean admin = userSession != null && userSession.isAdmin();
+    final boolean admin = userSession != null && userSession.isAdmin();
 
     findEventGridDataSource = new FindEventGridDataSource(betService, keyWords,
         category, admin);
@@ -181,7 +184,7 @@ public class EventsDetails {
    * @return the object[]
    */
   final Object[] onPassivate() {
-    return new Object[] {keyWords, category, startIndex};
+    return new Object[] { keyWords, category, startIndex };
   }
 
 }
