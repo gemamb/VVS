@@ -13,7 +13,6 @@ import org.apache.tapestry5.services.transform.TransformationSupport;
 public class AuthenticationPolicyWorker
     implements ComponentClassTransformWorker2 {
 
-
   @Override
   public final void transform(final PlasticClass plasticClass,
       final TransformationSupport support, final MutableComponentModel model) {
@@ -38,7 +37,7 @@ public class AuthenticationPolicyWorker
   private void processPageAnnotations(final PlasticClass plasticClass,
       final MutableComponentModel model) {
 
-    AuthenticationPolicy policy = plasticClass
+    final AuthenticationPolicy policy = plasticClass
         .getAnnotation(AuthenticationPolicy.class);
     if (policy != null) {
       model.setMeta(AuthenticationValidator.PAGE_AUTHENTICATION_TYPE,
@@ -61,17 +60,16 @@ public class AuthenticationPolicyWorker
   private void processEventHandlerAnnotations(final PlasticClass plasticClass,
       final MutableComponentModel model) {
 
-    for (PlasticMethod method : plasticClass
+    for (final PlasticMethod method : plasticClass
         .getMethodsWithAnnotation(AuthenticationPolicy.class)) {
-      String methodName = method.getDescription().methodName;
-      AuthenticationPolicy policy = method
+      final String methodName = method.getDescription().methodName;
+      final AuthenticationPolicy policy = method
           .getAnnotation(AuthenticationPolicy.class);
-      OnEvent event = method.getAnnotation(OnEvent.class);
+      final OnEvent event = method.getAnnotation(OnEvent.class);
       if (methodName.startsWith("on") || event != null) {
-        String componentId = extractComponentId(methodName, event);
-        String eventType = extractEventType(methodName, event);
-        String authenticationPolicyMeta =
-            AuthenticationValidator.EVENT_HANDLER_AUTHENTICATION_TYPE
+        final String componentId = extractComponentId(methodName, event);
+        final String eventType = extractEventType(methodName, event);
+        String authenticationPolicyMeta = AuthenticationValidator.EVENT_HANDLER_AUTHENTICATION_TYPE
             + "-" + componentId + "-" + eventType;
 
         authenticationPolicyMeta = authenticationPolicyMeta.toLowerCase();
@@ -79,7 +77,7 @@ public class AuthenticationPolicyWorker
       } else {
         throw new RuntimeException(
             "Cannot put AuthenticationPolicy annotation on a "
-            + "non event handler method");
+                + "non event handler method");
       }
     }
 
@@ -89,11 +87,10 @@ public class AuthenticationPolicyWorker
    * This code is taken deliberatly from:
    * http://svn.apache.org/viewvc/tapestry/tapestry5/trunk/tapestry-core/src/
    * main /java/org/apache/tapestry5/internal/transform/OnEventWorker.java?view=
-   * markup
-   * Returns the component id to match against, or the empty string if the
-   * component id is not specified. The component id is provided by the OnEvent
-   * annotation or (if that is not present) by the part of the method name
-   * following "From" ("onActionFromFoo").
+   * markup Returns the component id to match against, or the empty string if
+   * the component id is not specified. The component id is provided by the
+   * OnEvent annotation or (if that is not present) by the part of the method
+   * name following "From" ("onActionFromFoo").
    *
    * @param methodName
    *          the method name
@@ -109,7 +106,7 @@ public class AuthenticationPolicyWorker
 
     // Method name started with "on". Extract the component id, if present.
 
-    int fromx = methodName.indexOf("From");
+    final int fromx = methodName.indexOf("From");
 
     if (fromx < 0) {
       return "";
@@ -122,10 +119,9 @@ public class AuthenticationPolicyWorker
    * This code is taken deliberatly from:
    * http://svn.apache.org/viewvc/tapestry/tapestry5/trunk/tapestry-core/src/
    * main /java/org/apache/tapestry5/internal/transform/OnEventWorker.java?view=
-   * markup
-   * Returns the event name to match against, as specified in the annotation or
-   * (if the annotation is not present) extracted from the name of the method.
-   * "onActionFromFoo" or just "onAction".
+   * markup Returns the event name to match against, as specified in the
+   * annotation or (if the annotation is not present) extracted from the name of
+   * the method. "onActionFromFoo" or just "onAction".
    *
    * @param methodName
    *          the method name
@@ -139,10 +135,12 @@ public class AuthenticationPolicyWorker
       return annotation.value();
     }
 
-    int fromx = methodName.indexOf("From");
+    final int fromx = methodName.indexOf("From");
 
     // The first two characters are always "on" as in "onActionFromFoo".
-    return fromx == -1 ? methodName.substring(2)
-        : methodName.substring(2, fromx);
+    if (fromx == -1) {
+      return methodName.substring(2);
+    }
+    return methodName.substring(2, fromx);
   }
 }

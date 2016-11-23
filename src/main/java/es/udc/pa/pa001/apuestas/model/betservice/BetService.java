@@ -7,7 +7,14 @@ import es.udc.pa.pa001.apuestas.model.bet.Bet;
 import es.udc.pa.pa001.apuestas.model.bet.BetBlock;
 import es.udc.pa.pa001.apuestas.model.betOption.BetOption;
 import es.udc.pa.pa001.apuestas.model.betType.BetType;
-import es.udc.pa.pa001.apuestas.model.betservice.util.*;
+import es.udc.pa.pa001.apuestas.model.betservice.util.AlreadyPastedDateException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateBetOptionAnswerException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateBetTypeQuestionException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateEventNameException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.MinimunBetOptionException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.NotAllOptionsExistsException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.OnlyOneWonOptionException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.OutdatedBetException;
 import es.udc.pa.pa001.apuestas.model.category.Category;
 import es.udc.pa.pa001.apuestas.model.event.Event;
 import es.udc.pa.pa001.apuestas.model.event.EventBlock;
@@ -29,8 +36,7 @@ public interface BetService {
    *          the admin
    * @return the int
    */
-  int findEventsGetNumber(String keywords, Long categoryId,
-      boolean admin);
+  int findEventsGetNumber(String keywords, Long categoryId, boolean admin);
 
   /**
    * Find events.
@@ -86,7 +92,7 @@ public interface BetService {
    *
    * @param event
    *          the event
-   * @param CategoryId
+   * @param categoryId
    *          the category id
    * @return the event
    * @throws AlreadyPastedDateException
@@ -96,7 +102,7 @@ public interface BetService {
    * @throws DuplicateEventNameException
    *           the duplicate event name exception
    */
-  Event insertEvent(Event event, Long CategoryId)
+  Event insertEvent(Event event, Long categoryId)
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException;
 
@@ -120,13 +126,13 @@ public interface BetService {
   /**
    * Find event.
    *
-   * @param Event
+   * @param event
    *          the event
    * @return the event
    * @throws InstanceNotFoundException
    *           the instance not found exception
    */
-  Event findEvent(Long Event) throws InstanceNotFoundException;
+  Event findEvent(Long event) throws InstanceNotFoundException;
 
   /**
    * Find bet type.
@@ -148,8 +154,7 @@ public interface BetService {
    * @throws InstanceNotFoundException
    *           the instance not found exception
    */
-  BetOption findBetOption(Long betOptionId)
-      throws InstanceNotFoundException;
+  BetOption findBetOption(Long betOptionId) throws InstanceNotFoundException;
 
   /**
    * Check options.
@@ -185,8 +190,7 @@ public interface BetService {
    * @throws InstanceNotFoundException
    *           the instance not found exception
    */
-  Category findCategory(Long categoryId)
-      throws InstanceNotFoundException;
+  Category findCategory(Long categoryId) throws InstanceNotFoundException;
 
   /**
    * Find duplicates.

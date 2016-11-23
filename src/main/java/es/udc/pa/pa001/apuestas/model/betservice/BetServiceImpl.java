@@ -17,7 +17,14 @@ import es.udc.pa.pa001.apuestas.model.betOption.BetOption;
 import es.udc.pa.pa001.apuestas.model.betOption.BetOptionDao;
 import es.udc.pa.pa001.apuestas.model.betType.BetType;
 import es.udc.pa.pa001.apuestas.model.betType.BetTypeDao;
-import es.udc.pa.pa001.apuestas.model.betservice.util.*;
+import es.udc.pa.pa001.apuestas.model.betservice.util.AlreadyPastedDateException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateBetOptionAnswerException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateBetTypeQuestionException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateEventNameException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.MinimunBetOptionException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.NotAllOptionsExistsException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.OnlyOneWonOptionException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.OutdatedBetException;
 import es.udc.pa.pa001.apuestas.model.category.Category;
 import es.udc.pa.pa001.apuestas.model.category.CategoryDao;
 import es.udc.pa.pa001.apuestas.model.event.Event;
@@ -71,7 +78,7 @@ public class BetServiceImpl implements BetService {
       throw new DuplicateEventNameException();
     }
 
-    Category category = categoryDao.find(categoryId);
+    final Category category = categoryDao.find(categoryId);
     event.setCategory(category);
     eventDao.save(event);
     return event;
@@ -80,8 +87,8 @@ public class BetServiceImpl implements BetService {
   @Override
   @Transactional(readOnly = true)
   public final EventBlock findEvents(final String keyWords,
-      final Long categoryId, final int startIndex,
-      final int count, final boolean admin) {
+      final Long categoryId, final int startIndex, final int count,
+      final boolean admin) {
 
     List<Event> events = new ArrayList<>();
 
@@ -93,7 +100,7 @@ public class BetServiceImpl implements BetService {
           admin);
     }
 
-    boolean existMoreEvents = events.size() == (count + 1);
+    final boolean existMoreEvents = events.size() == (count + 1);
 
     if (existMoreEvents) {
       events.remove(events.size() - 1);
@@ -107,13 +114,13 @@ public class BetServiceImpl implements BetService {
       throws DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException {
 
-    List<BetOption> betOptions = betType.getBetOptions();
+    final List<BetOption> betOptions = betType.getBetOptions();
     if (betOptions == null || betOptions.size() < 2) {
       throw new MinimunBetOptionException();
     }
-    HashSet<String> answers = new HashSet<>();
+    final HashSet<String> answers = new HashSet<>();
 
-    for (BetOption b : betOptions) {
+    for (final BetOption b : betOptions) {
       if (answers.contains(b.getAnswer())) {
         throw new DuplicateBetOptionAnswerException();
       }
@@ -125,7 +132,7 @@ public class BetServiceImpl implements BetService {
     }
 
     betTypeDao.save(betType);
-    for (BetOption betOption : betOptions) {
+    for (final BetOption betOption : betOptions) {
       betOption.setBetType(betType);
       betOption.setBetState(null);
       betOptionDao.save(betOption);
@@ -138,15 +145,15 @@ public class BetServiceImpl implements BetService {
       final Float betedMoney)
       throws InstanceNotFoundException, OutdatedBetException {
 
-    BetOption betOption = betOptionDao.find(betOptionId);
+    final BetOption betOption = betOptionDao.find(betOptionId);
 
     if (betOption.getBetState() != null) {
       throw new OutdatedBetException();
     }
 
-    UserProfile userProfile = userProfileDao.find(userId);
-    Event event = betOption.getBetType().getEvent();
-    Bet bet = new Bet(betedMoney, userProfile, event, betOption);
+    final UserProfile userProfile = userProfileDao.find(userId);
+    final Event event = betOption.getBetType().getEvent();
+    final Bet bet = new Bet(betedMoney, userProfile, event, betOption);
     betDao.save(bet);
     return bet;
   }
@@ -156,9 +163,10 @@ public class BetServiceImpl implements BetService {
   public final BetBlock findBets(final Long userId, final int startIndex,
       final int count) {
 
-    List<Bet> betList = betDao.findBetsByUserId(userId, startIndex, count + 1);
+    final List<Bet> betList = betDao.findBetsByUserId(userId, startIndex,
+        count + 1);
 
-    boolean existMoreBets = betList.size() == (count + 1);
+    final boolean existMoreBets = betList.size() == (count + 1);
 
     if (existMoreBets) {
       betList.remove(betList.size() - 1);
@@ -177,10 +185,10 @@ public class BetServiceImpl implements BetService {
 
   @Transactional(readOnly = true)
   @Override
-  public final Event findEvent(final Long EventId)
+  public final Event findEvent(final Long eventId)
       throws InstanceNotFoundException {
 
-    return eventDao.find(EventId);
+    return eventDao.find(eventId);
   }
 
   @Transactional(readOnly = true)
@@ -196,29 +204,29 @@ public class BetServiceImpl implements BetService {
       throws InstanceNotFoundException, OnlyOneWonOptionException,
       NotAllOptionsExistsException {
 
-    BetType betType = findBetType(betTypeId);
+    final BetType betType = findBetType(betTypeId);
 
     if (!betType.getMultiple() && winners.size() > 1) {
       throw new OnlyOneWonOptionException();
     } else {
 
-      Set<Long> betOptions = new HashSet<Long>();
+      final Set<Long> betOptions = new HashSet<Long>();
 
-      for (BetOption betOption : betType.getBetOptions()) {
+      for (final BetOption betOption : betType.getBetOptions()) {
         betOptions.add(betOption.getBetOptionId());
       }
 
       if (betOptions.containsAll(winners)) {
 
-        for (Long betOptionId : winners) {
+        for (final Long betOptionId : winners) {
           findBetOption(betOptionId).setBetState(true);
         }
 
-        Set<Long> notWinners = new HashSet<Long>();
+        final Set<Long> notWinners = new HashSet<Long>();
         notWinners.addAll(betOptions);
         notWinners.removeAll(winners);
 
-        for (Long betOptionId : notWinners) {
+        for (final Long betOptionId : notWinners) {
           findBetOption(betOptionId).setBetState(false);
         }
 
@@ -247,8 +255,7 @@ public class BetServiceImpl implements BetService {
   @Transactional(readOnly = true)
   @Override
   public final int findEventsGetNumber(final String keyWords,
-      final Long categoryId,
-      final boolean admin) {
+      final Long categoryId, final boolean admin) {
     return eventDao.getNumberOfEvents(keyWords, categoryId, admin);
   }
 

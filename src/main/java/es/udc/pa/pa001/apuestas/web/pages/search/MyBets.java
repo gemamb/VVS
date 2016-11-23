@@ -86,8 +86,10 @@ public class MyBets {
    * @return the won
    */
   public final boolean getWon() {
-    return bet.getBetOption().getBetState() == null ? false
-        : bet.getBetOption().getBetState();
+    if (bet.getBetOption().getBetState() != null) {
+      return bet.getBetOption().getBetState();
+    }
+    return false;
   }
 
   /**
@@ -167,6 +169,6 @@ public class MyBets {
    * @return the object[]
    */
   final Object[] onPassivate() {
-    return new Object[] {startIndex};
+    return new Object[] { startIndex };
   }
 }

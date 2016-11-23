@@ -33,7 +33,7 @@ public class Event {
   private Long eventId;
 
   /** The name. */
-  private String name;
+  private String eventName;
 
   /** The event start. */
   private Calendar eventStart;
@@ -53,29 +53,30 @@ public class Event {
   /**
    * Instantiates a new event.
    *
-   * @param eventId
+   * @param eventID
    *          the event id
    * @param name
    *          the name
-   * @param eventStart
+   * @param eventStartDate
    *          the event start
-   * @param category
+   * @param cat
    *          the category
-   * @param betTypes
+   * @param types
    *          the bet types
    */
-  public Event(final Long eventId, final String name, final Calendar eventStart,
-      final Category category, final List<BetType> betTypes) {
+  public Event(final Long eventID, final String name,
+      final Calendar eventStartDate, final Category cat,
+      final List<BetType> types) {
     super();
-    this.eventId = eventId;
-    this.name = name;
-    this.eventStart = eventStart;
+    this.eventId = eventID;
+    this.eventName = name;
+    this.eventStart = eventStartDate;
     if (this.eventStart != null) {
       this.eventStart.set(Calendar.SECOND, 0);
       this.eventStart.set(Calendar.MILLISECOND, 0);
     }
-    this.category = category;
-    this.betTypes = betTypes;
+    this.category = cat;
+    this.betTypes = types;
   }
 
   /**
@@ -83,21 +84,21 @@ public class Event {
    *
    * @param name
    *          the name
-   * @param eventStart
+   * @param eventStartDate
    *          the event start
-   * @param category
+   * @param cat
    *          the category
    */
-  public Event(final String name, final Calendar eventStart,
-      final Category category) {
+  public Event(final String name, final Calendar eventStartDate,
+      final Category cat) {
     super();
-    this.name = name;
-    this.eventStart = eventStart;
+    this.eventName = name;
+    this.eventStart = eventStartDate;
     if (this.eventStart != null) {
       this.eventStart.set(Calendar.SECOND, 0);
       this.eventStart.set(Calendar.MILLISECOND, 0);
     }
-    this.category = category;
+    this.category = cat;
     this.betTypes = new LinkedList<BetType>();
   }
 
@@ -112,8 +113,7 @@ public class Event {
       sequenceName = "EventSeq")
   // generators.
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO,
-  generator = "EventIdGenerator")
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "EventIdGenerator")
   public final Long getEventId() {
     return eventId;
   }
@@ -121,11 +121,11 @@ public class Event {
   /**
    * Sets the event id.
    *
-   * @param eventId
+   * @param eventID
    *          the new event id
    */
-  public final void setEventId(final Long eventId) {
-    this.eventId = eventId;
+  public final void setEventId(final Long eventID) {
+    this.eventId = eventID;
   }
 
   /**
@@ -135,7 +135,7 @@ public class Event {
    */
   @Column(name = "name")
   public final String getName() {
-    return name;
+    return eventName;
   }
 
   /**
@@ -145,7 +145,7 @@ public class Event {
    *          the new name
    */
   public final void setName(final String name) {
-    this.name = name;
+    this.eventName = name;
   }
 
   /**
@@ -162,11 +162,11 @@ public class Event {
   /**
    * Sets the event start.
    *
-   * @param eventStart
+   * @param eventStartDate
    *          the new event start
    */
-  public final void setEventStart(final Calendar eventStart) {
-    this.eventStart = eventStart;
+  public final void setEventStart(final Calendar eventStartDate) {
+    this.eventStart = eventStartDate;
     if (this.eventStart != null) {
       this.eventStart.set(Calendar.SECOND, 0);
       this.eventStart.set(Calendar.MILLISECOND, 0);
@@ -187,11 +187,11 @@ public class Event {
   /**
    * Sets the category.
    *
-   * @param category
+   * @param cat
    *          the new category
    */
-  public final void setCategory(final Category category) {
-    this.category = category;
+  public final void setCategory(final Category cat) {
+    this.category = cat;
   }
 
   /**
@@ -207,11 +207,11 @@ public class Event {
   /**
    * Sets the bet types.
    *
-   * @param betTypes
+   * @param types
    *          the new bet types
    */
-  public final void setBetTypes(final List<BetType> betTypes) {
-    this.betTypes = betTypes;
+  public final void setBetTypes(final List<BetType> types) {
+    this.betTypes = types;
   }
 
   /**
@@ -228,11 +228,11 @@ public class Event {
   /**
    * Finished event.
    *
-   * @param eventId
+   * @param eventID
    *          the event id
    * @return true, if successful
    */
-  public final boolean finishedEvent(final Long eventId) {
+  public final boolean finishedEvent(final Long eventID) {
     return eventStart.getTime().before(Calendar.getInstance().getTime());
   }
 }

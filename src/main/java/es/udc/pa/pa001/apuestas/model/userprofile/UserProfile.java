@@ -14,22 +14,22 @@ import javax.persistence.SequenceGenerator;
 public class UserProfile {
 
   /** The user profile id. */
-  private Long userProfileId;
+  private Long userId;
 
   /** The login name. */
-  private String loginName;
+  private String login;
 
   /** The encrypted password. */
-  private String encryptedPassword;
+  private String encryptedPass;
 
   /** The first name. */
-  private String firstName;
+  private String firstname;
 
   /** The last name. */
-  private String lastName;
+  private String lastname;
 
   /** The email. */
-  private String email;
+  private String userEmail;
 
   /**
    * Instantiates a new user profile.
@@ -59,11 +59,11 @@ public class UserProfile {
      * automatically generated.
      */
 
-    this.loginName = loginName;
-    this.encryptedPassword = encryptedPassword;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
+    this.login = loginName;
+    this.encryptedPass = encryptedPassword;
+    this.firstname = firstName;
+    this.lastname = lastName;
+    this.userEmail = email;
   }
 
   /**
@@ -80,7 +80,7 @@ public class UserProfile {
   @GeneratedValue(strategy = GenerationType.AUTO,
   generator = "UserProfileIdGenerator")
   public final Long getUserProfileId() {
-    return userProfileId;
+    return userId;
   }
 
   /**
@@ -90,7 +90,7 @@ public class UserProfile {
    *          the new user profile id
    */
   public final void setUserProfileId(final Long userProfileId) {
-    this.userProfileId = userProfileId;
+    this.userId = userProfileId;
   }
 
   /**
@@ -99,7 +99,7 @@ public class UserProfile {
    * @return the login name
    */
   public final String getLoginName() {
-    return loginName;
+    return login;
   }
 
   /**
@@ -109,7 +109,7 @@ public class UserProfile {
    *          the new login name
    */
   public final void setLoginName(final String loginName) {
-    this.loginName = loginName;
+    this.login = loginName;
   }
 
   /**
@@ -119,7 +119,7 @@ public class UserProfile {
    */
   @Column(name = "enPassword")
   public final String getEncryptedPassword() {
-    return encryptedPassword;
+    return encryptedPass;
   }
 
   /**
@@ -129,7 +129,7 @@ public class UserProfile {
    *          the new encrypted password
    */
   public final void setEncryptedPassword(final String encryptedPassword) {
-    this.encryptedPassword = encryptedPassword;
+    this.encryptedPass = encryptedPassword;
   }
 
   /**
@@ -138,7 +138,7 @@ public class UserProfile {
    * @return the first name
    */
   public final String getFirstName() {
-    return firstName;
+    return firstname;
   }
 
   /**
@@ -148,7 +148,7 @@ public class UserProfile {
    *          the new first name
    */
   public final void setFirstName(final String firstName) {
-    this.firstName = firstName;
+    this.firstname = firstName;
   }
 
   /**
@@ -157,7 +157,7 @@ public class UserProfile {
    * @return the last name
    */
   public final String getLastName() {
-    return lastName;
+    return lastname;
   }
 
   /**
@@ -167,7 +167,7 @@ public class UserProfile {
    *          the new last name
    */
   public final void setLastName(final String lastName) {
-    this.lastName = lastName;
+    this.lastname = lastName;
   }
 
   /**
@@ -176,7 +176,7 @@ public class UserProfile {
    * @return the email
    */
   public final String getEmail() {
-    return email;
+    return userEmail;
   }
 
   /**
@@ -186,15 +186,15 @@ public class UserProfile {
    *          the new email
    */
   public final void setEmail(final String email) {
-    this.email = email;
+    this.userEmail = email;
   }
 
   @Override
   public final String toString() {
-    return "UserProfile [userProfileId=" + userProfileId + ", loginName="
-        + loginName + ", encryptedPassword=" + encryptedPassword
-        + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-        + email + "]";
+    return "UserProfile [userProfileId=" + userId + ", loginName="
+        + login + ", encryptedPassword=" + encryptedPass
+        + ", firstName=" + firstname + ", lastName=" + lastname + ", email="
+        + userEmail + "]";
   }
 
 }

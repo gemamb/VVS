@@ -175,7 +175,7 @@ public class EventDetails {
     try {
       this.event = betService.findEvent(eventId);
       this.betTypes = this.event.getBetTypes();
-    } catch (InstanceNotFoundException e) {
+    } catch (final InstanceNotFoundException e) {
     }
   }
 
