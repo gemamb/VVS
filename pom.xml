@@ -485,6 +485,24 @@
 					</includes>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.pitest</groupId>
+				<artifactId>pitest-maven</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<targetClasses>
+						<param>es.udc.pa.pa001.apuestas.model*</param>
+					</targetClasses>
+					<excludedClasses>
+						<param>es.udc.pa.pa001.apuestas.model.userservice*</param>
+<!-- 						<param>es.udc.pa.pa001.apuestas.web*</param> -->
+					</excludedClasses>
+					<targetTests>
+						<param>es.udc.pa.pa001.apuestas.test.model*</param>
+					</targetTests>
+				</configuration>
+			</plugin>
 		</plugins>
 
 	</build>
@@ -531,24 +549,6 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
 			</plugin>
-
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.pitest</groupId> -->
-<!-- 				<artifactId>pitest-maven</artifactId> -->
-<!-- 				<version>1.1.10</version> -->
-<!-- 				<configuration> -->
-<!-- 					<targetClasses> -->
-<!-- 						<param>es.udc.pa.pa001.apuestas.model*</param> -->
-<!-- 					</targetClasses> -->
-<!-- 					<excludedClasses> -->
-<!-- 						<param>es.udc.pa.pa001.apuestas.model.userservice*</param> -->
-<!-- 						<param>es.udc.pa.pa001.apuestas.web*</param> -->
-<!-- 					</excludedClasses> -->
-<!-- 					<targetTests> -->
-<!-- 						<param>es.udc.pa.pa001.apuestas.test.model*</param> -->
-<!-- 					</targetTests> -->
-<!-- 				</configuration> -->
-<!-- 			</plugin> -->
 		</plugins>
 	</reporting>
 </project>
