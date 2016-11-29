@@ -188,13 +188,4 @@ public class UserProfile {
   public final void setEmail(final String email) {
     this.userEmail = email;
   }
-
-  @Override
-  public final String toString() {
-    return "UserProfile [userProfileId=" + userId + ", loginName="
-        + login + ", encryptedPassword=" + encryptedPass
-        + ", firstName=" + firstname + ", lastName=" + lastname + ", email="
-        + userEmail + "]";
-  }
-
 }
