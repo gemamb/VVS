@@ -50,35 +50,7 @@ public class Event {
   public Event() {
   }
 
-  /**
-   * Instantiates a new event.
-   *
-   * @param eventID
-   *          the event id
-   * @param name
-   *          the name
-   * @param eventStartDate
-   *          the event start
-   * @param cat
-   *          the category
-   * @param types
-   *          the bet types
-   */
-  public Event(final Long eventID, final String name,
-      final Calendar eventStartDate, final Category cat,
-      final List<BetType> types) {
-    super();
-    this.eventId = eventID;
-    this.eventName = name;
-    this.eventStart = eventStartDate;
-    if (this.eventStart != null) {
-      this.eventStart.set(Calendar.SECOND, 0);
-      this.eventStart.set(Calendar.MILLISECOND, 0);
-    }
-    this.category = cat;
-    this.betTypes = types;
-  }
-
+ 
   /**
    * Instantiates a new event.
    *

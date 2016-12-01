@@ -45,31 +45,6 @@ public class BetOption {
   /**
    * Instantiates a new bet option.
    *
-   * @param betOptionId
-   *          the bet option id
-   * @param answer
-   *          the answer
-   * @param rate
-   *          the rate
-   * @param betState
-   *          the bet state
-   * @param betType
-   *          the bet type
-   */
-  public BetOption(final Long betOptionId, final String answer,
-      final Float rate,
-      final Boolean betState, final BetType betType) {
-    super();
-    this.betOptionId = betOptionId;
-    this.answer = answer;
-    this.rate = rate;
-    this.betState = null;
-    this.betType = betType;
-  }
-
-  /**
-   * Instantiates a new bet option.
-   *
    * @param answer
    *          the answer
    * @param rate

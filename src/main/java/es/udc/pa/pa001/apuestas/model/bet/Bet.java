@@ -53,33 +53,6 @@ public class Bet {
   /**
    * Instantiates a new bet.
    *
-   * @param betId
-   *          the bet id
-   * @param betedMoney
-   *          the beted money
-   * @param userProfile
-   *          the user profile
-   * @param event
-   *          the event
-   * @param betOption
-   *          the bet option
-   */
-  public Bet(final Long betId, final Float betedMoney,
-      final UserProfile userProfile, final Event event,
-      final BetOption betOption) {
-    super();
-    this.betId = betId;
-    this.betedMoney = betedMoney;
-    this.date = Calendar.getInstance();
-    this.date.set(Calendar.MILLISECOND, 0);
-    this.userProfile = userProfile;
-    this.event = event;
-    this.betOption = betOption;
-  }
-
-  /**
-   * Instantiates a new bet.
-   *
    * @param betedMoney
    *          the beted money
    * @param userProfile

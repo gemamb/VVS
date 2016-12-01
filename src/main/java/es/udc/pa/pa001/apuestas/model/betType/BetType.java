@@ -51,25 +51,6 @@ public class BetType {
   /**
    * Instantiates a new bet type.
    *
-   * @param betTypeId
-   *          the bet type id
-   * @param question
-   *          the question
-   * @param multiple
-   *          the multiple
-   */
-  public BetType(final Long betTypeId, final String question,
-      final Boolean multiple) {
-    super();
-    this.betTypeId = betTypeId;
-    this.question = question;
-    this.multiple = multiple;
-    this.betOptions = new LinkedList<BetOption>();
-  }
-
-  /**
-   * Instantiates a new bet type.
-   *
    * @param question
    *          the question
    * @param multiple
