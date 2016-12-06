@@ -27,6 +27,7 @@ public class Category {
    * Instantiates a new category.
    */
   public Category() {
+
   }
 
   /**
