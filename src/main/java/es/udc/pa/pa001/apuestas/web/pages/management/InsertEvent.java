@@ -21,7 +21,8 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import es.udc.pa.pa001.apuestas.model.betservice.BetService;
-import es.udc.pa.pa001.apuestas.model.betservice.util.*;
+import es.udc.pa.pa001.apuestas.model.betservice.util.AlreadyPastedDateException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateEventNameException;
 import es.udc.pa.pa001.apuestas.model.category.Category;
 import es.udc.pa.pa001.apuestas.model.event.Event;
 import es.udc.pa.pa001.apuestas.web.services.AuthenticationPolicy;

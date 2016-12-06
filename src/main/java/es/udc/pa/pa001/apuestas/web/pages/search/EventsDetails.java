@@ -184,7 +184,7 @@ public class EventsDetails {
    * @return the object[]
    */
   final Object[] onPassivate() {
-    return new Object[] { keyWords, category, startIndex };
+    return new Object[] {keyWords, category, startIndex };
   }
 
 }

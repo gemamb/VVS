@@ -50,7 +50,6 @@ public class Event {
   public Event() {
   }
 
- 
   /**
    * Instantiates a new event.
    *
