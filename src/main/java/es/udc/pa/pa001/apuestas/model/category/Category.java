@@ -13,7 +13,8 @@ import org.hibernate.annotations.BatchSize;
  * The Class Category.
  */
 @Entity
-@BatchSize(size = 10)
+@BatchSize(
+    size = 10)
 public class Category {
 
   /** The category id. */
@@ -43,13 +44,16 @@ public class Category {
    *
    * @return the category id
    */
-  @Column(name = "categoryId")
+  @Column(
+      name = "categoryId")
   @SequenceGenerator(// It only takes effect for
       name = "CategoryIdGenerator", // databases providing identifier
       sequenceName = "CategorySeq")
   // generators.
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO, generator = "CategoryIdGenerator")
+  @GeneratedValue(
+      strategy = GenerationType.AUTO,
+      generator = "CategoryIdGenerator")
   public final Long getCategoryId() {
     return categoryID;
   }
@@ -69,7 +73,8 @@ public class Category {
    *
    * @return the name
    */
-  @Column(name = "name")
+  @Column(
+      name = "name")
   public final String getName() {
     return categoryName;
   }

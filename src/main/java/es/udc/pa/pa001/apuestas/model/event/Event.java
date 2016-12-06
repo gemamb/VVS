@@ -26,7 +26,8 @@ import es.udc.pa.pa001.apuestas.model.category.Category;
  * The Class Event.
  */
 @Entity
-@BatchSize(size = 10)
+@BatchSize(
+    size = 10)
 public class Event {
 
   /** The event id. */
@@ -78,13 +79,16 @@ public class Event {
    *
    * @return the event id
    */
-  @Column(name = "eventId")
+  @Column(
+      name = "eventId")
   @SequenceGenerator(// It only takes effect for
       name = "EventIdGenerator", // databases providing identifier
       sequenceName = "EventSeq")
   // generators.
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO, generator = "EventIdGenerator")
+  @GeneratedValue(
+      strategy = GenerationType.AUTO,
+      generator = "EventIdGenerator")
   public final Long getEventId() {
     return eventId;
   }
@@ -104,7 +108,8 @@ public class Event {
    *
    * @return the name
    */
-  @Column(name = "name")
+  @Column(
+      name = "name")
   public final String getName() {
     return eventName;
   }
@@ -125,7 +130,8 @@ public class Event {
    * @return the event start
    */
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "eventStart")
+  @Column(
+      name = "eventStart")
   public final Calendar getEventStart() {
     return eventStart;
   }
@@ -149,8 +155,10 @@ public class Event {
    *
    * @return the category
    */
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "categoryId")
+  @ManyToOne(
+      fetch = FetchType.LAZY)
+  @JoinColumn(
+      name = "categoryId")
   public final Category getCategory() {
     return category;
   }
@@ -170,7 +178,8 @@ public class Event {
    *
    * @return the bet types
    */
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
+  @OneToMany(
+      fetch = FetchType.LAZY, mappedBy = "event")
   public final List<BetType> getBetTypes() {
     return betTypes;
   }

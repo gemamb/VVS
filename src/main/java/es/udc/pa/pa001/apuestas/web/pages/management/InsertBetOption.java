@@ -93,11 +93,13 @@ public class InsertBetOption {
   private InsertBetOption insertBetOption;
 
   /** The balance text field. */
-  @Component(id = "rate")
+  @Component(
+      id = "rate")
   private TextField balanceTextField;
 
   /** The answer text field. */
-  @Component(id = "answer")
+  @Component(
+      id = "answer")
   private TextField answerTextField;
 
   /** The inserted bet type. */
@@ -110,7 +112,7 @@ public class InsertBetOption {
 
   /** The encoder. */
   @Property
-  private final ValueEncoder<BetOption> encoder = new ValueEncoder<BetOption>() {
+  private final ValueEncoder<BetOption> encod = new ValueEncoder<BetOption>() {
 
     @Override
     public String toClient(final BetOption value) {
@@ -235,7 +237,7 @@ public class InsertBetOption {
    * @return the object[]
    */
   final Object[] onPassivate() {
-    return new Object[] {eventId, multiple, question };
+    return new Object[] { eventId, multiple, question };
   }
 
   /**
@@ -261,7 +263,8 @@ public class InsertBetOption {
   /**
    * On validate from bet option form.
    */
-  @OnEvent(value = "validate", component = "betOptionForm")
+  @OnEvent(
+      value = "validate", component = "betOptionForm")
   final void onValidateFromBetOptionForm() {
 
     if (!betOptionForm.isValid()) {
@@ -272,16 +275,16 @@ public class InsertBetOption {
     final ParsePosition position = new ParsePosition(0);
     final Number number = numberFormatter.parse(rate, position);
     if (position.getIndex() != rate.length()) {
-      betOptionForm.recordError(balanceTextField,
-          messages.format("error-incorrectNumberFormat", rate));
+      betOptionForm.recordError(balanceTextField, messages.format(
+          "error-incorrectNumberFormat", rate));
     } else {
       rateAsFloat = number.floatValue();
     }
 
     for (final BetOption b : savedBetOptions) {
       if (b.getAnswer().equals(answer)) {
-        betOptionForm.recordError(answerTextField,
-            messages.format("error-duplicateAnswer", answer));
+        betOptionForm.recordError(answerTextField, messages.format(
+            "error-duplicateAnswer", answer));
         return;
       }
     }
@@ -311,7 +314,8 @@ public class InsertBetOption {
   /**
    * On validate from bet type form.
    */
-  @OnEvent(value = "validate", component = "betTypeForm")
+  @OnEvent(
+      value = "validate", component = "betTypeForm")
   final void onValidateFromBetTypeForm() {
 
     Event event;

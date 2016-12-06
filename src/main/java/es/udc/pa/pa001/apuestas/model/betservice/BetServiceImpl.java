@@ -69,6 +69,7 @@ public class BetServiceImpl implements BetService {
   public final Event insertEvent(final Event event, final Long categoryId)
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException {
+
     if (event.getEventStart().getTime()
         .before(Calendar.getInstance().getTime())) {
       throw new AlreadyPastedDateException();
@@ -85,7 +86,8 @@ public class BetServiceImpl implements BetService {
   }
 
   @Override
-  @Transactional(readOnly = true)
+  @Transactional(
+      readOnly = true)
   public final EventBlock findEvents(final String keyWords,
       final Long categoryId, final int startIndex, final int count,
       final boolean admin) {
@@ -158,7 +160,8 @@ public class BetServiceImpl implements BetService {
     return bet;
   }
 
-  @Transactional(readOnly = true)
+  @Transactional(
+      readOnly = true)
   @Override
   public final BetBlock findBets(final Long userId, final int startIndex,
       final int count) {
@@ -175,7 +178,8 @@ public class BetServiceImpl implements BetService {
     return new BetBlock(betList, existMoreBets);
   }
 
-  @Transactional(readOnly = true)
+  @Transactional(
+      readOnly = true)
   @Override
   public final BetType findBetType(final Long betTypeId)
       throws InstanceNotFoundException {
@@ -183,7 +187,8 @@ public class BetServiceImpl implements BetService {
     return betTypeDao.find(betTypeId);
   }
 
-  @Transactional(readOnly = true)
+  @Transactional(
+      readOnly = true)
   @Override
   public final Event findEvent(final Long eventId)
       throws InstanceNotFoundException {
@@ -191,7 +196,8 @@ public class BetServiceImpl implements BetService {
     return eventDao.find(eventId);
   }
 
-  @Transactional(readOnly = true)
+  @Transactional(
+      readOnly = true)
   @Override
   public final BetOption findBetOption(final Long betOptionId)
       throws InstanceNotFoundException {
@@ -239,20 +245,23 @@ public class BetServiceImpl implements BetService {
 
   }
 
-  @Transactional(readOnly = true)
+  @Transactional(
+      readOnly = true)
   @Override
   public final Category findCategory(final Long categoryId)
       throws InstanceNotFoundException {
     return categoryDao.find(categoryId);
   }
 
-  @Transactional(readOnly = true)
+  @Transactional(
+      readOnly = true)
   @Override
   public final List<Category> findCategories() {
     return categoryDao.findCategories();
   }
 
-  @Transactional(readOnly = true)
+  @Transactional(
+      readOnly = true)
   @Override
   public final int findEventsGetNumber(final String keyWords,
       final Long categoryId, final boolean admin) {
@@ -265,7 +274,8 @@ public class BetServiceImpl implements BetService {
     return betTypeDao.findDuplicates(eventId, fullName);
   }
 
-  @Transactional(readOnly = true)
+  @Transactional(
+      readOnly = true)
   @Override
   public final int findBetsByUserIdNumber(final Long userId) {
     return betDao.findBetsByUserIdNumber(userId);
