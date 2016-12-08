@@ -25,6 +25,7 @@ import es.udc.pa.pa001.apuestas.model.betservice.util.MinimunBetOptionException;
 import es.udc.pa.pa001.apuestas.model.betservice.util.NotAllOptionsExistsException;
 import es.udc.pa.pa001.apuestas.model.betservice.util.OnlyOneWonOptionException;
 import es.udc.pa.pa001.apuestas.model.betservice.util.OutdatedBetException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.WrongQuantityException;
 import es.udc.pa.pa001.apuestas.model.category.Category;
 import es.udc.pa.pa001.apuestas.model.category.CategoryDao;
 import es.udc.pa.pa001.apuestas.model.event.Event;
@@ -145,8 +146,12 @@ public class BetServiceImpl implements BetService {
   @Override
   public final Bet makeBet(final Long userId, final Long betOptionId,
       final Float betedMoney)
-      throws InstanceNotFoundException, OutdatedBetException {
+      throws InstanceNotFoundException, OutdatedBetException,
+      WrongQuantityException {
 
+    if (betedMoney <= 0) {
+      throw new WrongQuantityException();
+    }
     final BetOption betOption = betOptionDao.find(betOptionId);
 
     if (betOption.getBetState() != null) {

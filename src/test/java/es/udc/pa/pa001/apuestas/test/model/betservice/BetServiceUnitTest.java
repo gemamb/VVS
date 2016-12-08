@@ -33,6 +33,7 @@ import es.udc.pa.pa001.apuestas.model.betservice.util.MinimunBetOptionException;
 import es.udc.pa.pa001.apuestas.model.betservice.util.NotAllOptionsExistsException;
 import es.udc.pa.pa001.apuestas.model.betservice.util.OnlyOneWonOptionException;
 import es.udc.pa.pa001.apuestas.model.betservice.util.OutdatedBetException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.WrongQuantityException;
 import es.udc.pa.pa001.apuestas.model.category.Category;
 import es.udc.pa.pa001.apuestas.model.category.CategoryDao;
 import es.udc.pa.pa001.apuestas.model.event.Event;
@@ -50,7 +51,7 @@ public class BetServiceUnitTest {
 
   /** The bet service. */
   @InjectMocks
-  private BetServiceImpl betService = new BetServiceImpl();
+  private final BetServiceImpl betService = new BetServiceImpl();
 
   /** The event dao mock. */
   @Mock
@@ -218,7 +219,7 @@ public class BetServiceUnitTest {
 
     when(eventDaoMock.getNumberOfEvents(null, null, true)).thenReturn(0);
 
-    int events = betService.findEventsGetNumber(null, null, true);
+    final int events = betService.findEventsGetNumber(null, null, true);
 
     assertEquals(events, 0);
   }
@@ -232,7 +233,7 @@ public class BetServiceUnitTest {
 
     when(eventDaoMock.getNumberOfEvents("deportivo", null, true)).thenReturn(3);
 
-    int events = betService.findEventsGetNumber("deportivo", null, true);
+    final int events = betService.findEventsGetNumber("deportivo", null, true);
 
     assertEquals(events, 3);
   }
@@ -248,12 +249,12 @@ public class BetServiceUnitTest {
     initializeCategories();
     initializeEvents();
 
-    List<Event> listEvents = new ArrayList<>();
+    final List<Event> listEvents = new ArrayList<>();
 
     when(eventDaoMock.findEvents(null, null, 0, 2, true))
         .thenReturn(listEvents);
 
-    EventBlock eventBlock = betService.findEvents(null, null, 0, 1, true);
+    final EventBlock eventBlock = betService.findEvents(null, null, 0, 1, true);
 
     assertEquals(eventBlock.getEvents(), listEvents);
     assertEquals(eventBlock.getExistMoreEvents(), false);
@@ -270,13 +271,13 @@ public class BetServiceUnitTest {
     initializeCategories();
     initializeEvent();
 
-    List<Event> listEvents = new ArrayList<>();
+    final List<Event> listEvents = new ArrayList<>();
     listEvents.add(eventDemo);
 
     when(eventDaoMock.findEvents(null, null, 0, 2, true))
         .thenReturn(listEvents);
 
-    EventBlock eventBlock = betService.findEvents(null, null, 0, 1, true);
+    final EventBlock eventBlock = betService.findEvents(null, null, 0, 1, true);
 
     assertEquals(eventBlock.getEvents(), listEvents);
     assertEquals(eventBlock.getExistMoreEvents(), false);
@@ -293,14 +294,14 @@ public class BetServiceUnitTest {
     initializeCategories();
     initializeEvents();
 
-    List<Event> listEvents = new ArrayList<>();
+    final List<Event> listEvents = new ArrayList<>();
     listEvents.add(event1);
     listEvents.add(event2);
 
     when(eventDaoMock.findEvents(null, null, 0, 2, true))
         .thenReturn(listEvents);
 
-    EventBlock eventBlock = betService.findEvents(null, null, 0, 1, true);
+    final EventBlock eventBlock = betService.findEvents(null, null, 0, 1, true);
 
     assertEquals(eventBlock.getEvents(), listEvents);
     assertEquals(eventBlock.getExistMoreEvents(), true);
@@ -317,14 +318,14 @@ public class BetServiceUnitTest {
     initializeCategories();
     initializeEvents();
 
-    List<Event> listEvents = new ArrayList<>();
+    final List<Event> listEvents = new ArrayList<>();
     listEvents.add(event1);
     listEvents.add(event2);
 
     when(eventDaoMock.findEvents(null, null, 1, 3, true))
         .thenReturn(listEvents);
 
-    EventBlock eventBlock = betService.findEvents(null, null, 1, 2, true);
+    final EventBlock eventBlock = betService.findEvents(null, null, 1, 2, true);
 
     assertEquals(eventBlock.getEvents(), listEvents);
     assertEquals(eventBlock.getExistMoreEvents(), false);
@@ -341,7 +342,7 @@ public class BetServiceUnitTest {
     initializeCategories();
     initializeEvents();
 
-    List<Event> listEvents = new ArrayList<>();
+    final List<Event> listEvents = new ArrayList<>();
     listEvents.add(event1);
     listEvents.add(event2);
     listEvents.add(event3);
@@ -349,7 +350,7 @@ public class BetServiceUnitTest {
     when(eventDaoMock.findEvents(null, null, 1, 3, true))
         .thenReturn(listEvents);
 
-    EventBlock eventBlock = betService.findEvents(null, null, 1, 2, true);
+    final EventBlock eventBlock = betService.findEvents(null, null, 1, 2, true);
 
     assertEquals(eventBlock.getEvents(), listEvents);
     assertEquals(eventBlock.getExistMoreEvents(), true);
@@ -363,12 +364,13 @@ public class BetServiceUnitTest {
   public final void testFindEmptyFalseBets() {
 
     initializeUser();
-    List<Bet> bets = new ArrayList<Bet>();
+    final List<Bet> bets = new ArrayList<Bet>();
 
     when(betDaoMock.findBetsByUserId(userProfileDemo.getUserProfileId(), 0, 2))
         .thenReturn(bets);
 
-    BetBlock betBlock = betService.findBets(userProfileDemo.getUserProfileId(),
+    final BetBlock betBlock = betService.findBets(userProfileDemo
+        .getUserProfileId(),
         0, 1);
 
     assertTrue(betBlock.getBets().isEmpty());
@@ -385,13 +387,14 @@ public class BetServiceUnitTest {
     initializeUser();
     initializeBets();
 
-    List<Bet> bets = new ArrayList<Bet>();
+    final List<Bet> bets = new ArrayList<Bet>();
     bets.add(betDemo1);
 
     when(betDaoMock.findBetsByUserId(userProfileDemo.getUserProfileId(), 0, 2))
         .thenReturn(bets);
 
-    BetBlock betBlock = betService.findBets(userProfileDemo.getUserProfileId(),
+    final BetBlock betBlock = betService.findBets(userProfileDemo
+        .getUserProfileId(),
         0, 1);
 
     assertEquals(betBlock.getBets(), bets);
@@ -408,14 +411,15 @@ public class BetServiceUnitTest {
     initializeUser();
     initializeBets();
 
-    List<Bet> bets = new ArrayList<Bet>();
+    final List<Bet> bets = new ArrayList<Bet>();
     bets.add(betDemo1);
     bets.add(betDemo2);
 
     when(betDaoMock.findBetsByUserId(userProfileDemo.getUserProfileId(), 0, 2))
         .thenReturn(bets);
 
-    BetBlock betBlock = betService.findBets(userProfileDemo.getUserProfileId(),
+    final BetBlock betBlock = betService.findBets(userProfileDemo
+        .getUserProfileId(),
         0, 1);
 
     assertEquals(betBlock.getBets(), bets);
@@ -432,14 +436,15 @@ public class BetServiceUnitTest {
     initializeUser();
     initializeBets();
 
-    List<Bet> bets = new ArrayList<Bet>();
+    final List<Bet> bets = new ArrayList<Bet>();
     bets.add(betDemo1);
     bets.add(betDemo2);
 
     when(betDaoMock.findBetsByUserId(userProfileDemo.getUserProfileId(), 1, 3))
         .thenReturn(bets);
 
-    BetBlock betBlock = betService.findBets(userProfileDemo.getUserProfileId(),
+    final BetBlock betBlock = betService.findBets(userProfileDemo
+        .getUserProfileId(),
         1, 2);
 
     assertEquals(betBlock.getBets(), bets);
@@ -456,7 +461,7 @@ public class BetServiceUnitTest {
     initializeUser();
     initializeBets();
 
-    List<Bet> bets = new ArrayList<Bet>();
+    final List<Bet> bets = new ArrayList<Bet>();
     bets.add(betDemo1);
     bets.add(betDemo2);
     bets.add(betDemo3);
@@ -464,7 +469,8 @@ public class BetServiceUnitTest {
     when(betDaoMock.findBetsByUserId(userProfileDemo.getUserProfileId(), 1, 3))
         .thenReturn(bets);
 
-    BetBlock betBlock = betService.findBets(userProfileDemo.getUserProfileId(),
+    final BetBlock betBlock = betService.findBets(userProfileDemo
+        .getUserProfileId(),
         1, 2);
 
     assertEquals(betBlock.getBets(), bets);
@@ -478,11 +484,13 @@ public class BetServiceUnitTest {
    *           the instance not found exception
    * @throws OutdatedBetException
    *           the outdated bet exception
+   * @throws WrongQuantityException
    */
 
   @Test
   public final void testMakeBet()
-      throws InstanceNotFoundException, OutdatedBetException {
+      throws InstanceNotFoundException, OutdatedBetException,
+      WrongQuantityException {
 
     initializeDate();
     initializeCategories();
@@ -495,7 +503,7 @@ public class BetServiceUnitTest {
     when(userProfileDaoMock.find(2L)).thenReturn(userProfileDemo);
     when(betOptionDaoMock.find(1L)).thenReturn(betOptionDemo);
 
-    Bet betDemo = betService.makeBet(2L, 1L, (float) 2);
+    final Bet betDemo = betService.makeBet(2L, 1L, (float) 2);
 
     when(betDaoMock.find(1L)).thenReturn(betDemo);
 
@@ -509,12 +517,15 @@ public class BetServiceUnitTest {
    *           the instance not found exception
    * @throws OutdatedBetException
    *           the outdated bet exception
+   * @throws WrongQuantityException
    */
 
   @SuppressWarnings("unchecked")
-  @Test(expected = InstanceNotFoundException.class)
+  @Test(
+      expected = InstanceNotFoundException.class)
   public final void testMakeBetWrongUser()
-      throws InstanceNotFoundException, OutdatedBetException {
+      throws InstanceNotFoundException, OutdatedBetException,
+      WrongQuantityException {
 
     initializeDate();
     initializeCategories();
@@ -537,12 +548,15 @@ public class BetServiceUnitTest {
    *           the instance not found exception
    * @throws OutdatedBetException
    *           the outdated bet exception
+   * @throws WrongQuantityException
    */
 
   @SuppressWarnings("unchecked")
-  @Test(expected = InstanceNotFoundException.class)
+  @Test(
+      expected = InstanceNotFoundException.class)
   public final void testMakeBetWrongBetOption()
-      throws InstanceNotFoundException, OutdatedBetException {
+      throws InstanceNotFoundException, OutdatedBetException,
+      WrongQuantityException {
 
     initializeDate();
     initializeCategories();
@@ -564,11 +578,14 @@ public class BetServiceUnitTest {
    *           the instance not found exception
    * @throws OutdatedBetException
    *           the outdated bet exception
+   * @throws WrongQuantityException
    */
 
-  @Test(expected = OutdatedBetException.class)
+  @Test(
+      expected = OutdatedBetException.class)
   public final void testOutDatedTrueMakeBet()
-      throws InstanceNotFoundException, OutdatedBetException {
+      throws InstanceNotFoundException, OutdatedBetException,
+      WrongQuantityException {
 
     initializeDate();
     initializeCategories();
@@ -584,7 +601,7 @@ public class BetServiceUnitTest {
     when(userProfileDaoMock.find(2L)).thenReturn(userProfileDemo);
     when(betOptionDaoMock.find(1L)).thenReturn(betOptionDemo);
 
-    Bet betDemo = betService.makeBet(2L, 1L, (float) 2);
+    final Bet betDemo = betService.makeBet(2L, 1L, (float) 2);
 
     when(betDaoMock.find(1L)).thenReturn(betDemo);
 
@@ -598,11 +615,14 @@ public class BetServiceUnitTest {
    *           the instance not found exception
    * @throws OutdatedBetException
    *           the outdated bet exception
+   * @throws WrongQuantityException
    */
 
-  @Test(expected = OutdatedBetException.class)
+  @Test(
+      expected = OutdatedBetException.class)
   public final void testOutDatedFalseMakeBet()
-      throws InstanceNotFoundException, OutdatedBetException {
+      throws InstanceNotFoundException, OutdatedBetException,
+      WrongQuantityException {
 
     initializeDate();
     initializeCategories();
@@ -617,7 +637,7 @@ public class BetServiceUnitTest {
     when(userProfileDaoMock.find(2L)).thenReturn(userProfileDemo);
     when(betOptionDaoMock.find(1L)).thenReturn(betOptionDemo);
 
-    Bet betDemo = betService.makeBet(2L, 1L, (float) 2);
+    final Bet betDemo = betService.makeBet(2L, 1L, (float) 2);
 
     when(betDaoMock.find(1L)).thenReturn(betDemo);
 
@@ -631,11 +651,14 @@ public class BetServiceUnitTest {
    *           the instance not found exception
    * @throws OutdatedBetException
    *           the outdated bet exception
+   * @throws WrongQuantityException
    */
 
-  @Test
+  @Test(
+      expected = WrongQuantityException.class)
   public final void testMakeBetWrongMoney()
-      throws InstanceNotFoundException, OutdatedBetException {
+      throws InstanceNotFoundException, OutdatedBetException,
+      WrongQuantityException {
 
     initializeDate();
     initializeCategories();
@@ -648,7 +671,7 @@ public class BetServiceUnitTest {
     when(userProfileDaoMock.find(2L)).thenReturn(userProfileDemo);
     when(betOptionDaoMock.find(1L)).thenReturn(betOptionDemo);
 
-    Bet betDemo = betService.makeBet(2L, 1L, (float) -2);
+    final Bet betDemo = betService.makeBet(2L, 1L, (float) -2);
 
     when(betDaoMock.find(1L)).thenReturn(betDemo);
 
@@ -694,7 +717,8 @@ public class BetServiceUnitTest {
    *           the duplicate event name exception
    */
 
-  @Test(expected = AlreadyPastedDateException.class)
+  @Test(
+      expected = AlreadyPastedDateException.class)
   public final void testInsertPastedEvent() throws InstanceNotFoundException,
       AlreadyPastedDateException, DuplicateEventNameException {
 
@@ -722,7 +746,8 @@ public class BetServiceUnitTest {
    *           the duplicate event name exception
    */
 
-  @Test(expected = DuplicateEventNameException.class)
+  @Test(
+      expected = DuplicateEventNameException.class)
   public final void testInsertDuplicateEvent() throws InstanceNotFoundException,
       AlreadyPastedDateException, DuplicateEventNameException {
 
@@ -748,7 +773,8 @@ public class BetServiceUnitTest {
    */
 
   @SuppressWarnings("unchecked")
-  @Test(expected = InstanceNotFoundException.class)
+  @Test(
+      expected = InstanceNotFoundException.class)
   public final void testInsertEventWrongCategory()
       throws InstanceNotFoundException,
       AlreadyPastedDateException, DuplicateEventNameException {
@@ -796,7 +822,7 @@ public class BetServiceUnitTest {
 
     eventDemo.addBetType(betTypeDemo);
 
-    List<BetOption> betOptions = new ArrayList<>();
+    final List<BetOption> betOptions = new ArrayList<>();
     betOptions.add(betOptionDemo1);
     betOptions.add(betOptionDemo2);
 
@@ -826,7 +852,8 @@ public class BetServiceUnitTest {
    *           the minimun bet option exception
    */
 
-  @Test(expected = MinimunBetOptionException.class)
+  @Test(
+      expected = MinimunBetOptionException.class)
   public final void testInsertBetTypeWithoutOptions()
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
@@ -863,7 +890,8 @@ public class BetServiceUnitTest {
    *           the minimun bet option exception
    */
 
-  @Test(expected = MinimunBetOptionException.class)
+  @Test(
+      expected = MinimunBetOptionException.class)
   public final void testInsertBetTypeWithNullOptions()
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
@@ -880,7 +908,7 @@ public class BetServiceUnitTest {
 
     eventDemo.addBetType(betTypeDemo);
 
-    List<BetOption> betOptions = null;
+    final List<BetOption> betOptions = null;
     betTypeDemo.setBetOptions(betOptions);
 
     betService.insertBetType(betTypeDemo);
@@ -903,7 +931,8 @@ public class BetServiceUnitTest {
    *           the minimun bet option exception
    */
 
-  @Test(expected = MinimunBetOptionException.class)
+  @Test(
+      expected = MinimunBetOptionException.class)
   public final void testInsertBetTypeWithOneOption()
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
@@ -923,7 +952,7 @@ public class BetServiceUnitTest {
     betOptionDemo = new BetOption("Real Madrid CF", (float) 1.75, null,
         betTypeDemo);
 
-    List<BetOption> betOptions = new ArrayList<>();
+    final List<BetOption> betOptions = new ArrayList<>();
     betOptions.add(betOptionDemo1);
     betTypeDemo.setBetOptions(betOptions);
 
@@ -947,7 +976,8 @@ public class BetServiceUnitTest {
    *           the minimun bet option exception
    */
 
-  @Test(expected = DuplicateBetOptionAnswerException.class)
+  @Test(
+      expected = DuplicateBetOptionAnswerException.class)
   public final void testInsertBetTypeDuplicateAnswer()
       throws AlreadyPastedDateException, InstanceNotFoundException,
       DuplicateEventNameException, DuplicateBetTypeQuestionException,
@@ -971,7 +1001,7 @@ public class BetServiceUnitTest {
     betOptionDemo2 = new BetOption("Real Madrid CF", (float) 1.5, null,
         betTypeDemo);
 
-    List<BetOption> betOptions = new ArrayList<>();
+    final List<BetOption> betOptions = new ArrayList<>();
     betOptions.add(betOptionDemo1);
     betOptions.add(betOptionDemo2);
 
@@ -994,7 +1024,7 @@ public class BetServiceUnitTest {
 
     when(eventDaoMock.find(eventDemo.getEventId())).thenReturn(eventDemo);
 
-    Event foundEvent = betService.findEvent(eventDemo.getEventId());
+    final Event foundEvent = betService.findEvent(eventDemo.getEventId());
 
     assertEquals(eventDemo, foundEvent);
   }
@@ -1007,11 +1037,12 @@ public class BetServiceUnitTest {
    */
 
   @SuppressWarnings("unchecked")
-  @Test(expected = InstanceNotFoundException.class)
+  @Test(
+      expected = InstanceNotFoundException.class)
   public final void testFindNotExistentEvent()
       throws InstanceNotFoundException {
 
-    Long nonExistentEventId = 0L;
+    final Long nonExistentEventId = 0L;
 
     when(eventDaoMock.find(nonExistentEventId))
         .thenThrow(InstanceNotFoundException.class);
@@ -1036,7 +1067,7 @@ public class BetServiceUnitTest {
 
     when(betTypeDaoMock.find(-1L)).thenReturn(betTypeDemo);
 
-    BetType betTypeFound = betService.findBetType(1L);
+    final BetType betTypeFound = betService.findBetType(1L);
 
     assertEquals(betTypeFound, betService.findBetType(1L));
   }
@@ -1049,7 +1080,8 @@ public class BetServiceUnitTest {
    */
 
   @SuppressWarnings("unchecked")
-  @Test(expected = InstanceNotFoundException.class)
+  @Test(
+      expected = InstanceNotFoundException.class)
   public final void testFindNotExistentBetType()
       throws InstanceNotFoundException {
 
@@ -1078,7 +1110,7 @@ public class BetServiceUnitTest {
 
     when(betOptionDaoMock.find(1L)).thenReturn(betOptionDemo);
 
-    BetOption betOptionFound = betService.findBetOption(1L);
+    final BetOption betOptionFound = betService.findBetOption(1L);
 
     assertEquals(betOptionFound, betService.findBetOption(1L));
   }
@@ -1091,7 +1123,8 @@ public class BetServiceUnitTest {
    */
 
   @SuppressWarnings("unchecked")
-  @Test(expected = InstanceNotFoundException.class)
+  @Test(
+      expected = InstanceNotFoundException.class)
   public final void testFindNotExistentBetOption()
       throws InstanceNotFoundException {
 
@@ -1119,7 +1152,7 @@ public class BetServiceUnitTest {
     initializeSimpleBetType();
     initializeCheckBetOptions();
 
-    Set<Long> winners = new HashSet<Long>();
+    final Set<Long> winners = new HashSet<Long>();
     winners.add(betOptionDemo.getBetOptionId());
 
     when(betTypeDaoMock.find(betTypeDemo.getBetTypeId()))
@@ -1154,7 +1187,7 @@ public class BetServiceUnitTest {
     initializeMultipleBetType();
     initializeCheckBetOptions();
 
-    Set<Long> winners = new HashSet<Long>();
+    final Set<Long> winners = new HashSet<Long>();
     winners.add(betOptionDemo.getBetOptionId());
     winners.add(betOptionDemo1.getBetOptionId());
 
@@ -1182,15 +1215,16 @@ public class BetServiceUnitTest {
    *           the only one won option exception
    */
 
-  @Test(expected = NotAllOptionsExistsException.class)
+  @Test(
+      expected = NotAllOptionsExistsException.class)
   public final void testCheckInvalidOptions()
       throws NotAllOptionsExistsException,
       InstanceNotFoundException, OnlyOneWonOptionException {
     initializeMultipleBetType();
     initializeCheckBetOptions();
 
-    Long nonExistentOptionId = 0L;
-    Set<Long> winners = new HashSet<Long>();
+    final Long nonExistentOptionId = 0L;
+    final Set<Long> winners = new HashSet<Long>();
     winners.add(betOptionDemo.getBetOptionId());
     winners.add(nonExistentOptionId);
 
@@ -1218,7 +1252,8 @@ public class BetServiceUnitTest {
    *           the not all options exists exception
    */
 
-  @Test(expected = OnlyOneWonOptionException.class)
+  @Test(
+      expected = OnlyOneWonOptionException.class)
   public final void testCheckMultipleOptionsSimpleBetType()
       throws OnlyOneWonOptionException, InstanceNotFoundException,
       NotAllOptionsExistsException {
@@ -1226,7 +1261,7 @@ public class BetServiceUnitTest {
     initializeSimpleBetType();
     initializeCheckBetOptions();
 
-    Set<Long> winners = new HashSet<Long>();
+    final Set<Long> winners = new HashSet<Long>();
     winners.add(betOptionDemo.getBetOptionId());
     winners.add(betOptionDemo1.getBetOptionId());
 
@@ -1254,14 +1289,15 @@ public class BetServiceUnitTest {
    *           the not all options exists exception
    */
 
-  @Test(expected = InstanceNotFoundException.class)
+  @Test(
+      expected = InstanceNotFoundException.class)
   public final void testCheckNonExistentBetTypeOption()
       throws InstanceNotFoundException, OnlyOneWonOptionException,
       NotAllOptionsExistsException {
 
-    Long nonExistentBetTypeId = 0L;
+    final Long nonExistentBetTypeId = 0L;
 
-    Set<Long> winners = new HashSet<Long>();
+    final Set<Long> winners = new HashSet<Long>();
 
     when(betTypeDaoMock.find(nonExistentBetTypeId))
         .thenThrow(InstanceNotFoundException.class);
@@ -1278,12 +1314,12 @@ public class BetServiceUnitTest {
   public final void testFindCategories() {
 
     initializeCategories();
-    List<Category> listcategories = new ArrayList<>();
+    final List<Category> listcategories = new ArrayList<>();
     listcategories.add(categoryDemo);
     listcategories.add(categoryDemo1);
     when(categoryDaoMock.findCategories()).thenReturn(listcategories);
 
-    List<Category> listFindCategories = betService.findCategories();
+    final List<Category> listFindCategories = betService.findCategories();
 
     assertEquals(listFindCategories, listcategories);
   }
@@ -1296,10 +1332,10 @@ public class BetServiceUnitTest {
   public final void testNotFindCategories() {
 
     initializeCategories();
-    List<Category> listcategories = new ArrayList<>();
+    final List<Category> listcategories = new ArrayList<>();
     when(categoryDaoMock.findCategories()).thenReturn(listcategories);
 
-    List<Category> listFindCategories = betService.findCategories();
+    final List<Category> listFindCategories = betService.findCategories();
 
     assertEquals(listFindCategories, listcategories);
   }
@@ -1312,11 +1348,12 @@ public class BetServiceUnitTest {
    */
 
   @SuppressWarnings("unchecked")
-  @Test(expected = InstanceNotFoundException.class)
+  @Test(
+      expected = InstanceNotFoundException.class)
   public final void testFindNotExistentCategory()
       throws InstanceNotFoundException {
 
-    Long nonExistentCategoryId = 0L;
+    final Long nonExistentCategoryId = 0L;
 
     when(categoryDaoMock.find(nonExistentCategoryId))
         .thenThrow(InstanceNotFoundException.class);
@@ -1340,7 +1377,7 @@ public class BetServiceUnitTest {
     when(categoryDaoMock.find(categoryDemo.getCategoryId()))
         .thenReturn(categoryDemo);
 
-    Category foundCategory = betService
+    final Category foundCategory = betService
         .findCategory(categoryDemo.getCategoryId());
 
     assertEquals(categoryDemo, foundCategory);
@@ -1365,7 +1402,7 @@ public class BetServiceUnitTest {
     when(betTypeDaoMock.findDuplicates(1L, "¿Qué equipo ganará el encuentro?"))
         .thenReturn(true);
 
-    boolean duplicate = betService.findDuplicates(1L,
+    final boolean duplicate = betService.findDuplicates(1L,
         "¿Qué equipo ganará el encuentro?");
 
     assertEquals(true, duplicate);
@@ -1390,7 +1427,8 @@ public class BetServiceUnitTest {
     when(betTypeDaoMock.findDuplicates(1L, "¿Qué equipo ganará?"))
         .thenReturn(false);
 
-    boolean duplicate = betService.findDuplicates(1L, "¿Qué equipo ganará?");
+    final boolean duplicate = betService.findDuplicates(1L,
+        "¿Qué equipo ganará?");
 
     assertEquals(false, duplicate);
   }
@@ -1407,7 +1445,7 @@ public class BetServiceUnitTest {
     when(betDaoMock.findBetsByUserIdNumber(userProfileDemo.getUserProfileId()))
         .thenReturn(0);
 
-    int bets = betService
+    final int bets = betService
         .findBetsByUserIdNumber(userProfileDemo.getUserProfileId());
 
     assertEquals(0, bets);
@@ -1426,7 +1464,7 @@ public class BetServiceUnitTest {
     when(betDaoMock.findBetsByUserIdNumber(userProfileDemo.getUserProfileId()))
         .thenReturn(1);
 
-    int bets = betService
+    final int bets = betService
         .findBetsByUserIdNumber(userProfileDemo.getUserProfileId());
 
     assertEquals(1, bets);

@@ -14,10 +14,10 @@ import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import es.udc.pa.pa001.apuestas.model.bet.Bet;
 import es.udc.pa.pa001.apuestas.model.betOption.BetOption;
 import es.udc.pa.pa001.apuestas.model.betservice.BetService;
 import es.udc.pa.pa001.apuestas.model.betservice.util.OutdatedBetException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.WrongQuantityException;
 import es.udc.pa.pa001.apuestas.web.pages.SuccessfulOperation;
 import es.udc.pa.pa001.apuestas.web.services.AuthenticationPolicy;
 import es.udc.pa.pa001.apuestas.web.services.AuthenticationPolicyType;
@@ -31,7 +31,8 @@ import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 public class MakeBet {
 
   /** The user session. */
-  @SessionState(create = false)
+  @SessionState(
+      create = false)
   private UserSession userSession;
 
   /** The bet option id. */
@@ -53,7 +54,8 @@ public class MakeBet {
   private Form makeBetForm;
 
   /** The beted money text field. */
-  @Component(id = "betedMoney")
+  @Component(
+      id = "betedMoney")
   private TextField betedMoneyTextField;
 
   /** The messages. */
@@ -110,9 +112,9 @@ public class MakeBet {
       return;
     }
 
-    NumberFormat numberFormatter = NumberFormat.getInstance(locale);
-    ParsePosition position = new ParsePosition(0);
-    Number number = numberFormatter.parse(betedMoney, position);
+    final NumberFormat numberFormatter = NumberFormat.getInstance(locale);
+    final ParsePosition position = new ParsePosition(0);
+    final Number number = numberFormatter.parse(betedMoney, position);
 
     if (position.getIndex() != betedMoney.length()) {
       makeBetForm.recordError(betedMoneyTextField,
@@ -130,11 +132,11 @@ public class MakeBet {
    */
   final Object onSuccess() {
     try {
-      Bet bet = betService.makeBet(userSession.getUserProfileId(), betOptionId,
+      betService.makeBet(userSession.getUserProfileId(), betOptionId,
           betedMoneyAsFloat);
-    } catch (InstanceNotFoundException e) {
+    } catch (final InstanceNotFoundException e) {
       makeBetForm.recordError(messages.format("error-instanceNotFound"));
-    } catch (OutdatedBetException e) {
+    } catch (OutdatedBetException | WrongQuantityException e) {
       makeBetForm.recordError(messages.format("error-outdatedBetException"));
     }
     return successfulOperation;
@@ -154,7 +156,7 @@ public class MakeBet {
 
       this.betOption = betService.findBetOption(betOptionId);
 
-    } catch (InstanceNotFoundException e) {
+    } catch (final InstanceNotFoundException e) {
     }
 
   }

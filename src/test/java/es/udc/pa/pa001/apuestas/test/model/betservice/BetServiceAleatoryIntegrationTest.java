@@ -29,6 +29,7 @@ import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateBetTypeQuestionEx
 import es.udc.pa.pa001.apuestas.model.betservice.util.DuplicateEventNameException;
 import es.udc.pa.pa001.apuestas.model.betservice.util.MinimunBetOptionException;
 import es.udc.pa.pa001.apuestas.model.betservice.util.OutdatedBetException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.WrongQuantityException;
 import es.udc.pa.pa001.apuestas.model.category.Category;
 import es.udc.pa.pa001.apuestas.model.category.CategoryDao;
 import es.udc.pa.pa001.apuestas.model.event.Event;
@@ -43,8 +44,9 @@ import net.java.quickcheck.generator.PrimitiveGenerators;
  * The Class BetServiceAleatoryIntegrationTest.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { SPRING_CONFIG_FILE,
-    SPRING_CONFIG_TEST_FILE })
+@ContextConfiguration(
+    locations = { SPRING_CONFIG_FILE,
+        SPRING_CONFIG_TEST_FILE })
 @Transactional
 public class BetServiceAleatoryIntegrationTest {
 
@@ -96,22 +98,23 @@ public class BetServiceAleatoryIntegrationTest {
    */
   private void initializeBetOptions() {
 
-    Category category1 = new Category("Baloncesto");
+    final Category category1 = new Category("Baloncesto");
     categoryDao.save(category1);
 
-    Calendar eventCalendar = Calendar.getInstance();
+    final Calendar eventCalendar = Calendar.getInstance();
     eventCalendar.set(2017, Calendar.AUGUST, 31);
 
-    Event event = new Event("Real Madrid - Barcelona", eventCalendar,
+    final Event event = new Event("Real Madrid - Barcelona", eventCalendar,
         category1);
     eventDao.save(event);
 
-    BetType betType = new BetType("¿Qué equipo ganará el encuentro?", false);
+    final BetType betType = new BetType("¿Qué equipo ganará el encuentro?",
+        false);
 
     betOption1 = new BetOption("Real Madrid CF", (float) 1.75, null, betType);
     betOption2 = new BetOption("Barcelona", (float) 1.75, null, betType);
 
-    List<BetOption> betOptions = new ArrayList<>();
+    final List<BetOption> betOptions = new ArrayList<>();
     betOptions.add(betOption1);
     betOptions.add(betOption2);
 
@@ -125,7 +128,7 @@ public class BetServiceAleatoryIntegrationTest {
   }
 
   /**
-   * Test make bet.
+   * PR-IN-024
    *
    * @throws InstanceNotFoundException
    *           the instance not found exception
@@ -141,27 +144,80 @@ public class BetServiceAleatoryIntegrationTest {
    *           the already pasted date exception
    * @throws DuplicateEventNameException
    *           the duplicate event name exception
+   * @throws WrongQuantityException
+   *           the wrong quantity exception
    */
   @Test
   public final void testMakeBet() throws InstanceNotFoundException,
       OutdatedBetException, DuplicateBetTypeQuestionException,
       DuplicateBetOptionAnswerException, MinimunBetOptionException,
-      AlreadyPastedDateException, DuplicateEventNameException {
+      AlreadyPastedDateException, DuplicateEventNameException,
+      WrongQuantityException {
 
     initializeBetOptions();
     initializeUser();
 
-    Generator<Double> aleatoryQuantity = PrimitiveGenerators.doubles(-100000,
+    final Generator<Double> aleatoryQuantity = PrimitiveGenerators.doubles(0,
         +100000);
 
-    float quantity = aleatoryQuantity.next().floatValue();
+    final float quantity = aleatoryQuantity.next().floatValue();
+    System.out.println(quantity);
 
-    Bet bet = betService.makeBet(user.getUserProfileId(),
+    final Bet bet = betService.makeBet(user.getUserProfileId(),
         betOption1.getBetOptionId(), quantity);
-    Bet betFound = betDao.find(bet.getBetId());
+    final Bet betFound = betDao.find(bet.getBetId());
     assertEquals(bet, betFound);
 
-    List<Bet> betFounds = betDao.findBetsByUserId(user.getUserProfileId(), 0,
+    final List<Bet> betFounds = betDao.findBetsByUserId(user.getUserProfileId(),
+        0,
+        10);
+    assertTrue(betFounds.contains(bet));
+  }
+
+  /**
+   * PR-IN-025
+   *
+   * @throws InstanceNotFoundException
+   *           the instance not found exception
+   * @throws OutdatedBetException
+   *           the outdated bet exception
+   * @throws DuplicateBetTypeQuestionException
+   *           the duplicate bet type question exception
+   * @throws DuplicateBetOptionAnswerException
+   *           the duplicate bet option answer exception
+   * @throws MinimunBetOptionException
+   *           the minimun bet option exception
+   * @throws AlreadyPastedDateException
+   *           the already pasted date exception
+   * @throws DuplicateEventNameException
+   *           the duplicate event name exception
+   * @throws WrongQuantityException
+   *           the wrong quantity exception
+   */
+  @Test(
+      expected = WrongQuantityException.class)
+  public final void testMakeNegativeBet() throws InstanceNotFoundException,
+      OutdatedBetException, DuplicateBetTypeQuestionException,
+      DuplicateBetOptionAnswerException, MinimunBetOptionException,
+      AlreadyPastedDateException, DuplicateEventNameException,
+      WrongQuantityException {
+
+    initializeBetOptions();
+    initializeUser();
+
+    final Generator<Double> aleatoryQuantity = PrimitiveGenerators.doubles(0,
+        0);
+
+    final float quantity = aleatoryQuantity.next().floatValue();
+    System.out.println(quantity);
+
+    final Bet bet = betService.makeBet(user.getUserProfileId(),
+        betOption1.getBetOptionId(), quantity);
+    final Bet betFound = betDao.find(bet.getBetId());
+    assertEquals(bet, betFound);
+
+    final List<Bet> betFounds = betDao.findBetsByUserId(user.getUserProfileId(),
+        0,
         10);
     assertTrue(betFounds.contains(bet));
   }

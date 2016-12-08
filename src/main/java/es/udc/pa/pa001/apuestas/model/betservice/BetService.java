@@ -15,6 +15,7 @@ import es.udc.pa.pa001.apuestas.model.betservice.util.MinimunBetOptionException;
 import es.udc.pa.pa001.apuestas.model.betservice.util.NotAllOptionsExistsException;
 import es.udc.pa.pa001.apuestas.model.betservice.util.OnlyOneWonOptionException;
 import es.udc.pa.pa001.apuestas.model.betservice.util.OutdatedBetException;
+import es.udc.pa.pa001.apuestas.model.betservice.util.WrongQuantityException;
 import es.udc.pa.pa001.apuestas.model.category.Category;
 import es.udc.pa.pa001.apuestas.model.event.Event;
 import es.udc.pa.pa001.apuestas.model.event.EventBlock;
@@ -70,9 +71,12 @@ public interface BetService {
    *           the instance not found exception
    * @throws OutdatedBetException
    *           the outdated bet exception
+   * @throws WrongQuantityException
+   *           the wrong quantity exception
    */
   Bet makeBet(Long userId, Long betOptionId, Float betedMoney)
-      throws InstanceNotFoundException, OutdatedBetException;
+      throws InstanceNotFoundException, OutdatedBetException,
+      WrongQuantityException;
 
   /**
    * Find bets.
