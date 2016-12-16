@@ -1158,12 +1158,13 @@ public class BetServiceUnitTest {
     when(betTypeDaoMock.find(betTypeDemo.getBetTypeId()))
         .thenReturn(betTypeDemo);
     when(betOptionDaoMock.find(betOptionDemo.getBetOptionId()))
-        .thenReturn(betOptionDemo);
+    .thenReturn(betOptionDemo);
     when(betOptionDaoMock.find(betOptionDemo1.getBetOptionId()))
         .thenReturn(betOptionDemo1);
     when(betOptionDaoMock.find(betOptionDemo2.getBetOptionId()))
         .thenReturn(betOptionDemo2);
-
+    
+    assertEquals(betOptionDemo.getBetType(), betTypeDemo);
     betService.checkOptions(betTypeDemo.getBetTypeId(), winners);
 
   }

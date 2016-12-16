@@ -251,8 +251,8 @@ public class BetServiceIntegrationTest {
     initializeBetOptions();
 
     final List<BetOption> betOptions = new ArrayList<>();
-    betOptions.add(betOption1);
-    betOptions.add(betOption2);
+//    betOptions.add(betOption1);
+//    betOptions.add(betOption2);
 
     betType.setBetOptions(betOptions);
     event1.addBetType(betType);
@@ -260,6 +260,10 @@ public class BetServiceIntegrationTest {
 
     betOptionDao.save(betOption1);
     betOptionDao.save(betOption2);
+    
+    betType.addBetOption(betOption1);
+    betType.addBetOption(betOption2);
+    betTypeDao.save(betType);
 
     event1.addBetType(betType);
   }
@@ -592,7 +596,9 @@ public class BetServiceIntegrationTest {
     assertEquals(betType, betTypeAssert);
     assertEquals(betOption1, betOption1Assert);
     assertEquals(betOption2, betOption2Assert);
-
+    assertEquals(betOption1.getBetType(), betType);
+    assertEquals(betOption2.getBetType(), betType);
+    
     /* Apostar sobre una opcion de apuesta */
 
     initializeUser();
@@ -642,6 +648,7 @@ public class BetServiceIntegrationTest {
     final Event eventFound = betService.findEvent(event1.getEventId());
 
     assertEquals(event1, eventFound);
+    assertFalse(event1.finishedEvent(event1.getEventId()));
 
     /* Crear un tipo de apuesta con dos opciones de apuesta */
 

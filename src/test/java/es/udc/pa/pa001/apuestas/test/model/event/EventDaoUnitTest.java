@@ -492,6 +492,29 @@ public class EventDaoUnitTest {
 
     assertEquals(2, result);
   }
+  
+  /**
+   * PR-UN-0x.
+   */
+
+  @Test
+  public final void testGetNumberEventsByKeyWordsCategoryUser() {
+
+    /* SETUP */
+
+    initializeCategories();
+    initializeDates();
+    initializeEvents();
+
+    /* INVOCACION */
+
+    int result = eventDao.getNumberOfEvents("Madrid", category1.getCategoryId(),
+        false);
+
+    /* ASERCION */
+
+    assertEquals(1, result);
+  }
 
   /**
    * PR-UN-017.
