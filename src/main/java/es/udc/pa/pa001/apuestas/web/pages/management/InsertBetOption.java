@@ -237,7 +237,7 @@ public class InsertBetOption {
    * @return the object[]
    */
   final Object[] onPassivate() {
-    return new Object[] { eventId, multiple, question };
+    return new Object[] {eventId, multiple, question };
   }
 
   /**

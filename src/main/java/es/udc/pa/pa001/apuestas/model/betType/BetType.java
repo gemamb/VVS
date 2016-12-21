@@ -177,7 +177,7 @@ public class BetType {
    * @param betOption
    *          the bet option
    */
-  public final void addBetOption(final BetOption betOption) {
+  public final void addBetOption(BetOption betOption) {
     this.betOptions.add(betOption);
     betOption.setBetType(this);
   }

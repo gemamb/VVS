@@ -12,14 +12,44 @@
 	<!-- ========================================================== -->
 	<!-- Site information -->
 
+	<developers>
+		<developer>
+			<email>raquel.lcacho@udc.es</email>
+			<name>Raquel López Cacho</name>
+			<id>raquel.lcacho</id>
+			<organization>UDC</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<email>gema.marino.bodelon@udc.es</email>
+			<name>Gema Mariño Bodelón</name>
+			<id>gema.marino.bodelon</id>
+			<organization>UDC</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
 
+	<!-- SCM information -->
+	<scm>
+		<connection>scm:git:ssh://git@github.com:gemamb/VVS.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com:gemamb/VVS.git</developerConnection>
+		<url>https://github.com/gemamb/VVS</url>
+	</scm>
+
+	<!-- Continuous Integration information -->
+	<ciManagement>
+		<system>Travis</system>
+		<url>https://travis-ci.org/gemamb/VVS</url>
+	</ciManagement>
 
 	<!-- =================================================================== -->
 	<!-- Default values for properties. These default values are expected to 
 		be valid for most profiles. Specific profiles can overwrite values when necessary. -->
 	<properties>
-
-
 		<checkstyle.config.location>properties/sun_checks.xml</checkstyle.config.location>
 
 		<!-- Data source properties -->
@@ -76,6 +106,7 @@
 				<testClass6>BetServiceUnitTest.java</testClass6>
 				<testClass7>BetServiceIntegrationTest.java</testClass7>
 				<testClass8>BetServiceAleatoryIntegrationTest.java</testClass8>
+				<testClass8>StatesTestImpl.java</testClass8>
 
 				<!-- JDBC driver properties -->
 				<jdbcDriver.groupId>mysql</jdbcDriver.groupId>
@@ -90,7 +121,8 @@
 				<dataSource.createDataScript>2-MySQLCreateData.sql</dataSource.createDataScript>
 
 				<!-- Hibernate properties -->
-				<hibernate.dialect>org.hibernate.dialect.MySQLDialect</hibernate.dialect>
+
+				<graphwalker.version>3.3.0</graphwalker.version>
 			</properties>
 		</profile>
 
@@ -239,6 +271,21 @@
 			<version>0.6</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+            <groupId>org.graphwalker</groupId>
+            <artifactId>graphwalker-core</artifactId>
+            <version>${graphwalker.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.graphwalker</groupId>
+            <artifactId>graphwalker-java</artifactId>
+            <version>${graphwalker.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.graphwalker</groupId>
+            <artifactId>graphwalker-maven-plugin</artifactId>
+            <version>${graphwalker.version}</version>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -525,7 +572,6 @@
 							<exclude>es/udc/pa/pa001/apuestas/model/util/**/*.class</exclude>
 							<exclude>es/udc/pa/pa001/apuestas/web/**/*.class*</exclude>
 						</excludes>
-
 					</instrumentation>
 					<check />
 					<formats>
@@ -534,7 +580,14 @@
 					</formats>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.graphwalker</groupId>
+				<artifactId>graphwalker-maven-plugin</artifactId>
+				<version>${graphwalker.version}</version>
+			</plugin>
 		</plugins>
+
+
 
 	</build>
 
@@ -579,6 +632,25 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-doap-plugin</artifactId>
+				<version>1.2</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.7</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<aggregate>true</aggregate>
+				</configuration>
 			</plugin>
 		</plugins>
 	</reporting>

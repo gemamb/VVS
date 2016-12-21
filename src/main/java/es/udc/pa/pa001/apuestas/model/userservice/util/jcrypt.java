@@ -292,7 +292,7 @@ public final class jcrypt {
   private static int byteToUnsigned(final byte b) {
     int value = b;
 
-    if (value >= 0){
+    if (value >= 0) {
       return value;
     }
     return value + 256;
