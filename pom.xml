@@ -106,7 +106,7 @@
 				<testClass6>BetServiceUnitTest.java</testClass6>
 				<testClass7>BetServiceIntegrationTest.java</testClass7>
 				<testClass8>BetServiceAleatoryIntegrationTest.java</testClass8>
-				<testClass8>StatesTestImpl.java</testClass8>
+<!-- 				<testClass8>StatesImplTest.java</testClass8> -->
 
 				<!-- JDBC driver properties -->
 				<jdbcDriver.groupId>mysql</jdbcDriver.groupId>
